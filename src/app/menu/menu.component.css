@@ -1,0 +1,62 @@
+nav{
+    display: flex;
+    background-image: linear-gradient(to right, #fff8ee, rgba(225, 120, 22, 0.842));
+    height: 100px;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a .logo{
+    padding-inline: 3vw;
+    height: 80px;
+}
+
+nav .tabs{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.option2:hover .dropdown-content{
+    display: flex;
+}
+
+nav .arrow{
+    background-color: rgba(255, 255, 255, 0.24);
+    padding-inline: 5px;
+    margin-left: 4px;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: #313131;
+    min-width: 140px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+nav a{
+    padding: 6px 3px 6px 0px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+nav a:hover{
+    background-color: rgba(255, 255, 255, 0.204);
+}
+
+nav .logout{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 3vw;
+}
+
+nav .logout img{
+    height: 30px;
+}
