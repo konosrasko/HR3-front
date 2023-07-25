@@ -7,17 +7,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
+import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
+import { SidenavItemComponent } from './sidenav-list/sidenav-item/sidenav-item.component';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    FooterComponent,
+    SidenavListComponent,
+    SidenavItemComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

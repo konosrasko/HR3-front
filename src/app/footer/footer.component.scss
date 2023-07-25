@@ -1,0 +1,30 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.footer-text {
+  color: white;
+  font-size: 14px;
+}
+
+.footer {
+  display: flex;
+  background-image: linear-gradient(
+    to right,
+    #00a3b9,
+    rgba(225, 120, 22, 0.842)
+  );
+  height: 100px;
+  width: 100vw;
+  justify-content: space-between;
+  align-items: center;
+}

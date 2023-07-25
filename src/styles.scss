@@ -1,0 +1,11 @@
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$accent-color: #ffc107;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#h1{
+    color: $accent-color;
+    font-size: 100px;
+}
