@@ -12,11 +12,13 @@ import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { SidenavItemComponent } from './sidenav-list/sidenav-item/sidenav-item.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
+    ProfileComponent,
     FooterComponent,
     SidenavListComponent,
     SidenavItemComponent,
