@@ -12,6 +12,8 @@ import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { SidenavItemComponent } from './sidenav-list/sidenav-item/sidenav-item.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,
+    MatSidenavModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

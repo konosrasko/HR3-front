@@ -1,0 +1,22 @@
+.example-container {
+  position: absolute;
+  top: 100px;
+  bottom: 100px;
+  width: 200px;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(37,37,37,255) 0%,
+      rgba(217,217,217,255) 100%
+  );
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  background: rgba(255, 0, 0, 0.5);
+}
+
