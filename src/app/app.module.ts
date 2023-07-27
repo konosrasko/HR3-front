@@ -14,6 +14,11 @@ import { SidenavItemComponent } from './sidenav-list/sidenav-item/sidenav-item.c
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProfileComponent } from './profile/profile.component';
 
+import {FormsModule} from "@angular/forms";
+import { EmployeeComponent } from './employee/employee.component';
+import {EmployeeService} from "./services/employee.service";
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,15 +27,19 @@ import { ProfileComponent } from './profile/profile.component';
     FooterComponent,
     SidenavListComponent,
     SidenavItemComponent,
+    EmployeeComponent,
+    LoginComponent,
+
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatToolbarModule,
-  ],
-  providers: [],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatToolbarModule,
+        FormsModule,
+    ],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
