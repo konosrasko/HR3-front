@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MenuComponent } from './menu/menu.component';
-import { FooterComponent } from './footer/footer.component';
-import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
-import { SidenavItemComponent } from './sidenav-list/sidenav-item/sidenav-item.component';
+import { MenuComponent } from './home/menu/menu.component';
+import { FooterComponent } from './home/footer/footer.component';
+import { SidenavListComponent } from './home/sidenav-list/sidenav-list.component';
+
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {ProfileComponent} from "./profile/profile.component";
@@ -19,28 +19,29 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {FormsModule} from "@angular/forms";
 import { EmployeeComponent } from './employee/employee.component';
 import {EmployeeService} from "./services/employee.service";
-import { LoginComponent } from './login/login.component';
+import { LoginModule } from './login/login.module'; 
+import { HomeComponent } from './home/home.component';
+import { HomeModule } from './home/home.module';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
     ProfileComponent,
-    FooterComponent,
-    SidenavListComponent,
-    SidenavItemComponent,
-    EmployeeComponent,
-    LoginComponent,
-
+    EmployeeComponent
   ],
     imports: [
         BrowserModule,
+        LoginModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
         MatToolbarModule,
         MatSidenavModule,
-        FormsModule,
+        FormsModule
+      
     ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]

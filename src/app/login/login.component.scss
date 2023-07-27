@@ -1,5 +1,27 @@
+
+
 #accesspanel{
-  display: flex;
-  justify-content: center;
-  margin-top: 10vh;
+  width: 400px; /* Set the desired width of the form */
+  position: absolute;
+  top: 50%; /* Position the form 50% from the top */
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  background-color: #6c757d;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 10px;
 }
+
+.p-container input[type='submit']{
+  background-color: rgba(226,135,50,255);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  
+}
+.inset{
+  right: 50%;
+}
+
