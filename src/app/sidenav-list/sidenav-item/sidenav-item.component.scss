@@ -1,31 +1,51 @@
 nav{
   margin: 15px;
 }
-.centered-div {
+
+a {
+  text-decoration: none;
+}
+
+.menu-item1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15vh;
+  margin-bottom: 5vh;
+}
+
+.menu-item2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5vh;
+}
+
+.menu-item3 {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .logo1{
-  width: 70px;
-  height: 70px;
-  margin-top: 70px;
+  width: 80px;
+  height: 80px;
+  margin-left: 0.8vh;
 }
 
 .logo2{
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
 }
 
 .logo3{
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
 }
 
 .item-text{
+
   text-align: center;
-  margin-bottom: 40px;
   color:rgba(226,135,50,255);
   text-decoration: none;
   font-weight: 500;
