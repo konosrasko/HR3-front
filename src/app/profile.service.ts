@@ -11,7 +11,7 @@ export class ProfileService {
   private basicAuthCredentials: string;
 
   constructor(private http: HttpClient) {
-    const username = 'sspiroufdsfdsfds'; 
+    const username = 'pamvrosiadis'; 
     const password = '123';
     this.basicAuthCredentials = btoa(`${username}:${password}`);
   }

@@ -16,8 +16,10 @@ export class ProfileComponent {
   ngOnInit(){
     console.log("hello world", this.profileService)
   
+    console.log("fetching...")
     this.profileService.myProfile().subscribe(data =>{
       console.log(data)
+
     })
   }
 
