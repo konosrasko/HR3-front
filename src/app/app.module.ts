@@ -16,6 +16,11 @@ import {ProfileComponent} from "./profile/profile.component";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {ReactiveFormsModule} from "@angular/forms";
 
+import {FormsModule} from "@angular/forms";
+import { EmployeeComponent } from './employee/employee.component';
+import {EmployeeService} from "./services/employee.service";
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +29,19 @@ import {ReactiveFormsModule} from "@angular/forms";
     FooterComponent,
     SidenavListComponent,
     SidenavItemComponent,
+    EmployeeComponent,
+    LoginComponent,
+
   ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatToolbarModule,
+        FormsModule,
+    ],
+  providers: [EmployeeService],
   imports: [
     BrowserModule,
     AppRoutingModule,
