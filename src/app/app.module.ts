@@ -39,19 +39,10 @@ import { LoginComponent } from './login/login.component';
         BrowserAnimationsModule,
         HttpClientModule,
         MatToolbarModule,
+        MatSidenavModule,
         FormsModule,
     ],
   providers: [EmployeeService],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    ReactiveFormsModule,
-  ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
