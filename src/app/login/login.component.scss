@@ -1,6 +1,7 @@
 
 
 #accesspanel{
+  z-index: 500;
   width: 350px; /* Set the desired width of the form */
   height: 250px;
   position: absolute;
@@ -26,6 +27,7 @@
 }
 
 svg{
+  height: 120vh;
   display: flex;
   z-index: 1;
   position: absolute;
@@ -36,7 +38,7 @@ svg{
 .logo{
   position: absolute;
   z-index: 20;
-  zoom: 80%;
+  zoom: 60%;
 }
 
 .inset {
@@ -106,3 +108,4 @@ input:focus {
   justify-content: space-between;
   align-items: center;
 }
+

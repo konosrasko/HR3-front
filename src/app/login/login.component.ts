@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../services/user.service";
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-import { MatToolbarModule } from '@angular/material/toolbar';
-=======
-import { User } from '../models/user.model';
 
->>>>>>> ab4d2de3d073faeaa780312e07c7cd1fbd7c7363
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-login',
