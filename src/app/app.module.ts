@@ -12,13 +12,12 @@ import { SidenavListComponent } from './home/sidenav-list/sidenav-list.component
 
 
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {ProfileComponent} from "./profile/profile.component";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {ReactiveFormsModule} from "@angular/forms";
 
 import {FormsModule} from "@angular/forms";
 import { EmployeeComponent } from './employee/employee.component';
-import {EmployeeService} from "./services/employee.service";
+import {UserService} from "./services/user.service";
 import { LoginModule } from './login/login.module'; 
 import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
@@ -29,7 +28,6 @@ import { HomeModule } from './home/home.module';
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
     EmployeeComponent
   ],
     imports: [
@@ -43,7 +41,7 @@ import { HomeModule } from './home/home.module';
         FormsModule
       
     ],
-  providers: [EmployeeService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from "../services/employee.service";
+import { UserService } from "../services/user.service";
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { MatToolbarModule } from '@angular/material/toolbar';
+=======
+import { User } from '../models/user.model';
+
+>>>>>>> ab4d2de3d073faeaa780312e07c7cd1fbd7c7363
 
 @Component({
   selector: 'app-login',
@@ -13,21 +18,32 @@ export class LoginComponent implements OnInit {
   username: string = ''
   password: string = ''
   message: string = ''
-  role: any;
-  constructor(private employeeService: EmployeeService, private router: Router) {
+  user: any;
+  constructor(private userService: UserService, private router: Router) {
   }
   ngOnInit(): void {
+
+    this.userService.currentUser$.subscribe(user => {
+      if (user) {
+        this.router.navigate(['/home']);
+      }
+      else{
+        console.log("None is logged in.")
+      }
+    });
+
   }
 
   doLogin() {
 
-    let response = this.employeeService.Login(this.username, this.password)
+    let response = this.userService.Login(this.username, this.password)
     response.subscribe(data => {
-      this.role = data;
+      this.user = data;
 
-      console.log(data)
-      if (this.role != null) {
+      if (this.user != null) {
         this.router.navigate(['/home']);
+        this.userService.setCurrentUser(this.user);
+        localStorage.setItem('currentUser', JSON.stringify(this.user));
       }
     }, (error => {
       alert("Λάθος στοιχεία")
