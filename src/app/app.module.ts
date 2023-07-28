@@ -30,7 +30,6 @@ import { MyDetailsComponent } from './home/my-details/my-details.component';
   declarations: [
     AppComponent,
     EmployeeComponent,
-    
   ],
     imports: [
         BrowserModule,
@@ -41,7 +40,6 @@ import { MyDetailsComponent } from './home/my-details/my-details.component';
         MatToolbarModule,
         MatSidenavModule,
         FormsModule
-      
     ],
   providers: [UserService],
   bootstrap: [AppComponent]
