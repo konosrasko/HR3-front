@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from "../services/employee.service";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-employee',
@@ -9,7 +9,7 @@ import {EmployeeService} from "../services/employee.service";
 export class EmployeeComponent   {
 
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: UserService) {
   }
 
 

@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {EmployeeModel} from "../employee/employee.model";
+import {BehaviorSubject, Observable} from "rxjs";
+import { User } from '../models/user.model';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class UserService {
+
+  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
+
+  
+  public setCurrentUser(user: any): void {
+    this.currentUserSubject.next(user);
+  }
 
 
   constructor(private http:HttpClient) { }
@@ -20,15 +28,13 @@ export class EmployeeService {
     //console.log(headers);
 
     // Make the HTTP request with the provided headers
-    return this.http.get('url/api/users/role', { headers });
+    return this.http.get('url/api/users/info', { headers });
   }
 
   
-  getEmployees():Observable<String>
+  getData():Observable<User>
   {
-    return this.http.get<String>('url/api/users/role')
+    return this.http.get<User>('url/api/users/info')
   }
-
-
 
 }
