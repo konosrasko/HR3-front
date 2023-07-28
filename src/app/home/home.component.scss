@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Set the height of the body and make it a flex container */
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+  }
+  
+  /* Style for the main section */
+  main {
+    position: absolute;
+    bottom: 100px;
+    top: 100px;
+    display: flex;
+    width: 100vw;
+  }
+
+  .content{
+    overflow: auto;
+    width: 100%;
+  }
+
+  app-sidenav-list{
+    min-height: 100%;
+  }
+

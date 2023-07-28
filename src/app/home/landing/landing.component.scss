@@ -1,0 +1,46 @@
+main{
+    display: flex;
+    padding: 9vh 5vw 0 0;
+}
+
+.column{
+    margin-inline: 5vw;
+    width: 500px;
+}
+
+a{
+    color: #EB8C33;
+}
+
+.column h1{
+    color: orange;
+}
+
+.column .card{
+    background-color: #D9D9D9;
+    min-height: 100px;
+    padding: 12px;
+    position: relative;
+}
+
+.column .card-header{
+    background-color: #252525;
+    color: orange;
+    font-size: 13pt;
+    width: fit-content;
+    padding: 12px;
+    width: auto;
+}
+
+.column .card-footer{
+    position: absolute;
+    width: 90%;
+    bottom: 0;
+}
+
+
+@media screen and (max-width: 768px){
+    main{
+        flex-direction: column;
+    }
+}

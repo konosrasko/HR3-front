@@ -28,7 +28,7 @@ import { HomeModule } from './home/home.module';
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent
+    EmployeeComponent,
   ],
     imports: [
         BrowserModule,
@@ -39,7 +39,6 @@ import { HomeModule } from './home/home.module';
         MatToolbarModule,
         MatSidenavModule,
         FormsModule
-      
     ],
   providers: [UserService],
   bootstrap: [AppComponent]
