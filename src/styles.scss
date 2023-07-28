@@ -1,6 +1,7 @@
 $primary-color: #007bff;
 $secondary-color: #6c757d;
-$accent-color: rgba(226,135,50,255);
+$accent-color: rgba(226,135,50,255); // Add a semicolon here
+$dark-gray: #252525;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
