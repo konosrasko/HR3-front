@@ -25,14 +25,13 @@ export class EmployeeService {
 
     // Make the HTTP request with the provided headers
 
-    return this.http.get('/url/api/employees/profile', { headers });
+    return this.http.get('url/api/users/role', { headers });
 
 
   }
-  getEmployees():Observable<EmployeeModel>
+  getEmployees():Observable<String>
   {
-
-    return this.http.get<EmployeeModel>('/url/api/employees/profile')
+    return this.http.get<String>('url/api/users/role')
   }
 
 

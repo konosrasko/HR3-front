@@ -12,17 +12,13 @@
 }
 
 .footer-text {
-  color: white;
+  color: black;
   font-size: 14px;
 }
 
 .footer {
   display: flex;
-  background-image: linear-gradient(
-    to right,
-    #ff0000,
-    #fff8ee
-  );
+  background-color: #D9D9D9;
   height: 100px;
   width: 100vw;
   justify-content: space-between;

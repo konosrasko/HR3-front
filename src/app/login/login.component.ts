@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit{
   username:string = ''
   password:string = ''
   message:string = ''
-  employee:any;
+  role:any;
   constructor(private employeeService:EmployeeService, private router: Router) {
   }
   ngOnInit(): void {
@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit{
   {
     
     let response = this.employeeService.Login(this.username,this.password)
-    response.subscribe(data=>{
-        this.employee = data;
+    response.subscribe( data=>{
+        this.role = data;
 
-        console.log(this.employee)}
+        console.log(this.role)}
     )
     this.router.navigate(['/home']);
   }
