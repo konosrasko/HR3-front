@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { EmployeeService } from '../services/employee.service';
+import { LeaveBalance } from '../models/leave_balance.model';
 
 @Component({
   selector: 'app-home',
@@ -22,18 +23,8 @@ export class HomeComponent {
       console.log("none is logged in ")
       this.router.navigate([''])
     }
-
-    this.getTakenLeaves()
-
   }
 
-  getTakenLeaves(){
-    if (this.currentUser?.employeeId!=null){
-      this.employeeService.getTakenLeaves(this.currentUser.employeeId, this.currentUser.username, this.currentUser.password).subscribe(data => {
-        console.log(data)
-      });
-    }
-    
-  }
+  
 
 }
