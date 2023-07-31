@@ -9,7 +9,6 @@ import { MyDetailsComponent } from './my-details/my-details.component';
 import { AppRoutingModule } from '../app-routing.module';
 
 
-
 @NgModule({
   declarations: [
     HomeComponent,

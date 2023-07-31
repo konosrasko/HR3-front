@@ -3,7 +3,7 @@
     <div class="column">
         <h1>Καλωσήρθες</h1>
         <div class="card">
-            <p>Πραγματοποίησες είσοδο σαν <a href="">{{user.role}}</a></p>
+            <p>Πραγματοποίησες είσοδο σαν <a href="">{{ (user) ? user.role : "Guest"}}</a></p>
         </div>
     </div>
 
@@ -13,7 +13,10 @@
             01/01/2023 - Σήμερα (Ληφθείσες)
         </div>
         <div class="card">
-            <p>Κανονικές: 5</p>
+
+            <p *ngFor="let balance of getTakenLeaves()">
+                {{balance.category}}: {{balance.daysTaken}}
+            </p>
 
             <div class="card-footer">
                 <p class="card-footer">Προβολή <a href="">λεπτομερειών</a></p>

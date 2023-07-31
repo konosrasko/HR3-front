@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { EmployeeService } from '../services/employee.service';
+import { LeaveBalance } from '../models/leave_balance.model';
 
 @Component({
   selector: 'app-home',
@@ -8,17 +11,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  private currentUser?:User
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private employeeService:EmployeeService, private router: Router) {
     const currentUserString = localStorage.getItem('currentUser');
 
     if (currentUserString !== null) {
-      const currentUser = JSON.parse(currentUserString);
-      console.log(currentUser)
+      this.currentUser = JSON.parse(currentUserString);
+      console.log(this.currentUser)
     } else {
       console.log("none is logged in ")
       this.router.navigate([''])
     }
-
   }
+
+  
+
 }
