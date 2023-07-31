@@ -5,6 +5,7 @@ import { FooterModule } from './footer/footer.module';
 import { SidenavListModule } from './sidenav-list/sidenav-list.module';
 import { MenuModule } from './menu/menu.module';
 import { LandingComponent } from './landing/landing.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { LandingComponent } from './landing/landing.component';
     FooterModule,
     SidenavListModule,
     MenuModule,
+    AppRoutingModule
   ],
 })
 export class HomeModule { }
