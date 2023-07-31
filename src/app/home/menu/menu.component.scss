@@ -1,6 +1,6 @@
 nav{
     display: flex;
-    background-image: linear-gradient(to right, #fff8ee, #ff0000);
+    background-image: linear-gradient(to right, #fff8ee, #EB8C33);
     height: 100px;
     width: 100vw;
     justify-content: space-between;
@@ -13,11 +13,20 @@ nav a .logo{
 }
 
 nav .tabs{
+    color: #313131;
     position: relative;
     display: flex;
     justify-content: space-between;
     width: 20%;
 }
+.option{
+    color: black;
+    
+}
+.option2{
+    color: black;
+}
+
 
 .option2:hover .dropdown-content{
     display: flex;
