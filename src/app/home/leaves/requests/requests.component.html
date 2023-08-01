@@ -1,1 +1,53 @@
-<p>requests works!</p>
+  <main>
+
+    <h1>Τα αιτήματα μου</h1>
+
+    <div class="table-container">
+
+    <mat-table matSorts class="table" #table [dataSource]="dataSource" matSort>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="submitDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Submit Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.submitDate| date: 'dd-MM-Y'}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Submit Date  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.startDate| date: 'dd-MM-Y'}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Submit Date  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.endDate| date: 'dd-MM-Y'}} </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="duration">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Submit Date  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.duration}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Submit Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Submit Date  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <mat-header-cell style="padding: 0;" *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+        <mat-cell style="padding: 0; justify-content: center;" *matCellDef="let element"><img *ngIf="element.status === 'Εκκρεμεί'" (click)="deleteRequest($event)" style="width: auto; height: auto;" src=".\assets\bin.png" alt="Delete"> </mat-cell>
+      </ng-container>
+  
+      <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+  </main>
