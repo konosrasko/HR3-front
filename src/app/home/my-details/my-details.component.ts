@@ -12,7 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 export class MyDetailsComponent implements OnInit{
   employee: Employee= new Employee;
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService){
+      console.log('MyDetailsComponent constructor');
+    
+  }
+  
 
   ngOnInit(): void {
     // this.userService.getEmployeeDetails().subscribe(
