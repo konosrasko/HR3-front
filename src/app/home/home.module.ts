@@ -7,6 +7,9 @@ import { MenuModule } from './menu/menu.module';
 import { LandingComponent } from './landing/landing.component';
 import { MyDetailsComponent } from './my-details/my-details.component'; 
 import { AppRoutingModule } from '../app-routing.module';
+import { LeavesComponent } from './leaves/leaves.component';
+import { RequestsComponent } from './leaves/requests/requests.component';
+import { AddComponent } from './leaves/add/add.component';
 
 
 @NgModule({
@@ -14,6 +17,9 @@ import { AppRoutingModule } from '../app-routing.module';
     HomeComponent,
     LandingComponent,
     MyDetailsComponent,
+    LeavesComponent,
+    RequestsComponent,
+    AddComponent
   ],
   imports: [
     CommonModule,
