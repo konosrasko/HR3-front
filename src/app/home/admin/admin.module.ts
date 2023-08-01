@@ -7,7 +7,7 @@ import { SidenavListModule } from "../sidenav-list/sidenav-list.module";
 import { FooterModule } from "../footer/footer.module";
 import {MyDetailsModule} from "../my-details/my-details.module";
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     SidenavListModule,
     FooterModule,
     MyDetailsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonModule
   ]
 })
 export class AdminModule { }

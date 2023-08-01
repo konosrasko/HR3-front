@@ -14,6 +14,7 @@ import { AddComponent } from './leaves/add/add.component';
 import { AdminComponent} from "./admin/admin.component";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     AppRoutingModule,
     FormsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonModule
   ],
 })
 export class HomeModule { }
