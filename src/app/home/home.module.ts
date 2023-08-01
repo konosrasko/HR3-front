@@ -25,7 +25,7 @@ import { LeavesModule } from './leaves/leaves.module';
     SidenavListModule,
     MenuModule,
     AppRoutingModule,
-    LeavesModule
+    LeavesModule,
     FormsModule
   ],
 })
