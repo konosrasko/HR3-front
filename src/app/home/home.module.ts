@@ -8,12 +8,19 @@ import { LandingComponent } from './landing/landing.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { MyDetailsComponent } from './my-details/my-details.component';
 import { FormsModule } from '@angular/forms';
+import { LeavesComponent } from './leaves/leaves.component';
+import { RequestsComponent } from './leaves/requests/requests.component';
+import { AddComponent } from './leaves/add/add.component';
+
 
 @NgModule({
   declarations: [
     HomeComponent,
     LandingComponent,
-    MyDetailsComponent
+    MyDetailsComponent,
+    LeavesComponent,
+    RequestsComponent,
+    AddComponent
   ],
   imports: [
     CommonModule,
