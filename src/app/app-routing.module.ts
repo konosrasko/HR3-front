@@ -7,10 +7,13 @@ import { LandingComponent } from './home/landing/landing.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'home', redirectTo: 'home/landing', pathMatch: 'full'},
   { path: 'home', component: HomeComponent,
-    children:[{ path: 'MyDetails', component: MyDetailsComponent},
-  {path: 'landing', component: LandingComponent}]
-}
+    children:[
+      { path: 'MyDetails', component: MyDetailsComponent},
+      {path: 'landing', component: LandingComponent}
+    ]
+  }
 ];
 
 @NgModule({

@@ -20,9 +20,6 @@ import { MyDetailsComponent } from './home/my-details/my-details.component';
 
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
