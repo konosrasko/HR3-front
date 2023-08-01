@@ -1,35 +1,48 @@
-.admin {
-  margin-left: 8vh;
-  margin-top: 5vh;
-  justify-content: center;
-  align-items: center;
+main{
+  padding: 5vh 0 0 0;
+  margin: 5vh 0 5vh 5vw;
 }
 
-.mat-elevation-z8 {
-  width: 1100px;
+.table-container{
+  margin-right: 5vw ;
+  overflow: auto;
 }
-
 
 h1{
-
   color: orange;
-  height: 5%;
-  font-size: xx-large;
 }
 
-table{
-  padding: 2vh;
-  margin-top: 100px;
+.header *{
+  background-color: #252525;
+  color: orange;
 }
 
-.cont{
-  background-color: black;
+
+.even-row {
+  background-color: #E9E9E9; /* Set the background color for even rows */
 }
-.th{
-  color: black;
+
+/* Add a class for odd rows */
+.odd-row {
+  background-color: #d6d4d4; /* Set the background color for odd rows */
+}
+
+.header-row {
+  transition: background-color 0.34s ease; /* Add a smooth transition effect */
+}
+
+/* Style for even rows on hover */
+.header-row.even-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+/* Style for odd rows on hover */
+.header-row.odd-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
 }
 
 .button {
+  margin-top: 30px;
   background-color: rgba(226, 135, 50, 1);
   color: black;
   border: none;
@@ -38,12 +51,4 @@ table{
   font-size: 14px;
   border-radius: 20px;
   position: absolute;
-}
-
-@media (max-width: 768px) {
-  .mat-elevation-z8{
-    max-width: 90%;
-    font-size: 14px;
-    overflow-x: auto;
-  }
 }
