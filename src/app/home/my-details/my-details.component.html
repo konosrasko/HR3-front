@@ -1,54 +1,46 @@
 <h1>Τα στοιχεία μου</h1>
-
-
-
 <div class="content">
   <div class="myDetails">
-    
-    <form id="panel">
-      <div class="left-details">
-          <div>
-            <label for="firstName">Όνομα:</label>
-            <span *ngIf="!isEditMode" class="firstName">{{ employee.firstName }}</span>
-            <input *ngIf="isEditMode" type="text" name="username" [(ngModel)]="employee.firstName" placeholder="Όνομα">
-          </div>
-        <div>
-          <label for="lastName">Επίθετο:</label>
-          <span *ngIf="!isEditMode" class="lastName">{{ employee.lastName }}</span>
-          <input *ngIf="isEditMode" type="text" name="lastName" [(ngModel)]="employee.lastName" required placeholder="Επίθετο">
-        </div>
+    <div class="left-details">
       <div>
-        <label for="email">email :  </label>
+        <label for="firstName">Όνομα:</label>
+        <span *ngIf="!isEditMode" class="firstName">{{ employee.firstName }}</span>
+        <input *ngIf="isEditMode" type="text" name="username" [(ngModel)]="employee.firstName" placeholder="Όνομα">
+      </div>
+      <div>
+        <label for="lastName">Επίθετο:</label>
+        <span *ngIf="!isEditMode" class="lastName">{{ employee.lastName }}</span>
+        <input *ngIf="isEditMode" type="text" name="lastName" [(ngModel)]="employee.lastName" required placeholder="Επίθετο">
+      </div>
+      <div>
+        <label for="email">email : </label>
         <span *ngIf="!isEditMode" class="email">{{employee.email}}</span>
         <input *ngIf="isEditMode" type="text" name="email" [(ngModel)]="employee.email" required placeholder="email">
       </div>
     </div>
     <div class="right-details">
       <div>
-        <label for="address">Τοποθεσία :  </label>
+        <label for="address">Τοποθεσία : </label>
         <span *ngIf="!isEditMode" class="address">{{employee.address}}</span>
         <input *ngIf="isEditMode" type="text" name="address" [(ngModel)]="employee.address" required placeholder="Διεύθυνση">
       </div>
-      <div >
-        <label for="mobileNumber">Τελέφωνο :  </label>
+      <div>
+        <label for="mobileNumber">Τελέφωνο : </label>
         <span *ngIf="!isEditMode" class="mobileNumber">{{employee.mobileNumber}}</span>
-        <input *ngIf="isEditMode" type="text" name="mobileNumber" [(ngModel)]="employee.mobileNumber" required placeholder="Διεύθυνση">
+        <input *ngIf="isEditMode" type="text" name="mobileNumber" [(ngModel)]="employee.mobileNumber" required placeholder="Τελέφωνο">
       </div>
       <div>
-        <label for="hireDate">Πρόσλυψη :  </label>
+        <label for="hireDate">Πρόσληψη : </label>
         <span *ngIf="!isEditMode" class="hireDate">{{employee.hireDate}}</span>
-        <input *ngIf="isEditMode" type="text" name="hireDate" [(ngModel)]="employee.hireDate" required placeholder="Πρόσλυψη  ">
+        <input *ngIf="isEditMode" type="text" name="hireDate" [(ngModel)]="employee.hireDate" required placeholder="Πρόσληψη">
       </div>
     </div>
-    </form>
-    
-
+  </div>
 </div>
-</div>
-<div  *ngIf="!isEditMode">
+<div *ngIf="!isEditMode">
   <button id="Edit" (click)="enableEditMode()">Edit</button>
 </div>
 <div class="buttons-container" *ngIf="isEditMode">
-<button (click)="saveDetails()">Save</button>
-<button (click)="cancelEdit()">Cancel</button>
+  <button (click)="saveDetails()">Save</button>
+  <button (click)="cancelEdit()">Cancel</button>
 </div>
