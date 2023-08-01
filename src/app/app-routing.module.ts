@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { MyDetailsComponent } from './home/my-details/my-details.component';
 import { LandingComponent } from './home/landing/landing.component';
+import {AdminComponent} from "./home/admin/admin.component";
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent,
     children:[
       { path: 'MyDetails', component: MyDetailsComponent},
-      {path: 'landing', component: LandingComponent}
+      {path: 'landing', component: LandingComponent},
+      {path: 'admin', component: AdminComponent}
     ]
   }
 ];
