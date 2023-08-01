@@ -1,8 +1,9 @@
 <nav>
-    <a routerLink="/home/landing" ><img class="logo" src=".\assets\logo.png" alt=""></a>
+    <a (click)="navigateTo('landing')" ><img class="logo" src=".\assets\logo.png" alt=""></a>
 
     <div class="tabs">
-        
+        <a routerLink="/home">
+            <div class="option">Το προφίλ μου</div>
             
         
             <a routerLink="/home/MyDetails" routerLinkActive="active">

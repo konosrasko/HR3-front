@@ -18,6 +18,8 @@ import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
 import { MyDetailsComponent } from './home/my-details/my-details.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

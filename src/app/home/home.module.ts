@@ -14,7 +14,6 @@ import { AppRoutingModule } from '../app-routing.module';
     HomeComponent,
     LandingComponent,
     MyDetailsComponent,
-    
   ],
   imports: [
     CommonModule,
