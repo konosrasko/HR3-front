@@ -9,8 +9,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MyDetailsComponent } from './my-details/my-details.component';
 import { FormsModule } from '@angular/forms';
 import { LeavesComponent } from './leaves/leaves.component';
-import { RequestsComponent } from './leaves/requests/requests.component';
-import { AddComponent } from './leaves/add/add.component';
+import { LeavesModule } from './leaves/leaves.module';
 
 
 @NgModule({
@@ -19,8 +18,6 @@ import { AddComponent } from './leaves/add/add.component';
     LandingComponent,
     MyDetailsComponent,
     LeavesComponent,
-    RequestsComponent,
-    AddComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +25,7 @@ import { AddComponent } from './leaves/add/add.component';
     SidenavListModule,
     MenuModule,
     AppRoutingModule,
+    LeavesModule,
     FormsModule
   ],
 })
