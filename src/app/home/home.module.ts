@@ -35,7 +35,7 @@ import { LeavesModule } from './leaves/leaves.module';
     MenuModule,
     AppRoutingModule,
     LeavesModule,
-    FormsModule
+    FormsModule,
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
