@@ -1,42 +1,54 @@
-<!-- <main>
-<div class="myDetails">
-  <h1>Τα στοιχεία μου</h1>
-  <form id="panel">
-    <div>
-      <label for="firstName">First Name:</label>
-      <span class="firstName">{{ employee.firstName }}</span>
-    </div>
-    <div>
-      <label for="lastName">Last Name:</label>
-      <span class="lastName">{{ employee.lastName }}</span>
-    </div> -->
-    <!-- Add more details as needed -->
-  <!-- </form>
-</div>
-</main> -->
-<!-- This part is specific to MyDetailsComponent -->
-<!-- End of MyDetailsComponent specific content -->
-
-<!-- The following part will be projected into HomeComponent's layout -->
-
+<h1>Τα στοιχεία μου</h1>
 
 
 
 <div class="content">
-  <!-- Here you can add additional common content for HomeComponent if needed -->
   <div class="myDetails">
-    <h1>Τα στοιχεία μου</h1>
+    
     <form id="panel">
+      <div class="left-details">
+          <div>
+            <label for="firstName">Όνομα:</label>
+            <span *ngIf="!isEditMode" class="firstName">{{ employee.firstName }}</span>
+            <input *ngIf="isEditMode" type="text" name="username" [(ngModel)]="employee.firstName" placeholder="Όνομα">
+          </div>
+        <div>
+          <label for="lastName">Επίθετο:</label>
+          <span *ngIf="!isEditMode" class="lastName">{{ employee.lastName }}</span>
+          <input *ngIf="isEditMode" type="text" name="lastName" [(ngModel)]="employee.lastName" required placeholder="Επίθετο">
+        </div>
       <div>
-        <label for="firstName">First Name:</label>
-        <span class="firstName">{{ employee.firstName }}</span>
+        <label for="email">email :  </label>
+        <span *ngIf="!isEditMode" class="email">{{employee.email}}</span>
+        <input *ngIf="isEditMode" type="text" name="email" [(ngModel)]="employee.email" required placeholder="email">
+      </div>
+    </div>
+    <div class="right-details">
+      <div>
+        <label for="address">Τοποθεσία :  </label>
+        <span *ngIf="!isEditMode" class="address">{{employee.address}}</span>
+        <input *ngIf="isEditMode" type="text" name="address" [(ngModel)]="employee.address" required placeholder="Διεύθυνση">
+      </div>
+      <div >
+        <label for="mobileNumber">Τελέφωνο :  </label>
+        <span *ngIf="!isEditMode" class="mobileNumber">{{employee.mobileNumber}}</span>
+        <input *ngIf="isEditMode" type="text" name="mobileNumber" [(ngModel)]="employee.mobileNumber" required placeholder="Διεύθυνση">
       </div>
       <div>
-        <label for="lastName">Last Name:</label>
-        <span class="lastName">{{ employee.lastName }}</span>
+        <label for="hireDate">Πρόσλυψη :  </label>
+        <span *ngIf="!isEditMode" class="hireDate">{{employee.hireDate}}</span>
+        <input *ngIf="isEditMode" type="text" name="hireDate" [(ngModel)]="employee.hireDate" required placeholder="Πρόσλυψη  ">
       </div>
-      <!-- Add more details as needed -->
+    </div>
     </form>
-  </div>
-</div>
+    
 
+</div>
+</div>
+<div  *ngIf="!isEditMode">
+  <button id="Edit" (click)="enableEditMode()">Edit</button>
+</div>
+<div class="buttons-container" *ngIf="isEditMode">
+<button (click)="saveDetails()">Save</button>
+<button (click)="cancelEdit()">Cancel</button>
+</div>

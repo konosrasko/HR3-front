@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
     this.userService.currentUser$.subscribe(user => {
       if (user) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/landing']);
       }
       else{
         console.log("None is logged in.")

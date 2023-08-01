@@ -69,3 +69,15 @@ nav .logout{
 nav .logout img{
     height: 30px;
 }
+
+a {
+    cursor: pointer;
+    color: blue; /* or any color to indicate it's a link */
+    text-decoration: underline; /* to visually indicate it's a link */
+  }
+
+  nav a.router-link-active {
+    /* Add your active link styling here */
+    font-weight: bold;
+    color: red;
+  }
