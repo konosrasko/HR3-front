@@ -4,37 +4,30 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MenuComponent } from './home/menu/menu.component';
-import { FooterComponent } from './home/footer/footer.component';
-import { SidenavListComponent } from './home/sidenav-list/sidenav-list.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {ReactiveFormsModule} from "@angular/forms";
-import {FormsModule} from "@angular/forms";
-import { EmployeeComponent } from './employee/employee.component';
-import {UserService} from "./services/user.service";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { FormsModule } from "@angular/forms";
+import { UserService} from "./services/user.service";
 import { LoginModule } from './login/login.module';
-import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
-import { MyDetailsComponent } from './home/my-details/my-details.component';
-
-
+import { EmployeeComponent } from './employee/employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent,
+    EmployeeComponent
   ],
-    imports: [
-        BrowserModule,
-        LoginModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    LoginModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    FormsModule,
+    HomeModule // Add HomeModule here
+  ],
   providers: [UserService],
   bootstrap: [AppComponent]
 })

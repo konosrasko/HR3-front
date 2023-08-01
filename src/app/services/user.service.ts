@@ -42,5 +42,12 @@ export class UserService {
   getEmployeeDetails():Observable<Employee>{
     return this.http.get<Employee>('url/api/employee')
   }
+  postEmployee(employee: Employee): Observable<Employee> {
+    return this.http.post<Employee>('url/api/employee', employee);
+  }
+  saveEmployeeDetails(employee: Employee): Observable<Employee> {
+    const url='url/api/employee/${employee.id}'
+    return this.http.put<Employee>(url, employee)
 
+}
 }

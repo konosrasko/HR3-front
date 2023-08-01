@@ -1,3 +1,5 @@
+
+import { RouterLink } from '@angular/router';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -6,7 +8,8 @@ import { Router } from '@angular/router';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent {
+export class MenuComponent  {
+  
 
   constructor(private router: Router) {}
 
