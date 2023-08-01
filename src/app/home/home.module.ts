@@ -8,8 +8,7 @@ import { LandingComponent } from './landing/landing.component';
 import { MyDetailsComponent } from './my-details/my-details.component'; 
 import { AppRoutingModule } from '../app-routing.module';
 import { LeavesComponent } from './leaves/leaves.component';
-import { RequestsComponent } from './leaves/requests/requests.component';
-import { AddComponent } from './leaves/add/add.component';
+import { LeavesModule } from './leaves/leaves.module';
 
 
 @NgModule({
@@ -18,15 +17,14 @@ import { AddComponent } from './leaves/add/add.component';
     LandingComponent,
     MyDetailsComponent,
     LeavesComponent,
-    RequestsComponent,
-    AddComponent
   ],
   imports: [
     CommonModule,
     FooterModule,
     SidenavListModule,
     MenuModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LeavesModule
   ],
 })
 export class HomeModule { }
