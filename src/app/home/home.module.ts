@@ -5,22 +5,23 @@ import { FooterModule } from './footer/footer.module';
 import { SidenavListModule } from './sidenav-list/sidenav-list.module';
 import { MenuModule } from './menu/menu.module';
 import { LandingComponent } from './landing/landing.component';
-import { MyDetailsComponent } from './my-details/my-details.component'; 
 import { AppRoutingModule } from '../app-routing.module';
-
+import { MyDetailsComponent } from './my-details/my-details.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     HomeComponent,
     LandingComponent,
-    MyDetailsComponent,
+    MyDetailsComponent
   ],
   imports: [
     CommonModule,
     FooterModule,
     SidenavListModule,
     MenuModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
 })
 export class HomeModule { }
