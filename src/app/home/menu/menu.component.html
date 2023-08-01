@@ -2,22 +2,10 @@
     <a (click)="navigateTo('landing')" ><img class="logo" src=".\assets\logo.png" alt=""></a>
 
     <div class="tabs">
-        <a routerLink="/home">
+        <a (click)="navigateTo('MyDetails')" >
             <div class="option">Το προφίλ μου</div>
             
-        
-            <a routerLink="/home/MyDetails" routerLinkActive="active">
-              <div class="option">
-                My profile
-              </div>
-            </a>
-        
-            <!-- Add your other tabs here -->
-          
-
-        
-            
-        
+        </a>
         <a href="">
             <div class="option2">
                 Άδειες 
