@@ -9,8 +9,8 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MyDetailsComponent } from './my-details/my-details.component';
 import { FormsModule } from '@angular/forms';
 import { LeavesComponent } from './leaves/leaves.component';
-import { RequestsComponent } from './leaves/requests/requests.component';
-import { AddComponent } from './leaves/add/add.component';
+// import { RequestsComponent } from './leaves/requests/requests.component';
+// import { AddComponent } from './leaves/add/add.component';
 import { AdminComponent} from "./admin/admin.component";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -24,8 +24,8 @@ import { LeavesModule } from './leaves/leaves.module';
     LandingComponent,
     MyDetailsComponent,
     LeavesComponent,
-    RequestsComponent,
-    AddComponent,
+    // RequestsComponent,
+    // AddComponent,
     AdminComponent
   ],
   imports: [

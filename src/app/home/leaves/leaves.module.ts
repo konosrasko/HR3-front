@@ -5,8 +5,6 @@ import { AddComponent } from './add/add.component';
 import { RequestsComponent } from './requests/requests.component';
 import { MatSortModule } from '@angular/material/sort';
 
-
-
 @NgModule({
   declarations: [
     RequestsComponent,
