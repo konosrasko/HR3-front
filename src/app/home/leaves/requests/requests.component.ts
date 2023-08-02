@@ -11,8 +11,6 @@ import { LeaveRequest } from 'src/app/models/leave_request.model';
 })
 export class RequestsComponent {
 
-  constructor(private router:Router){}
-
   ELEMENT_DATA: LeaveRequest[] = [
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
@@ -34,7 +32,7 @@ export class RequestsComponent {
 
   @ViewChild(MatSort)sort: MatSort = new MatSort;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef, private router:Router) {}
 
   ngOnInit() {
     setTimeout(() => {
