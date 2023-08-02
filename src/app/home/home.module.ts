@@ -13,7 +13,6 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
-
 import { LeavesComponent } from './leaves/leaves.component';
 import { AdminComponent} from "./admin/admin.component";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -43,12 +42,12 @@ import {MatSortModule} from "@angular/material/sort";
     BrowserModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatSelectModule,
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule
   ],
 })
 export class HomeModule { }
