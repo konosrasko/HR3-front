@@ -21,7 +21,7 @@ nav .tabs{
 }
 .option{
     color: black;
-    
+
 }
 .option2{
     color: black;
@@ -80,4 +80,12 @@ a {
     /* Add your active link styling here */
     font-weight: bold;
     color: red;
+  }
+
+  #logoutButton{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
   }

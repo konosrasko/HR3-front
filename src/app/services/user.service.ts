@@ -49,5 +49,10 @@ export class UserService {
     const url='url/api/employee/${employee.id}'
     return this.http.put<Employee>(url, employee)
 
-}
+  }
+  getEmployeeRestLeaves(employee: Employee):Observable<Employee>{
+    const url='url/api/${employee.id}/leavebalance'
+    return this.http.get<Employee>(url)
+  }
+
 }

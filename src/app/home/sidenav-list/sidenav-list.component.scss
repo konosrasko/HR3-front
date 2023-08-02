@@ -1,3 +1,8 @@
+.container{
+  display: flex;
+  justify-content: left;
+
+}
 
 .example-container {
   height: 100%;
@@ -16,3 +21,13 @@
   background: rgba(255, 0, 0, 0.5);
 }
 
+
+@media(max-width: 200px){
+  .container{
+   flex-direction: column;
+  }
+  .example-container{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
