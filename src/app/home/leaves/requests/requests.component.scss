@@ -12,6 +12,35 @@ h1{
     color: orange;
 }
 
+.above-table{
+  display: flex;
+  justify-content: space-between;
+}
+
+.add {
+  display: flex;
+  cursor: pointer;
+}
+
+.add h2{
+  font-size: 14pt;
+  margin: auto 5px;
+  transition: color 0.24s ease
+}
+
+.add img{
+  scale: 70%;
+  transition: scale 0.14s ease;
+}
+
+.add:hover h2{
+  color: orange;
+}
+
+.add:hover img{
+  scale: 79%;
+}
+
 .header *{
     background-color: #252525;
     color: orange;
@@ -41,3 +70,28 @@ h1{
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
   }
   
+
+.bin{
+  transition: scale 0.14s ease
+}
+
+.bin:hover{
+  cursor: pointer;
+  scale: 110%;
+  transform: rotate(3deg);
+}
+
+.pending{
+  font-weight: 500;
+  color: rgb(24, 24, 122)
+}
+
+.accepted{
+  font-weight: 500;
+  color: rgb(24, 122, 40)
+}
+
+.denied{
+  font-weight: 500;
+  color: rgb(122, 24, 24)
+}

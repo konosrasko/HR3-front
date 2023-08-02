@@ -1,0 +1,130 @@
+main {
+    padding: 5vh 5vw;
+}
+
+.form-container {
+    background-color: #D9D9D9;
+    padding: 3vh 3vw;
+    max-width: 790px;
+    margin-bottom: 2vh;
+}
+
+form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.2fr 0.4fr 0.2fr 0.4fr 0.1fr 0.1fr;
+    gap: 23px 43px;
+    grid-template-areas:
+        "lab1 lab1"
+        "field1 field1"
+        "lab2 lab3"
+        "field2 field3"
+        "lab4 lab5"
+        "field4 field5";
+}
+
+h1 {
+    color: orange;
+}
+
+.lab1 {
+    grid-area: lab1;
+}
+
+.field1 {
+    grid-area: field1;
+}
+
+.lab2 {
+    grid-area: lab2;
+}
+
+.field2 {
+    grid-area: field2;
+}
+
+.lab3 {
+    grid-area: lab3;
+}
+
+.field3 {
+    grid-area: field3;
+}
+
+.lab4 {
+    grid-area: lab4;
+}
+
+.field4 {
+    grid-area: field4;
+    padding: 15px;
+    font-size: 12pt;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: Roboto, sans-serif;
+}
+
+.lab5 {
+    grid-area: lab5;
+}
+
+.field5 {
+    grid-area: field5;
+    padding: 15px;
+    font-size: 12pt;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: Roboto, sans-serif;
+}
+
+.action-button{
+    padding: 12px 17px;
+    background-image: linear-gradient(to right, #EB8C33, #673D15);
+    color: white;
+    font-size: 12pt;
+    border-radius: 12px;
+    border: none;
+    transition: opacity 0.25s ease;
+    cursor: pointer;
+}
+.action-button:disabled:hover{
+    opacity: 90%;
+    cursor: default;
+}
+
+.action-button:hover{
+    opacity: 85%;
+}
+
+.action-button:disabled{
+    opacity: 90%;
+    background-image: linear-gradient(to right, #6d6966, #3d3d3d);
+    color: #b8b8b8;
+}
+
+@media screen and (max-width: 900px){
+    form{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.2fr 0.4fr 0.2fr 0.4fr 0.2fr 0.4fr 0.2fr 0.4fr ;
+        gap: 23px 43px;
+        grid-template-areas:
+            "lab1"
+            "field1"
+            "lab2"
+            "field2"
+            "lab3"
+            "field3"
+            "lab4"
+            "field4"
+            "lab5"
+            "field5";
+
+        padding:0;
+    }
+
+    .form-container{
+        padding: 1.5vh 2vw;
+
+    }
+}

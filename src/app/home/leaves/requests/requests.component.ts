@@ -1,6 +1,7 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { LeaveRequest } from 'src/app/models/leave_request.model';
 
 @Component({
@@ -16,14 +17,14 @@ export class RequestsComponent {
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
-    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Αποδέχτηκε"},
-    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Αποδέχτηκε"},
-    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Αποδέχτηκε"},
+    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
+    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
+    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
-    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Αποδέχτηκε "},
+    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
     { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
-    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Αποδέχτηκε"}
+    { submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"}
   ];
 
   displayedColumns = ['submitDate', 'startDate', 'endDate', 'duration', 'title', 'status', 'delete'];
@@ -31,7 +32,7 @@ export class RequestsComponent {
 
   @ViewChild(MatSort)sort: MatSort = new MatSort;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef, private router:Router) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -75,6 +76,25 @@ export class RequestsComponent {
     const sortDirection: 'asc' | 'desc' = 'desc'; // Choose 'asc' or 'desc' as per your requirement
     this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
   }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Εκκρεμεί':
+        return 'pending';
+      case 'Εγκεκριμένη':
+        return 'accepted';
+      case 'Απορρίφθηκε':
+        return 'denied';
+      default:
+        return ''; // Add a default class or leave it empty if no class needed
+    }
+  }
+
+  navigateTo(componentToOpen: String){
+    this.router.navigateByUrl('home/leaves/' + componentToOpen);
+  }
+
+
 }
 
 

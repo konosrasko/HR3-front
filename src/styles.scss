@@ -1,7 +1,22 @@
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$accent-color: rgba(226,135,50,255); // Add a semicolon here
+@import '/node_modules/@angular/material/theming';
+@include mat-core();
+
+$primary-color: mat-palette($mat-orange);
+$accent-color: mat-palette($mat-pink);
 $dark-gray: #252525;
+
+
+$my-custom-primary: mat-palette($primary-color);
+$my-custom-accent: mat-palette($accent-color);
+$my-custom-warn: mat-palette($mat-red);
+
+$my-custom-theme: mat-light-theme($my-custom-primary, $my-custom-accent, $my-custom-warn);
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+$my-custom-option-color: mat-color($my-custom-primary);
+@include angular-material-theme($my-custom-theme);
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
