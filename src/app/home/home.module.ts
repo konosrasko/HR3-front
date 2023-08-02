@@ -17,6 +17,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatButtonModule} from "@angular/material/button";
 import { LeavesModule } from './leaves/leaves.module';
 import {MatSortModule} from "@angular/material/sort";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -29,19 +30,20 @@ import {MatSortModule} from "@angular/material/sort";
     // AddComponent,
     AdminComponent
   ],
-  imports: [
-    CommonModule,
-    FooterModule,
-    SidenavListModule,
-    MenuModule,
-    AppRoutingModule,
-    LeavesModule,
-    FormsModule,
-    FormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatSortModule
-  ],
+    imports: [
+        CommonModule,
+        FooterModule,
+        SidenavListModule,
+        MenuModule,
+        AppRoutingModule,
+        LeavesModule,
+        FormsModule,
+        FormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatSortModule,
+        MatSelectModule
+    ],
 })
 export class HomeModule { }

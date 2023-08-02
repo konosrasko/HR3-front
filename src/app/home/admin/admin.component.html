@@ -1,7 +1,33 @@
 <main>
   <h1>Όλοι οι λογαριασμοί</h1>
+  <div class="filters">
+    <div class="status-filter">
+      <mat-form-field appearance="fill">
+        <mat-label>Κατάσταση Λογαριασμού</mat-label>
+        <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus($event)">
+          <mat-option value = "all">Όλοι</mat-option>
+          <mat-option value = "enabled">Ενεργός</mat-option>
+          <mat-option value = "disabled">Ανενεργός</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="role-filter">
+      <mat-form-field appearance="fill">
+        <mat-label>Ρόλος Εργαζομένου</mat-label>
+        <mat-select [(value)]="selectedRole" [(ngModel)]="selectedRole" (ngModelChange)="onRoleChange($event)">
+          <mat-option value = "all">Όλοι</mat-option>
+          <mat-option value = "admin">Admin</mat-option>
+          <mat-option value = "hr">HR</mat-option>
+          <mat-option value = "employee">Εργαζόμενος</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="user-filter">
+
+    </div>
+  </div>
 <div class="table-container mat-elevation-z8">
-  <mat-table matSorts  class="table" #table [dataSource]="dataSource">
+  <mat-table matSort  class="table" #table [dataSource]="dataSource">
           <ng-container matColumnDef="username">
             <mat-header-cell *matHeaderCellDef > Username </mat-header-cell>
             <mat-cell *matCellDef="let employeeUser"> {{employeeUser.username}} </mat-cell>
