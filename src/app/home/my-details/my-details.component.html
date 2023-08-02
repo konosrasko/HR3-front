@@ -38,9 +38,10 @@
   </div>
 </div>
 <div *ngIf="!isEditMode">
-  <button id="Edit" (click)="enableEditMode()">Edit</button>
+  <button id="Edit" (click)="enableEditMode()"  mat-stroked-button class="button">Edit</button>
 </div>
 <div class="buttons-container" *ngIf="isEditMode">
-  <button (click)="saveDetails()">Save</button>
-  <button (click)="cancelEdit()">Cancel</button>
+  <button  (click)="saveDetails()" mat-stroked-button class="button">Save</button>
+  
+  <button (click)="cancelEdit()"  mat-stroked-button class="button">Cancel</button>
 </div>
