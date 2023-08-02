@@ -58,7 +58,7 @@
 
           <ng-container matColumnDef="enabled">
             <mat-header-cell *matHeaderCellDef > Κατάσταση λογαριασμού </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> {{toggleContent(employeeUser.enabled)}} </mat-cell>
+            <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{employeeUser.enabled ? 'active' : 'inactive'}}">{{toggleContent(employeeUser.enabled)}}</span> </mat-cell>
           </ng-container>
 
           <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
