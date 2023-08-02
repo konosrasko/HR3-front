@@ -1,3 +1,9 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 nav{
   margin: 15px;
 }
@@ -50,3 +56,20 @@ a {
   text-decoration: none;
   font-weight: 500;
 }
+
+@media (max-width: 768px) {
+  /* Adjust styles for screens with a maximum width of 768px (e.g., tablets and mobile devices) */
+  .menu-item1,.menu-item2,.menu-item3 {
+    font-size: 12px; /* Decrease font size on smaller screens */
+    /* You can adjust other properties here if needed */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust styles for screens with a maximum width of 480px (e.g., small mobile devices) */
+  .menu-item1,.menu-item2,.menu-item3 {
+    font-size: 10px; /* Further decrease font size on even smaller screens */
+    /* You can adjust other properties here if needed */
+  }
+}
+

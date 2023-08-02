@@ -8,8 +8,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { RestLeavesComponent } from './rest-leaves/rest-leaves.component'; // Correct the import statement for RestLeavesComponent
 
-
-
 @NgModule({
   declarations: [
     RequestsComponent,

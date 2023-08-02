@@ -1,0 +1,54 @@
+main{
+  padding: 5vh 0 0 0;
+  margin: 5vh 0 5vh 5vw;
+}
+
+.table-container{
+  margin-right: 5vw ;
+  overflow: auto;
+}
+
+h1{
+  color: orange;
+}
+
+.header *{
+  background-color: #252525;
+  color: orange;
+}
+
+
+.even-row {
+  background-color: #E9E9E9; /* Set the background color for even rows */
+}
+
+/* Add a class for odd rows */
+.odd-row {
+  background-color: #d6d4d4; /* Set the background color for odd rows */
+}
+
+.header-row {
+  transition: background-color 0.34s ease; /* Add a smooth transition effect */
+}
+
+/* Style for even rows on hover */
+.header-row.even-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+/* Style for odd rows on hover */
+.header-row.odd-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+.button {
+  margin-top: 30px;
+  background-color: rgba(226, 135, 50, 1);
+  color: black;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 20px;
+  position: absolute;
+}

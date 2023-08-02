@@ -7,10 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { FormsModule } from "@angular/forms";
-import { UserService } from "./services/user.service";
+import { UserService} from "./services/user.service";
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { EmployeeComponent } from './employee/employee.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MatCardModule } from "@angular/material/card";
 
 
 
@@ -18,19 +20,23 @@ import { EmployeeComponent } from './employee/employee.component';
   declarations: [
     AppComponent,
     EmployeeComponent,
+    PageNotFoundComponent
     
   ],
-  imports: [
-    BrowserModule,
-    LoginModule,
-    AppRoutingModule, 
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    FormsModule,
-    HomeModule
-  ],
+
+    imports: [
+        BrowserModule,
+        LoginModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        FormsModule,
+        HomeModule,
+        MatCardModule,
+        // Add HomeModule here
+    ],
   providers: [UserService],
   bootstrap: [AppComponent]
 })
