@@ -11,23 +11,32 @@ import { UserService} from "./services/user.service";
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { EmployeeComponent } from './employee/employee.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MatCardModule } from "@angular/material/card";
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    PageNotFoundComponent
+    
   ],
-  imports: [
-    BrowserModule,
-    LoginModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    FormsModule,
-    HomeModule // Add HomeModule here
-  ],
+
+    imports: [
+        BrowserModule,
+        LoginModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        FormsModule,
+        HomeModule,
+        MatCardModule,
+        // Add HomeModule here
+    ],
   providers: [UserService],
   bootstrap: [AppComponent]
 })

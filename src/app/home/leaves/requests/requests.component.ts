@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LeaveRequest } from 'src/app/models/leave_request.model';
@@ -31,9 +31,20 @@ export class RequestsComponent {
 
   @ViewChild(MatSort)sort: MatSort = new MatSort;
 
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.sortLastColumn();
+    });
+  }
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.sortLastColumn(); 
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.sortLastColumn();
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   getIndexClass(row: any): string {

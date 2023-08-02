@@ -21,10 +21,10 @@ export class HomeComponent {
       console.log(this.currentUser)
     } else {
       console.log("none is logged in ")
-      this.router.navigate([''])
+      this.router.navigate(['/login'])
     }
   }
 
-  
+
 
 }

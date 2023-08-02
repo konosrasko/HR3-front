@@ -36,13 +36,11 @@ export class MyDetailsComponent implements OnInit {
   }
 
   cancelEdit() {
-    // Revert changes by restoring the original employee
     this.employee = { ...this.originalEmployee };
     this.isEditMode = false;
   }
 
   ngOnInit(): void {
-    // Initialize the employee data (you can replace this with your API call)
     this.employee = {
       id: 1,
       firstName: "Stamatis",

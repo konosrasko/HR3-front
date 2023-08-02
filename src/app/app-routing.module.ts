@@ -6,25 +6,29 @@ import { MyDetailsComponent } from './home/my-details/my-details.component';
 import { LandingComponent } from './home/landing/landing.component';
 import { RequestsComponent } from './home/leaves/requests/requests.component';
 import { AddComponent } from './home/leaves/add/add.component';
-import {AdminComponent} from "./home/admin/admin.component";
+import { RestLeavesComponent  } from './home/leaves/rest-leaves/rest-leaves.component';
+import { AdminComponent } from "./home/admin/admin.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home', redirectTo: 'home/landing', pathMatch: 'full'},
   { path: 'home', component: HomeComponent,
     children:[
-      { path: 'MyDetails', component: MyDetailsComponent},
-      { path: 'landing', component: LandingComponent},
-      {path: 'admin', component: AdminComponent},
+      { path: 'MyDetails', component: MyDetailsComponent },
+      { path: 'landing', component: LandingComponent },
+      { path: 'admin', component: AdminComponent },
       { path: 'leaves', redirectTo: 'leaves/requests', pathMatch: 'full'},
       { path: 'leaves', children:[
           {path: 'requests', component: RequestsComponent},
+          {path: 'add', component: AddComponent},
+          {path: 'restLeaves', component: RestLeavesComponent  }
+      ]},
+      
           {path: 'add', component: AddComponent}
-      ]}
-
-    ]
-  }
-];
+      ]},
+  {path: '**', component: PageNotFoundComponent}
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

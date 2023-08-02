@@ -22,10 +22,11 @@ export class LoginComponent implements OnInit {
 
     this.userService.currentUser$.subscribe(user => {
       if (user) {
-        this.router.navigate(['/home/landing']);
+        // this.router.navigate(['/home/landing']);
       }
       else{
         console.log("None is logged in.")
+        this.router.navigate(["/login"])
       }
     });
 
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
 
-    let response = this.userService.Login(this.username, this.password)
+    const response = this.userService.Login(this.username, this.password)
     response.subscribe(data => {
       this.user = data;
 
@@ -41,9 +42,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home/landing']);
         this.userService.setCurrentUser(this.user);
         localStorage.setItem('currentUser', JSON.stringify(this.user));
+      } else {
+        this.router.navigate(["/login"]);
       }
     }, (error => {
       alert("Λάθος στοιχεία")
+      this.router.navigate(["/login"])
     })
     );
 
