@@ -5,6 +5,8 @@ import { LeaveBalance } from 'src/app/models/leave_balance.model';
 import { LeaveRequest } from 'src/app/models/leave_request.model';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { ChangeDetectorRef } from '@angular/core';
+
  
 
 @Component({
@@ -24,10 +26,19 @@ export class RestLeavesComponent  {
   dataSource = new MatTableDataSource<LeaveBalance>(this.ELEMENT_DATA);
   @ViewChild(MatSort)sort: MatSort = new MatSort;
 
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.sortLastColumn();
+    });
+  }
   ngAfterViewInit() {
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.sortLastColumn();
+      this.changeDetectorRef.detectChanges();
     });
   }
 
