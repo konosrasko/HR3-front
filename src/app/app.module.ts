@@ -12,10 +12,13 @@ import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { EmployeeComponent } from './employee/employee.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import { EmployeeComponent } from './employee/employee.component';
     MatToolbarModule,
     MatSidenavModule,
     FormsModule,
-    HomeModule // Add HomeModule here
+    HomeModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

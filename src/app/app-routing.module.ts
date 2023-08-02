@@ -6,6 +6,7 @@ import { MyDetailsComponent } from './home/my-details/my-details.component';
 import { LandingComponent } from './home/landing/landing.component';
 import { RequestsComponent } from './home/leaves/requests/requests.component';
 import { AddComponent } from './home/leaves/add/add.component';
+import { RestLeavesComponent  } from './home/leaves/rest-leaves/rest-leaves.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,8 +18,10 @@ const routes: Routes = [
       { path: 'leaves', redirectTo: 'leaves/requests', pathMatch: 'full'},
       { path: 'leaves', children:[
           {path: 'requests', component: RequestsComponent},
-          {path: 'add', component: AddComponent}
-      ]}
+          {path: 'add', component: AddComponent},
+          {path: 'restLeaves', component: RestLeavesComponent  }
+      ]},
+      
     ]
   }
 ];

@@ -8,8 +8,12 @@ import { LandingComponent } from './landing/landing.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { MyDetailsComponent } from './my-details/my-details.component';
 import { FormsModule } from '@angular/forms';
-import { LeavesComponent } from './leaves/leaves.component';
 import { LeavesModule } from './leaves/leaves.module';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 @NgModule({
@@ -17,7 +21,7 @@ import { LeavesModule } from './leaves/leaves.module';
     HomeComponent,
     LandingComponent,
     MyDetailsComponent,
-    LeavesComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,11 @@ import { LeavesModule } from './leaves/leaves.module';
     MenuModule,
     AppRoutingModule,
     LeavesModule,
-    FormsModule
+    FormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
 })
 export class HomeModule { }
