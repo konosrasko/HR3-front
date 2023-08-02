@@ -19,6 +19,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatButtonModule} from "@angular/material/button";
 import { LeavesModule } from './leaves/leaves.module';
 import {MatSortModule} from "@angular/material/sort";
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {MatSortModule} from "@angular/material/sort";
     MatPaginatorModule,
     MatButtonModule,
     MatSortModule,
-    MatSelectModule
+    MatSelectModule,
+    MatInputModule
   ],
 })
 export class HomeModule { }

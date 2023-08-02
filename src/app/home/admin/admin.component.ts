@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit{
   role:string[] = ["all", "admin", "hr", "employee"];
   selectedStatus: string = "all";
   selectedRole: string = "all";
+  selectedUsername: string = "";
 
   displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled'];
   dataSource = new MatTableDataSource<employeeUser>(this.Data);
@@ -45,6 +46,9 @@ export class AdminComponent implements OnInit{
   filters = this.dataSource.filter = '';
 
   ngOnInit() {
+    this.dataSource.filterPredicate = function (record,filter) {
+      return record.username.toLocaleLowerCase() == filter.toLocaleLowerCase();
+    }
   }
 
   toggleContent(status: boolean) {
@@ -90,9 +94,17 @@ export class AdminComponent implements OnInit{
       this.applyFilter();
   }
 
+  onUsernameChange($event: Event){
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.selectedUsername = filterValue.trim().toLowerCase();
+    this.applyFilter();
+  }
+
   applyFilter(){
     const statusFilterValue = this.selectedStatus;
     const roleFilterValue = this.selectedRole.toLowerCase();
+    const userFilterValue = this.selectedUsername;
 
     this.dataSource.filterPredicate = (data: any, filter: string) => {
       const statusMatch =
@@ -104,9 +116,11 @@ export class AdminComponent implements OnInit{
         roleFilterValue === 'all' ||
         data.role.toLowerCase().includes(roleFilterValue);
 
-      return statusMatch && roleMatch;
+      const userMatch = data.username.toLowerCase().includes(userFilterValue);
+
+      return statusMatch && roleMatch && userMatch;
     };
 
-    this.dataSource.filter = `${statusFilterValue}${roleFilterValue}`;
+    this.dataSource.filter = `${statusFilterValue}${roleFilterValue}${userFilterValue}`;
   }
 }
