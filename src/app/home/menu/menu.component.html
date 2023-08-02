@@ -4,25 +4,28 @@
     <div class="tabs">
         <a (click)="navigateTo('MyDetails')" >
             <div class="option">Το προφίλ μου</div>
-            
+
         </a>
         <a>
             <div class="option2">
-                Άδειες 
+                Άδειες
                 <span class="arrow">v</span>
-            
+
                 <div class="dropdown-content">
                     <a (click)="navigateTo('leaves/requests')" style="display: block; padding-left: 15px; line-height: 25px;">Αιτήματα</a>
                     <a style="display: block; padding-left: 15px; line-height: 25px;" >Υπόλοιπα</a>
                 </div>
             </div>
-            
+
         </a>
     </div>
 
-    <div class="logout">
 
-        <img src=".\assets\logout.png" alt="">
-        <a href="">Έξοδος</a>
+    <div class="logout">
+      <a type="submit" (click)="doLogout()" id="logoutButton">
+        <p>
+          <img src=".\assets\logout.png" alt="">Έξοδος
+        </p>
+      </a>
     </div>
 </nav>
