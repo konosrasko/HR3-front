@@ -10,6 +10,7 @@ import { RestLeavesComponent  } from './home/leaves/rest-leaves/rest-leaves.comp
 import { AdminComponent } from "./home/admin/admin.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import { EditComponent } from './home/leaves/edit/edit.component';
+import {AddUserComponent} from "./home/admin/add-user/add-user.component";
 //import {AddUserComponent} from "./home/admin/add-user/add-user.component";
 
 const routes: Routes = [
@@ -19,8 +20,9 @@ const routes: Routes = [
     children:[
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },
-      { path: 'admin', component: AdminComponent ,children:[
-          //{path:'add-user', component: AddUserComponent}
+      { path: 'admin', component: AdminComponent },
+      { path: 'admin' ,children:[
+          {path:'add-user', component: AddUserComponent}
         ]},
       { path: 'leaves', redirectTo: 'leaves/requests', pathMatch: 'full'},
       { path: 'leaves', children:[

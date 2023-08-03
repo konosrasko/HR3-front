@@ -9,17 +9,19 @@ import { MyDetailsComponent } from './my-details/my-details.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { LeavesComponent } from './leaves/leaves.component';
-import { AdminComponent} from "./admin/admin.component";
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatButtonModule} from "@angular/material/button";
+import { AdminComponent } from "./admin/admin.component";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatButtonModule } from "@angular/material/button";
 import { LeavesModule } from './leaves/leaves.module';
-import {MatSortModule} from "@angular/material/sort";
-import {MatInputModule} from "@angular/material/input";
+import { MatSortModule } from "@angular/material/sort";
+import { MatInputModule } from "@angular/material/input";
+
+import {AdminModule} from "./admin/admin.module";
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import {MatInputModule} from "@angular/material/input";
     LandingComponent,
     MyDetailsComponent,
     LeavesComponent,
-    AdminComponent,
+    AdminComponent
+
   ],
   imports: [
     CommonModule,
@@ -49,7 +52,8 @@ import {MatInputModule} from "@angular/material/input";
     MatButtonModule,
     MatSortModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    AdminModule
   ],
 })
 export class HomeModule { }

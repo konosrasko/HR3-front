@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {employeeUser} from "../../models/employeeUser.model";
-import {Employee} from "../../models/employee.model";
-import {User} from "../../models/user.model";
 import {Router} from "@angular/router";
-
-
 
 @Component({
   selector: 'app-admin',
@@ -13,6 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit{
+  constructor(private router:Router) {}
+
   Data: employeeUser[]=[
     {"username" : "test",
       "password" : "123",
@@ -47,12 +45,6 @@ export class AdminComponent implements OnInit{
   dataSource = new MatTableDataSource<employeeUser>(this.Data);
 
   showContent?: string;
-
-  filters = this.dataSource.filter = '';
-
-  constructor(private router:Router) {
-  }
-
   ngOnInit() {
     this.dataSource.filterPredicate = function (record,filter) {
       return record.username.toLocaleLowerCase() == filter.toLocaleLowerCase();
@@ -132,8 +124,7 @@ export class AdminComponent implements OnInit{
     this.dataSource.filter = `${statusFilterValue}${roleFilterValue}${userFilterValue}`;
   }
 
-
   navigateTo(url:string ){
-    this.router.navigateByUrl("home/admin/" + url);
+    this.router.navigateByUrl('home/admin/' + url);
   }
 }

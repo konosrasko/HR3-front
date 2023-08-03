@@ -7,5 +7,10 @@ import {Router} from "@angular/router";
   styleUrls: ['./sidenav-item.component.scss']
 })
 export class SidenavItemComponent {
-  
+  constructor(private router:Router) {
+  }
+
+  navigateTo(componentToOpen: String) {
+    this.router.navigateByUrl('/home/' + componentToOpen);
+  }
 }
