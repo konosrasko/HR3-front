@@ -93,7 +93,7 @@ export class EditComponent {
   }
 
   private retrieveLeaveRequest(id: number): LeaveRequest {
-    return { id: 1, startDate: new Date, endDate: new Date(), submitDate: new Date, duration: 1, status: "Εκκρεμεί", title: "Αιμοδοσίας" }
+    return { id: 1, startDate: new Date, endDate: new Date(), submitDate: new Date, duration: 1, status: "Απορρίφθηκε", title: "Αιμοδοσίας" }
   }
 
   private validateStartDate(): any {
