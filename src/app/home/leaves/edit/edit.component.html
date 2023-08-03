@@ -1,6 +1,5 @@
 <main>
     <h1>Λεπτομέρειες Αιτήματος</h1>
-  
     <div class="form-container">
   
       <form [formGroup]="leaveRequestFormGroup" action="">
@@ -41,6 +40,8 @@
           
         </form>
       </div>
+      <p *ngIf="leaveRequest.status!='Εκκρεμεί'" style="color: red;">Η επεξεργασία είναι δυνατή μόνο στα εκκρεμή αιτήματα</p>
+
   
           <br>
           <input class="action-button" type="submit" value="Επεξεργασία" (click)="submit()" [disabled]="!leaveRequestFormGroup.valid" style="margin:0 5vw 1vh 0">
