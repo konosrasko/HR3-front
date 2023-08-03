@@ -44,7 +44,7 @@
 }
 
 button {
-  background-color: rgba(226, 135, 50, 1);
+  background-image: linear-gradient(to right, #EB8C33, #673D15);
   color: black;
   border: none;
   padding: 15px 30px;
@@ -52,15 +52,20 @@ button {
   font-size: 18px;
   border-radius: 20px;
   margin: 10px; 
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.5s ease-in-out;
+  transition: 0.25s ease;
   zoom: 120%;
   height: auto;
 }
 
-.myDetails button:hover {
-  background-color: rgba(226, 135, 50, 0.9);
+button:hover {
+  opacity: 90%;
 }
+button:disabled{
+  opacity: 90%;
+  background-image: linear-gradient(to right, #6d6966, #3d3d3d);
+  color: #b8b8b8;
+}
+
 
 h1 {
   zoom: 1.5;

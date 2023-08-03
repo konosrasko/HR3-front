@@ -43,14 +43,18 @@ h1{
 
 .button {
   margin-top: 30px;
-  background-color: rgba(226, 135, 50, 1);
+  background-image: linear-gradient(to right, #EB8C33, #673D15);
   color: black;
+  transition: 0.25s ease;
   border: none;
   padding: 15px 30px;
   cursor: pointer;
   font-size: 14px;
   border-radius: 20px;
   position: absolute;
+}
+button:hover{
+  opacity: 90%;
 }
 
 .filters{
