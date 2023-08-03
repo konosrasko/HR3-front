@@ -10,14 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { RestLeavesComponent } from './rest-leaves/rest-leaves.component'; // Correct the import statement for RestLeavesComponent
+import { RestLeavesComponent } from './rest-leaves/rest-leaves.component';
+import { EditComponent } from './edit/edit.component'; // Correct the import statement for RestLeavesComponent
 
 @NgModule({
   declarations: [
     RequestsComponent,
     AddComponent,
-    RestLeavesComponent
-
+    RestLeavesComponent,
+    EditComponent
     ],
   imports: [
     // RestLeavesModule,

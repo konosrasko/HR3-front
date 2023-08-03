@@ -20,9 +20,11 @@ export class HomeComponent {
       this.currentUser = JSON.parse(currentUserString);
       console.log(this.currentUser)
     } else {
-      console.log("none is logged in ")
-      this.router.navigate(['/login'])
+      //console.log("none is logged in ")
+      //this.router.navigate(['/login'])
     }
+
+    
   }
 
 
