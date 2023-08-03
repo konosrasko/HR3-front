@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
-import { User } from '../models/user.model';
-import { EmployeeComponent } from '../employee/employee.component';
 import { Employee } from '../models/employee.model';
 
 
@@ -15,7 +13,7 @@ export class UserService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  
+
   public setCurrentUser(user: any): void {
     this.currentUserSubject.next(user);
   }
@@ -23,20 +21,21 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-  Login(username: string, password: string) {
+  Login(username: string, password: string):Observable<any>{
+    const credentials={username,password}
+    const newHeaders = new HttpHeaders({ 'No-Auth':'True','Content-Type': 'application/json' });
+    console.log(credentials)
 
-    const credentials = btoa(`${username}:${password}`);
-    const headers = new HttpHeaders({ Authorization: `Basic ${credentials}`, 'Content-Type': 'application/json' });
-    //console.log(headers);
+    return this.http.post('url/api/auth/login', credentials,{headers:newHeaders, responseType: 'json'})
 
-    // Make the HTTP request with the provided headers
-    return this.http.get('url/api/users/info', { headers });
   }
 
-  
-  getData():Observable<User>
-  {
-    return this.http.get<User>('url/api/users/info')
+
+  getUserData(token:string) {
+    console.log(token)
+    let tokenStr = "Bearer " + token
+    const headers = new HttpHeaders().set('Authorization',tokenStr)
+    return this.http.get<String>('url/api/users/info',{headers,responseType: 'text' as 'json'})
   }
 
   getEmployeeDetails():Observable<Employee>{

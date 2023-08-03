@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../services/user.service";
 import { Router } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { User } from '../models/user.model';
-
 
 @Component({
   selector: 'app-login',
@@ -14,21 +11,19 @@ export class LoginComponent implements OnInit {
 
   username: string = ''
   password: string = ''
-  message: string = ''
+  token!: string;
   user: any;
-  constructor(private userService: UserService, private router: Router) {
-  }
+  constructor(private userService: UserService, private router: Router) {}
   ngOnInit(): void {
-
-    this.userService.currentUser$.subscribe(user => {
-      if (user) {
-        // this.router.navigate(['/home/landing']);
-      }
-      else{
-        console.log("None is logged in.")
-        this.router.navigate(["/login"])
-      }
-    });
+    //this.userService.currentUser$.subscribe(user => {
+    //   if (this.token) {
+    //     this.router.navigate(['/home/landing']);
+    //   }
+    //   else{
+    //     console.log("None is logged in.")
+    //     this.router.navigate(["/login"])
+    //   }
+    // });
 
   }
 
@@ -36,20 +31,25 @@ export class LoginComponent implements OnInit {
 
     const response = this.userService.Login(this.username, this.password)
     response.subscribe(data => {
-      this.user = data;
+        this.token = data.token;
+        console.log(data)
 
-      if (this.user != null) {
-        this.router.navigate(['/home/landing']);
-        this.userService.setCurrentUser(this.user);
-        localStorage.setItem('currentUser', JSON.stringify(this.user));
-      } else {
-        this.router.navigate(["/login"]);
-      }
-    }, (error => {
-      alert("Λάθος στοιχεία")
-      this.router.navigate(["/login"])
-    })
+        if (this.token != null) {
+
+          this.userService.getUserData(this.token).subscribe(data =>
+            console.log(data))
+            this.router.navigate(['/home/landing']);
+            localStorage.setItem('token', this.token);
+
+        } else {
+          this.router.navigate(["/login"]);
+        }
+      }, (error => {
+        alert("Λάθος στοιχεία")
+        this.router.navigate(["/login"])
+      })
     );
 
   }
 }
+ 

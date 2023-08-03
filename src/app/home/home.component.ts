@@ -16,13 +16,13 @@ export class HomeComponent {
   constructor(private userService: UserService, private employeeService:EmployeeService, private router: Router) {
     const currentUserString = localStorage.getItem('currentUser');
 
-    if (currentUserString !== null) {
-      this.currentUser = JSON.parse(currentUserString);
-      console.log(this.currentUser)
-    } else {
-      console.log("none is logged in ")
-      this.router.navigate(['/login'])
-    }
+    // if (currentUserString !== null) {
+    //   this.currentUser = JSON.parse(currentUserString);
+    //   console.log(this.currentUser)
+    // } else {
+    //   console.log("none is logged in ")
+    //   this.router.navigate(['/login'])
+    // }
   }
 
 
