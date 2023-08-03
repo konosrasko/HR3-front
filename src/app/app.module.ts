@@ -13,6 +13,7 @@ import { HomeModule } from './home/home.module';
 import { EmployeeComponent } from './employee/employee.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MatCardModule } from "@angular/material/card";
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -21,7 +22,7 @@ import { MatCardModule } from "@angular/material/card";
     AppComponent,
     EmployeeComponent,
     PageNotFoundComponent
-    
+
   ],
 
     imports: [
@@ -35,6 +36,7 @@ import { MatCardModule } from "@angular/material/card";
         FormsModule,
         HomeModule,
         MatCardModule,
+        MatButtonModule,
         // Add HomeModule here
     ],
   providers: [UserService],
