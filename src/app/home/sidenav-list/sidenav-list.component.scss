@@ -1,33 +1,72 @@
-.container{
+nav{
   display: flex;
-  justify-content: left;
-
-}
-
-.example-container {
+  flex-direction: column;
+  background-color: #252525;
   height: 100%;
-  width: 200px;
-  left: 0;
-  right: 0;
- background-color: #252525;
-}
-
-
-.example-sidenav {
-  display: flex;
+  width: 13vw;
+  max-width: 170px;
+  min-width: 80px;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: center;
-  width: 200px;
-  background: rgba(255, 0, 0, 0.5);
+  justify-items: center;
 }
 
+.item {
+  text-align: center;
+  color: orange;
+  cursor: pointer;
+  transition: scale 0.15s ease;
+  position: relative;
+}
 
-@media(max-width: 200px){
-  .container{
-   flex-direction: column;
-  }
-  .example-container{
-    width: 100%;
-    margin-bottom: 10px;
+h3.item-text{
+  margin-bottom: 5px;
+  word-wrap: break-word;
+}
+
+.item .icon{
+  width: 40%;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.item:hover{
+  scale: 110%;
+}
+
+.item:hover a{
+  scale: 110%;
+  opacity: 50%;
+  width: 100%;
+}
+
+.submenu{
+  scale: 0%;
+  font-size: 10pt;
+  line-height: 13px;
+  transition: scale 0.1s ease;
+  position: absolute;
+  bottom: -100;
+  display: block;
+  margin: 0 auto;
+  height: fit-content;
+  width: 100%;
+}
+
+.submenu p{
+  transition: color 0.1s ease;
+}
+
+.submenu p:hover{
+  color: white;
+}
+
+.submenu.show {
+  scale: 100%;
+}
+
+@media screen and (max-width: 790px){
+  h3.item-text{
+      display: none;
   }
 }

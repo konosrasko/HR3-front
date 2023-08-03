@@ -10,6 +10,8 @@ nav{
 
 a {
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-item1 {
@@ -34,19 +36,14 @@ a {
 }
 
 .logo1{
-  width: 80px;
-  height: 80px;
   margin-left: 0.8vh;
 }
 
-.logo2{
-  width: 80px;
-  height: 80px;
-}
+.icon{
+  width: 60%;
+  height: auto;
+  margin: 0 auto;
 
-.logo3{
-  width: 80px;
-  height: 80px;
 }
 
 .item-text{

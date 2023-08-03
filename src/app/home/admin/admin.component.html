@@ -1,4 +1,5 @@
 <main>
+  <div>
   <h1>Όλοι οι λογαριασμοί</h1>
   <div class="filters">
     <div class="status-filter">
@@ -65,5 +66,7 @@
           <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
-  <button mat-stroked-button class="button">Προσθήκη</button>
+  <button mat-stroked-button class="button" (click)="navigateTo('add-user')" >Προσθήκη</button>
+  </div>
+
 </main>

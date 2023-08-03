@@ -1,12 +1,31 @@
+<nav>
 
+  <div class="item" >
+    <a (click)="navigateTo('supervisor')">
+      <img style="width: 55%;" class="logo1 icon" src="../../../../assets/supervisor.svg" alt="">
+      <h3 class="item-text">Προϊστάμενοι</h3>
+    </a>
+  
+    
+  </div>
 
-<ng-container class="container" >
+  <div class="item">
+    <a (click)="navigateTo('admin')">
+      <img class="logo2 icon" src="../../../../assets/admin.png" alt="">
+      <h3 class="item-text">ADMIN</h3>
+    </a>
+  </div>
 
-  <mat-sidenav-container class="example-container">
+  <div class="item"  (mouseleave)="hideSubmenu()" (mouseenter)="showSubmenu() ">
+    <a >
+      <img class="logo3 icon" src="../../../../assets/hr.png" alt="">
+      <h3 class="item-text">HR</h3>
+    </a>
 
-    <mat-sidenav-content>
-      <app-sidenav-item></app-sidenav-item>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    <div class="submenu" [ngClass]="{'show': isSubmenuVisible}">
+      <p (click)="navigateTo('hr/employees')">-Εργαζόμενοι</p>
+      <p (click)="navigateTo('hr/categories')">-Κατηγορίες αδειών</p>
+    </div>
+  </div>
 
-</ng-container>
+</nav>
