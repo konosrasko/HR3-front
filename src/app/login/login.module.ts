@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeModule } from '../home/home.module';
+import { FooterModule } from '../home/footer/footer.module';
 
 const routes: Routes = [
   { path: '', component: LoginComponent }
@@ -19,7 +20,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     RouterModule.forChild(routes),
-    HomeModule
+    HomeModule,
+    FooterModule
   ],
   exports:[LoginComponent],
 })
