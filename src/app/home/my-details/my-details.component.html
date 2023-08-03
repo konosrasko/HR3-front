@@ -38,10 +38,10 @@
   </div>
 </div>
 <div *ngIf="!isEditMode">
-  <button id="Edit" (click)="enableEditMode()"  mat-stroked-button class="button">Edit</button>
+  <button id="Edit" (click)="enableEditMode()"  mat-stroked-button class="button">Επεξεργασία</button>
 </div>
 <div class="buttons-container" *ngIf="isEditMode">
-  <button  (click)="saveDetails()" mat-stroked-button class="button">Save</button>
+  <button  (click)="saveDetails()" mat-stroked-button class="button">Αποθήκευση</button>
   
-  <button (click)="cancelEdit()"  mat-stroked-button class="button">Cancel</button>
+  <button (click)="cancelEdit()"  mat-stroked-button class="button">Ακύρωση</button>
 </div>

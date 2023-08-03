@@ -82,10 +82,22 @@ a {
     color: red;
   }
 
+  #logoutButton:hover {
+    color: black;
+    transition: color 0.5s ease;
+  }
+
+  .logout img:hover{
+    color: black;
+    transition: color 0.5s ease;
+  }
+  
+
   #logoutButton{
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
     overflow: hidden;
+    
   }
