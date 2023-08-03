@@ -1,0 +1,47 @@
+main{
+  padding: 5vh 0 0 0;
+  margin: 8vh 25vw 25vh 30vw;
+}
+
+h1{
+  color: orange;
+  margin-left: 75px;
+}
+
+mat-form-field{
+  width: 20vw;
+  margin-left: 45px;
+  margin-top: 10px;
+}
+
+.button {
+  margin-top: 30px;
+  background-color: rgba(226, 135, 50, 1);
+  color: black;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 20px;
+  position: absolute;
+}
+
+.btn-options{
+  margin-left: 50px;
+  display: grid;
+}
+
+.save-button{
+  margin-left: 15px;
+}
+
+.back-button{
+  margin-left: 260px;
+}
+
+.form-new-user{
+  width: 25vw;
+  margin-top: 40px;
+  background-color: #d7d7d7;
+  border-radius: 20px;
+}
