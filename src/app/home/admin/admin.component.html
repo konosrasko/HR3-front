@@ -61,9 +61,16 @@
             <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{employeeUser.enabled ? 'active' : 'inactive'}}">{{toggleContent(employeeUser.enabled)}}</span> </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="editBtn">
+            <mat-header-cell *matHeaderCellDef > Επεξεργασία Λογαριαμού </mat-header-cell>
+            <mat-cell *matCellDef="let employeeUser"><button mat-stroked-button class="button edit" (click)="editUser($event)">Επεξεργασία</button></mat-cell>
+          </ng-container>
+
           <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
           <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
-  <button mat-stroked-button class="button" (click)="navigateTo('add-user')" >Προσθήκη</button>
+  <div class="add-btn">
+    <button mat-stroked-button class="button" (click)="navigateTo('add-user')" >Προσθήκη Λογαριασμού</button>
+  </div>
 </main>

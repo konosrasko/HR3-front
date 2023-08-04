@@ -12,21 +12,27 @@ export class AdminComponent implements OnInit{
   constructor(private router:Router) {}
 
   Data: employeeUser[]=[
-    {"username" : "test",
+    {
+      "userId" : 1,
+      "username" : "test",
       "password" : "123",
       "enabled" : true,
       "role" : "ADMIN",
       "firstName": "Stamatis",
       "lastName": "Chatzis"
     },
-    {"username" : "test",
+    {
+      "userId" : 2,
+      "username" : "test",
       "password" : "123",
       "enabled" : true,
       "role" : "HR",
       "firstName": "Stamatis",
       "lastName": "Chatzis"
     },
-    {"username" : "test",
+    {
+      "userId" : 3,
+      "username" : "test",
       "password" : "123",
       "enabled" : false,
       "role" : "Employee",
@@ -41,7 +47,7 @@ export class AdminComponent implements OnInit{
   selectedRole: string = "all";
   selectedUsername: string = "";
 
-  displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled'];
+  displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled', 'editBtn'];
   dataSource = new MatTableDataSource<employeeUser>(this.Data);
 
   showContent?: string;
@@ -122,6 +128,23 @@ export class AdminComponent implements OnInit{
     };
 
     this.dataSource.filter = `${statusFilterValue}${roleFilterValue}${userFilterValue}`;
+  }
+
+  editUser(event: Event){
+    const cell = event.target as HTMLElement;
+    const rowData = this.getRowDataFromCell(cell);
+    if (rowData) {
+      this.router.navigate(['home/admin/edit-user'], { queryParams: {id: rowData.userId}});
+    }
+  }
+
+  getRowDataFromCell(cell: HTMLElement): employeeUser | undefined {
+    const row = cell.parentElement;
+    if (row && row.parentElement) {
+      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+      return this.dataSource.data[rowIndex];
+    }
+    return undefined;
   }
 
   navigateTo(url:string ){

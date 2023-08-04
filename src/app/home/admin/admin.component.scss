@@ -42,7 +42,7 @@ h1{
 }
 
 .button {
-  margin-top: 30px;
+  //margin-top: 30px;
   background-image: linear-gradient(to right, #EB8C33, #673D15);
   color: black;
   transition: 0.25s ease;
@@ -51,8 +51,16 @@ h1{
   cursor: pointer;
   font-size: 14px;
   border-radius: 20px;
-  position: absolute;
 }
+
+.add-btn{
+  margin-top: 35px;
+}
+
+.edit{
+  margin: 10px;
+}
+
 button:hover{
   opacity: 90%;
 }

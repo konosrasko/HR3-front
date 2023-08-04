@@ -20,10 +20,12 @@ import { MatDividerModule } from '@angular/material/divider';
 
 
 import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
-    AddUserComponent
+    AddUserComponent,
+    EditUserComponent
   ],
   exports: [
     AddUserComponent

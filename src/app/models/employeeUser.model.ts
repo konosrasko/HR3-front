@@ -1,4 +1,5 @@
 export class employeeUser{
+  userId: number;
   username: string;
   password: string;
   role: string;
@@ -6,7 +7,8 @@ export class employeeUser{
   lastName: string;
   enabled: boolean;
 
-    constructor(username:string, password:string, role:string, firstName:string, lastName:string, enabled:boolean) {
+    constructor(userId:number, username:string, password:string, role:string, firstName:string, lastName:string, enabled:boolean) {
+      this.userId = userId;
       this.username=username;
       this.password=password;
       this.role=role;
