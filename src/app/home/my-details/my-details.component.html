@@ -3,34 +3,34 @@
   <div class="myDetails">
     <div class="left-details">
       <div>
-        <label for="firstName">Όνομα:</label>
-        <span *ngIf="!isEditMode" class="firstName">{{ employee.firstName }}</span>
+        <label>Όνομα:</label>
+        <span *ngIf="!isEditMode" class="firstName">{{employee.firstName }}</span>
         <input *ngIf="isEditMode" type="text" name="username" [(ngModel)]="employee.firstName" placeholder="Όνομα">
       </div>
       <div>
-        <label for="lastName">Επίθετο:</label>
+        <label>Επίθετο:</label>
         <span *ngIf="!isEditMode" class="lastName">{{ employee.lastName }}</span>
         <input *ngIf="isEditMode" type="text" name="lastName" [(ngModel)]="employee.lastName" required placeholder="Επίθετο">
       </div>
       <div>
-        <label for="email">email : </label>
+        <label>email : </label>
         <span *ngIf="!isEditMode" class="email">{{employee.email}}</span>
         <input *ngIf="isEditMode" type="text" name="email" [(ngModel)]="employee.email" required placeholder="email">
       </div>
     </div>
     <div class="right-details">
       <div>
-        <label for="address">Τοποθεσία : </label>
+        <label>Τοποθεσία : </label>
         <span *ngIf="!isEditMode" class="address">{{employee.address}}</span>
         <input *ngIf="isEditMode" type="text" name="address" [(ngModel)]="employee.address" required placeholder="Διεύθυνση">
       </div>
       <div>
-        <label for="mobileNumber">Τελέφωνο : </label>
+        <label>Τελέφωνο : </label>
         <span *ngIf="!isEditMode" class="mobileNumber">{{employee.mobileNumber}}</span>
         <input *ngIf="isEditMode" type="text" name="mobileNumber" [(ngModel)]="employee.mobileNumber" required placeholder="Τελέφωνο">
       </div>
       <div>
-        <label for="hireDate">Πρόσληψη : </label>
+        <label>Πρόσληψη : </label>
         <span *ngIf="!isEditMode" class="hireDate">{{employee.hireDate}}</span>
         <input *ngIf="isEditMode" type="text" name="hireDate" [(ngModel)]="employee.hireDate" required placeholder="Πρόσληψη">
       </div>
@@ -42,6 +42,6 @@
 </div>
 <div class="buttons-container" *ngIf="isEditMode">
   <button  (click)="saveDetails()" mat-stroked-button class="button">Αποθήκευση</button>
-  
+
   <button (click)="cancelEdit()"  mat-stroked-button class="button">Ακύρωση</button>
 </div>
