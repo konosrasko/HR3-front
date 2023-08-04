@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { Employee } from "../../../models/employee.model";
 import { Router } from "@angular/router";
+import {group} from "@angular/animations";
 
 @Component({
   selector: 'app-add-user',

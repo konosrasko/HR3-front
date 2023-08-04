@@ -2,8 +2,55 @@
   <h1>Επεξεργασία στοιχείων λογαριασμού</h1>
   <div class="form-edit-user">
     <div class="selected-employee">
-      <h3></h3>
+      <h2> Εργαζόμενος : {{Data.firstName+" "+Data.lastName }}   </h2>
     </div>
-
+    <div class="input-username">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή username</mat-label>
+        <input matInput  [formControl]="username"  required>
+        <mat-error *ngIf="username.invalid">{{getErrorUsername()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-pass">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή password</mat-label>
+        <input matInput   [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid">{{getErrorPass()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="role-dd">
+      <mat-form-field appearance="fill">
+        <mat-label>Ρόλος λογαριασμού</mat-label>
+        <mat-select  (ngModelChange) = "onSelectRole()" [formControl]="roles" required>
+          <mat-option value = "admin">Admin</mat-option>
+          <mat-option value = "hr">HR</mat-option>
+          <mat-option value = "employee">Εργαζόμενος</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="supervisor-rdg">
+      <mat-radio-group aria-label="Select an option" >
+        <mat-label class="label-sv"><span>Είναι προιστάμενος;</span></mat-label>
+        <mat-radio-button color="primary" value="1">Ναι</mat-radio-button>
+        <mat-radio-button color="primary" value="2" checked>Όχι</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="slide-me-daddy">
+      <span>Κατάσταση λογαριασμού: <span class="inactive">Ανενεργός</span> <mat-slide-toggle color="primary"></mat-slide-toggle> <span class="active">Ενεργός</span></span>
+    </div>
   </div>
+  <div class="btn-options">
+    <div class="back-button">
+      <button mat-stroked-button class="button" (click)="navigateTo()">Πίσω</button>
+    </div>
+    <div class="save-button">
+      <button mat-stroked-button class="button" [disabled]="!username.valid || !password.valid || !roles.valid">Αποθήκευση</button>
+    </div>
+  </div>
+
+
+
 </main>

@@ -1,0 +1,103 @@
+main{
+  padding: 5vh 0 0 0;
+  margin: 8vh 25vw 15vh 30vw;
+}
+
+h1{
+  color: orange;
+  margin-left: 40px;
+}
+
+h2{
+    color: black;
+    margin-left: 45px;
+}
+
+mat-form-field{
+  width: 20vw;
+  margin-left: 45px;
+  margin-top: 10px;
+}
+
+.button {
+  margin-top: 30px;
+  background-image: linear-gradient(to right, #EB8C33, #673D15);
+  color: black;
+  transition: 0.25s ease;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 20px;
+  position: absolute;
+}
+
+.button:disabled:hover{
+  opacity: 90%;
+  cursor: default;
+}
+
+.button:hover{
+  opacity: 85%;
+}
+
+.button:disabled{
+  opacity: 90%;
+  background-image: linear-gradient(to right, #6d6966, #3d3d3d);
+  color: #b8b8b8;
+}
+
+.btn-options{
+  margin-left: 50px;
+  display: grid;
+  position: relative;
+}
+
+.save-button{
+  margin-left: 15px;
+}
+
+.back-button{
+  margin-left: 260px;
+}
+
+.form-edit-user{
+  width: 25vw;
+  margin-top: 40px;
+  background-color: #d7d7d7;
+  border-radius: 20px;
+  padding-bottom:  10px;
+}
+
+
+.supervisor-rdg{
+  width: 16vw;
+  position: relative;
+  margin-left: 50px;
+}
+
+.slide-me-daddy{
+  margin-left: 50px;
+  padding-top: 10px
+}
+
+span{
+  font-size: 15px
+}
+
+.active{
+  padding: 3px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+  margin-left: 5px;
+
+}
+
+.inactive{
+  padding: 3px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  margin-right: 5px;
+}

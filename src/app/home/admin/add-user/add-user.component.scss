@@ -1,6 +1,6 @@
 main{
   padding: 5vh 0 0 0;
-  margin: 8vh 25vw 25vh 30vw;
+  margin: 8vh 25vw 15vh 30vw;
 }
 
 h1{
@@ -60,4 +60,11 @@ mat-form-field{
   margin-top: 40px;
   background-color: #d7d7d7;
   border-radius: 20px;
+}
+
+
+.supervisor-rdg{
+  width: 16vw;
+  position: relative;
+  margin-left: 50px;
 }

@@ -58,7 +58,12 @@
 
           <ng-container matColumnDef="enabled">
             <mat-header-cell *matHeaderCellDef > Κατάσταση λογαριασμού </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{employeeUser.enabled ? 'active' : 'inactive'}}">{{toggleContent(employeeUser.enabled)}}</span> </mat-cell>
+            <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{employeeUser.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(employeeUser.enabled)}}</span> </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="supervisor">
+            <mat-header-cell *matHeaderCellDef > Προιστάμενος </mat-header-cell>
+            <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{!!employeeUser.supervisor}}">{{toggleContentSupervisor(employeeUser.supervisor)}}</span> </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="editBtn">

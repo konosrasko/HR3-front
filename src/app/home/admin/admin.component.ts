@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {employeeUser} from "../../models/employeeUser.model";
+import {EmployeeUser} from "../../models/employeeUser.model";
 import {Router} from "@angular/router";
 
 @Component({
@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class AdminComponent implements OnInit{
   constructor(private router:Router) {}
 
-  Data: employeeUser[]=[
+  Data: EmployeeUser[]=[
     {
       "userId" : 1,
       "username" : "test",
@@ -19,7 +19,8 @@ export class AdminComponent implements OnInit{
       "enabled" : true,
       "role" : "ADMIN",
       "firstName": "Stamatis",
-      "lastName": "Chatzis"
+      "lastName": "Chatzis",
+      "supervisor": false,
     },
     {
       "userId" : 2,
@@ -28,7 +29,8 @@ export class AdminComponent implements OnInit{
       "enabled" : true,
       "role" : "HR",
       "firstName": "Stamatis",
-      "lastName": "Chatzis"
+      "lastName": "Chatzis",
+      "supervisor": true
     },
     {
       "userId" : 3,
@@ -37,7 +39,8 @@ export class AdminComponent implements OnInit{
       "enabled" : false,
       "role" : "Employee",
       "firstName": "Stamatis",
-      "lastName": "Chatzis"
+      "lastName": "Chatzis",
+      "supervisor": true
     }
   ]
 
@@ -47,8 +50,8 @@ export class AdminComponent implements OnInit{
   selectedRole: string = "all";
   selectedUsername: string = "";
 
-  displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled', 'editBtn'];
-  dataSource = new MatTableDataSource<employeeUser>(this.Data);
+  displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled','supervisor', 'editBtn'];
+  dataSource = new MatTableDataSource<EmployeeUser>(this.Data);
 
   showContent?: string;
   ngOnInit() {
@@ -57,8 +60,12 @@ export class AdminComponent implements OnInit{
     }
   }
 
-  toggleContent(status: boolean) {
+  toggleContentEnabled(status: boolean) {
     return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+  }
+
+  toggleContentSupervisor(status: boolean) {
+    return this.showContent = status ? "Είναι προιστάμενος" : "Δεν είναι προιστάμενος";
   }
 
   getIndexClass(row: any): string {
@@ -138,7 +145,7 @@ export class AdminComponent implements OnInit{
     }
   }
 
-  getRowDataFromCell(cell: HTMLElement): employeeUser | undefined {
+  getRowDataFromCell(cell: HTMLElement): EmployeeUser | undefined {
     const row = cell.parentElement;
     if (row && row.parentElement) {
       const rowIndex = Array.from(row.parentElement.children).indexOf(row);
