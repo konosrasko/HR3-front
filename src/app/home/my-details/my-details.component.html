@@ -1,3 +1,4 @@
+<div *ngIf="dataLoaded">
 <h1>Τα στοιχεία μου</h1>
 <div class="content">
   <div class="myDetails">
@@ -45,3 +46,10 @@
 
   <button (click)="cancelEdit()"  mat-stroked-button class="button">Ακύρωση</button>
 </div>
+</div>
+<div *ngIf="!dataLoaded">
+  <!-- Loading spinner or message -->
+  Loading...
+</div>
+
+<h6>45 λεπτα ακομα :)</h6>
