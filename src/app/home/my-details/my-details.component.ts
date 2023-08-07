@@ -3,6 +3,7 @@ import { Employee } from 'src/app/models/employee.model';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-my-details',
@@ -43,31 +44,19 @@ export class MyDetailsComponent implements OnInit {
         this.isEditMode = false;
     }
 
-    getEmployeeDetails(token: string): Observable<Employee> {
-        let tokenStr = "Bearer " + token;
-        const headers = new HttpHeaders().set('Authorization', tokenStr);
-        return this.http.get<Employee>('url/api/users/employee_info', {headers, responseType: "text" as 'json'});
-    }
-
     loadEmployee(data: any){
-        this.employee = data;
+        this.employee = JSON.parse(data);
     }
 
     ngOnInit(): void {
         if (this.token != null) {
-
-            this.getEmployeeDetails(this.token).subscribe(
-                (data) => {
-                    this.loadEmployee(data);
-                    //this.employee = data;
-                    console.log(this.employee);
-                    this.originalEmployee = {...this.employee};
-                    this.dataLoaded = true; // Set dataLoaded to true when the data is available
-                },
-                (error) => {
-                    console.error(error);
-                }
-            );
+          this.userService.getEmployeeDetails(this.token).subscribe({
+            next: data => this.loadEmployee(data),
+            error: error => console.log(error)
+            }
+          );
+          this.dataLoaded = true;
+          this.originalEmployee = {...this.employee};
         }
     }
 }
