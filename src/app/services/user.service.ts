@@ -45,20 +45,25 @@ export class UserService {
 
   getUserData(token:string) {
     console.log(token)
-    let tokenStr = "Bearer " + token
-    const headers = new HttpHeaders().set('Authorization',tokenStr)
-    return this.http.get<String>('url/api/users/info',{headers,responseType: 'text' as 'json'})
+    let tokenStr = "Bearer " + token;
+    const headers = new HttpHeaders().set('Authorization',tokenStr);
+    return this.http.get<String>('url/api/users/users_info',{headers,responseType: 'text' as 'json'});
   }
 
-  getEmployeeDetails():Observable<Employee>{
-    return this.http.get<Employee>('url/api/employee')
+  getEmployeeDetails(token: string): Observable<Employee> {
+    let tokenStr = "Bearer " + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Employee>('url/api/users/employee_info', { headers, responseType: "text" as 'json' });
   }
+
   postEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>('url/api/employee', employee);
+    return this.http.post<Employee>('url/api/employees', employee);
   }
-  saveEmployeeDetails(employee: Employee): Observable<Employee> {
-    const url='url/api/employee/${employee.id}'
-    return this.http.put<Employee>(url, employee)
+  saveEmployeeDetails(employee: Employee,token: string): Observable<Employee> {
+    let tokenStr = "Bearer " + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    const url='url/api/employees/'+employee.employeeId+"/changeProfile";
+    return this.http.put<Employee>(url, employee, {headers,responseType:"text" as 'json'});
 
   }
   getEmployeeRestLeaves(employee: Employee):Observable<Employee>{

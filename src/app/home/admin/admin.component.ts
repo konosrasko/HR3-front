@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {employeeUser} from "../../models/employeeUser.model";
+import {EmployeeUser} from "../../models/employeeUser.model";
 import {Router} from "@angular/router";
 
 @Component({
@@ -11,27 +11,36 @@ import {Router} from "@angular/router";
 export class AdminComponent implements OnInit{
   constructor(private router:Router) {}
 
-  Data: employeeUser[]=[
-    {"username" : "test",
+  Data: EmployeeUser[]=[
+    {
+      "userId" : 1,
+      "username" : "test",
       "password" : "123",
       "enabled" : true,
       "role" : "ADMIN",
       "firstName": "Stamatis",
-      "lastName": "Chatzis"
+      "lastName": "Chatzis",
+      "supervisor": false,
     },
-    {"username" : "test",
+    {
+      "userId" : 2,
+      "username" : "test",
       "password" : "123",
       "enabled" : true,
       "role" : "HR",
       "firstName": "Stamatis",
-      "lastName": "Chatzis"
+      "lastName": "Chatzis",
+      "supervisor": true
     },
-    {"username" : "test",
+    {
+      "userId" : 3,
+      "username" : "test",
       "password" : "123",
       "enabled" : false,
       "role" : "Employee",
       "firstName": "Stamatis",
-      "lastName": "Chatzis"
+      "lastName": "Chatzis",
+      "supervisor": true
     }
   ]
 
@@ -41,8 +50,8 @@ export class AdminComponent implements OnInit{
   selectedRole: string = "all";
   selectedUsername: string = "";
 
-  displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled'];
-  dataSource = new MatTableDataSource<employeeUser>(this.Data);
+  displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled','supervisor', 'editBtn'];
+  dataSource = new MatTableDataSource<EmployeeUser>(this.Data);
 
   showContent?: string;
   ngOnInit() {
@@ -51,8 +60,12 @@ export class AdminComponent implements OnInit{
     }
   }
 
-  toggleContent(status: boolean) {
+  toggleContentEnabled(status: boolean) {
     return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+  }
+
+  toggleContentSupervisor(status: boolean) {
+    return this.showContent = status ? "Είναι προιστάμενος" : "Δεν είναι προιστάμενος";
   }
 
   getIndexClass(row: any): string {
@@ -122,6 +135,23 @@ export class AdminComponent implements OnInit{
     };
 
     this.dataSource.filter = `${statusFilterValue}${roleFilterValue}${userFilterValue}`;
+  }
+
+  editUser(event: Event){
+    const cell = event.target as HTMLElement;
+    const rowData = this.getRowDataFromCell(cell);
+    if (rowData) {
+      this.router.navigate(['home/admin/edit-user'], { queryParams: {id: rowData.userId}});
+    }
+  }
+
+  getRowDataFromCell(cell: HTMLElement): EmployeeUser | undefined {
+    const row = cell.parentElement;
+    if (row && row.parentElement) {
+      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+      return this.dataSource.data[rowIndex];
+    }
+    return undefined;
   }
 
   navigateTo(url:string ){

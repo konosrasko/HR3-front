@@ -16,14 +16,18 @@ import { FooterModule } from "../footer/footer.module";
 import { MyDetailsModule } from "../my-details/my-details.module";
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
 import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
-    AddUserComponent
+    AddUserComponent,
+    EditUserComponent
   ],
   exports: [
     AddUserComponent
@@ -45,7 +49,9 @@ import { AddUserComponent } from './add-user/add-user.component';
     MatSelectModule,
     MatIconModule,
     MatDividerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatSlideToggleModule
   ]
 })
 export class AdminModule { }

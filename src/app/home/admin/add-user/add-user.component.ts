@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { Employee } from "../../../models/employee.model";
 import { Router } from "@angular/router";
+import {group} from "@angular/animations";
 
 @Component({
   selector: 'app-add-user',
@@ -22,19 +23,19 @@ export class AddUserComponent {
 
   Employees: Employee[] = [
     {
-      "id" : 1,
+      "employeeId" : 1,
       "firstName" : "Simos",
       "lastName" : "Spyroy",
       "email" : "sspiroy@ots.gr",
-      "mobileNumber": 1234567891,
+      "mobileNumber": "1234567891",
       "address" : "Kyparissias 8"
     },
     {
-      "id" : 2,
+      "employeeId" : 2,
       "firstName" : "Mixail",
       "lastName" : "Fotiadis",
       "email" : "mfotiadis@ots.gr",
-      "mobileNumber": 1234567891,
+      "mobileNumber": "1234567891",
       "address" : "Sikelianoy 51"
     }
   ]
