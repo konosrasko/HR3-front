@@ -1,31 +1,25 @@
 <nav>
-    <a (click)="navigateTo('landing')" ><img class="logo" src=".\assets\logo.png" alt=""></a>
+  <a class="logo-link" (click)="navigateTo('landing')">
+    <img class="logo" src="./assets/logo.png" alt="The application's logo">
+  </a>
 
-    <div class="tabs">
-        <a (click)="navigateTo('MyDetails')" >
-            <div class="option">Το προφίλ μου</div>
+  <ul class="tabs">
+    <li class="tab">
+      <a (click)="navigateTo('MyDetails')">Το προφίλ μου</a>
+    </li>
+    <li class="tab dropdown">
+      <a>Άδειες <span class="arrow">v</span></a>
+      <div class="dropdown-content">
+        <a (click)="navigateTo('leaves/requests')">Αιτήματα</a>
+        <a (click)="navigateTo('leaves/restLeaves')">Υπόλοιπα</a>
+      </div>
+    </li>
+  </ul>
 
-        </a>
-        <a>
-            <div class="option2">
-                Άδειες
-                <span class="arrow">v</span>
+  <div class="logout">
+    <a type="submit" (click)="doLogout()" id="logoutButton">
+        <img src="./assets/logout.png" alt="Logout"/>
+    </a>
+  </div>
 
-                <div class="dropdown-content">
-                    <a (click)="navigateTo('leaves/requests')" style="display: block; padding-left: 15px; line-height: 25px;">Αιτήματα</a>
-                    <a (click)="navigateTo('leaves/restLeaves')" style="display: block; padding-left: 15px; line-height: 25px;" >Υπόλοιπα</a>
-                </div>
-            </div>
-
-        </a>
-    </div>
-
-
-    <div class="logout">
-      <a type="submit" (click)="doLogout()" id="logoutButton">
-        <p>
-          <img src=".\assets\logout.png" alt="">Έξοδος
-        </p>
-      </a>
-    </div>
 </nav>
