@@ -11,22 +11,10 @@ import { Employee } from '../models/employee.model';
 export class EmployeeComponent   {
   employee: Employee;
 
-
   constructor(private employeeService: UserService) {
     this.employee = new Employee();
-
   }
 
-  ngOnInit(): void {
-    this.employee = new Employee(); // Initialize with default values
-    this.employeeService.getEmployeeDetails().subscribe(
-      (data) => {
-        this.employee = data; // Assign data fetched from the service
-      },
-      (error) => {
-        console.log('Error fetching employee details:', error);
-      }
-    );
-  }
+  ngOnInit(): void {}
 
 }

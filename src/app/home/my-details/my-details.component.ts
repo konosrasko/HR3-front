@@ -1,8 +1,9 @@
-// my-details.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { Employee } from 'src/app/models/employee.model';
 import { UserService } from 'src/app/services/user.service';
+import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-my-details',
@@ -10,47 +11,52 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./my-details.component.scss']
 })
 export class MyDetailsComponent implements OnInit {
-  employee: Employee = new Employee();
-  originalEmployee: Employee = new Employee(); // Store a copy of the original employee
+    employee: Employee = new Employee();
+    originalEmployee: Employee = new Employee();
 
-  isEditMode: boolean = false;
-  isSaveMode: boolean = false;
+    token: string | null = localStorage.getItem('token');
 
-  constructor(private userService: UserService) {
-    console.log('MyDetailsComponent constructor');
-  }
 
-  enableEditMode() {
-    // Make a copy of the original employee to revert changes if canceled
-    this.originalEmployee = { ...this.employee };
-    this.isEditMode = true;
-  }
+    isEditMode: boolean = false;
+    isSaveMode: boolean = false;
+    dataLoaded: boolean = false;
 
-  saveDetails() {
-    this.userService.saveEmployeeDetails(this.employee).subscribe(
-      (data) => {
+    constructor(private userService: UserService, private http: HttpClient) {
+    }
+
+    enableEditMode() {
+        // Make a copy of the original employee to revert changes if canceled
+        this.originalEmployee = {...this.employee};
+        this.isEditMode = true;
+    }
+
+    saveDetails() {
+        this.userService.saveEmployeeDetails(this.employee).subscribe(
+            (data) => {
+                this.isEditMode = false;
+                this.isSaveMode = true;
+            }
+        )
+    }
+
+    cancelEdit() {
+        this.employee = {...this.originalEmployee};
         this.isEditMode = false;
-        this.isSaveMode = true;
-      }
-    )
-  }
+    }
 
-  cancelEdit() {
-    this.employee = { ...this.originalEmployee };
-    this.isEditMode = false;
-  }
+    loadEmployee(data: any){
+        this.employee = JSON.parse(data);
+    }
 
-  ngOnInit(): void {
-    this.employee = {
-      id: 1,
-      firstName: "Stamatis",
-      lastName: "Chatzis",
-      email: "schatzis@ots.gr",
-      mobileNumber: 231063243,
-      address: "Panadreoy 164 Neapoli",
-      hireDate: new Date(),
-      enabled: true,
-      supervisorId: 0
-    };
-  }
+    ngOnInit(): void {
+        if (this.token != null) {
+          this.userService.getEmployeeDetails(this.token).subscribe({
+            next: data => this.loadEmployee(data),
+            error: error => console.log(error)
+            }
+          );
+          this.dataLoaded = true;
+          this.originalEmployee = {...this.employee};
+        }
+    }
 }
