@@ -7,27 +7,22 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
 
   username: string = ''
   password: string = ''
   token!: string;
   user: any;
-  constructor(private userService: UserService, private router: Router) {}
-  ngOnInit(): void {
-    //this.userService.currentUser$.subscribe(user => {
-    //   if (this.token) {
-    //     this.router.navigate(['/home/landing']);
-    //   }
-    //   else{
-    //     console.log("None is logged in.")
-    //     this.router.navigate(["/login"])
-    //   }
-    // });
-
+  constructor(private userService: UserService, private router: Router) {
   }
 
   doLogin() {
+
+    if (!this.username || !this.password) {
+      console.log("cringe")
+      return;
+    }
+
 
     const response = this.userService.Login(this.username, this.password)
     response.subscribe(data => {
