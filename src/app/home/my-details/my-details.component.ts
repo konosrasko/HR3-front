@@ -14,7 +14,8 @@ export class MyDetailsComponent implements OnInit {
     employee: Employee = new Employee();
     originalEmployee: Employee = new Employee();
 
-    token: string | null = localStorage.getItem('token');
+    // @ts-ignore
+  token: string = localStorage.getItem('token');
 
 
     isEditMode: boolean = false;
@@ -31,7 +32,7 @@ export class MyDetailsComponent implements OnInit {
     }
 
     saveDetails() {
-        this.userService.saveEmployeeDetails(this.employee).subscribe(
+        this.userService.saveEmployeeDetails(this.employee, this.token).subscribe(
             (data) => {
                 this.isEditMode = false;
                 this.isSaveMode = true;
