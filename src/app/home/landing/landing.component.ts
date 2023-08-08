@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit {
   getEmployeeTakenLeaves(){
 
     var leaves: LeaveBalance[] = []
-      this.employeeService.getTakenLeaves().subscribe(data => {
+      this.employeeService.getLeaveBalances().subscribe(data => {
         console.log(data)
         this.takenLeaves = data
       });

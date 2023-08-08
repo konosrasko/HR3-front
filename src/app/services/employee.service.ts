@@ -18,7 +18,7 @@ export class EmployeeService{
   constructor(private http:HttpClient) {
   }
   
-  getTakenLeaves():Observable<LeaveBalance[]>
+  getLeaveBalances():Observable<LeaveBalance[]>
   {
     const token = this.getToken();
     const headers = new HttpHeaders({

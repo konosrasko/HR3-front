@@ -6,6 +6,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { LeaveRequest } from 'src/app/models/leave_request.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { LeaveRequestService } from 'src/app/services/leave_request.service';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { LeaveBalance } from 'src/app/models/leave_balance.model';
 
 @Component({
   selector: 'app-add',
@@ -34,7 +37,7 @@ export class AddComponent {
   @ViewChild('endDatePicker') endDatePicker!: MatDatepicker<Date>;
 
 
-  constructor(private router: Router) {
+  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private router: Router) {
     this.leaveRequestFormGroup.get('startDate')?.setValidators([Validators.required]);
     this.leaveRequestFormGroup.get('startDate')?.setValidators([this.validateStartDate()]);
     this.leaveRequestFormGroup.get('startDate')?.updateValueAndValidity();
@@ -42,6 +45,12 @@ export class AddComponent {
     this.leaveRequestFormGroup.get('duration')?.disable();
     this.leaveRequestFormGroup.get('submitDate')?.disable();
     this.leaveRequestFormGroup.get('submitDate')?.setValue(new Date)
+
+    this.employeeService.getLeaveBalances().subscribe(data => {
+      for (var lb in data){
+        console.log(lb)
+      }
+    })
 
     this.leaveRequestFormGroup.get('startDate')?.valueChanges.subscribe((value) => {
 
@@ -102,11 +111,21 @@ export class AddComponent {
   }
 
   submit() {
-    console.log(this.leaveRequestFormGroup.get('title')?.value)
-    console.log(this.leaveRequestFormGroup.get('startDate')?.value)
-    console.log(this.leaveRequestFormGroup.get('endDate')?.value)
-    console.log(this.leaveRequestFormGroup.get('submitDate')?.value)
-    console.log(this.leaveRequestFormGroup.get('duration')?.value)
+    const newLeaveRequest: LeaveRequest = {
+      leaveTitle: this.leaveRequestFormGroup.get('title')?.value,
+      submitDate: this.leaveRequestFormGroup.get('submitDate')?.value,
+      startDate: this.leaveRequestFormGroup.get('startDate')?.value,
+      endDate: this.leaveRequestFormGroup.get('endDate')?.value,
+      duration: this.leaveRequestFormGroup.get('duration')?.value,
+    }
+
+    console.log(newLeaveRequest)
+    this.router.navigateByUrl('home/leaves/requests')
+    /*
+    this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data=>{
+      alert("Επιτυχής δημιουργία αιτήματος")
+      this.router.navigateByUrl('home/leaves/requests')
+    });*/
   }
 
   cancel(){

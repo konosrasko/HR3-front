@@ -3,6 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { LeaveRequest } from 'src/app/models/leave_request.model';
+import { LeaveRequestService } from 'src/app/services/leave_request.service';
 
 @Component({
   selector: 'app-requests',
@@ -11,35 +12,27 @@ import { LeaveRequest } from 'src/app/models/leave_request.model';
 })
 export class RequestsComponent {
 
-  ELEMENT_DATA: LeaveRequest[] = [
-    {id:1, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
-    {id:2, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
-    {id:3, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
-    {id:4, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
-    {id:5, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εκκρεμεί"},
-    {id:6, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
-    {id:7, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
-    {id:8, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
-    {id:9, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
-    {id:10, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
-    {id:11, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"},
-    {id:12, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Απορρίφθηκε"},
-    {id:13, submitDate: new Date, startDate: new Date, endDate: new Date, duration: 1, title: "Κανονική", status: "Εγκεκριμένη"}
-  ];
 
-  displayedColumns = ['submitDate', 'startDate', 'endDate', 'duration', 'title', 'status', 'delete'];
-  dataSource = new MatTableDataSource<LeaveRequest>(this.ELEMENT_DATA);
+  displayedColumns = ['submitDate', 'startDate', 'endDate', 'duration', 'leaveTitle', 'status', 'delete'];
+  dataSource: MatTableDataSource<LeaveRequest> = new MatTableDataSource<LeaveRequest>()
 
   @ViewChild(MatSort)sort: MatSort = new MatSort;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private router:Router) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef, private leaveRequestService: LeaveRequestService, private router:Router) {}
 
   ngOnInit() {
+    //pull leave requests from the database
+    this.leaveRequestService.getLeaveRequestHistory().subscribe(data=>{
+      console.log(data)
+      this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+    })
+
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.sortLastColumn();
     });
   }
+
   ngAfterViewInit() {
     setTimeout(() => {
       this.dataSource.sort = this.sort;
