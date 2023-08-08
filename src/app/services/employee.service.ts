@@ -7,6 +7,7 @@ import { LeaveRequest } from '../models/leave_request.model';
 import { LeaveBalance } from '../models/leave_balance.model';
 import * as CryptoJS from 'crypto-js';
 import { AppComponent } from '../app.component';
+import {Employee} from "../models/employee.model";
 
 
 
@@ -17,7 +18,7 @@ export class EmployeeService{
 
   constructor(private http:HttpClient) {
   }
-  
+
   getTakenLeaves():Observable<LeaveBalance[]>
   {
     const token = this.getToken();
@@ -39,4 +40,13 @@ export class EmployeeService{
       return ""
     }
   }
-}
+
+  getAllEmployees(token:String):Observable<Employee[]>
+  {
+
+    let tokenStr = "Bearer " + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
+  }
+  }
+

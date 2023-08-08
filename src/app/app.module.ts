@@ -14,6 +14,11 @@ import { EmployeeComponent } from './employee/employee.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MatCardModule } from "@angular/material/card";
 import {MatButtonModule} from '@angular/material/button';
+import { HRComponent } from './home/hr/hr.component';
+import { AllEmployeesComponent } from './home/hr/all-employees/all-employees.component';
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {HrModule} from "./home/hr/hr.module";
 
 
 
@@ -21,24 +26,27 @@ import {MatButtonModule} from '@angular/material/button';
   declarations: [
     AppComponent,
     EmployeeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
 
   ],
 
-    imports: [
-        BrowserModule,
-        LoginModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        FormsModule,
-        HomeModule,
-        MatCardModule,
-        MatButtonModule,
-        // Add HomeModule here
-    ],
+  imports: [
+    BrowserModule,
+    LoginModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    FormsModule,
+    HomeModule,
+    MatCardModule,
+    MatButtonModule,
+    MatSortModule,
+    MatTableModule,
+    HrModule
+    // Add HomeModule here
+  ],
   providers: [UserService],
   bootstrap: [AppComponent]
 })

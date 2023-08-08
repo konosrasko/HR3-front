@@ -5,8 +5,8 @@
       <img style="width: 55%;" class="logo1 icon" src="../../../../assets/supervisor.svg" alt="">
       <h3 class="item-text">Προϊστάμενοι</h3>
     </a>
-  
-    
+
+
   </div>
 
   <div class="item">
@@ -23,9 +23,8 @@
     </a>
 
     <div class="submenu" [ngClass]="{'show': isSubmenuVisible}">
-      <p (click)="navigateTo('hr/employees')">-Εργαζόμενοι</p>
+      <p (click)="navigateTo('hr/all-employees')">-Εργαζόμενοι</p>
       <p (click)="navigateTo('hr/categories')">-Κατηγορίες αδειών</p>
     </div>
   </div>
-
 </nav>

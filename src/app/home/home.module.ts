@@ -22,6 +22,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatInputModule } from "@angular/material/input";
 
 import {AdminModule} from "./admin/admin.module";
+import {HRComponent} from "./hr/hr.component";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {AdminModule} from "./admin/admin.module";
     LandingComponent,
     MyDetailsComponent,
     LeavesComponent,
-    AdminComponent
+    AdminComponent,
+    HRComponent
 
   ],
   imports: [

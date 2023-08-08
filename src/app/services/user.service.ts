@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import { Employee } from '../models/employee.model';
+import {User} from "../models/user.model";
+
+
 import {EmployeeUser} from "../models/employeeUser.model";
 import * as CryptoJS from 'crypto-js';
 
@@ -44,7 +47,7 @@ export class UserService {
     console.log(token)
     let tokenStr = "Bearer " + token;
     const headers = new HttpHeaders().set('Authorization',tokenStr);
-    return this.http.get<String>('url/api/users/users_info',{headers,responseType: 'text' as 'json'});
+    return this.http.get<User>('url/api/users/users_info',{headers,responseType: 'text' as 'json'});
   }
 
   getEmployeeDetails(token: string): Observable<Employee> {
