@@ -4,11 +4,16 @@ import { MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { AllEmployeesComponent } from './all-employees/all-employees.component';
 import {MatOptionModule} from "@angular/material/core";
-
-
+import {AddEmployeeComponent} from "./add-employee/add-employee.component";
+import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
+import {MatButtonModule} from "@angular/material/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
-  declarations: [AllEmployeesComponent],
-    imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule]
+  declarations: [AllEmployeesComponent,AddEmployeeComponent],
+  imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, DatePipe]
 })
 export class HrModule {}

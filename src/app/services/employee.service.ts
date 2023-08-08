@@ -48,5 +48,19 @@ export class EmployeeService{
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
   }
+
+  addEmployee(employee: Employee, token: String): void {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    this.http.post<Employee>('url/api/employees', employee, { headers }).subscribe(
+      (response) => {
+        console.log('Employee added successfully:', response);
+      },
+      (error) => {
+        console.error('Error adding employee:', error);
+
+      }
+    );
   }
+}
 
