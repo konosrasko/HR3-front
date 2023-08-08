@@ -19,18 +19,14 @@ import { LeaveBalance } from 'src/app/models/leave_balance.model';
 export class AddComponent {
 
   categoryControl = new FormControl('', [Validators.required]);
-  categories = [
-    { name: 'Κανονική' },
-    { name: 'Αιμοδοσίας' },
-    { name: 'Τέκνου' }
-  ];
+  categories: String[] = [];
 
   leaveRequestFormGroup: FormGroup = new FormGroup({
     title: this.categoryControl,
     duration: new FormControl(''),
     submitDate: new FormControl(''),
     startDate: new FormControl('', [Validators.required]),
-    endDate: new FormControl('',[Validators.required])
+    endDate: new FormControl('', [Validators.required])
   })
 
   today = new Date();
@@ -46,10 +42,11 @@ export class AddComponent {
     this.leaveRequestFormGroup.get('submitDate')?.disable();
     this.leaveRequestFormGroup.get('submitDate')?.setValue(new Date)
 
-    this.employeeService.getLeaveBalances().subscribe(data => {
-      for (var lb in data){
-        console.log(lb)
-      }
+    this.employeeService.getLeaveBalances().subscribe((data: LeaveBalance[]) => {
+      data.forEach(lb => {
+        if (lb.categoryTitle)
+          this.categories.push(lb.categoryTitle);
+      })
     })
 
     this.leaveRequestFormGroup.get('startDate')?.valueChanges.subscribe((value) => {
@@ -65,7 +62,7 @@ export class AddComponent {
         //update duration when startDate changes
         const endDate: Date | any = this.leaveRequestFormGroup.get('endDate')?.value ? new Date(this.leaveRequestFormGroup.get('endDate')?.value) : null;
         this.leaveRequestFormGroup.get('duration')?.setValue(this.getDurationWithoutWeekends(startDate, endDate))
-        
+
       }
       this.leaveRequestFormGroup.get('endDate')?.updateValueAndValidity();
 
@@ -111,24 +108,28 @@ export class AddComponent {
   }
 
   submit() {
-    const newLeaveRequest: LeaveRequest = {
+    const newLeaveRequest:LeaveRequest = {
       leaveTitle: this.leaveRequestFormGroup.get('title')?.value,
-      submitDate: this.leaveRequestFormGroup.get('submitDate')?.value,
-      startDate: this.leaveRequestFormGroup.get('startDate')?.value,
-      endDate: this.leaveRequestFormGroup.get('endDate')?.value,
+      submitDate: this.formatDate(this.leaveRequestFormGroup.get('submitDate')?.value),
+      startDate: this.formatDate(this.leaveRequestFormGroup.get('startDate')?.value),
+      endDate: this.formatDate(this.leaveRequestFormGroup.get('endDate')?.value),
       duration: this.leaveRequestFormGroup.get('duration')?.value,
     }
 
-    console.log(newLeaveRequest)
-    this.router.navigateByUrl('home/leaves/requests')
-    /*
-    this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data=>{
+    console.log(newLeaveRequest.toString())
+
+    this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data => {
+      console.log(data)
       alert("Επιτυχής δημιουργία αιτήματος")
       this.router.navigateByUrl('home/leaves/requests')
-    });*/
+    })
+  };
+
+  private formatDate(date: Date): string {
+    return date.toISOString().slice(0, 19).replace('T', ' ');
   }
 
-  cancel(){
+  cancel() {
     this.router.navigateByUrl('home/leaves')
   }
 }

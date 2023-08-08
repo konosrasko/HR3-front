@@ -23,7 +23,6 @@ export class RequestsComponent {
   ngOnInit() {
     //pull leave requests from the database
     this.leaveRequestService.getLeaveRequestHistory().subscribe(data=>{
-      console.log(data)
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);
     })
 
@@ -39,11 +38,6 @@ export class RequestsComponent {
       this.sortLastColumn();
       this.changeDetectorRef.detectChanges();
     });
-  }
-
-  getIndexClass(row: any): string {
-    const index = this.dataSource.data.indexOf(row);
-    return index % 2 === 0 ? 'even-row' : 'odd-row';
   }
 
   getRowDataFromCell(cell: HTMLElement): LeaveRequest | undefined {
@@ -75,8 +69,9 @@ export class RequestsComponent {
 
   sortLastColumn() {
     const lastColumnName = this.displayedColumns[this.displayedColumns.length - 2];
-    const sortDirection: 'asc' | 'desc' = 'desc'; // Choose 'asc' or 'desc' as per your requirement
+    const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
     this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
+    console.log(this.sort)
   }
 
   getStatusClass(status: string): string {

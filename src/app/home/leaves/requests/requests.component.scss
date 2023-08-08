@@ -46,14 +46,12 @@ h1{
     color: orange;
 }
 
-
-.even-row {
-  background-color: #E9E9E9; /* Set the background color for even rows */
+.header-row:nth-child(odd) {
+  background-color: #d6d4d4;
 }
 
-/* Add a class for odd rows */
-.odd-row {
-  background-color: #d6d4d4; /* Set the background color for odd rows */
+.header-row:nth-child(even) {
+  background-color: #E9E9E9; 
 }
 
 .header-row {
