@@ -1,7 +1,7 @@
 export class LeaveBalance{
 
     id?:number
-    category?:string
+    categoryTitle?:string
     days?:number
     daysTaken?:number
 

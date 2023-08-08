@@ -6,32 +6,47 @@ import { LeadingComment } from '@angular/compiler';
 import { LeaveRequest } from '../models/leave_request.model';
 import { LeaveBalance } from '../models/leave_balance.model';
 import * as CryptoJS from 'crypto-js';
+import { AppComponent } from '../app.component';
+import {Employee} from "../models/employee.model";
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class EmployeeService{
 
-
-
-  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-
-  constructor(private http:HttpClient) { }
-
+  constructor(private http:HttpClient) {
+  }
   
-  getTakenLeaves(username:string, password:string):Observable<LeaveBalance[]>
+  getLeaveBalances():Observable<LeaveBalance[]>
   {
-    
-    
-    
-    const credentials = btoa(`${username}:${password}`);
-    const headers = new HttpHeaders({ Authorization: `Basic ${credentials}`, 'Content-Type': 'application/json' });
-
-    console.log(headers)
-    return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers})
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"json" as 'json'})
   }
 
-}
+
+  getToken():string{
+    const token = localStorage.getItem('token');
+
+    if(token)
+      return token;
+    else {
+      alert("Your session has expired");
+      return ""
+    }
+  }
+
+  getAllEmployees(token:String):Observable<Employee[]>
+  {
+
+    let tokenStr = "Bearer " + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
+  }
+  }
+

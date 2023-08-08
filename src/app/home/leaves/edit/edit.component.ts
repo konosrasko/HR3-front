@@ -46,7 +46,7 @@ export class EditComponent {
         this.leaveRequestFormGroup.get('endDate')?.setValue(this.leaveRequest.endDate)
         this.leaveRequestFormGroup.get('submitDate')?.setValue(this.leaveRequest.submitDate)
         this.leaveRequestFormGroup.get('duration')?.setValue(this.leaveRequest.duration)
-        this.leaveRequestFormGroup.get('title')?.setValue(this.leaveRequest.title)
+        this.leaveRequestFormGroup.get('title')?.setValue(this.leaveRequest.leaveTitle)
       }
       console.log(params);
       // Now you can use rowData as an object in your component as needed
@@ -93,7 +93,7 @@ export class EditComponent {
   }
 
   private retrieveLeaveRequest(id: number): LeaveRequest {
-    return { id: 1, startDate: new Date, endDate: new Date(), submitDate: new Date, duration: 1, status: "Απορρίφθηκε", title: "Αιμοδοσίας" }
+    return { id: 1, startDate: new Date, endDate: new Date(), submitDate: new Date, duration: 1, status: "Απορρίφθηκε", leaveTitle: "Αιμοδοσίας" }
   }
 
   private validateStartDate(): any {

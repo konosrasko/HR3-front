@@ -1,7 +1,7 @@
 export class LeaveRequest {
 
     id?: number
-    title?: string
+    leaveTitle?: string
     submitDate?: Date
     startDate?: Date
     endDate?: Date
