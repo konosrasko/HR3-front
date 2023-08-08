@@ -1,0 +1,73 @@
+
+<main>
+<!--  <div class="table-container">-->
+
+<!--    <div class="above-table">-->
+<!--      <span (click)="navigateTo('add')" class="add">-->
+<!--          <img src="/assets/add.svg" alt="add">-->
+<!--          <h2>Προσθήκη</h2>-->
+<!--        </span>-->
+
+<!--    </div>-->
+
+
+
+  <mat-table matSort #table [dataSource]="dataSource" id="table1">
+
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Όνομα</mat-header-cell>
+      <mat-cell  *matCellDef="let element">{{ element.firstName }}</mat-cell>
+    </ng-container>
+
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Επώνυμο</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+    </ng-container>
+
+    <!-- Phone Number Column -->
+    <ng-container matColumnDef="mobileNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Τηλέφωνο</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.mobileNumber }}</mat-cell>
+    </ng-container>
+
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Διεύθυνση</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.address }}</mat-cell>
+    </ng-container>
+
+    <!-- Hire Date Column -->
+    <ng-container matColumnDef="hireDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ημ/νία Πρόσληψης</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.hireDate | date: 'dd-MM-Y'}} </mat-cell>
+    </ng-container>
+
+    <!-- Enabled Column -->
+    <ng-container matColumnDef="enabled">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ενεργός</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.enabled }}</mat-cell>
+    </ng-container>
+
+    <!-- Supervisor Column -->
+    <ng-container matColumnDef="supervisorId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Υπεύθυνος</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.supervisorId }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="getIndexClass(row)"></mat-row>
+  </mat-table>
+
+</main>
+
+
+
+

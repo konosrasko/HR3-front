@@ -5,6 +5,7 @@ import { User } from '../models/user.model';
 import { LeadingComment } from '@angular/compiler';
 import { LeaveRequest } from '../models/leave_request.model';
 import { LeaveBalance } from '../models/leave_balance.model';
+import {Employee} from "../models/employee.model";
 
 
 
@@ -18,7 +19,7 @@ export class EmployeeService {
 
   constructor(private http:HttpClient) { }
 
-  
+
   getTakenLeaves(id:number, username:string, password:string):Observable<LeaveBalance[]>
   {
     const credentials = btoa(`${username}:${password}`);
@@ -28,4 +29,13 @@ export class EmployeeService {
     return this.http.get<LeaveBalance[]>('url/api/employees/' + id + '/leavebalance', {headers})
   }
 
-}
+  getAllEmployees(token:String):Observable<Employee[]>
+  {
+
+    let tokenStr = "Bearer " + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
+  }
+  }
+
+
