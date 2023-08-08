@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { LeaveRequest } from 'src/app/models/leave_request.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -56,7 +53,7 @@ export class AddComponent {
         //update duration when startDate changes
         const endDate: Date | any = this.leaveRequestFormGroup.get('endDate')?.value ? new Date(this.leaveRequestFormGroup.get('endDate')?.value) : null;
         this.leaveRequestFormGroup.get('duration')?.setValue(this.getDurationWithoutWeekends(startDate, endDate))
-        
+
       }
       this.leaveRequestFormGroup.get('endDate')?.updateValueAndValidity();
 

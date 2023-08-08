@@ -1,6 +1,6 @@
 main{
   padding: 5vh 0 0 0;
-  margin: 5vh 0 5vh 5vw;
+  margin: 5vh 10vh 5vh 5vw;
 }
 
 .table-container{
@@ -71,27 +71,3 @@ h1{
 }
 
 
-.bin{
-  transition: scale 0.14s ease
-}
-
-.bin:hover{
-  cursor: pointer;
-  scale: 110%;
-  transform: rotate(3deg);
-}
-
-.pending{
-  font-weight: 500;
-  color: rgb(24, 24, 122)
-}
-
-.accepted{
-  font-weight: 500;
-  color: rgb(24, 122, 40)
-}
-
-.denied{
-  font-weight: 500;
-  color: rgb(122, 24, 24)
-}
