@@ -63,7 +63,7 @@
     </ng-container>
 
     <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="getIndexClass(row)"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="getIndexClass(row)" class="header-row"></mat-row>
   </mat-table>
 
 </main>
