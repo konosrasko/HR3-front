@@ -17,7 +17,6 @@ h1{
   color: orange;
 }
 
-
 .even-row {
   background-color: #E9E9E9; /* Set the background color for even rows */
 }
@@ -74,6 +73,9 @@ button:hover{
 }
 
 .active{
+  margin: auto;
+  text-align: center;
+  width: 70%;
   padding: 5px;
   background-color: green;
   border-radius: 5px;
@@ -81,6 +83,9 @@ button:hover{
 }
 
 .inactive{
+  margin: auto;
+  text-align: center;
+  width: 70%;
   padding: 5px;
   background-color: red;
   border-radius: 5px;
