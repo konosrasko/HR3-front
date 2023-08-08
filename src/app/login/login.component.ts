@@ -30,9 +30,6 @@ export class LoginComponent{
         console.log(data)
 
         if (this.token != null) {
-
-          this.userService.getUserData(this.token).subscribe(data =>
-            console.log(data))
             this.router.navigate(['/home/landing']);
             localStorage.setItem('token', this.token);
 
@@ -47,4 +44,3 @@ export class LoginComponent{
 
   }
 }
- 
