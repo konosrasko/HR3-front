@@ -1,20 +1,24 @@
 nav {
   display: flex;
   background-image: linear-gradient(to right, #fae1be, #f87620);
-  height: 100px;
+  height: 80px;
   width: 100vw;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  padding: 0 20px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo-link {
-  padding-right: 3vw;
-  margin-left:  10px;
-  height: 80px;
+  margin-left: 10px;
+  padding-right: 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .logo {
-  height: 80px;
+  height: 60px;
   transition: transform 0.15s ease;
 }
 
@@ -25,6 +29,7 @@ nav {
 
 .tab {
   margin-right: 20px;
+  font-size: 16px;
 }
 
 .tab.dropdown:hover .dropdown-content {
@@ -45,11 +50,19 @@ nav {
   padding: 6px 10px;
   text-decoration: none;
   color: white;
-  font-weight: 500;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .tabs a:hover {
-  background-color: rgba(255, 255, 255, 0.204);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.arrow {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 50%;
 }
 
 .logout {
@@ -72,8 +85,8 @@ nav {
 
 a {
   cursor: pointer;
-  color: blue; /* or any color to indicate it's a link */
-  text-decoration: underline; /* to visually indicate it's a link */
+  color: white; /* or any color to indicate it's a link */
+  text-decoration: none; /* to visually indicate it's a link */
 }
 
 .router-link-active {
@@ -83,12 +96,12 @@ a {
 }
 
 #logoutButton:hover {
-  color: black;
+  color: yellow;
   transition: color 0.5s ease;
 }
 
 .logout img:hover {
-  color: black;
+  color: yellow;
   transition: color 0.5s ease;
 }
 
@@ -98,4 +111,11 @@ a {
   border: none;
   cursor: pointer;
   overflow: hidden;
+}
+
+.mat-tooltip {
+  background-color: #f87620; /* Tooltip background color */
+  color: white; /* Tooltip text color */
+  font-weight: bold; /* Tooltip text style */
+  padding: 5px 10px; /* Padding for the tooltip */
 }

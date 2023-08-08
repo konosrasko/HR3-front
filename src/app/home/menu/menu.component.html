@@ -1,5 +1,5 @@
-<nav>
-  <a class="logo-link" (click)="navigateTo('landing')">
+<nav class="toolbar">
+  <a class="logo-link" (click)="navigateTo('landing')" matTooltip="Αρχική">
     <img class="logo" src="./assets/logo.png" alt="The application's logo">
   </a>
 
@@ -17,9 +17,8 @@
   </ul>
 
   <div class="logout">
-    <a type="submit" (click)="doLogout()" id="logoutButton">
-        <img src="./assets/logout.png" alt="Logout"/>
+    <a type="submit" (click)="doLogout()" id="logoutButton" matTooltip="Αποσύνδεση">
+      <img src="./assets/logout.png" alt="Logout"/>
     </a>
   </div>
-
 </nav>
