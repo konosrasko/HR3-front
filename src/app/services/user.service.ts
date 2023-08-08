@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import { Employee } from '../models/employee.model';
-
-
+import {EmployeeUser} from "../models/employeeUser.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +12,9 @@ export class UserService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-
   public setCurrentUser(user: any): void {
     this.currentUserSubject.next(user);
   }
-
 
   constructor(private http:HttpClient) { }
 
@@ -29,7 +26,6 @@ export class UserService {
     return this.http.post('url/api/auth/login', credentials,{headers:newHeaders, responseType: 'json'})
 
   }
-
 
   getUserData(token:string) {
     console.log(token)
@@ -55,6 +51,20 @@ export class UserService {
   getEmployeeRestLeaves(employee: Employee):Observable<Employee>{
     const url='url/api/${employee.id}/leavebalance'
     return this.http.get<Employee>(url)
+  }
+
+  getUserEmployeeDetails(token: string, username: string):Observable<EmployeeUser>{
+    let tokenStr = "Bearer " + token;
+    const url = 'url/api/users/admin/' + username;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<EmployeeUser>(url, {headers, responseType: 'text' as 'json'});
+  }
+
+  getAllUserEmployees(token: string){
+    let tokenStr = "Bearer " + token;
+    const url = 'url/api/users/admin/all-users';
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<EmployeeUser>(url, {headers, responseType: 'text' as 'json'});
   }
 
 }
