@@ -16,6 +16,7 @@ import {EditUserComponent} from "./home/admin/edit-user/edit-user.component";
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', redirectTo: 'home/landing', pathMatch: 'full'},
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'home', component: HomeComponent,
     children:[
       { path: 'MyDetails', component: MyDetailsComponent },

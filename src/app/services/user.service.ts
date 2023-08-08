@@ -3,28 +3,41 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import { Employee } from '../models/employee.model';
 import {EmployeeUser} from "../models/employeeUser.model";
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-
-  public setCurrentUser(user: any): void {
-    this.currentUserSubject.next(user);
-  }
+  private secretKey = CryptoJS.enc.Utf8.parse('ba6d59d38168f98b'); // Secret key
 
   constructor(private http:HttpClient) { }
 
   Login(username: string, password: string):Observable<any>{
-    const credentials={username,password}
+
+    //encryption
+    username = this.encryptData(username)
+    password = this.encryptData(password)
+
+    const credentials={username, password}
+
     const newHeaders = new HttpHeaders({ 'No-Auth':'True','Content-Type': 'application/json' });
-    console.log(credentials)
 
     return this.http.post('url/api/auth/login', credentials,{headers:newHeaders, responseType: 'json'})
+  }
 
+  encryptData(data:String) {
+
+    try {
+      return CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey, {
+        mode: CryptoJS.mode.ECB,
+        format: CryptoJS.format.OpenSSL,
+      }).toString();
+    } catch (e) {
+      console.log(e);
+      return ''
+    }
   }
 
   getUserData(token:string) {
@@ -43,9 +56,11 @@ export class UserService {
   postEmployee(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>('url/api/employees', employee);
   }
-  saveEmployeeDetails(employee: Employee): Observable<Employee> {
-    const url='url/api/employees/${employee.id}'
-    return this.http.put<Employee>(url, employee)
+  saveEmployeeDetails(employee: Employee,token: string): Observable<Employee> {
+    let tokenStr = "Bearer " + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    const url='url/api/employees/'+employee.employeeId+"/changeProfile";
+    return this.http.put<Employee>(url, employee, {headers,responseType:"text" as 'json'});
 
   }
   getEmployeeRestLeaves(employee: Employee):Observable<Employee>{
