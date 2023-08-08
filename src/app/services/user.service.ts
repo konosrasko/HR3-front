@@ -86,10 +86,8 @@ export class UserService {
 
   editUserAccount(user: User, token: string, userId?: number){
     let tokenStr = "Bearer " + token;
-    console.log(tokenStr);
     const url = 'url/api/users/admin/' + userId?.toString();
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    console.log(headers);
     return this.http.put<User>(url, user,{headers, responseType: 'text' as 'json'});
   }
 }

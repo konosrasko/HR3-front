@@ -86,7 +86,7 @@ export class EditUserComponent implements OnInit{
   }
 
   saveEditUser(){
-    let userAccount: User = new User(this.employeeUser!.userId, this.employeeUser!.username, this.employeeUser!.password, true, this.employeeUser!.employeeId, "Admin", true);
+    let userAccount: User = new User(this.employeeUser!.userId, this.employeeUser!.username, this.employeeUser!.password, true, this.employeeUser!.employeeId, 'Admin', false);
 
     if(this.selectedRole == 'employee'){
       userAccount.role = 'Employee';
@@ -102,16 +102,14 @@ export class EditUserComponent implements OnInit{
       userAccount.supervisor = false;
     }
 
-    userAccount.enabled = this.isEnabled;
-
-    console.log(userAccount);
+    userAccount.enable = this.isEnabled;
 
     if(this.token != null){
       this.userService.editUserAccount(userAccount, this.token, userAccount.id).subscribe({
-        next: data => {
-          alert("Οι αλλαγές αποθηκεύτηκαν με επιτυχία!");
+        next: data=> {
+          alert("Οι αλλαγές αποθηκεύτηκαν")
         },
-        error: error => console.error(error)
+        error: error => console.log(error)
       });
     }
   }
