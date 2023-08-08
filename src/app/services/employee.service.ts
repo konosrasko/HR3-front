@@ -14,24 +14,29 @@ import * as CryptoJS from 'crypto-js';
 })
 export class EmployeeService {
 
-
-
-  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-
   constructor(private http:HttpClient) { }
 
   
-  getTakenLeaves(username:string, password:string):Observable<LeaveBalance[]>
+  getTakenLeaves():Observable<LeaveBalance[]>
   {
-    
-    
-    
-    const credentials = btoa(`${username}:${password}`);
-    const headers = new HttpHeaders({ Authorization: `Basic ${credentials}`, 'Content-Type': 'application/json' });
-
-    console.log(headers)
+    const token = this.getToken();
+    console.log("getting taken leaves")
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
     return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers})
   }
 
+
+  getToken():string{
+    const token = localStorage.getItem('token');
+
+    if(token)
+      return token;
+    else {
+      alert("Your session has expired");
+      return ""
+    }
+  }
 }
