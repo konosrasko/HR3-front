@@ -18,10 +18,10 @@ import { ChangeDetectorRef } from '@angular/core';
 export class RestLeavesComponent  {
   selected: string = '';
   ELEMENT_DATA: LeaveBalance[] = [
-    { id: 1, category: "KANONIKH", days: 2, daysTaken:1 },
-    { id: 1, category: "telosPantwn", days: 10, daysTaken:5 },
-    { id: 1, category: "Fro-Dead", days: 7, daysTaken:1 },
-    { id: 1, category: "Bak-Dead", days: 0, daysTaken:0 }]
+    { id: 1, categoryTitle: "KANONIKH", days: 2, daysTaken:1 },
+    { id: 1, categoryTitle: "telosPantwn", days: 10, daysTaken:5 },
+    { id: 1, categoryTitle: "Fro-Dead", days: 7, daysTaken:1 },
+    { id: 1, categoryTitle: "Bak-Dead", days: 0, daysTaken:0 }]
   displayedColumns = ['category', 'days', 'daysTaken'];
   dataSource = new MatTableDataSource<LeaveBalance>(this.ELEMENT_DATA);
   @ViewChild(MatSort)sort: MatSort = new MatSort;

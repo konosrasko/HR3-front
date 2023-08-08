@@ -14,8 +14,8 @@
         </div>
         <div class="card">
 
-            <p *ngFor="let balance of getTakenLeaves()">
-                {{balance.category}}: {{balance.daysTaken}}
+            <p *ngFor="let balance of takenLeaves">
+                {{balance.categoryTitle}}: {{balance.daysTaken}}
             </p>
 
             <div class="card-footer">
