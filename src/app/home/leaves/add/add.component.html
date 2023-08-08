@@ -9,8 +9,8 @@
       <mat-form-field class="field1">
         <mat-select placeholder="--" [formControl]="categoryControl" required>
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let category of categories" [value]="category.name">
-            {{ category.name }}
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="categoryControl.hasError('required')">Παρακαλώ επιλέξτε κατηγορία</mat-error>

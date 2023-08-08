@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { LeaveRequestService } from 'src/app/services/leave_request.service';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { LeaveBalance } from 'src/app/models/leave_balance.model';
 
 @Component({
   selector: 'app-add',
@@ -13,25 +16,21 @@ import { Router } from '@angular/router';
 export class AddComponent {
 
   categoryControl = new FormControl('', [Validators.required]);
-  categories = [
-    { name: 'Κανονική' },
-    { name: 'Αιμοδοσίας' },
-    { name: 'Τέκνου' }
-  ];
+  categories: String[] = [];
 
   leaveRequestFormGroup: FormGroup = new FormGroup({
     title: this.categoryControl,
     duration: new FormControl(''),
     submitDate: new FormControl(''),
     startDate: new FormControl('', [Validators.required]),
-    endDate: new FormControl('',[Validators.required])
+    endDate: new FormControl('', [Validators.required])
   })
 
   today = new Date();
   @ViewChild('endDatePicker') endDatePicker!: MatDatepicker<Date>;
 
 
-  constructor(private router: Router) {
+  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private router: Router) {
     this.leaveRequestFormGroup.get('startDate')?.setValidators([Validators.required]);
     this.leaveRequestFormGroup.get('startDate')?.setValidators([this.validateStartDate()]);
     this.leaveRequestFormGroup.get('startDate')?.updateValueAndValidity();
@@ -39,6 +38,13 @@ export class AddComponent {
     this.leaveRequestFormGroup.get('duration')?.disable();
     this.leaveRequestFormGroup.get('submitDate')?.disable();
     this.leaveRequestFormGroup.get('submitDate')?.setValue(new Date)
+
+    this.employeeService.getLeaveBalances().subscribe((data: LeaveBalance[]) => {
+      data.forEach(lb => {
+        if (lb.categoryTitle)
+          this.categories.push(lb.categoryTitle);
+      })
+    })
 
     this.leaveRequestFormGroup.get('startDate')?.valueChanges.subscribe((value) => {
 
@@ -99,14 +105,28 @@ export class AddComponent {
   }
 
   submit() {
-    console.log(this.leaveRequestFormGroup.get('title')?.value)
-    console.log(this.leaveRequestFormGroup.get('startDate')?.value)
-    console.log(this.leaveRequestFormGroup.get('endDate')?.value)
-    console.log(this.leaveRequestFormGroup.get('submitDate')?.value)
-    console.log(this.leaveRequestFormGroup.get('duration')?.value)
+    const newLeaveRequest:LeaveRequest = {
+      leaveTitle: this.leaveRequestFormGroup.get('title')?.value,
+      submitDate: this.formatDate(this.leaveRequestFormGroup.get('submitDate')?.value),
+      startDate: this.formatDate(this.leaveRequestFormGroup.get('startDate')?.value),
+      endDate: this.formatDate(this.leaveRequestFormGroup.get('endDate')?.value),
+      duration: this.leaveRequestFormGroup.get('duration')?.value,
+    }
+
+    console.log(newLeaveRequest.toString())
+
+    this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data => {
+      console.log(data)
+      alert("Επιτυχής δημιουργία αιτήματος")
+      this.router.navigateByUrl('home/leaves/requests')
+    })
+  };
+
+  private formatDate(date: Date): string {
+    return date.toISOString().slice(0, 19).replace('T', ' ');
   }
 
-  cancel(){
+  cancel() {
     this.router.navigateByUrl('home/leaves')
   }
 }

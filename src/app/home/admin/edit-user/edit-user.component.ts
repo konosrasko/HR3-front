@@ -1,8 +1,10 @@
-import {Component, OnInit,} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {EmployeeUser} from "../../../models/employeeUser.model";
-import {UserService} from "../../../services/user.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { EmployeeUser } from "../../../models/employeeUser.model";
+import { UserService } from "../../../services/user.service";
+import { User } from "../../../models/user.model";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-edit-user',
@@ -14,8 +16,12 @@ export class EditUserComponent implements OnInit{
 
   token: string | null = localStorage.getItem('token');
   employeeUser?: EmployeeUser;
+
   hide = true;
   selectedUser = '';
+  isEnabled?: boolean;
+  isSupervisor?: string = '';
+  selectedRole?: string = '';
   usernameFormControl?:any;
   passwordFormControl?:any;
   rolesFormControl?:any;
@@ -44,18 +50,19 @@ export class EditUserComponent implements OnInit{
 
   loadEmployeeUserData(data: any){
     let enabled_value: string
+    let sv_value: string
     this.employeeUser = JSON.parse(data);
-    if(this.employeeUser?.enabled){
-      enabled_value = "1"
-      console.log("energos");
-    }else{
-      enabled_value = "2"
-      console.log("anenergos");
-    }
+
+    if(this.employeeUser?.enabled){enabled_value = "1"}else{enabled_value = "2"}
+    if(this.employeeUser?.supervisor){sv_value = '1'}else{sv_value = '2'}
+
     this.usernameFormControl = new FormControl('' || this.employeeUser?.username, [Validators.required]);
     this.passwordFormControl = new FormControl('' || this.employeeUser?.password, [Validators.required]);
     this.rolesFormControl = new FormControl('' || this.employeeUser?.role.toLowerCase(), [Validators.required]);
     this.isEnabledFormControl = new FormControl('' || enabled_value, [Validators.required]);
+    this.isSupervisorFormControl = new FormControl('' || sv_value, [Validators.required]);
+    this.selectedRole = this.employeeUser?.role.toLowerCase();
+    this.isEnabled = this.employeeUser?.enabled;
   }
 
   getErrorUsername() {
@@ -74,12 +81,36 @@ export class EditUserComponent implements OnInit{
     }
   }
 
-  onSelectRole(){
-
-  }
-
   navigateTo() {
     this.router?.navigateByUrl('home/admin');
   }
 
+  saveEditUser(){
+    let userAccount: User = new User(this.employeeUser!.userId, this.employeeUser!.username, this.employeeUser!.password, true, this.employeeUser!.employeeId, 'Admin', false);
+
+    if(this.selectedRole == 'employee'){
+      userAccount.role = 'Employee';
+    }else if(this.selectedRole == 'hr'){
+      userAccount.role = 'HR';
+    }else if(this.selectedRole == 'admin'){
+      userAccount.role = 'Admin'
+    }
+
+    if(this.isSupervisor == '1'){
+      userAccount.supervisor = true;
+    }else if(this.isSupervisor == '2'){
+      userAccount.supervisor = false;
+    }
+
+    userAccount.enable = this.isEnabled;
+
+    if(this.token != null){
+      this.userService.editUserAccount(userAccount, this.token, userAccount.id).subscribe({
+        next: data=> {
+          alert("Οι αλλαγές αποθηκεύτηκαν")
+        },
+        error: error => console.log(error)
+      });
+    }
+  }
 }

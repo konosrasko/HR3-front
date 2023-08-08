@@ -16,7 +16,7 @@
 
       </div>
 
-    <mat-table matSorts class="table" #table [dataSource]="dataSource" matSort>
+    <mat-table class="table" #table [dataSource]="dataSource" matSort>
 
       <!-- Position Column -->
       <ng-container matColumnDef="submitDate">
@@ -42,9 +42,9 @@
         <mat-cell *matCellDef="let element"> {{element.duration}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="title">
+      <ng-container matColumnDef="leaveTitle">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Κατηγορία </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.leaveTitle}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
@@ -58,7 +58,7 @@
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row class="header-row" (dblclick)="editRequest($event)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
 

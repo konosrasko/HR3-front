@@ -8,44 +8,29 @@ import { LeaveBalance } from '../models/leave_balance.model';
 import * as CryptoJS from 'crypto-js';
 import { AppComponent } from '../app.component';
 import {Employee} from "../models/employee.model";
+import { TokenController } from './token_controller';
+import { Router } from '@angular/router';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService{
+export class EmployeeService extends TokenController{
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, router: Router) {
+    super(router)
   }
-
-  getTakenLeaves():Observable<LeaveBalance[]>
+  
+  getLeaveBalances():Observable<LeaveBalance[]>
   {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    });
+    const headers = this.createHeadersWithToken()
     return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"json" as 'json'})
-  }
-
-
-  getToken():string{
-    const token = localStorage.getItem('token');
-
-    if(token)
-      return token;
-    else {
-      alert("Your session has expired");
-      return ""
-    }
   }
 
   getAllEmployees(token:String):Observable<Employee[]>
   {
-
-    let tokenStr = "Bearer " + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    const headers = this.createHeadersWithToken()
     return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
   }
 
