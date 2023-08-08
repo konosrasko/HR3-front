@@ -25,7 +25,7 @@ export class LeaveRequestService extends TokenController{
 
   newLeaveRequest(newLeaveRequest: LeaveRequest) {
     const headers = this.createHeadersWithToken();
-    return this.http.get<LeaveRequest>('url/api/employees/leaverequests/add', {headers, responseType:"json" as 'json'})
+    return this.http.post<LeaveRequest>('url/api/employees/leaverequests/add', newLeaveRequest, {headers, responseType:"json" as 'json'})
   }
 
 }
