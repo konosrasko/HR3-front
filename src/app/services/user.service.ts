@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Employee } from '../models/employee.model';
-import {EmployeeUser} from "../models/employeeUser.model";
+import { User } from '../models/user.model';
+import { EmployeeUser } from "../models/employeeUser.model";
 import * as CryptoJS from 'crypto-js';
 
 @Injectable({
@@ -82,4 +83,12 @@ export class UserService {
     return this.http.get<EmployeeUser>(url, {headers, responseType: 'text' as 'json'});
   }
 
+  editUserAccount(user: User, token: string, userId?: number){
+    let tokenStr = "Bearer " + token;
+    console.log(tokenStr);
+    const url = 'url/api/users/admin/' + userId?.toString();
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    console.log(headers);
+    return this.http.put<User>(url, user,{headers, responseType: 'text' as 'json'});
+  }
 }

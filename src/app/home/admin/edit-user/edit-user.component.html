@@ -7,14 +7,14 @@
     <div class="input-username">
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή username</mat-label>
-        <input matInput [formControl]="usernameFormControl" required>
+        <input matInput [(ngModel)]="employeeUser!.username" [formControl]="usernameFormControl" required>
         <mat-error *ngIf="usernameFormControl?.invalid">{{getErrorUsername()}}</mat-error>
       </mat-form-field>
     </div>
     <div class="input-pass">
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή password</mat-label>
-        <input matInput   [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl" required>
+        <input matInput [(ngModel)]="employeeUser!.password" [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl" required>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
@@ -24,7 +24,7 @@
     <div class="role-dd">
       <mat-form-field appearance="fill">
         <mat-label>Ρόλος λογαριασμού</mat-label>
-        <mat-select  (ngModelChange) = "onSelectRole()" [formControl]="rolesFormControl" required>
+        <mat-select  [(value)]="selectedRole" [formControl]="rolesFormControl" required>
           <mat-option value = "admin">Admin</mat-option>
           <mat-option value = "hr">HR</mat-option>
           <mat-option value = "employee">Εργαζόμενος</mat-option>
@@ -32,15 +32,15 @@
       </mat-form-field>
     </div>
     <div class="supervisor-rdg">
-      <mat-radio-group aria-label="Select an option" [formControl]="isEnabledFormControl">
+      <mat-radio-group aria-label="Επιλέξτε: " [formControl]="isSupervisorFormControl">
         <mat-label class="label-sv"><span>Είναι προιστάμενος;</span></mat-label>
-        <mat-radio-button color="primary" value="1">Ναι</mat-radio-button>
-        <mat-radio-button color="primary" value="2" checked>Όχι</mat-radio-button>
+        <mat-radio-button color="primary" value="1" (change)="isSupervisor = '1'">Ναι</mat-radio-button>
+        <mat-radio-button color="primary" value="2" (change)="isSupervisor = '2'">Όχι</mat-radio-button>
       </mat-radio-group>
     </div>
     <div class="slide-me-daddy">
       <span>Κατάσταση λογαριασμού: <span class="inactive">Ανενεργός</span>
-      <mat-slide-toggle color="primary"></mat-slide-toggle>
+      <mat-slide-toggle color="primary" [formControl]="isEnabledFormControl" [(ngModel)]="isEnabled"></mat-slide-toggle>
       <span class="active">Ενεργός</span></span>
     </div>
   </div>
@@ -49,7 +49,7 @@
       <button mat-stroked-button class="button" (click)="navigateTo()">Πίσω</button>
     </div>
     <div class="save-button">
-      <button mat-stroked-button class="button" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid || !rolesFormControl.valid">Αποθήκευση</button>
+      <button mat-stroked-button class="button" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid || !rolesFormControl.valid" (click)="saveEditUser()">Αποθήκευση</button>
     </div>
   </div>
 </main>
