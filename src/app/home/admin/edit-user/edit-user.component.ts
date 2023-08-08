@@ -1,46 +1,65 @@
-import { Component } from '@angular/core';
+import {Component, OnInit,} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeUser} from "../../../models/employeeUser.model";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
 })
-export class EditUserComponent {
 
+export class EditUserComponent implements OnInit{
 
-  constructor(private router: Router, private route:ActivatedRoute) {
+  token: string | null = localStorage.getItem('token');
+  employeeUser?: EmployeeUser;
+  hide = true;
+  selectedUser = '';
+  usernameFormControl?:any;
+  passwordFormControl?:any;
+  rolesFormControl?:any;
+  isEnabledFormControl?: any;
+  isSupervisorFormControl?:any;
+
+  constructor(private router: Router, private route:ActivatedRoute, private userService: UserService) {
     this.route.queryParams.subscribe(params=>{
-      const passedId=params["id"];
-      console.log(passedId)
+      this.selectedUser = params["user"];
     })
   }
 
-  Data: EmployeeUser= {
-      "userId" : 1,
-      "username" : "test",
-      "password" : "123",
-      "enabled" : true,
-      "role" : "ADMIN",
-      "firstName": "Stamatis",
-      "lastName": "Chatzis",
-      "supervisor": false,
+  ngOnInit() {
+    if(this.token != null){
+      this.userService.getUserEmployeeDetails(this.token, this.selectedUser).subscribe({
+        next: data => this.loadEmployeeUserData(data),
+        error: error => {
+          console.log(error);
+          this.router?.navigateByUrl('/home/admin');
+        }
+      });
+    }else{
+      this.router?.navigateByUrl('/login');
     }
-  selectedRole = this.Data.role.toLowerCase();
+  }
 
-  username = new FormControl(''|| this.Data.username, [Validators.required]);
-  password = new FormControl(''|| this.Data.password, [Validators.required]);
-  roles = new FormControl(''|| this.selectedRole, [Validators.required]);
-
-  hide = true;
-
-
-
+  loadEmployeeUserData(data: any){
+    let enabled_value: string
+    this.employeeUser = JSON.parse(data);
+    if(this.employeeUser?.enabled){
+      enabled_value = "1"
+      console.log("energos");
+    }else{
+      enabled_value = "2"
+      console.log("anenergos");
+    }
+    this.usernameFormControl = new FormControl('' || this.employeeUser?.username, [Validators.required]);
+    this.passwordFormControl = new FormControl('' || this.employeeUser?.password, [Validators.required]);
+    this.rolesFormControl = new FormControl('' || this.employeeUser?.role.toLowerCase(), [Validators.required]);
+    this.isEnabledFormControl = new FormControl('' || enabled_value, [Validators.required]);
+  }
 
   getErrorUsername() {
-    if (this.username.hasError('required')) {
+    if (this.usernameFormControl.hasError('required')) {
       return 'Πρέπει να εισάγεις username';
     } else {
       return "ok :)"
@@ -48,7 +67,7 @@ export class EditUserComponent {
   }
 
   getErrorPass() {
-    if (this.password.hasError('required')) {
+    if (this.passwordFormControl.hasError('required')) {
       return 'Πρέπει να εισάγεις password';
     } else {
       return "ok :)"
@@ -59,10 +78,8 @@ export class EditUserComponent {
 
   }
 
-
   navigateTo() {
-    this.router.navigateByUrl('home/admin');
+    this.router?.navigateByUrl('home/admin');
   }
 
-  protected readonly EmployeeUser = EmployeeUser;
 }
