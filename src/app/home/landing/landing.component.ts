@@ -1,56 +1,31 @@
-import { Component } from '@angular/core';
+import { error } from '@angular/compiler-cli/src/transformers/util';
+import { Component, OnInit } from '@angular/core';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
 import { User } from 'src/app/models/user.model';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit {
   public user?:User;
+  public takenLeaves?: LeaveBalance[];
 
-  constructor(){
-    var storedUser = localStorage.getItem('currentUser');
-    if(storedUser){
-      this.user = JSON.parse(storedUser);
-    }
+  constructor(private employeeService:EmployeeService){}
 
-    this.getTakenLeaves()
-
+  ngOnInit(): void {
+    this.getEmployeeTakenLeaves()
   }
 
-  getTakenLeaves(): LeaveBalance[]{
-    if (this.user?.employeeId!=null){
-      /*
-      this.employeeService.getTakenLeaves(this.currentUser.employeeId, this.currentUser.username, this.currentUser.password).subscribe(data => {
+  getEmployeeTakenLeaves(){
+
+    var leaves: LeaveBalance[] = []
+      this.employeeService.getTakenLeaves().subscribe(data => {
         console.log(data)
+        this.takenLeaves = data
       });
-      Replace with this when security works */
-
-      //fake data
-      var data:LeaveBalance[] = [{
-        "id": 2,
-        "category": "Κανονική",
-        "days": 5,
-        "daysTaken": 3
-      },
-      {
-        "id": 3,
-        "category": "Αιμοδοσίας",
-        "days": 1,
-        "daysTaken": 1
-      },
-    ]
-
-      var leaves: LeaveBalance[] = []
-      leaves = leaves.concat(data)
-      return leaves
-      
-    }
-    else{
-      return []
-    }
     
   }
 }
