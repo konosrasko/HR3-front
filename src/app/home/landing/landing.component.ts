@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
 import { Roles } from 'src/app/models/roles.model';
-import { User } from 'src/app/models/user.model';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -33,10 +32,14 @@ export class LandingComponent implements OnInit {
   getUserRoles() {
     this.userService.getUserRoles().subscribe(data => {
       this.roles = data
+      localStorage.setItem("role",String(this.roles.role));
+      localStorage.setItem("isSupervisor",String(Boolean(this.roles.isSupervisor)));
     });
   }
 
   navigateTo(componentToOpen: String) {
     this.router.navigateByUrl('/home/' + componentToOpen);
   }
+
+  protected readonly Date = Date;
 }

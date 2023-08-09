@@ -6,6 +6,8 @@ import { LeaveRequest } from 'src/app/models/leave_request.model';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { ChangeDetectorRef } from '@angular/core';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { Router } from '@angular/router';
 
  
 
@@ -17,22 +19,19 @@ import { ChangeDetectorRef } from '@angular/core';
 
 export class RestLeavesComponent  {
   selected: string = '';
-  ELEMENT_DATA: LeaveBalance[] = [
-    { id: 1, categoryTitle: "KANONIKH", days: 2, daysTaken:1 },
-    { id: 1, categoryTitle: "telosPantwn", days: 10, daysTaken:5 },
-    { id: 1, categoryTitle: "Fro-Dead", days: 7, daysTaken:1 },
-    { id: 1, categoryTitle: "Bak-Dead", days: 0, daysTaken:0 }]
   displayedColumns = ['category', 'days', 'daysTaken'];
-  dataSource = new MatTableDataSource<LeaveBalance>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<LeaveBalance>
   @ViewChild(MatSort)sort: MatSort = new MatSort;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef, private employeeService:EmployeeService, private router:Router) {}
 
   ngOnInit() {
-    setTimeout(() => {
+    this.employeeService.getLeaveBalances().subscribe(data=>{
+      this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+
       this.dataSource.sort = this.sort;
       this.sortLastColumn();
-    });
+    })
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -41,15 +40,6 @@ export class RestLeavesComponent  {
       this.changeDetectorRef.detectChanges();
     });
   }
-
- 
-
-  getIndexClass(row: any): string {
-    const index = this.dataSource.data.indexOf(row);
-    return index % 2 === 0 ? 'even-row' : 'odd-row';
-  }
-
- 
 
   getRowDataFromCell(cell: HTMLElement): LeaveBalance | undefined {
     const row = cell.parentElement;
@@ -69,8 +59,12 @@ export class RestLeavesComponent  {
   }
   sortLastColumn() {
     const lastColumnName = this.displayedColumns[this.displayedColumns.length - 2];
-    const sortDirection: 'asc' | 'desc' = 'desc'; // Choose 'asc' or 'desc' as per your requirement
+    const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
     this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
+  }
+
+  navigateTo(componentToOpen: String){
+    this.router.navigateByUrl('home/leaves/' + componentToOpen);
   }
 
   
