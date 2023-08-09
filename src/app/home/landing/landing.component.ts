@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
 import { Roles } from 'src/app/models/roles.model';
-import { User } from 'src/app/models/user.model';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { UserService } from 'src/app/services/user.service';
 
