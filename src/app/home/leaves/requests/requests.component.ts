@@ -24,12 +24,10 @@ export class RequestsComponent {
     //pull leave requests from the database
     this.leaveRequestService.getLeaveRequestHistory().subscribe(data=>{
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);
-    })
 
-    setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.sortLastColumn();
-    });
+    })
   }
 
   ngAfterViewInit() {
@@ -40,15 +38,14 @@ export class RequestsComponent {
     });
   }
 
-  getRowDataFromCell(cell: HTMLElement): LeaveRequest | undefined {
-    const row = cell.parentElement;
-    if (row && row.parentElement) {
-      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-      return this.dataSource.data[rowIndex];
-    }
-    return undefined;
+  sortLastColumn() {
+    const lastColumnName = this.displayedColumns[this.displayedColumns.length - 2];
+    const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
+    this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
+    console.log("sort last column")
   }
 
+  
   editRequest(event: Event){
     const cell = event.target as HTMLElement;
     const rowData = this.getRowDataFromCell(cell);
@@ -58,6 +55,17 @@ export class RequestsComponent {
     }
   }
 
+  //called by edit request
+  //returns leave request json
+  getRowDataFromCell(cell: HTMLElement): LeaveRequest | undefined {
+    const row = cell.parentElement;
+    if (row && row.parentElement) {
+      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+      return this.dataSource.data[rowIndex];
+    }
+    return undefined;
+  }
+
   deleteRequest(event: Event){
     const cell = event.target as HTMLElement;
     const rowData = this.getRowDataFromCell(cell);
@@ -65,13 +73,6 @@ export class RequestsComponent {
       //Delete
       console.log(rowData);
     }
-  }
-
-  sortLastColumn() {
-    const lastColumnName = this.displayedColumns[this.displayedColumns.length - 2];
-    const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
-    this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
-    console.log(this.sort)
   }
 
   getStatusClass(status: string): string {
