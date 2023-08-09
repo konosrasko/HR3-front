@@ -33,6 +33,8 @@ export class LandingComponent implements OnInit {
   getUserRoles() {
     this.userService.getUserRoles().subscribe(data => {
       this.roles = data
+      localStorage.setItem("role",String(this.roles.role));
+      localStorage.setItem("isSupervisor",String(Boolean(this.roles.isSupervisor)));
     });
   }
 
