@@ -1,7 +1,7 @@
 <main xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
   <h1>Προσθήκη νέου υπαλλήλου</h1>
-  <form [formGroup]="EmployeeAddFormGroup" action="">
   <div class="form-new-employee">
+    <form [formGroup]="EmployeeAddFormGroup" action="">
     <div class="input firstName">
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή Ονοματος</mat-label>
@@ -52,8 +52,9 @@
         <input matInput formControlName="supervisorId">
       </mat-form-field>
     </div>
+    </form>
   </div>
-  </form>
+
 
   <button mat-stroked-button class="button" (click)="onSubmit()">Αποθήκευση</button>
   <button mat-stroked-button class="button" (click)="cancel()">Ακύρωση</button>

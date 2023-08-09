@@ -12,7 +12,7 @@ $my-custom-warn: mat-palette($mat-red);
 
 $my-custom-theme: mat-light-theme($my-custom-primary, $my-custom-accent, $my-custom-warn);
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 $my-custom-option-color: mat-color($my-custom-primary);
 @include angular-material-theme($my-custom-theme);
