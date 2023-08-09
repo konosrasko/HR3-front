@@ -12,6 +12,7 @@ import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import { EditComponent } from './home/leaves/edit/edit.component';
 import {AddUserComponent} from "./home/admin/add-user/add-user.component";
 import {EditUserComponent} from "./home/admin/edit-user/edit-user.component";
+import {SubordinatesComponent} from "./home/subordinates/subordinates.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     children:[
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },
+      { path: 'subordinates', component: SubordinatesComponent},
       { path: 'admin', component: AdminComponent },
       { path: 'admin' ,children:[
           {path:'add-user', component: AddUserComponent},

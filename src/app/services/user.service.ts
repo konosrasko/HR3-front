@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import { Employee } from '../models/employee.model';
 import {EmployeeUser} from "../models/employeeUser.model";
 import * as CryptoJS from 'crypto-js';
+import {SubordinatesReq} from "../models/subordinatesReq.model";
 
 @Injectable({
   providedIn: 'root'
@@ -82,4 +83,10 @@ export class UserService {
     return this.http.get<EmployeeUser>(url, {headers, responseType: 'text' as 'json'});
   }
 
+  getAllSubordinatesReq(token: string ){
+    let tokenStr = "Bearer " + token;
+    const url = 'url/api/leaverequests/supervisor';
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<SubordinatesReq>(url,{headers,responseType:'text' as 'json'});
+  }
 }
