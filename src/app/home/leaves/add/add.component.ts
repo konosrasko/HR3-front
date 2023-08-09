@@ -1,14 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { LeaveRequest } from 'src/app/models/leave_request.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { LeaveRequestService } from 'src/app/services/leave_request.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
+import {LeaveRequest} from "../../../models/leave_request.model";
 
 @Component({
   selector: 'app-add',

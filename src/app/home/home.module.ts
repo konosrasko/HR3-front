@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { HomeComponent } from './home.component';
 import { FooterModule } from './footer/footer.module';
 import { SidenavListModule } from './sidenav-list/sidenav-list.module';
@@ -56,6 +56,9 @@ import {HRComponent} from "./hr/hr.component";
     MatSelectModule,
     MatInputModule,
     AdminModule
+  ],
+  providers: [
+    DatePipe,
   ],
 })
 export class HomeModule { }
