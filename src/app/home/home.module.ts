@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import {CommonModule, DatePipe} from '@angular/common';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {CommonModule, NgOptimizedImage, DatePipe} from '@angular/common';
 import { HomeComponent } from './home.component';
 import { FooterModule } from './footer/footer.module';
 import { SidenavListModule } from './sidenav-list/sidenav-list.module';
@@ -38,7 +37,7 @@ import {HRComponent} from "./hr/hr.component";
     MyDetailsComponent,
     LeavesComponent,
     AdminComponent,
-    HRComponent
+    HRComponent,
     AdminComponent,
     SubordinatesComponent,
 
