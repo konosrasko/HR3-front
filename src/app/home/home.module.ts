@@ -23,6 +23,7 @@ import { MatInputModule } from "@angular/material/input";
 
 import {AdminModule} from "./admin/admin.module";
 import {HRComponent} from "./hr/hr.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import {HRComponent} from "./hr/hr.component";
     MatSortModule,
     MatSelectModule,
     MatInputModule,
-    AdminModule
+    AdminModule,
+    MatProgressSpinnerModule
   ],
 })
 export class HomeModule { }
