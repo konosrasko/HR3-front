@@ -9,11 +9,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { RestLeavesComponent } from './rest-leaves/rest-leaves.component';
 import { EditComponent } from './edit/edit.component'; // Correct the import statement for RestLeavesComponent
 
 @NgModule({
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'gr-GR' }],
   declarations: [
     RequestsComponent,
     AddComponent,
