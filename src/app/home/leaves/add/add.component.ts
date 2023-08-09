@@ -47,10 +47,10 @@ export class AddComponent {
       })
     })
 
-    this.leaveRequestFormGroup.get('startDate')?.valueChanges.subscribe((value) => {
-
-      console.log("start date changed")
-      const startDate = value ? new Date(value) : null;
+    this.leaveRequestFormGroup.get('startDate')?.valueChanges.subscribe((value:Date) => {
+    
+      console.log("start date changed " + this.formatDate(value))
+      const startDate = value ? new Date(value): null;
 
       // Enable the endDateControl and set its minimum date
       if (startDate) {
@@ -114,7 +114,7 @@ export class AddComponent {
       duration: this.leaveRequestFormGroup.get('duration')?.value,
     }
 
-    console.log(newLeaveRequest.toString())
+    console.log(newLeaveRequest)
 
     this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data => {
       console.log(data)
@@ -124,7 +124,11 @@ export class AddComponent {
   };
 
   private formatDate(date: Date): string {
-    return date.toISOString().slice(0, 19).replace('T', ' ');
+    const year = date.getFullYear().toString()
+    console.log((date.getMonth() + 1).toString())
+    const month = (date.getMonth() + 1).toString().length == 1 ? '0'+(date.getMonth() + 1).toString() : (date.getMonth() + 1).toString()
+    const day = date.getDate().toString().length == 1 ? '0'+date.getDate().toString() : date.getDate().toString()
+    return `${year}-${month}-${day} 00:00`
   }
 
   cancel() {
