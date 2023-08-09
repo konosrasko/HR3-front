@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LeaveRequestService } from 'src/app/services/leave_request.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
+import {LeaveRequest} from "../../../models/leave_request.model";
 
 @Component({
   selector: 'app-add',
