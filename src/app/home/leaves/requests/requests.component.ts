@@ -42,7 +42,6 @@ export class RequestsComponent {
     const lastColumnName = this.displayedColumns[this.displayedColumns.length - 2];
     const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
     this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
-    console.log("sort last column")
   }
 
   
