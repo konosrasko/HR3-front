@@ -8,24 +8,26 @@
 
       <!-- Category Column -->
       <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> CATEGORY </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Κατηγορία άδειας </mat-header-cell>
+        <mat-cell *matCellDef="let balance"> {{balance.categoryTitle}} </mat-cell>
       </ng-container>
 
       <!-- Days Column -->
       <ng-container matColumnDef="days">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> DAYS </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.days}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Δικαιούμενες ημέρες </mat-header-cell>
+        <mat-cell *matCellDef="let balance"> {{balance.days}} </mat-cell>
       </ng-container>
 
       <!-- Days Taken Column -->
       <ng-container matColumnDef="daysTaken">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> TAKEN </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.daysTaken}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ληφθείσες </mat-header-cell>
+        <mat-cell *matCellDef="let balance"> {{balance.daysTaken}} </mat-cell>
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
+
+  <a (click)="navigateTo('requests')"><u>Προβολή αιτημάτων</u></a>
 </main>

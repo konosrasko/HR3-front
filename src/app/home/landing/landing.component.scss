@@ -24,6 +24,10 @@ a{
     position: relative;
 }
 
+.column .card p.text-center {
+  text-align: center;
+}
+
 .column .card-header{
     background-color: #252525;
     color: orange;

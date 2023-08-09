@@ -71,3 +71,14 @@ h1{
 }
 
 
+.bin{
+  transition: scale 0.14s ease
+}
+
+.bin:hover{
+  cursor: pointer;
+  scale: 110%;
+  transform: rotate(3deg);
+}
+
+

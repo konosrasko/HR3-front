@@ -1,3 +1,4 @@
+@import '../../styles.scss';
 main{
   height: 100%;
   display: flex;
@@ -26,7 +27,7 @@ main{
 }
 
 input[type='submit']{
-  background-color: rgba(226,135,50,255);
+  background-color: $myFixedColor;
   border: none;
   padding: 20px 30px;
   cursor: pointer;

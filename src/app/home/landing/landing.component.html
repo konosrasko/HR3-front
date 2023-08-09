@@ -10,18 +10,18 @@
     <div class="column">
         <h1>Οι άδειες σου:</h1>
         <div class="card-header">
-            01/01/2023 - Σήμερα (Ληφθείσες)
+          {{Date() | date:'dd/MM/yyyy HH:mm'}}
         </div>
         <div class="card">
 
-            <p *ngFor="let balance of takenLeaves">
-                {{balance.categoryTitle}}: {{balance.daysTaken}}
+            <p *ngFor="let balance of takenLeaves" class="text-center">
+                {{balance.categoryTitle}}: {{balance.daysTaken}}/{{balance.days}}
             </p>
 
             <div class="card-footer">
                 <p class="card-footer">Προβολή <a (click)="navigateTo('leaves/restLeaves')"><u>λεπτομερειών</u></a></p>
             </div>
-            
+
         </div>
     </div>
 

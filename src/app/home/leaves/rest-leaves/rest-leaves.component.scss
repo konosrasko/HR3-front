@@ -12,19 +12,23 @@ h1{
     color: orange;
 }
 
+a{
+  line-height: 60px;
+  color: #EB8C33;
+  cursor: pointer;
+}
+
 .header *{
     background-color: #252525;
     color: orange;
 }
 
-
-.even-row {
-  background-color: #E9E9E9; /* Set the background color for even rows */
+.header-row:nth-child(odd) {
+  background-color: #d6d4d4;
 }
 
-/* Add a class for odd rows */
-.odd-row {
-  background-color: #d6d4d4; /* Set the background color for odd rows */
+.header-row:nth-child(even) {
+  background-color: #E9E9E9; 
 }
 
 .header-row {
@@ -32,12 +36,11 @@ h1{
   }
   
   /* Style for even rows on hover */
-  .header-row.even-row:hover {
+  .header-row:nth-child(even):hover {
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
   }
   
   /* Style for odd rows on hover */
-  .header-row.odd-row:hover {
+  .header-row:nth-child(odd):hover {
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
   }
-  
