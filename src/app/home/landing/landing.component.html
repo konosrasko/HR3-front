@@ -3,7 +3,7 @@
     <div class="column">
         <h1>Καλωσήρθες</h1>
         <div class="card">
-            <p>Πραγματοποίησες είσοδο σαν <a (clicked)="navigateTo('admin')">{{ (user) ? user.role : "Guest"}}</a></p>
+            <p>Πραγματοποίησες είσοδο σαν <a (clicked)="navigateTo('')">{{ roles.role }}</a></p>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
             </p>
 
             <div class="card-footer">
-                <p class="card-footer">Προβολή <a (click)="navigateTo('leaves/requests')">λεπτομερειών</a></p>
+                <p class="card-footer">Προβολή <a (click)="navigateTo('leaves/restLeaves')"><u>λεπτομερειών</u></a></p>
             </div>
             
         </div>
