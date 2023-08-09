@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { Employee } from "../../../models/employee.model";
 import { Router } from "@angular/router";
 import {group} from "@angular/animations";
+import {UserService} from "../../../services/user.service";
+import {EmployeeService} from "../../../services/employee.service";
+import {User} from "../../../models/user.model";
 
 @Component({
   selector: 'app-add-user',
@@ -10,45 +13,39 @@ import {group} from "@angular/animations";
   styleUrls: ['./add-user.component.scss']
 })
 
-export class AddUserComponent {
-
-  constructor(private route: Router) {
-  }
-
+export class AddUserComponent implements OnInit{
+  allEmployees?: Employee[];
+  newUser?: User;
+  token: string | null = localStorage.getItem('token');
   username = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required]);
   employees = new FormControl('', [Validators.required]);
   roles = new FormControl('', [Validators.required]);
 
-
-  Employees: Employee[] = [
-    {
-      "employeeId" : 1,
-      "firstName" : "Simos",
-      "lastName" : "Spyroy",
-      "email" : "sspiroy@ots.gr",
-      "mobileNumber": "1234567891",
-      "address" : "Kyparissias 8"
-    },
-    {
-      "employeeId" : 2,
-      "firstName" : "Mixail",
-      "lastName" : "Fotiadis",
-      "email" : "mfotiadis@ots.gr",
-      "mobileNumber": "1234567891",
-      "address" : "Sikelianoy 51"
-    }
-  ]
-
   selectedEmployee = "";
   selectedRole = "";
   hide = true;
+
+  constructor(private route: Router,private userService: UserService, private employeeService: EmployeeService) {}
+
+  ngOnInit() {
+    if(this.token != null){
+      this.employeeService.getEmployeesWithoutUser(this.token).subscribe({
+        next: data => this.loadEmployeeData(data),
+        error: err => console.log(err)
+      });
+    }
+  }
+
+  loadEmployeeData(data: any){
+    this.allEmployees = JSON.parse(data);
+    console.log(this.allEmployees);
+  }
 
   onSelectEmployee() {
   }
 
   onSelectRole(){
-
   }
 
   getErrorUsername() {
@@ -67,7 +64,16 @@ export class AddUserComponent {
     }
   }
 
+  saveNewUser(){
+    if(this.token != null){
+      this.userService.createUserAccount(this!.newUser, this.token).subscribe({
+        next: data => {alert("Ο νέος λογαριασμός έχει δημιουργηθεί!")},
+        error: err => console.log(err)
+      });
+    }
+  }
+
   navigateTo(){
-    this.route.navigateByUrl('home/admin');
+    this.route?.navigateByUrl('home/admin');
   }
 }

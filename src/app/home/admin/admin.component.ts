@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit{
   displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled','supervisor', 'editBtn'];
   dataSource?: any
   showContent?: string;
+  isLoaded: boolean = false;
 
   ngOnInit() {
     if(this.token != null){
@@ -42,6 +43,7 @@ export class AdminComponent implements OnInit{
     this.dataSource.filterPredicate = function (record: { username: string; }, filter: string) {
       return record.username.toLocaleLowerCase() == filter.toLocaleLowerCase();
     }
+    this.isLoaded = true;
   }
 
   toggleContentEnabled(status: boolean) {

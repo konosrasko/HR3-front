@@ -5,6 +5,7 @@ import { EmployeeUser } from "../../../models/employeeUser.model";
 import { UserService } from "../../../services/user.service";
 import { User } from "../../../models/user.model";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import * as CryptoJS from "crypto-js";
 
 @Component({
   selector: 'app-edit-user',
@@ -16,6 +17,7 @@ export class EditUserComponent implements OnInit{
 
   token: string | null = localStorage.getItem('token');
   employeeUser?: EmployeeUser;
+  private secretKey = CryptoJS.enc.Utf8.parse('ba6d59d38168f98b'); // Secret key
 
   hide = true;
   selectedUser = '';
@@ -111,6 +113,30 @@ export class EditUserComponent implements OnInit{
         },
         error: error => console.log(error)
       });
+    }
+  }
+
+  encryptData(data:String) {
+    try {
+      return CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey, {
+        mode: CryptoJS.mode.ECB,
+        format: CryptoJS.format.OpenSSL,
+      }).toString();
+    } catch (e) {
+      console.log(e);
+      return ''
+    }
+  }
+
+  decryptData(data: string) {
+    try {
+      return CryptoJS.AES.decrypt(JSON.stringify(data), this.secretKey, {
+        mode: CryptoJS.mode.ECB,
+        format: CryptoJS.format.OpenSSL
+      }).toString();
+    } catch (e) {
+      console.log(e);
+      return '';
     }
   }
 }

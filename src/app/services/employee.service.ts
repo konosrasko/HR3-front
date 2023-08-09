@@ -21,17 +21,21 @@ export class EmployeeService extends TokenController{
   constructor(private http:HttpClient, router: Router) {
     super(router)
   }
-  
-  getLeaveBalances():Observable<LeaveBalance[]>
-  {
+
+  getLeaveBalances():Observable<LeaveBalance[]> {
     const headers = this.createHeadersWithToken()
     return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"json" as 'json'})
   }
 
-  getAllEmployees(token:String):Observable<Employee[]>
-  {
+  getAllEmployees(token:String):Observable<Employee[]> {
     const headers = this.createHeadersWithToken()
     return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
   }
-  }
 
+  getEmployeesWithoutUser(token?: string){
+    let tokenStr = "Bearer " + token;
+    const url = 'url/api/employees/withoutAccount';
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Employee[]>(url,{headers, responseType: 'text' as 'json'});
+  }
+}

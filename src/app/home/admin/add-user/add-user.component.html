@@ -5,7 +5,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Εργαζόμενοι χωρίς λογαριασμό</mat-label>
         <mat-select [(value)]="selectedEmployee" [(ngModel)]="selectedEmployee" (ngModelChange) = "onSelectEmployee()" [formControl]="employees" required>
-          <mat-option *ngFor="let employee of Employees; let i = index;" value="{{employee.employeeId}}">{{ employee.firstName + " " + employee.lastName }}</mat-option>
+          <mat-option></mat-option>
         </mat-select>
       </mat-form-field>
     </div>
