@@ -14,6 +14,7 @@ import {AddUserComponent} from "./home/admin/add-user/add-user.component";
 import {EditUserComponent} from "./home/admin/edit-user/edit-user.component";
 import {AllEmployeesComponent} from "./home/hr/all-employees/all-employees.component";
 import {AddEmployeeComponent} from "./home/hr/add-employee/add-employee.component";
+import {SubordinatesComponent} from "./home/subordinates/subordinates.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
         ]},
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },
+      { path: 'subordinates', component: SubordinatesComponent},
       { path: 'admin', component: AdminComponent },
       { path: 'admin' ,children:[
           {path:'add-user', component: AddUserComponent},
