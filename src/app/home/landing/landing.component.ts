@@ -41,4 +41,6 @@ export class LandingComponent implements OnInit {
   navigateTo(componentToOpen: String) {
     this.router.navigateByUrl('/home/' + componentToOpen);
   }
+
+  protected readonly Date = Date;
 }
