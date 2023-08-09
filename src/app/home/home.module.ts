@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { HomeComponent } from './home.component';
 import { FooterModule } from './footer/footer.module';
 import { SidenavListModule } from './sidenav-list/sidenav-list.module';
@@ -58,6 +58,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatInputModule,
     AdminModule,
     MatProgressSpinnerModule
+  ],
+  providers: [
+    DatePipe,
   ],
 })
 export class HomeModule { }

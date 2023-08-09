@@ -13,6 +13,7 @@ import { EditComponent } from './home/leaves/edit/edit.component';
 import {AddUserComponent} from "./home/admin/add-user/add-user.component";
 import {EditUserComponent} from "./home/admin/edit-user/edit-user.component";
 import {AllEmployeesComponent} from "./home/hr/all-employees/all-employees.component";
+import {AddEmployeeComponent} from "./home/hr/add-employee/add-employee.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
     children:[
       {path:'hr',redirectTo:'hr/all-employees',pathMatch: 'full'},
       {path:'hr',children:[
-          {path:'all-employees',component: AllEmployeesComponent}
+          {path:'all-employees',component: AllEmployeesComponent},
+          {path:'add-employee',component: AddEmployeeComponent}
         ]},
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },

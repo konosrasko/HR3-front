@@ -28,22 +28,48 @@ nav {
 }
 
 .tab {
-  margin-right: 20px;
+  margin-inline: 4vw;
   font-size: 16px;
 }
 
+.tab.dropdown{
+  position: relative;
+}
+
 .tab.dropdown:hover .dropdown-content {
-  display: flex;
+  scale: 100%;
+  transform: translateY(0);
+  opacity: 100%;
 }
 
 .dropdown-content {
-  display: none;
+  display: flex;
   flex-direction: column;
   position: absolute;
   background-color: #D9D9D9;
   min-width: 140px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  width: 120%;
+  top: 25px;;
+  opacity: 0;
+  scale: 0;
+  margin-left: -19px;
+  transform: translateY(-30px) ;
+  border-radius: 5px;
+  transition: transform 0.4s ease, opacity 0.5s ease;
+}
+
+.dropdown-content a{
+  line-height: 42px;
+  text-align: center;
+  font-size: 10pt;
+  transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover{
+  background-color: rgb(37, 37, 37) !important;
+  color: orange;
 }
 
 .tabs a {
@@ -52,11 +78,11 @@ nav {
   color: black;
   font-weight: bold;
   text-transform: uppercase;
+  border-radius: 5px;
 }
 
 .tabs a:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
 }
 
 .arrow {

@@ -48,6 +48,26 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     return index % 2 === 0 ? 'even-row' : 'odd-row';
   }
   navigateTo(componentToOpen: String){
-    this.router.navigateByUrl('home/hr' + componentToOpen);
+    this.router.navigateByUrl('home/hr/' + componentToOpen);
+  }
+  editRequest(event: Event){
+    const cell = event.target as HTMLElement;
+    console.log(cell)
+
+    const rowData = this.getRowDataFromCell(cell);
+    console.log(rowData)
+    if (rowData) {
+      //Open edit window with the selected leaveRequest as parameter
+      this.router.navigate(['home/leaves/add'],{ queryParams: {id: rowData.employeeId}});
+    }
+  }
+
+  private getRowDataFromCell(cell: HTMLElement) {
+    const row = cell.parentElement;
+    if (row && row.parentElement) {
+      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+      return this.dataSource.data[rowIndex - 1];
+    }
+    return undefined;
   }
 }

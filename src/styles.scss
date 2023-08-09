@@ -18,5 +18,9 @@ $my-custom-option-color: mat-color($my-custom-primary);
 @include angular-material-theme($my-custom-theme);
 
 
+$myFixedColor: rgba(226,135,50,255);
+$mySecondaryFixedColor: grey;
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -8,6 +8,8 @@ main{
     overflow: auto;
 }
 
+
+
 h1{
     color: orange;
 }
@@ -59,12 +61,12 @@ h1{
   }
   
   /* Style for even rows on hover */
-  .header-row.even-row:hover {
+  .header-row:nth-child(even):hover {
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
   }
   
   /* Style for odd rows on hover */
-  .header-row.odd-row:hover {
+  .header-row:nth-child(odd):hover {
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
   }
   

@@ -1,17 +1,17 @@
 
+<div class="table-container">
+  <div class="above-table">
+      <span (click)="navigateTo('add-employee')" class="add">
+          <img src="/assets/add.svg" alt="add">
+          <h2>Προσθήκη Εργαζομένου</h2>
+        </span>
+
+  </div>
+</div>
 <main>
-<!--  <div class="table-container">-->
-
-<!--    <div class="above-table">-->
-<!--      <span (click)="navigateTo('add')" class="add">-->
-<!--          <img src="/assets/add.svg" alt="add">-->
-<!--          <h2>Προσθήκη</h2>-->
-<!--        </span>-->
-
-<!--    </div>-->
-
-
-
+<div>
+  <h1>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</h1>
+</div>
   <mat-table matSort #table [dataSource]="dataSource" id="table1">
 
     <!-- First Name Column -->
@@ -63,9 +63,8 @@
     </ng-container>
 
     <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="getIndexClass(row)" class="header-row"></mat-row>
+    <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-
 </main>
 
 

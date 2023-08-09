@@ -10,6 +10,7 @@ main{
 
 a{
     color: #EB8C33;
+    cursor: pointer;
 }
 
 .column h1{
@@ -21,6 +22,10 @@ a{
     min-height: 100px;
     padding: 12px;
     position: relative;
+}
+
+.column .card p.text-center {
+  text-align: center;
 }
 
 .column .card-header{

@@ -1,0 +1,60 @@
+<main xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+  <h1>Προσθήκη νέου υπαλλήλου</h1>
+  <form [formGroup]="EmployeeAddFormGroup" action="">
+  <div class="form-new-employee">
+    <div class="input firstName">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή Ονοματος</mat-label>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+    </div>
+    <div class="input lastName">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή Επώνυμου</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+    </div>
+    <div class="input email">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+    </div>
+    <div class="input lastName">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή τηλεφώνου</mat-label>
+        <input matInput formControlName="mobileNumber">
+      </mat-form-field>
+    </div>
+    <div class="input address">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή Διεύθυνσης</mat-label>
+        <input matInput formControlName="address">
+      </mat-form-field>
+    </div>
+    <div class="input hireDate">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή ημερωμηνίας πρόσληψης</mat-label>
+        <input matInput [matDatepicker]="hireDatePicker" formControlName="hireDate"  >
+        <mat-datepicker-toggle matSuffix [for]="hireDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #hireDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="input enabled">
+      <mat-form-field appearance="fill">
+        <mat-label>Κατάσταση</mat-label>
+        <input matInput formControlName="enabled">
+      </mat-form-field>
+    </div>
+    <div class="input supervisorId">
+      <mat-form-field appearance="fill">
+        <mat-label>Προιστάμενος</mat-label>
+        <input matInput formControlName="supervisorId">
+      </mat-form-field>
+    </div>
+  </div>
+  </form>
+
+  <button mat-stroked-button class="button" (click)="onSubmit()">Αποθήκευση</button>
+  <button mat-stroked-button class="button" (click)="cancel()">Ακύρωση</button>
+</main>

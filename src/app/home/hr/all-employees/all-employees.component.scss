@@ -1,6 +1,6 @@
 main{
   padding: 5vh 0 0 0;
-  margin: 5vh 0 5vh 5vw;
+  margin: 5vh 10vh 5vh 5vw;
 }
 
 .table-container{
@@ -67,7 +67,7 @@ h1{
 
 /* Style for odd rows on hover */
 .header-row.odd-row:hover {
-  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+  background-color: rgba(255, 145, 0, 0.305);/* Change this to your desired color */
 }
 
 
@@ -81,17 +81,4 @@ h1{
   transform: rotate(3deg);
 }
 
-.pending{
-  font-weight: 500;
-  color: rgb(24, 24, 122)
-}
 
-.accepted{
-  font-weight: 500;
-  color: rgb(24, 122, 40)
-}
-
-.denied{
-  font-weight: 500;
-  color: rgb(122, 24, 24)
-}
