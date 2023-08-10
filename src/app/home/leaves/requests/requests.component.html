@@ -54,15 +54,15 @@
 
       <ng-container matColumnDef="delete">
         <mat-header-cell style="padding: 0;" *matHeaderCellDef mat-sort-header> </mat-header-cell>
-        <mat-cell style="padding: 0; justify-content: center;" *matCellDef="let element">
-          <img class="bin" *ngIf="element.status === 'Εκκρεμεί'" (click)="deleteRequest($event)"
-            style="width: auto; height: auto;" src=".\assets\bin.png" alt="Delete">
+        <mat-cell class="icon-container" style="padding: 0; justify-content: center;" *matCellDef="let element">
+          <img class="icon edit" *ngIf="element.status === 'Εκκρεμεί'" (click)="editRequest()" src=".\assets\edit.png" alt="Edit">
+          <img class="icon" *ngIf="element.status === 'Εκκρεμεί'" (click)="deleteRequest($event)"style="width: auto; height: auto;" src=".\assets\bin.png" alt="Delete">
         </mat-cell>
       </ng-container>
 
       <mat-header-row  class="header" *matHeaderRowDef="displayedColumns" ></mat-header-row>
-      <mat-row class="header-row" (dblclick)="editRequest($event)"
-        *matRowDef="let row; columns: displayedColumns;" (click)="setRow(row)"></mat-row>
+      <mat-row class="header-row"
+        *matRowDef="let row; columns: displayedColumns;"  (dblclick)="editRequest()" (click)="setRow(row)"></mat-row>
     </mat-table>
   </div>
 

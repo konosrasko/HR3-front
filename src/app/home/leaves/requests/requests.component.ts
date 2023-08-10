@@ -50,25 +50,14 @@ export class RequestsComponent {
   }
 
 
-  editRequest(event: Event) {
-    const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    MatTableDataSource
-    if (rowData) {
-      //Open edit window with the selected leaveRequest as parameter
-      this.router.navigate(['home/leaves/edit'], { queryParams: { id: rowData.id } });
-    }
-  }
-
-  //called by edit request
-  //returns leave request json
-  getRowDataFromCell(cell: HTMLElement): LeaveRequest | undefined {
-    const row = cell.parentElement;
-    if (row && row.parentElement) {
-      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-      return this.dataSource.data[rowIndex];
-    }
-    return undefined;
+  editRequest() {
+    setTimeout(()=>{
+      if (this.selectedLeaveRequest.id) {
+        MatTableDataSource
+        //Open edit window with the selected leaveRequest id as parameter
+        this.router.navigate(['home/leaves/edit'], { queryParams: { id: this.selectedLeaveRequest.id } });
+      }
+    }, 100)
   }
 
   deleteRequest(event: Event) {
