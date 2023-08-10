@@ -1,30 +1,29 @@
 <main>
   <h1>Επεξεργασία στοιχείων λογαριασμού</h1>
-  <div class="form-edit-user">
+  <div class="form-edit-user" *ngIf="isLoaded" [formGroup]="editUserFormGroup">
     <div class="selected-employee">
       <h2> Εργαζόμενος : {{employeeUser?.firstName+" "+employeeUser?.lastName }}   </h2>
     </div>
     <div class="input-username">
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή username</mat-label>
-        <input matInput [(ngModel)]="employeeUser!.username" [formControl]="usernameFormControl" required>
-        <mat-error *ngIf="usernameFormControl?.invalid">{{getErrorUsername()}}</mat-error>
+        <input matInput formControlName="usernameFormControl" required>
+        <mat-error *ngIf="editUserFormGroup.get('usernameFormControl')?.invalid">{{getErrorUsername()}}</mat-error>
       </mat-form-field>
     </div>
     <div class="input-pass">
       <mat-form-field appearance="fill">
-        <mat-label>Εισαγωγή password</mat-label>
-        <input matInput [(ngModel)]="employeeUser!.password" [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl" required>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="passwordFormControl?.invalid">{{getErrorPass()}}</mat-error>
+          <mat-label>Εισαγωγή νέου προσωρινού password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Κενό για την διατήρηση του παλιού" formControlName="passwordFormControl">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
       </mat-form-field>
     </div>
     <div class="role-dd">
       <mat-form-field appearance="fill">
         <mat-label>Ρόλος λογαριασμού</mat-label>
-        <mat-select  [(value)]="selectedRole" [formControl]="rolesFormControl" required>
+        <mat-select formControlName="rolesFormControl" required>
           <mat-option value = "admin">Admin</mat-option>
           <mat-option value = "hr">HR</mat-option>
           <mat-option value = "employee">Εργαζόμενος</mat-option>
@@ -32,7 +31,7 @@
       </mat-form-field>
     </div>
     <div class="supervisor-rdg">
-      <mat-radio-group aria-label="Επιλέξτε: " [formControl]="isSupervisorFormControl">
+      <mat-radio-group aria-label="Επιλέξτε: " formControlName="isSupervisorFormControl" required>
         <mat-label class="label-sv"><span>Είναι προιστάμενος;</span></mat-label>
         <mat-radio-button color="primary" value="1" (change)="isSupervisor = '1'">Ναι</mat-radio-button>
         <mat-radio-button color="primary" value="2" (change)="isSupervisor = '2'">Όχι</mat-radio-button>
@@ -40,16 +39,19 @@
     </div>
     <div class="slide-me-daddy">
       <span>Κατάσταση λογαριασμού: <span class="inactive">Ανενεργός</span>
-      <mat-slide-toggle color="primary" [formControl]="isEnabledFormControl" [(ngModel)]="isEnabled"></mat-slide-toggle>
+      <mat-slide-toggle color="primary" formControlName="isEnabledFormControl"></mat-slide-toggle>
       <span class="active">Ενεργός</span></span>
     </div>
+  </div>
+  <div *ngIf="!isLoaded">
+    <mat-spinner color="primary"></mat-spinner>
   </div>
   <div class="btn-options">
     <div class="back-button">
       <button mat-stroked-button class="button" (click)="navigateTo()">Πίσω</button>
     </div>
-    <div class="save-button">
-      <button mat-stroked-button class="button" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid || !rolesFormControl.valid" (click)="saveEditUser()">Αποθήκευση</button>
+    <div class="save-button" *ngIf="isLoaded">
+      <button mat-stroked-button class="button" [disabled]="!editUserFormGroup.get('usernameFormControl')?.valid || !editUserFormGroup.get('rolesFormControl')?.valid" (click)="saveEditUser()">Ενημέρωση στοιχείων</button>
     </div>
   </div>
 </main>

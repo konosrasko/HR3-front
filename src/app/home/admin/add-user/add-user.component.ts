@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Employee } from "../../../models/employee.model";
 import { Router } from "@angular/router";
-import {group} from "@angular/animations";
-import {UserService} from "../../../services/user.service";
-import {EmployeeService} from "../../../services/employee.service";
-import {User} from "../../../models/user.model";
+import { UserService } from "../../../services/user.service";
+import { EmployeeService } from "../../../services/employee.service";
+import { User } from "../../../models/user.model";
+import { NgToastService } from "ng-angular-popup";
 
 @Component({
   selector: 'app-add-user',
@@ -15,41 +15,61 @@ import {User} from "../../../models/user.model";
 
 export class AddUserComponent implements OnInit{
   allEmployees?: Employee[];
-  newUser?: User;
-  token: string | null = localStorage.getItem('token');
-  username = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required]);
-  employees = new FormControl('', [Validators.required]);
-  roles = new FormControl('', [Validators.required]);
 
-  selectedEmployee = "";
+  token: string | null = localStorage.getItem('token');
+
+  newUserFormGroup: FormGroup;
+
+  selectedEmployee = 0;
   selectedRole = "";
+  username = "";
+  password = "";
+  isSupervisor: boolean = false;
   hide = true;
 
-  constructor(private route: Router,private userService: UserService, private employeeService: EmployeeService) {}
+  constructor(private router: Router,private userService: UserService, private employeeService: EmployeeService, private toast: NgToastService ) {
+    this.newUserFormGroup = new FormGroup({
+      usernameFromControl: new FormControl({value: '', disabled: true}, [Validators.required]),
+      passwordFormControl: new FormControl({value: '', disabled: true}, [Validators.required]),
+      employeesFormControl: new FormControl('', [Validators.required]),
+      rolesFormControl: new FormControl({value: '', disabled: true}, [Validators.required]),
+      isSupervisorFormControl: new FormControl({value: '' || '2', disabled: true}, [Validators.required])
+    })
+  }
 
   ngOnInit() {
     if(this.token != null){
       this.employeeService.getEmployeesWithoutUser(this.token).subscribe({
         next: data => this.loadEmployeeData(data),
-        error: err => console.log(err)
+        error: err => {
+          console.log(err);
+          this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα Admin ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+          this.router?.navigateByUrl('home/landing');
+        }
       });
+    }else{
+      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
+      this.router?.navigateByUrl('/login');
     }
   }
 
   loadEmployeeData(data: any){
     this.allEmployees = JSON.parse(data);
-    console.log(this.allEmployees);
+    if(this.allEmployees!.length <= 0){
+      this.toast.warning({detail: 'Ενημέρωση', summary: 'Δεν υπάρχουν εργαζόμενοι χωρίς λογαριασμό!', position: "topRight", duration: 3000});
+    }
   }
 
   onSelectEmployee() {
-  }
+    this.newUserFormGroup.get('usernameFromControl')?.enable();
+    this.newUserFormGroup.get('passwordFormControl')?.enable();
+    this.newUserFormGroup.get('rolesFormControl')?.enable();
+    this.newUserFormGroup.get('isSupervisorFormControl')?.enable();
 
-  onSelectRole(){
   }
 
   getErrorUsername() {
-    if (this.username.hasError('required')) {
+    if (this.newUserFormGroup.get('usernameFromControl')?.hasError('required')) {
       return 'Πρέπει να εισάγεις username';
     }else {
       return "ok :)"
@@ -57,7 +77,7 @@ export class AddUserComponent implements OnInit{
   }
 
   getErrorPass(){
-    if(this.password.hasError('required')){
+    if(this.newUserFormGroup.get('passwordFormControl')?.hasError('required')){
       return 'Πρέπει να εισάγεις password';
     }else {
       return "ok :)"
@@ -65,15 +85,31 @@ export class AddUserComponent implements OnInit{
   }
 
   saveNewUser(){
+    let newUser: User = new User(0, this.username, this.password, true, Number(this.selectedEmployee), 'Employee', this.isSupervisor);
+
+    if(this.selectedRole == 'employee'){
+      newUser.role = 'Employee';
+    }else if(this.selectedRole == 'hr'){
+      newUser.role = 'HR';
+    }else if(this.selectedRole == 'admin'){
+      newUser.role = 'Admin'
+    }
+
     if(this.token != null){
-      this.userService.createUserAccount(this!.newUser, this.token).subscribe({
-        next: data => {alert("Ο νέος λογαριασμός έχει δημιουργηθεί!")},
-        error: err => console.log(err)
+      this.userService.createUserAccount(newUser, this.token).subscribe({
+        next: data => {
+          this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Ο νέος λογαριασμός δημιουργήθηκε με επιτυχία!', position: "topRight", duration: 5000});
+          this.router?.navigateByUrl('/home/admin');
+        },
+        error: err => {
+          console.log(err);
+          this.toast.error({detail: 'Αποτυχία!', summary: 'Ο νέος λογαριασμός δεν δημιουργήθηκε λόγω προβλήματος.', position: "topRight", duration: 5000})
+        }
       });
     }
   }
 
   navigateTo(){
-    this.route?.navigateByUrl('home/admin');
+    this.router?.navigateByUrl('home/admin');
   }
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeUser } from "../../../models/employeeUser.model";
 import { UserService } from "../../../services/user.service";
 import { User } from "../../../models/user.model";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import * as CryptoJS from "crypto-js";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-edit-user',
@@ -17,22 +18,24 @@ export class EditUserComponent implements OnInit{
 
   token: string | null = localStorage.getItem('token');
   employeeUser?: EmployeeUser;
-  private secretKey = CryptoJS.enc.Utf8.parse('ba6d59d38168f98b'); // Secret key
 
   hide = true;
   selectedUser = '';
-  isEnabled?: boolean;
   isSupervisor?: string = '';
-  selectedRole?: string = '';
-  usernameFormControl?:any;
-  passwordFormControl?:any;
-  rolesFormControl?:any;
-  isEnabledFormControl?: any;
-  isSupervisorFormControl?:any;
+  isLoaded: boolean = false;
+  oldPass: string = '';
+  editUserFormGroup: FormGroup;
 
-  constructor(private router: Router, private route:ActivatedRoute, private userService: UserService) {
+  constructor(private router: Router, private route:ActivatedRoute, private userService: UserService, private toast: NgToastService) {
     this.route.queryParams.subscribe(params=>{
       this.selectedUser = params["user"];
+    });
+    this.editUserFormGroup = new FormGroup({
+      usernameFormControl: new FormControl('', [Validators.required]),
+      passwordFormControl: new FormControl(''),
+      rolesFormControl: new FormControl('', [Validators.required]),
+      isEnabledFormControl: new FormControl('', [Validators.required]),
+      isSupervisorFormControl: new FormControl('', [Validators.required])
     })
   }
 
@@ -42,42 +45,35 @@ export class EditUserComponent implements OnInit{
         next: data => this.loadEmployeeUserData(data),
         error: error => {
           console.log(error);
+          this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα Admin ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
           this.router?.navigateByUrl('/home/admin');
         }
       });
     }else{
+      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
       this.router?.navigateByUrl('/login');
     }
   }
 
   loadEmployeeUserData(data: any){
-    let enabled_value: string
     let sv_value: string
     this.employeeUser = JSON.parse(data);
 
-    if(this.employeeUser?.enabled){enabled_value = "1"}else{enabled_value = "2"}
     if(this.employeeUser?.supervisor){sv_value = '1'}else{sv_value = '2'}
 
-    this.usernameFormControl = new FormControl('' || this.employeeUser?.username, [Validators.required]);
-    this.passwordFormControl = new FormControl('' || this.employeeUser?.password, [Validators.required]);
-    this.rolesFormControl = new FormControl('' || this.employeeUser?.role.toLowerCase(), [Validators.required]);
-    this.isEnabledFormControl = new FormControl('' || enabled_value, [Validators.required]);
-    this.isSupervisorFormControl = new FormControl('' || sv_value, [Validators.required]);
-    this.selectedRole = this.employeeUser?.role.toLowerCase();
-    this.isEnabled = this.employeeUser?.enabled;
+    this.editUserFormGroup.controls['usernameFormControl'].setValue('' || this.employeeUser!.username);
+    this.editUserFormGroup.controls['rolesFormControl'].setValue(this.employeeUser!.role.toLowerCase());
+    this.editUserFormGroup.controls['isEnabledFormControl'].setValue(this.employeeUser?.enabled);
+    this.editUserFormGroup.controls['isSupervisorFormControl'].setValue(sv_value);
+
+    this.oldPass = this.employeeUser!.password;
+
+    this.isLoaded = true;
   }
 
   getErrorUsername() {
-    if (this.usernameFormControl.hasError('required')) {
+    if (this.editUserFormGroup.get('usernameFormControl')?.hasError('required')) {
       return 'Πρέπει να εισάγεις username';
-    } else {
-      return "ok :)"
-    }
-  }
-
-  getErrorPass() {
-    if (this.passwordFormControl.hasError('required')) {
-      return 'Πρέπει να εισάγεις password';
     } else {
       return "ok :)"
     }
@@ -88,55 +84,39 @@ export class EditUserComponent implements OnInit{
   }
 
   saveEditUser(){
-    let userAccount: User = new User(this.employeeUser!.userId, this.employeeUser!.username, this.employeeUser!.password, true, this.employeeUser!.employeeId, 'Admin', false);
+    let editedUser: User = new User(this.employeeUser!.userId, this.editUserFormGroup.get('usernameFormControl')!.value, this.editUserFormGroup.get('passwordFormControl')!.value, this.editUserFormGroup.get('isEnabledFormControl')!.value, this.employeeUser!.employeeId, 'Admin', false);
 
-    if(this.selectedRole == 'employee'){
-      userAccount.role = 'Employee';
-    }else if(this.selectedRole == 'hr'){
-      userAccount.role = 'HR';
-    }else if(this.selectedRole == 'admin'){
-      userAccount.role = 'Admin'
+    if(this.editUserFormGroup.get('rolesFormControl')?.value == 'employee'){
+      editedUser.role = 'Employee';
+    }else if(this.editUserFormGroup.get('rolesFormControl')?.value == 'hr'){
+      editedUser.role = 'HR';
+    }else if(this.editUserFormGroup.get('rolesFormControl')?.value == 'admin'){
+      editedUser.role = 'Admin'
     }
 
     if(this.isSupervisor == '1'){
-      userAccount.supervisor = true;
+      editedUser.supervisor = true;
     }else if(this.isSupervisor == '2'){
-      userAccount.supervisor = false;
+      editedUser.supervisor = false;
     }
 
-    userAccount.enable = this.isEnabled;
+    if(this.editUserFormGroup.get('passwordFormControl')!.value == ''){
+      editedUser.password = this.oldPass;
+    }
+
+    //console.log(editedUser);
 
     if(this.token != null){
-      this.userService.editUserAccount(userAccount, this.token, userAccount.id).subscribe({
+      this.userService.editUserAccount(editedUser, this.token, editedUser.id).subscribe({
         next: data=> {
-          alert("Οι αλλαγές αποθηκεύτηκαν")
+          this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία του λογαριασμού έγινε με επιτυχία!', position: "topRight", duration: 5000});
+          this.navigateTo();
         },
-        error: error => console.log(error)
+        error: error => {
+          console.log(error);
+          this.toast.success({detail: 'Αποτυχία!', summary: 'Λόγω προβλήματος δεν έγινε η επεργασία των στοιχείων!', position: "topRight", duration: 5000});
+        }
       });
-    }
-  }
-
-  encryptData(data:String) {
-    try {
-      return CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey, {
-        mode: CryptoJS.mode.ECB,
-        format: CryptoJS.format.OpenSSL,
-      }).toString();
-    } catch (e) {
-      console.log(e);
-      return ''
-    }
-  }
-
-  decryptData(data: string) {
-    try {
-      return CryptoJS.AES.decrypt(JSON.stringify(data), this.secretKey, {
-        mode: CryptoJS.mode.ECB,
-        format: CryptoJS.format.OpenSSL
-      }).toString();
-    } catch (e) {
-      console.log(e);
-      return '';
     }
   }
 }

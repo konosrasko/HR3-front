@@ -36,24 +36,14 @@
         <mat-cell *matCellDef="let employeeUser"> {{employeeUser.username}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="password">
-        <mat-header-cell *matHeaderCellDef > Password </mat-header-cell>
-        <mat-cell *matCellDef="let employeeUser"> {{employeeUser.password}} </mat-cell>
+      <ng-container matColumnDef="employees-name">
+        <mat-header-cell *matHeaderCellDef > Εργαζόμενος </mat-header-cell>
+        <mat-cell *matCellDef="let employeeUser"> {{employeeUser.firstName + " " + employeeUser.lastName}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="role">
         <mat-header-cell *matHeaderCellDef > Ρόλος </mat-header-cell>
         <mat-cell *matCellDef="let employeeUser"> {{employeeUser.role}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="firstName">
-        <mat-header-cell *matHeaderCellDef > Όνομα </mat-header-cell>
-        <mat-cell *matCellDef="let employeeUser"> {{employeeUser.firstName}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="lastName">
-        <mat-header-cell *matHeaderCellDef > Επώνυμο </mat-header-cell>
-        <mat-cell *matCellDef="let employeeUser"> {{employeeUser.lastName}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="enabled">

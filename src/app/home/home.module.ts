@@ -24,6 +24,7 @@ import { MatInputModule } from "@angular/material/input";
 import {AdminModule} from "./admin/admin.module";
 import {HRComponent} from "./hr/hr.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NgToastModule} from "ng-angular-popup";
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatSelectModule,
     MatInputModule,
     AdminModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgToastModule
   ],
   providers: [
     DatePipe,

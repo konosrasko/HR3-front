@@ -1,35 +1,36 @@
 <main>
   <h1>Προσθήκη νέου λογαριασμού</h1>
-  <div class="form-new-user">
+
+  <div class="form-new-user" [formGroup]="newUserFormGroup">
     <div class="employee-dd">
       <mat-form-field appearance="fill">
         <mat-label>Εργαζόμενοι χωρίς λογαριασμό</mat-label>
-        <mat-select [(value)]="selectedEmployee" [(ngModel)]="selectedEmployee" (ngModelChange) = "onSelectEmployee()" [formControl]="employees" required>
-          <mat-option></mat-option>
+        <mat-select [(ngModel)]="selectedEmployee" formControlName = "employeesFormControl" (selectionChange) = "onSelectEmployee()"  required>
+          <mat-option *ngFor="let employee of allEmployees" value="{{employee.employeeId}}">{{employee.lastName + " " + employee.firstName}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="input-username">
+    <div class="input-username"  >
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή username</mat-label>
-        <input matInput [formControl]="username"  required>
-        <mat-error *ngIf="username.invalid">{{getErrorUsername()}}</mat-error>
+        <input matInput [(ngModel)]="username" formControlName= "usernameFromControl" required>
+        <mat-error  *ngIf="newUserFormGroup.get('usernameFromControl')?.invalid">{{getErrorUsername()}}</mat-error>
       </mat-form-field>
     </div>
     <div class="input-pass">
       <mat-form-field appearance="fill">
-        <mat-label>Εισαγωγή password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+        <mat-label>Εισαγωγή προσωρινού password</mat-label>
+        <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'" formControlName = "passwordFormControl" required>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error *ngIf="password.invalid">{{getErrorPass()}}</mat-error>
+        <mat-error *ngIf="newUserFormGroup.get('passwordFormControl')?.invalid">{{getErrorPass()}}</mat-error>
       </mat-form-field>
     </div>
     <div class="role-dd">
       <mat-form-field appearance="fill">
         <mat-label>Ρόλος λογαριασμού</mat-label>
-        <mat-select [(value)]="selectedRole" [(ngModel)]="selectedRole" (ngModelChange) = "onSelectRole()" [formControl]="roles" required>
+        <mat-select [(ngModel)]="selectedRole" formControlName = "rolesFormControl" required>
           <mat-option value = "admin">Admin</mat-option>
           <mat-option value = "hr">HR</mat-option>
           <mat-option value = "employee">Εργαζόμενος</mat-option>
@@ -37,10 +38,10 @@
       </mat-form-field>
     </div>
     <div class="supervisor-rdg">
-      <mat-radio-group aria-label="Select an option" >
+      <mat-radio-group aria-label="Select an option" formControlName = "isSupervisorFormControl">
         <mat-label class="label-sv">Είναι προιστάμενος;</mat-label>
-        <mat-radio-button color="primary" value="1">Ναι</mat-radio-button>
-        <mat-radio-button color="primary" value="2" checked>Όχι</mat-radio-button>
+        <mat-radio-button color="primary" value="1" (change)="isSupervisor = true">Ναι</mat-radio-button>
+        <mat-radio-button color="primary" value="2" checked (change)="isSupervisor = false">Όχι</mat-radio-button>
       </mat-radio-group>
     </div>
   </div>
@@ -49,7 +50,7 @@
       <button mat-stroked-button class="button" (click)="navigateTo()">Πίσω</button>
     </div>
     <div class="save-button">
-      <button mat-stroked-button class="button" [disabled]="!username.valid || !password.valid || !roles.valid || !employees.valid">Αποθήκευση</button>
+      <button mat-stroked-button class="button" (click)="saveNewUser()" [disabled]="!newUserFormGroup.get('usernameFromControl')?.valid || !newUserFormGroup.get('passwordFormControl')?.valid || !newUserFormGroup.get('rolesFormControl')?.valid || !newUserFormGroup.get('employeesFormControl')?.valid || !newUserFormGroup.get('isSupervisorFormControl')?.valid">Αποθήκευση</button>
     </div>
   </div>
 </main>
