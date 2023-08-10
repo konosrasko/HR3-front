@@ -55,15 +55,19 @@
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.status}} </mat-cell>
       </ng-container>
 
-<!--      <ng-container matColumnDef="accept">-->
-<!--        <mat-header-cell style="padding: 0;" *matHeaderCellDef mat-sort-header>  </mat-header-cell>-->
-<!--        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests"><img class="accept" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="approveRequest($event)" style="width: auto; height: auto;" src="assets/accept.png" alt="Accept"> </mat-cell>-->
-<!--      </ng-container>-->
+      <ng-container matColumnDef="accept">
+        <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
+        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests">
+          <img class="accept" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="approveRequest(subordinatesRequests)" style="width: auto; height: auto;" src="assets/accept.png" alt="Accept">
+        </mat-cell>
+      </ng-container>
 
-<!--      <ng-container matColumnDef="delete">-->
-<!--        <mat-header-cell style="padding: 0;" *matHeaderCellDef mat-sort-header>  </mat-header-cell>-->
-<!--        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests"><img class="decline" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="declineRequest($event)" style="width: auto; height: auto;" src="assets/decline.png" alt="Delete"> </mat-cell>-->
-<!--      </ng-container>-->
+      <ng-container matColumnDef="decline">
+        <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
+        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests">
+          <img class="decline" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="declineRequest(subordinatesRequests)" style="width: auto; height: auto;" src="assets/decline.png" alt="Decline">
+        </mat-cell>
+      </ng-container>
 
       <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
       <mat-row [ngClass]="getIndexClass(row)"  class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>

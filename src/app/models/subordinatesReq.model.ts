@@ -1,6 +1,6 @@
 export class SubordinatesReq{
 
-  id?:number
+  leaveId?: number
   employeeId?: number
   firstName?: string
   lastName?: string

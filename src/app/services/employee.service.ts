@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
-import { User } from '../models/user.model';
-import { LeadingComment } from '@angular/compiler';
-import { LeaveRequest } from '../models/leave_request.model';
 import { LeaveBalance } from '../models/leave_balance.model';
-import * as CryptoJS from 'crypto-js';
-import { AppComponent } from '../app.component';
 import {Employee} from "../models/employee.model";
 import { TokenController } from './token_controller';
 import { Router } from '@angular/router';
+import {LeaveRequest} from "../models/leave_request.model";
+
 
 
 
@@ -21,7 +18,7 @@ export class EmployeeService extends TokenController{
   constructor(private http:HttpClient, router: Router) {
     super(router)
   }
-  
+
   getLeaveBalances():Observable<LeaveBalance[]>
   {
     const headers = this.createHeadersWithToken()
@@ -47,5 +44,26 @@ export class EmployeeService extends TokenController{
       }
     );
   }
+
+  approveLeaveRequest(leaveId: number ){
+
+    const headers = this.createHeadersWithToken()
+    if (leaveId != undefined){
+
+      return this.http.put<LeaveRequest>(`url/api/employees/${leaveId}/approve` ,{},{headers, responseType:'json' as 'json'})
+    }
+    throw new Error("asd")
+  }
+
+  declineLeaveRequest(leaveId: number ){
+
+    const headers = this.createHeadersWithToken()
+    if (leaveId != undefined){
+
+      return this.http.put<LeaveRequest>(`url/api/employees/${leaveId}/decline` ,{},{headers, responseType:'json' as 'json'})
+    }
+    throw new Error("asd")
+  }
+
 }
 

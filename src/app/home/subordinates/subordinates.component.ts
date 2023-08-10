@@ -3,8 +3,7 @@ import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {SubordinatesReq} from "../../models/subordinatesReq.model";
-import {filter} from "rxjs";
-import {LeaveRequest} from "../../models/leave_request.model";
+import {EmployeeService} from "../../services/employee.service";
 
 @Component({
   selector: 'app-subordinates',
@@ -13,19 +12,9 @@ import {LeaveRequest} from "../../models/leave_request.model";
 })
 export class SubordinatesComponent implements OnInit{
 
-  constructor(private router:Router,private userService: UserService) {}
-
-  token:string | null = localStorage.getItem('token');
-  subordinatesRequests?: SubordinatesReq[];
-  selectedStatus: string = "all";
-
-  status: string[]=["all", "accepted", "declined", "pending"];
-  displayedColumns=['firstName' ,'lastName' ,'leaveTitle' ,'submitDate' ,'startDate' ,'endDate' ,'duration' ,'status'];
-//,'accept' ,'decline'
-  dataSource?: any;
-  ngOnInit(){
+  constructor(private router:Router,private userService: UserService, private employeeService: EmployeeService) {
     if (this.token != null){
-      this.userService.getAllSubordinatesReq(this.token).subscribe({
+      this.userService.getAllSubordinatesReq().subscribe({
         next:data=>this.loadData(data),
         error: err=>{console.log();alert("Προβλημα")}
       })
@@ -33,6 +22,17 @@ export class SubordinatesComponent implements OnInit{
       alert("Πρέπει να συνδεθείς")
       this.router?.navigateByUrl('login');
     }
+  }
+
+  token:string | null = localStorage.getItem('token');
+  subordinatesRequests?: SubordinatesReq[];
+  selectedStatus: string = "all";
+
+  status: string[]=["all", "accepted", "declined", "pending"];
+  displayedColumns=['firstName' ,'lastName' ,'leaveTitle' ,'submitDate' ,'startDate' ,'endDate' ,'duration' ,'status','accept','decline'];
+//,'accept' ,'decline'
+  dataSource?: any;
+  ngOnInit(){
   }
 
   loadData(data: any){
@@ -74,34 +74,46 @@ export class SubordinatesComponent implements OnInit{
     this.dataSource.filter = filterValue;
   }
 
-  getRowDataFromCell(cell: HTMLElement): SubordinatesReq | undefined {
-    const row = cell.parentElement;
-    if (row && row.parentElement) {
-      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-      return this.dataSource.data[rowIndex];
-    }
-    return undefined;
-  }
 
+  // getRowDataFromCell(cell: HTMLElement) {
+  //   const row = cell.parentElement?.parentElement?.parentElement;
+  //   if (row && row.parentElement?.parentElement) {
+  //     const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
+  //     return this.dataSource.data[rowIndex];
+  //   }else return undefined;
+  // }
 
-  editSubo(event: Event){
-    const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    if (rowData) {
-      //Open edit window with the selected leaveRequest as parameter
-      this.router.navigate(['home/subordinates/edit-leave'], { queryParams: {id: rowData.id}});
-    }
-  }
 
   navigateTo(url:string ){
     this.router?.navigateByUrl('home/subordinates/' + url);
   }
 
-  approveRequest($event: MouseEvent) {
+  approveRequest(subordinateReq: SubordinatesReq) {
+    if (subordinateReq.leaveId != null) {
+      this.employeeService.approveLeaveRequest(subordinateReq.leaveId).subscribe(data => {
+          this.userService.getAllSubordinatesReq().subscribe({
+            next: data => this.loadData(data),
+            error: err => {
+              console.log();
+              alert("Προβλημα")
+            }
+          })
+      });
+    }
 
   }
 
-  declineRequest($event: MouseEvent) {
-
+  declineRequest(subordinateReq: SubordinatesReq) {
+    if (subordinateReq.leaveId != null) {
+      this.employeeService.declineLeaveRequest(subordinateReq.leaveId).subscribe(data => {
+          this.userService.getAllSubordinatesReq().subscribe({
+            next: data => this.loadData(data),
+            error: err => {
+              console.log();
+              alert("Προβλημα")
+            }
+          })
+      });
+    }
   }
 }
