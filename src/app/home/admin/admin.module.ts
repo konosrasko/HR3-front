@@ -23,6 +23,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NgToastModule} from "ng-angular-popup";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     MatDividerModule,
     ReactiveFormsModule,
     MatRadioModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
+    NgToastModule
   ]
 })
 export class AdminModule { }

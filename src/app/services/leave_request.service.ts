@@ -28,4 +28,14 @@ export class LeaveRequestService extends TokenController{
     return this.http.post<LeaveRequest>('url/api/employees/leaverequests/add', newLeaveRequest, {headers, responseType:"json" as 'json'})
   }
 
+  newLeaveRequestForAnotherEmployee(newLeaveRequest: LeaveRequest, employeeId: number) {
+    const headers = this.createHeadersWithToken();
+    return this.http.post<LeaveRequest>('url/api/employees/' + employeeId + '/leaverequests/add', newLeaveRequest, {headers, responseType:"json" as 'json'})
+  }
+
+  deleteLeaveRequest(leaveRequestId: number): Observable<LeaveRequest>{
+    const headers = this.createHeadersWithToken()
+    return this.http.delete<LeaveRequest>(`url/api/leaverequests/${leaveRequestId}`, {headers, responseType:"json" as 'json'})
+  }
+
 }

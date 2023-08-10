@@ -8,6 +8,7 @@ import * as CryptoJS from 'crypto-js';
 import { TokenController } from './token_controller';
 import { Router } from '@angular/router';
 import { Roles } from '../models/roles.model';
+import {SubordinatesReq} from "../models/subordinatesReq.model";
 
 @Injectable({
   providedIn: 'root'
@@ -98,5 +99,18 @@ export class UserService extends TokenController {
     const url = 'url/api/users/admin/' + userId?.toString();
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.put<User>(url, user, { headers, responseType: 'text' as 'json' });
+  }
+
+  getAllSubordinatesReq(){
+    const url = 'url/api/leaverequests/supervisor';
+    const headers = this.createHeadersWithToken();
+    return this.http.get<SubordinatesReq>(url,{headers,responseType:'text' as 'json'});
+  }
+
+  createUserAccount(newUser?: User, token?: string){
+    let tokenStr = "Bearer " + token;
+    const url = 'url/api/users/createAccount';
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<User>(url, newUser,{headers, responseType: 'text' as 'json'});
   }
 }

@@ -24,7 +24,7 @@ import { AddEmployeeComponent } from './home/hr/add-employee/add-employee.compon
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
-
+import { NgToastModule } from 'ng-angular-popup';
 
 
 @NgModule({
@@ -54,6 +54,7 @@ import {CommonModule} from "@angular/common";
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    NgToastModule
     // Add HomeModule here
   ],
   providers: [UserService],

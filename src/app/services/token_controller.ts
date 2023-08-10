@@ -15,17 +15,38 @@ export class TokenController {
     }
 
 
-
     getToken(): string {
         const token = localStorage.getItem('token');
 
-        if (token)
-            return token;
-        else {
-            alert("Your session has expired");
-            this.router.navigate(['/login'])
-            return ''
+        if (token){
+            if (this.tokenIsValid(token)){
+                return token;
+            }
+            else {
+                this.router.navigate(['/login'], {queryParams: {error: "Η συνεδρία σας έληξε, παρακαλώ ξανασυνδεθείτε."}})
+                return ''
+            }
         }
+        this.router.navigate(['/login'], {queryParams: {error: "Παρακαλώ συνδεθείτε."}})
+        return ''
     }
 
+
+    tokenIsValid(token: string):boolean {
+        //TO-DO
+        const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+        const currentTime = (new Date).getTime()/ (1000)
+        console.log("token expires in: " + (Math.floor( (expiry - currentTime)/60 ) + " minutes"));
+        return expiry > currentTime
+    }
+
+    getRouter():Router{
+        return this.router
+    }
+    
+
 }
+function jwtDecode(token: any): any {
+    throw new Error("Function not implemented.");
+}
+

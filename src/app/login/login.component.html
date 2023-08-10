@@ -5,6 +5,7 @@
     <h1 id="litheader">Face Control</h1>
 
     <div class="inset">
+      <p class="error">{{error}}</p>
       <p id="username">
         <input type="text" name="username" [(ngModel)]="username" required id="email" placeholder="username">
       </p>
@@ -14,6 +15,7 @@
     </div>
 
       <input class="submit"  type="submit" name="Login" id="go" value="Login" (click)="doLogin()">
+
   </form>
 
   

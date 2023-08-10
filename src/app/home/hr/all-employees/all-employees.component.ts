@@ -59,7 +59,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     console.log(rowData)
     if (rowData) {
       //Open edit window with the selected leaveRequest as parameter
-      this.router.navigate(['home/leaves/add'],{ queryParams: {id: rowData.employeeId}});
+      this.router.navigate(['home/leaves/add'],{ queryParams: {id: rowData.employeeId, firstName: rowData.firstName, lastName: rowData.lastName}});
     }
   }
 

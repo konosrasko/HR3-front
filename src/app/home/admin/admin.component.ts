@@ -3,6 +3,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {EmployeeUser} from "../../models/employeeUser.model";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +11,7 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit{
-  constructor(private router:Router, private userService: UserService) {}
+  constructor(private router:Router, private userService: UserService, private toast: NgToastService) {}
 
   token: string | null = localStorage.getItem('token');
   employeeUsers?: EmployeeUser[];
@@ -20,18 +21,23 @@ export class AdminComponent implements OnInit{
   selectedStatus: string = "all";
   selectedRole: string = "all";
   selectedUsername: string = "";
-  displayedColumns: string[] = ['username','password','role','firstName', 'lastName','enabled','supervisor', 'editBtn'];
+  displayedColumns: string[] = ['username', 'employees-name', 'role', 'enabled', 'supervisor', 'editBtn'];
   dataSource?: any
   showContent?: string;
+  isLoaded: boolean = false;
 
   ngOnInit() {
     if(this.token != null){
       this.userService.getAllUserEmployees(this.token).subscribe({
         next: data => this.loadData(data),
-        error: err => {console.log(err); alert("Υπήρξε πρόβλημα με την βάση");}
+        error: err => {
+          console.log(err);
+          this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα Admin ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+          this.router?.navigateByUrl('home/landing');
+        }
       })
     }else{
-      alert("Πρέπει να συνδεθείς πρώτα!");
+      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
       this.router?.navigateByUrl('login');
     }
   }
@@ -42,6 +48,7 @@ export class AdminComponent implements OnInit{
     this.dataSource.filterPredicate = function (record: { username: string; }, filter: string) {
       return record.username.toLocaleLowerCase() == filter.toLocaleLowerCase();
     }
+    this.isLoaded = true;
   }
 
   toggleContentEnabled(status: boolean) {

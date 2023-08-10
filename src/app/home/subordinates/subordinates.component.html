@@ -1,0 +1,76 @@
+<main>
+  <h1>Αιτήματα υφισταμένων</h1>
+  <div class="filters">
+    <div class="status-filter">
+      <mat-form-field appearance="fill">
+        <mat-label>Κατάσταση Λογαριασμού</mat-label>
+        <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="applyStatusFilter(selectedStatus)">
+          <mat-option value = "all">Όλες</mat-option>
+          <mat-option value = "APPROVED">Αποδεκτά</mat-option>
+          <mat-option value = "DECLINED">Απορριφθέντα</mat-option>
+          <mat-option value = "PENDING">Εκρεμμεί</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="table-container mat-elevation-z8">
+    <mat-table matSort  class="table" #table [dataSource]="dataSource">
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef > Όνομα </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.firstName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef > Επώνυμο </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.lastName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="leaveTitle">
+        <mat-header-cell *matHeaderCellDef > Κατηγορία Άδειας </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.leaveTitle}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="submitDate">
+        <mat-header-cell *matHeaderCellDef > Ημερομηνία Υποβολής </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.submitDate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef > Ημερομηνία Έναρξης </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.startDate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef > Ημερομηνία Λήξης </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.endDate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="duration">
+        <mat-header-cell *matHeaderCellDef > Διάρκεια </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.duration}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef > Κατάσταση </mat-header-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.status}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="accept">
+        <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
+        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests">
+          <img class="accept" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="approveRequest(subordinatesRequests)" style="width: auto; height: auto;" src="assets/accept.png" alt="Accept">
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="decline">
+        <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
+        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests">
+          <img class="decline" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="declineRequest(subordinatesRequests)" style="width: auto; height: auto;" src="assets/decline.png" alt="Decline">
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
+      <mat-row [ngClass]="getIndexClass(row)"  class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</main>

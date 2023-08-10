@@ -17,6 +17,7 @@ h1{
   color: orange;
 }
 
+
 .even-row {
   background-color: #E9E9E9; /* Set the background color for even rows */
 }
@@ -40,52 +41,29 @@ h1{
   background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
 }
 
-//.button {
-//  //margin-top: 30px;
-//  background-image: linear-gradient(to right, #EB8C33, #673D15);
-//  color: black;
-//  transition: 0.25s ease;
-//  border: none;
-//  padding: 15px 30px;
-//  cursor: pointer;
-//  font-size: 14px;
-//  border-radius: 20px;
-//}
-
-.add-btn{
-  margin-top: 35px;
-}
-
-.edit{
-  margin: 10px;
-}
-
-//button:hover{
-//  opacity: 90%;
-//}
-
 .filters{
   display: flex;
 }
 
-.role-filter, .user-filter{
-  margin-left: 10px;
+.accept,.decline{
+  transition: transform 0.15s ease;;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
 }
 
-.active{
-  width: 70%;
-  text-align: center;
-  padding: 5px;
-  background-color: green;
-  border-radius: 5px;
-  color: white;
+.accept:disabled:hover,.decline:disabled:hover{
+  opacity: 90%;
+  cursor: default;
 }
 
-.inactive{
-  width: 70%;
-  text-align: center;
-  padding: 5px;
-  background-color: red;
-  border-radius: 5px;
-  color: white;
+.accept:hover,.decline:hover{
+  opacity: 85%;
 }
+
+.accept:disabled,.decline:disabled{
+  opacity: 90%;
+  background-image: linear-gradient(to right, #6d6966, #3d3d3d);
+  color: #b8b8b8;
+}
+
