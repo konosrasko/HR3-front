@@ -40,17 +40,17 @@ h1{
   background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
 }
 
-.button {
-  //margin-top: 30px;
-  background-image: linear-gradient(to right, #EB8C33, #673D15);
-  color: black;
-  transition: 0.25s ease;
-  border: none;
-  padding: 15px 30px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 20px;
-}
+//.button {
+//  //margin-top: 30px;
+//  background-image: linear-gradient(to right, #EB8C33, #673D15);
+//  color: black;
+//  transition: 0.25s ease;
+//  border: none;
+//  padding: 15px 30px;
+//  cursor: pointer;
+//  font-size: 14px;
+//  border-radius: 20px;
+//}
 
 .add-btn{
   margin-top: 35px;
@@ -60,9 +60,9 @@ h1{
   margin: 10px;
 }
 
-button:hover{
-  opacity: 90%;
-}
+//button:hover{
+//  opacity: 90%;
+//}
 
 .filters{
   display: flex;

@@ -44,32 +44,19 @@
 }
 
 button {
-  background-image: linear-gradient(to right, #EB8C33, #673D15);
-  color: black;
-  border: none;
   padding: 15px 30px;
   cursor: pointer;
   font-size: 18px;
   border-radius: 20px;
-  margin: 10px; 
+  margin: 10px;
   transition: 0.25s ease;
   zoom: 120%;
   height: auto;
 }
 
-button:hover {
-  opacity: 90%;
-}
-button:disabled{
-  opacity: 90%;
-  background-image: linear-gradient(to right, #6d6966, #3d3d3d);
-  color: #b8b8b8;
-}
-
 
 h1 {
   zoom: 1.5;
-  margin-top: px;
   color: rgba(226, 135, 50, 1);
   margin: 10px 0;
   text-align: center;
@@ -78,9 +65,9 @@ h1 {
 
 #Edit {
   height: auto;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
-  display: block; 
+  display: block;
 }
 
 .left-details,

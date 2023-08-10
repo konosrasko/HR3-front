@@ -46,10 +46,10 @@
   </div>
   <div class="btn-options">
     <div class="back-button">
-      <button mat-stroked-button class="button" (click)="navigateTo()">Πίσω</button>
+      <button mat-raised-button class="button" color="primary" (click)="navigateTo()">Πίσω</button>
     </div>
     <div class="save-button">
-      <button mat-stroked-button class="button" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid || !rolesFormControl.valid" (click)="saveEditUser()">Αποθήκευση</button>
+      <button mat-raised-button class="button" color="primary" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid || !rolesFormControl.valid" (click)="saveEditUser()">Αποθήκευση</button>
     </div>
   </div>
 </main>
