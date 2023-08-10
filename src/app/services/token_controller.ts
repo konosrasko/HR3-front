@@ -15,17 +15,31 @@ export class TokenController {
     }
 
 
-
     getToken(): string {
         const token = localStorage.getItem('token');
 
-        if (token)
-            return token;
-        else {
-            alert("Your session has expired");
-            this.router.navigate(['/login'])
-            return ''
+        if (token){
+            if (this.tokenIsValid(token)){
+                return token;
+            }
+            else {
+                this.router.navigate(['/login'], {queryParams: {error: "Η συνεδρία σας έληξε, παρακαλώ ξανασυνδεθείτε."}})
+                return ''
+            }
         }
+        this.router.navigate(['/login'], {queryParams: {error: "Παρακαλώ συνδεθείτε."}})
+        return ''
     }
+
+
+    tokenIsValid(token: string):boolean {
+        //TO-DO
+        return true
+    }
+
+    getRouter():Router{
+        return this.router
+    }
+    
 
 }
