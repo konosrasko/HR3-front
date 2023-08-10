@@ -107,10 +107,10 @@ export class UserService extends TokenController {
     return this.http.get<SubordinatesReq>(url,{headers,responseType:'text' as 'json'});
   }
 
-    createUserAccount(newUser?: User, token?: string){
-        let tokenStr = "Bearer " + token;
-        const url = 'url/api/users/createAccount';
-        const headers = new HttpHeaders().set('Authorization', tokenStr);
-        return this.http.post<User>(url, newUser,{headers, responseType: 'text' as 'json'});
-    }
+  createUserAccount(newUser?: User, token?: string){
+    let tokenStr = "Bearer " + token;
+    const url = 'url/api/users/createAccount';
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<User>(url, newUser,{headers, responseType: 'text' as 'json'});
+  }
 }
