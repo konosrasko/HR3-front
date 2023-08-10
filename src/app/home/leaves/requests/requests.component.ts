@@ -39,7 +39,7 @@ export class RequestsComponent {
   }
 
   sortLastColumn() {
-    const lastColumnName = this.displayedColumns[this.displayedColumns.length - 2];
+    const lastColumnName = this.displayedColumns[this.displayedColumns.length - 6];
     const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
     this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
   }
