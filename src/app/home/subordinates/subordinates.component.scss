@@ -1,6 +1,6 @@
 main{
   padding: 5vh 0 0 0;
-  margin: 5vh 10vh 5vh 5vw;
+  margin: 5vh 0 5vh 5vw;
 }
 
 .table-container{
@@ -9,43 +9,12 @@ main{
 }
 
 h1{
-  color: #EB8C33;
-}
-
-.above-table{
-  display: flex;
-  justify-content: space-between;
-}
-
-.add {
-  display: flex;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-}
-
-.add h2{
-  font-size: 14pt;
-  margin: auto 5px;
-  transition: color 0.24s ease
-}
-
-.add img{
-  scale: 70%;
-  transition: scale 0.14s ease;
-}
-
-.add:hover h2{
-  color: #EB8C33;
-}
-
-.add:hover img{
-  scale: 79%;
+  color: orange;
 }
 
 .header *{
   background-color: #252525;
-  color: #EB8C33;
+  color: orange;
 }
 
 
@@ -69,18 +38,32 @@ h1{
 
 /* Style for odd rows on hover */
 .header-row.odd-row:hover {
-  background-color: rgba(255, 145, 0, 0.305);/* Change this to your desired color */
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
 }
 
-
-.bin{
-  transition: scale 0.14s ease
+.filters{
+  display: flex;
 }
 
-.bin:hover{
+.accept,.decline{
+  transition: transform 0.15s ease;;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
-  scale: 110%;
-  transform: rotate(3deg);
 }
 
+.accept:disabled:hover,.decline:disabled:hover{
+  opacity: 90%;
+  cursor: default;
+}
+
+.accept:hover,.decline:hover{
+  opacity: 85%;
+}
+
+.accept:disabled,.decline:disabled{
+  opacity: 90%;
+  background-image: linear-gradient(to right, #6d6966, #3d3d3d);
+  color: #b8b8b8;
+}
 

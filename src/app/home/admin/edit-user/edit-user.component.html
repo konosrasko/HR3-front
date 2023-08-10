@@ -48,7 +48,7 @@
   </div>
   <div class="btn-options">
     <div class="back-button">
-      <button mat-stroked-button class="button" (click)="navigateTo()">Πίσω</button>
+      <button mat-raised-button class="button" (click)="navigateTo()">Πίσω</button>
     </div>
     <div class="save-button" *ngIf="isLoaded">
       <button mat-stroked-button class="button" [disabled]="!editUserFormGroup.get('usernameFormControl')?.valid || !editUserFormGroup.get('rolesFormControl')?.valid" (click)="saveEditUser()">Ενημέρωση στοιχείων</button>

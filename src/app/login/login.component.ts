@@ -1,28 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../services/user.service";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TokenController } from '../services/token_controller';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent{
+export class LoginComponent extends TokenController{
 
   username: string = ''
   password: string = ''
-  token!: string;
+  error: string = ' '
+  token?: string;
   user: any;
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, router: Router, private route: ActivatedRoute) {
+    super(router)
+    
+    const savedToken = localStorage.getItem("token");
+    //if token is in local storage
+    if (savedToken) {
+      if(this.tokenIsValid(savedToken)){
+        //redirect to home page if it's valid
+        this.getRouter().navigate(['/home/landing']);
+      }
+      else{
+        //remove it if it's invalid
+        localStorage.setItem("token", "");
+      }
+    }
+    
+    //look for error message param in case of redirect
+    this.route.queryParams.subscribe(params => {
+      if(params["error"]){
+        this.error = params["error"]
+      }
+    })
+
   }
 
   doLogin() {
-
-    if (!this.username || !this.password) {
-      console.log("cringe")
-      return;
-    }
-
 
     const response = this.userService.Login(this.username, this.password)
     response.subscribe(data => {
@@ -30,15 +48,15 @@ export class LoginComponent{
         console.log(data)
 
         if (this.token != null) {
-            this.router.navigate(['/home/landing']);
+            this.getRouter().navigate(['/home/landing']);
             localStorage.setItem('token', this.token);
-
         } else {
-          this.router.navigate(["/login"]);
+          this.getRouter().navigate(["/login"]);
         }
       }, (error => {
-        alert("Λάθος στοιχεία")
-        this.router.navigate(["/login"])
+        this.error = "Λανθασμένο όνομα χρήστη η κωδικός. Παρακαλώ προσπαθήστε ξανά."
+        console.log(this.error)
+        this.getRouter().navigate(["/login"])
       })
     );
 

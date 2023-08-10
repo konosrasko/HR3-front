@@ -26,25 +26,25 @@
         <input *ngIf="isEditMode" type="text" name="address" [(ngModel)]="employee.address" required placeholder="Διεύθυνση">
       </div>
       <div>
-        <label>Τελέφωνο : </label>
+        <label>Τηλέφωνο : </label>
         <span *ngIf="!isEditMode" class="mobileNumber">{{employee.mobileNumber}}</span>
         <input *ngIf="isEditMode" type="text" name="mobileNumber" [(ngModel)]="employee.mobileNumber" required placeholder="Τελέφωνο">
       </div>
       <div>
         <label>Πρόσληψη : </label>
-        <span *ngIf="!isEditMode" class="hireDate">{{employee.hireDate}}</span>
+        <span *ngIf="!isEditMode" class="hireDate">{{employee.hireDate | date:'dd/MM/yyyy'}}</span>
         <input *ngIf="isEditMode" type="text" name="hireDate" [(ngModel)]="employee.hireDate" required placeholder="Πρόσληψη">
       </div>
     </div>
   </div>
 </div>
 <div *ngIf="!isEditMode">
-  <button id="Edit" (click)="enableEditMode()"  mat-stroked-button class="button">Επεξεργασία</button>
+  <button mat-raised-button id="Edit" color="primary" (click)="enableEditMode()" class="button">Επεξεργασία</button>
 </div>
 <div class="buttons-container" *ngIf="isEditMode">
-  <button  (click)="saveDetails()" mat-stroked-button class="button">Αποθήκευση</button>
+  <button  (click)="saveDetails()" mat-raised-button  color="primary" class="button">Αποθήκευση</button>
 
-  <button (click)="cancelEdit()"  mat-stroked-button class="button">Ακύρωση</button>
+  <button (click)="cancelEdit()"  mat-raised-button color="primary" class="button">Ακύρωση</button>
 </div>
 </div>
 <div *ngIf="!dataLoaded">
