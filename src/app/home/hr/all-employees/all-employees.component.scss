@@ -1,37 +1,11 @@
+
+@import '../../../../../src/styles';
 main{
   padding: 5vh 0 0 0;
   margin: 5vh 10vh 5vh 5vw;
 }
 
-.table-container{
-  margin-right: 5vw ;
-  overflow: auto;
-}
 
-h1{
-  color: #EB8C33;
-}
-
-.above-table{
-  display: flex;
-  justify-content: space-between;
-}
-
-.add {
-  display: flex;
-  cursor: pointer;
-}
-
-.add h2{
-  font-size: 14pt;
-  margin: auto 5px;
-  transition: color 0.24s ease
-}
-
-.add img{
-  scale: 70%;
-  transition: scale 0.14s ease;
-}
 
 .add:hover h2{
   color: #EB8C33;
@@ -75,10 +49,38 @@ h1{
   transition: scale 0.14s ease
 }
 
-.bin:hover{
+
+.active{
+
+  margin-right: 80px;
+  text-align: center;
+  width: 70%;
+  padding: 5px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+}
+
+.inactive{
+
+  margin-right: 80px;
+  text-align: center;
+  width: 70%;
+  padding: 5px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+}
+
+.buttons-container:hover{
+
   cursor: pointer;
   scale: 110%;
-  transform: rotate(3deg);
 }
 
 
+.buttons-container
+{
+  margin-left: 60%;
+
+}

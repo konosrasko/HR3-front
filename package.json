@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "https://gitlab.ots.gr/training-lab/open3hr-front.git",
+    "start": "ng serve --proxy-config proxyconfig.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.0.0",

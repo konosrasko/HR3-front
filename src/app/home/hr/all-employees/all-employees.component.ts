@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 })
 export class AllEmployeesComponent implements OnInit, OnDestroy {
   employees: Employee[] = [];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorId'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
   token: string | null = localStorage.getItem('token');
   dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
   private subscription: Subscription | undefined;

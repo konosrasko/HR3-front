@@ -4,7 +4,8 @@ import { Router } from "@angular/router";
 import { EmployeeService } from "../../../services/employee.service";
 import { Employee } from "../../../models/employee.model";
 import {DatePipe} from "@angular/common";
-
+import {Supervisors} from "../../../models/supervisors";
+import {Observable} from "rxjs";
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -13,6 +14,7 @@ import {DatePipe} from "@angular/common";
 export class AddEmployeeComponent implements OnInit {
   EmployeeAddFormGroup: FormGroup;
   employee: Employee = new Employee();
+  supervisors:any[]=[]
   // @ts-ignore
   token:String = localStorage.getItem('token')
 
@@ -28,6 +30,7 @@ export class AddEmployeeComponent implements OnInit {
       enabled: new FormControl('', [Validators.required]),
       supervisorId: new FormControl('', [Validators.required])
     });
+
   }
 
   ngOnInit(): void {
@@ -45,4 +48,6 @@ export class AddEmployeeComponent implements OnInit {
   cancel() {
     this.router.navigateByUrl('../');
   }
+
+
 }

@@ -10,6 +10,7 @@ import { AppComponent } from '../app.component';
 import {Employee} from "../models/employee.model";
 import { TokenController } from './token_controller';
 import { Router } from '@angular/router';
+import {Supervisors} from "../models/supervisors";
 
 
 
@@ -21,7 +22,7 @@ export class EmployeeService extends TokenController{
   constructor(private http:HttpClient, router: Router) {
     super(router)
   }
-  
+
   getLeaveBalances():Observable<LeaveBalance[]>
   {
     const headers = this.createHeadersWithToken()
@@ -37,7 +38,7 @@ export class EmployeeService extends TokenController{
   addEmployee(employee: Employee, token: String): void {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    this.http.post<Employee>('url/api/employees', employee, { headers }).subscribe(
+       this.http.post<Employee>('url/api/employees', employee, { headers }).subscribe(
       (response) => {
         console.log('Employee added successfully:', response);
       },

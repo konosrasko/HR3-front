@@ -9,6 +9,7 @@ export class Employee {
      hireDate?: string | null
      enabled?: boolean
      supervisorId?: number
+     supervisorLastName?:string
 
     constructor(){
   this.employeeId = 1
@@ -20,5 +21,6 @@ export class Employee {
   this.hireDate = ""
   this.enabled = true
   this.supervisorId = 0
+      this.supervisorLastName = ""
 }
 }
