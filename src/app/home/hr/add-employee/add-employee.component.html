@@ -14,6 +14,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή Επώνυμου</mat-label>
         <input matInput formControlName="lastName">
+        <mat-error *ngIf="EmployeeAddFormGroup.get('lastName')?.hasError('required')"> Το πεδίο είναι υποχρεωτικό.</mat-error>
       </mat-form-field>
     </div>
     <div class="input email">
@@ -41,20 +42,30 @@
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή ημερωμηνίας πρόσληψης</mat-label>
         <input matInput [matDatepicker]="hireDatePicker" formControlName="hireDate"  >
+        <mat-error *ngIf="EmployeeAddFormGroup.get('hireDate')?.hasError('required')"> Το πεδίο είναι υποχρεωτικό.</mat-error>
         <mat-datepicker-toggle matSuffix [for]="hireDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #hireDatePicker></mat-datepicker>
       </mat-form-field>
     </div>
-    <div class="input enabled">
-      <mat-form-field appearance="fill">
-        <mat-label>Κατάσταση</mat-label>
-        <input matInput formControlName="enabled">
-      </mat-form-field>
-    </div>
-    <div class="input supervisorId">
-      <mat-form-field appearance="fill">
-        <mat-label>Προιστάμενος</mat-label>
-        <input matInput formControlName="supervisorId">
+      <div class="is-enabled">
+        <mat-radio-group aria-label="Select an option" formControlName="enabled">
+          <mat-label class="label-enabled">Ενεργός?</mat-label>
+          <mat-radio-button color="primary" value="true">Ναι</mat-radio-button>
+          <mat-radio-button color="primary" value="false" checked>Όχι</mat-radio-button>
+
+        </mat-radio-group>
+      </div>
+
+      <div class="supervisors">
+      <mat-form-field>
+        <mat-select placeholder="--" [(value)]="selectedOption">
+          <input  matInput formControlName="supervisorId">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let supervisor of supervisors" [value]="supervisor">
+            {{supervisor.lastName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="EmployeeAddFormGroup.hasError('required')">Παρακαλώ επιλέξτε Supervisor</mat-error>
       </mat-form-field>
     </div>
     </form>

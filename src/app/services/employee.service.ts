@@ -48,5 +48,9 @@ export class EmployeeService extends TokenController{
       }
     );
   }
+  getAllSupervisors(token:String):Observable<Supervisors[]>{
+    const headers = this.createHeadersWithToken()
+    return this.http.get<Supervisors[]>('url/api/employees/allSupervisors',{headers,responseType:"json" as "json"})
+  }
 }
 

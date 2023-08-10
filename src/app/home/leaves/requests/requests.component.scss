@@ -1,3 +1,4 @@
+@import '../../../../../src/styles';
 main{
     padding: 5vh 0 0 0;
     margin: 5vh 0 5vh 5vw;
@@ -11,7 +12,7 @@ main{
 
 
 h1{
-    color: orange;
+    color: $myFixedColor;
 }
 
 .above-table{
@@ -36,7 +37,7 @@ h1{
 }
 
 .add:hover h2{
-  color: orange;
+  color: $myFixedColor;
 }
 
 .add:hover img{
@@ -45,7 +46,7 @@ h1{
 
 .header *{
     background-color: #252525;
-    color: orange;
+    color: $myFixedColor;
 }
 
 .header-row:nth-child(odd) {
@@ -53,23 +54,23 @@ h1{
 }
 
 .header-row:nth-child(even) {
-  background-color: #E9E9E9; 
+  background-color: #E9E9E9;
 }
 
 .header-row {
     transition: background-color 0.34s ease; /* Add a smooth transition effect */
   }
-  
+
   /* Style for even rows on hover */
   .header-row:nth-child(even):hover {
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
   }
-  
+
   /* Style for odd rows on hover */
   .header-row:nth-child(odd):hover {
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
   }
-  
+
 
 .bin{
   transition: scale 0.14s ease

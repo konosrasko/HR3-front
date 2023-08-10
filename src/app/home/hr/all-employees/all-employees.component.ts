@@ -17,6 +17,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   token: string | null = localStorage.getItem('token');
   dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
   private subscription: Subscription | undefined;
+  showContent?:string;
 
   constructor(private employeeService: EmployeeService, private http: HttpClient, private router:Router) {}
 
@@ -70,4 +71,8 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     }
     return undefined;
   }
+  toggleContentEnabled(status: boolean) {
+    return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+  }
 }
+

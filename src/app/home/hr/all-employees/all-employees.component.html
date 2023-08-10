@@ -53,7 +53,8 @@
     <!-- Enabled Column -->
     <ng-container matColumnDef="enabled">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Ενεργός</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.enabled }}</mat-cell>
+      <mat-cell *matCellDef="let element">
+        <span class="status-col {{element.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(element.enabled)}}</span></mat-cell>
     </ng-container>
 
     <!-- Supervisor Column -->
@@ -65,6 +66,7 @@
     <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+   </div>
 </main>
 
 

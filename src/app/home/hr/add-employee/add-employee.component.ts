@@ -17,6 +17,9 @@ export class AddEmployeeComponent implements OnInit {
   supervisors:any[]=[]
   // @ts-ignore
   token:String = localStorage.getItem('token')
+  selectedOption?: Employee
+
+
 
 
   constructor(private router: Router, private employeeService: EmployeeService,private datePipe:DatePipe ) {
@@ -27,26 +30,45 @@ export class AddEmployeeComponent implements OnInit {
       mobileNumber: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       hireDate: new FormControl('', [Validators.required]),
-      enabled: new FormControl('', [Validators.required]),
-      supervisorId: new FormControl('', [Validators.required])
+      enabled:new FormControl('false'),
+      supervisorId: new FormControl('')
     });
 
   }
 
+
   ngOnInit(): void {
-    // Any additional initialization logic can go here
+    this.employeeService.getAllSupervisors(this.token).subscribe(supervisors => {
+      this.supervisors = supervisors;
+
+      });
+  }
+
+  supervisorPicked(supervisor:Supervisors[]){
+
   }
 
   onSubmit() {
-    this.employee = this.EmployeeAddFormGroup.value;
-    const formattedHireDate = this.datePipe.transform(this.employee.hireDate, 'yyyy-MM-dd');
-    this.employee.hireDate = formattedHireDate
-    this.employeeService.addEmployee(this.employee, this.token);
-    console.log(this.employee);
+    console.log(this.EmployeeAddFormGroup.valid)
+    if(this.EmployeeAddFormGroup.valid) {
+      console.log(this.EmployeeAddFormGroup.valid)
+      this.employee = this.EmployeeAddFormGroup.value;
+      console.log(" edw eimai mikre" + this.employee.supervisorId)
+
+
+
+      const formattedHireDate = this.datePipe.transform(this.employee.hireDate, 'yyyy-MM-dd');
+      this.employee.hireDate = formattedHireDate
+      this.employee.supervisorId = this.selectedOption?.employeeId;
+      this.employeeService.addEmployee(this.employee, this.token);
+      this.router.navigateByUrl('/home/hr/all-employees');
+      console.log(this.employee);
+    }else alert("ΛΑΘΟΣ")
   }
 
   cancel() {
-    this.router.navigateByUrl('../');
+    this.router.navigateByUrl('/home/hr/all-employees');
+
   }
 
 
