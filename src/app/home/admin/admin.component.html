@@ -29,53 +29,46 @@
       </mat-form-field>
     </div>
   </div>
-<div class="table-container mat-elevation-z8">
-  <mat-table matSort  class="table" #table [dataSource]="dataSource">
-          <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef > Username </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> {{employeeUser.username}} </mat-cell>
-          </ng-container>
+  <div class="table-container mat-elevation-z8" *ngIf="isLoaded">
+    <mat-table matSort  class="table" #table [dataSource]="dataSource">
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef > Username </mat-header-cell>
+        <mat-cell *matCellDef="let employeeUser"> {{employeeUser.username}} </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="password">
-            <mat-header-cell *matHeaderCellDef > Password </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> {{employeeUser.password}} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="employees-name">
+        <mat-header-cell *matHeaderCellDef > Εργαζόμενος </mat-header-cell>
+        <mat-cell *matCellDef="let employeeUser"> {{employeeUser.firstName + " " + employeeUser.lastName}} </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="role">
-            <mat-header-cell *matHeaderCellDef > Ρόλος </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> {{employeeUser.role}} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef > Ρόλος </mat-header-cell>
+        <mat-cell *matCellDef="let employeeUser"> {{employeeUser.role}} </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="firstName">
-            <mat-header-cell *matHeaderCellDef > Όνομα </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> {{employeeUser.firstName}} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="enabled">
+        <mat-header-cell *matHeaderCellDef > Κατάσταση λογαριασμού </mat-header-cell>
+        <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{employeeUser.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(employeeUser.enabled)}}</span> </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef > Επώνυμο </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> {{employeeUser.lastName}} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="supervisor">
+        <mat-header-cell *matHeaderCellDef > Προιστάμενος </mat-header-cell>
+        <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{!!employeeUser.supervisor}}">{{toggleContentSupervisor(employeeUser.supervisor)}}</span> </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="enabled">
-            <mat-header-cell *matHeaderCellDef > Κατάσταση λογαριασμού </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{employeeUser.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(employeeUser.enabled)}}</span> </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="editBtn">
+        <mat-header-cell *matHeaderCellDef > Επεξεργασία Λογαριαμού </mat-header-cell>
+        <mat-cell *matCellDef="let employeeUser"><button mat-raised-button class="button edit" (click)="editUser($event)">Επεξεργασία</button></mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="supervisor">
-            <mat-header-cell *matHeaderCellDef > Προιστάμενος </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"> <span class="status-col {{!!employeeUser.supervisor}}">{{toggleContentSupervisor(employeeUser.supervisor)}}</span> </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="editBtn">
-            <mat-header-cell *matHeaderCellDef > Επεξεργασία Λογαριαμού </mat-header-cell>
-            <mat-cell *matCellDef="let employeeUser"><button mat-stroked-button class="button edit" (click)="editUser($event)">Επεξεργασία</button></mat-cell>
-          </ng-container>
-
-          <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
-          <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>
+      <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div *ngIf="!isLoaded">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
   <div class="add-btn">
-    <button mat-stroked-button class="button" (click)="navigateTo('add-user')" >Προσθήκη Λογαριασμού</button>
+    <button mat-raised-button class="button" color="primary" (click)="navigateTo('add-user')" >Προσθήκη Λογαριασμού</button>
   </div>
 </main>

@@ -43,6 +43,6 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigateByUrl('../');
+    this.router.navigateByUrl('home/hr/all-employees');
   }
 }

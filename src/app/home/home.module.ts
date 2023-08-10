@@ -20,7 +20,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { LeavesModule } from './leaves/leaves.module';
 import { MatSortModule } from "@angular/material/sort";
 import { MatInputModule } from "@angular/material/input";
-
 import {AdminModule} from "./admin/admin.module";
 import { SubordinatesComponent } from './subordinates/subordinates.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -28,6 +27,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {HRComponent} from "./hr/hr.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NgToastModule} from "ng-angular-popup";
 
 
 @NgModule({
@@ -68,7 +69,9 @@ import {HRComponent} from "./hr/hr.component";
     MatIconModule,
     MatRadioModule,
     MatSlideToggleModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatProgressSpinnerModule,
+    NgToastModule
   ],
   providers: [
     DatePipe,

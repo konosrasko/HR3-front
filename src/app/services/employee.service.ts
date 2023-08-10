@@ -7,9 +7,6 @@ import { TokenController } from './token_controller';
 import { Router } from '@angular/router';
 import {LeaveRequest} from "../models/leave_request.model";
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,22 +16,26 @@ export class EmployeeService extends TokenController{
     super(router)
   }
 
-  getLeaveBalances():Observable<LeaveBalance[]>
-  {
+  getLeaveBalances():Observable<LeaveBalance[]> {
     const headers = this.createHeadersWithToken()
     return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"json" as 'json'})
   }
 
-  getLeaveBalancesOfAnotherEmployee(employeeId:number):Observable<LeaveBalance[]>
-  {
+  getAllEmployees(token:String):Observable<Employee[]> {
+    const headers = this.createHeadersWithToken()
+    return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
+  }
+
+  getLeaveBalancesOfAnotherEmployee(employeeId:number):Observable<LeaveBalance[]> {
     const headers = this.createHeadersWithToken()
     return this.http.get<LeaveBalance[]>('url/api/employees/' + employeeId + '/balance', {headers, responseType:"json" as 'json'})
   }
 
-  getAllEmployees(token:String):Observable<Employee[]>
-  {
-    const headers = this.createHeadersWithToken()
-    return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
+  getEmployeesWithoutUser(token?: string){
+    let tokenStr = "Bearer " + token;
+    const url = 'url/api/employees/withoutAccount';
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Employee[]>(url,{headers, responseType: 'text' as 'json'});
   }
 
   addEmployee(employee: Employee, token: String): void {
@@ -70,6 +71,4 @@ export class EmployeeService extends TokenController{
     }
     throw new Error("asd")
   }
-
 }
-
