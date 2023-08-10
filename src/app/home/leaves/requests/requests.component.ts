@@ -16,13 +16,18 @@ export class RequestsComponent {
   displayedColumns = ['submitDate', 'startDate', 'endDate', 'duration', 'leaveTitle', 'status', 'delete'];
   dataSource: MatTableDataSource<LeaveRequest> = new MatTableDataSource<LeaveRequest>()
 
-  @ViewChild(MatSort)sort: MatSort = new MatSort;
+  @ViewChild(MatSort) sort: MatSort = new MatSort;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private leaveRequestService: LeaveRequestService, private router:Router) {}
+  private selectedLeaveRequest: LeaveRequest = {}
+
+  constructor(private changeDetectorRef: ChangeDetectorRef, private leaveRequestService: LeaveRequestService, private router: Router) { }
+
+
 
   ngOnInit() {
     //pull leave requests from the database
-    this.leaveRequestService.getLeaveRequestHistory().subscribe(data=>{
+    this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
+      data = this.translated(data)
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);
 
       this.dataSource.sort = this.sort;
@@ -44,13 +49,14 @@ export class RequestsComponent {
     this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
   }
 
-  
-  editRequest(event: Event){
+
+  editRequest(event: Event) {
     const cell = event.target as HTMLElement;
     const rowData = this.getRowDataFromCell(cell);
+    MatTableDataSource
     if (rowData) {
       //Open edit window with the selected leaveRequest as parameter
-      this.router.navigate(['home/leaves/edit'], { queryParams: {id: rowData.id}});
+      this.router.navigate(['home/leaves/edit'], { queryParams: { id: rowData.id } });
     }
   }
 
@@ -65,14 +71,28 @@ export class RequestsComponent {
     return undefined;
   }
 
-  deleteRequest(event: Event){
-    const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    if (rowData) {
-      //Delete
-      console.log(rowData);
-    }
+  deleteRequest(event: Event) {
+    setTimeout(() => {
+
+      if (this.selectedLeaveRequest.id) {
+        //console.log(this.dataSource.find(row => row.id === rowData.id);)
+        //deleting the leave request
+        this.leaveRequestService.deleteLeaveRequest(this.selectedLeaveRequest.id).subscribe(data => {
+          //successfull delete: refresh leave requests
+          this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
+            data = this.translated(data)
+            this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+
+            this.dataSource.sort = this.sort;
+            this.sortLastColumn();
+          })
+        })
+      }
+    }, 200)
   }
+
+  /* HELPER FUNCTIONS */
+  /* ---------------  */
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -87,8 +107,28 @@ export class RequestsComponent {
     }
   }
 
-  navigateTo(componentToOpen: String){
+  translated(leaveRequests: LeaveRequest[]): LeaveRequest[] {
+    leaveRequests.forEach(leaveRequest => {
+      switch (leaveRequest.status) {
+        case 'PENDING':
+          leaveRequest.status = "Εκκρεμεί"; return "";
+        case 'APPROVED':
+          leaveRequest.status = "Εγκεκριμένη"; return "";
+        case 'DENIED':
+          leaveRequest.status = "Απορρίφθηκε"; return "";
+        default:
+          return "";
+      }
+    });
+    return leaveRequests
+  }
+
+  navigateTo(componentToOpen: String) {
     this.router.navigateByUrl('home/leaves/' + componentToOpen);
+  }
+
+  setRow(row: LeaveRequest) {
+    this.selectedLeaveRequest = row;
   }
 
 
