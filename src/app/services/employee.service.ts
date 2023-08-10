@@ -28,6 +28,12 @@ export class EmployeeService extends TokenController{
     return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"json" as 'json'})
   }
 
+  getLeaveBalancesOfAnotherEmployee(employeeId:number):Observable<LeaveBalance[]>
+  {
+    const headers = this.createHeadersWithToken()
+    return this.http.get<LeaveBalance[]>('url/api/employees/' + employeeId + '/balance', {headers, responseType:"json" as 'json'})
+  }
+
   getAllEmployees(token:String):Observable<Employee[]>
   {
     const headers = this.createHeadersWithToken()
