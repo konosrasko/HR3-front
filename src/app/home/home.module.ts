@@ -29,6 +29,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {HRComponent} from "./hr/hr.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgToastModule} from "ng-angular-popup";
+import {MatCardModule} from "@angular/material/card";
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
@@ -73,8 +74,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSlideToggleModule,
     NgOptimizedImage,
     MatProgressSpinnerModule,
-    MatIconModule,
     NgToastModule,
+    MatCardModule
   ],
   providers: [
     DatePipe,
