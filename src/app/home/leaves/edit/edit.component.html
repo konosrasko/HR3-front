@@ -1,9 +1,9 @@
 <main>
     <h1>Λεπτομέρειες Αιτήματος</h1>
     <div class="form-container">
-  
+
       <form [formGroup]="leaveRequestFormGroup" action="">
-  
+
         <label class="lab1" for="category">Κατηγορία</label>
         <mat-form-field class="field1">
           <mat-select placeholder="--" [formControl]="categoryControl" required>
@@ -13,7 +13,7 @@
           </mat-select>
           <mat-error *ngIf="categoryControl.hasError('required')">Παρακαλώ επιλέξτε κατηγορία</mat-error>
         </mat-form-field>
-  
+
         <label class="lab2" for="startDate">Από</label>
         <mat-form-field class="field2" class="example-full-width">
           <input matInput [matDatepicker]="startDatePicker" [min]="today" placeholder="Επιλέξτε ημερομηνία"
@@ -21,7 +21,7 @@
           <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #startDatePicker></mat-datepicker>
         </mat-form-field>
-  
+
         <label class="lab3" for="endDate">Έως</label>
         <mat-form-field class="field3" class="example-full-width">
           <input matInput [matDatepicker]="endDatePicker" [min]="leaveRequestFormGroup.get('startDate')?.value"
@@ -29,21 +29,21 @@
           <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #endDatePicker></mat-datepicker>
         </mat-form-field>
-  
+
         <hr>
         <label class="lab4" for="submitDate">Ημερομηνία υποβολής</label>
         <input class="field4" matInput [disabled]="true" [value]="leaveRequestFormGroup.get('submitDate')?.value | date:'dd/MM/Y'"
           name="formattedDate">
-          
+
           <label class="lab5" for="duration">Διάρκεια</label>
           <input class="field5" type="number" id="" value="5" formControlName="duration" name="duration">
-          
+
         </form>
       </div>
       <p *ngIf="leaveRequest.status!='Εκκρεμεί'" style="color: red;">Η επεξεργασία είναι δυνατή μόνο στα εκκρεμή αιτήματα</p>
 
-  
+
           <br>
-          <input class="action-button" type="submit" value="Επεξεργασία" (click)="submit()" [disabled]="!leaveRequestFormGroup.valid" style="margin:0 5vw 1vh 0">
-          <button class="action-button" (click)="cancel()" >Ακύρωση</button>
+          <button mat-raised-button color="warn" class="action-button" type="submit" value="Επεξεργασία" (click)="submit()" [disabled]="!leaveRequestFormGroup.valid" style="margin:0 5vw 1vh 0">Επεξεργασία</button>
+          <button mat-raised-button color="accent" class="action-button" (click)="cancel()" >Ακύρωση</button>
   </main>
