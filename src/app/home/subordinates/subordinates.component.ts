@@ -26,7 +26,6 @@ export class SubordinatesComponent implements OnInit {
 
   status: string[] = ["all", "Εγκεκριμένη", "Απορρίφθηκε", "Εκκρεμεί"];
   displayedColumns = ['firstName', 'lastName', 'leaveTitle', 'submitDate', 'startDate', 'endDate', 'duration', 'status', 'accept', 'decline'];
-  //,'accept' ,'decline'
   dataSource?: any;
   ngOnInit() {
   }
@@ -53,7 +52,6 @@ export class SubordinatesComponent implements OnInit {
         })
       });
     }
-
   }
 
   declineRequest(subordinateReq: SubordinatesReq) {
