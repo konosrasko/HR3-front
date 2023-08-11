@@ -25,6 +25,7 @@ export class EditUserComponent implements OnInit{
   isLoaded: boolean = false;
   oldPass: string = '';
   editUserFormGroup: FormGroup;
+  isEdited = false;
 
   constructor(private router: Router, private route:ActivatedRoute, private userService: UserService, private toast: NgToastService) {
     this.route.queryParams.subscribe(params=>{
@@ -81,6 +82,10 @@ export class EditUserComponent implements OnInit{
 
   navigateTo() {
     this.router?.navigateByUrl('home/admin');
+  }
+
+  onEdited(){
+    this.isEdited = true;
   }
 
   saveEditUser(){
