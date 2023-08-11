@@ -7,6 +7,7 @@ import { LeaveRequestService } from 'src/app/services/leave_request.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
 import { LeaveRequest } from "../../../models/leave_request.model";
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-add',
@@ -31,7 +32,7 @@ export class AddComponent {
   @ViewChild('endDatePicker') endDatePicker!: MatDatepicker<Date>;
 
 
-  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute,) {
+  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private toast:NgToastService) {
 
     this.route.queryParams.subscribe(params => {
       this.foreignId = params["id"],
@@ -116,14 +117,14 @@ export class AddComponent {
     if (!this.foreignId) { //post the request for the logged in user
       this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data => {
         console.log(data)
-        alert("Επιτυχής δημιουργία αιτήματος")
+        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβήθηκε επιτυχώς', position: "topRight", duration: 4000});
         this.router.navigateByUrl('home/leaves/requests')
       })
     }
     else { //post it for another employee
       this.leaveRequestService.newLeaveRequestForAnotherEmployee(newLeaveRequest, this.foreignId).subscribe(data => {
         console.log(data)
-        alert("Επιτυχής δημιουργία αιτήματος")
+        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβήθηκε επιτυχώς', position: "topRight", duration: 4000});
         this.router.navigateByUrl('home/hr/all-employees')
       })
     }
