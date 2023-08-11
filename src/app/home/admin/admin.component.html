@@ -58,7 +58,7 @@
 
       <ng-container matColumnDef="editBtn">
         <mat-header-cell *matHeaderCellDef > Επεξεργασία Λογαριαμού </mat-header-cell>
-        <mat-cell *matCellDef="let employeeUser"><button mat-raised-button class="button edit" (click)="editUser($event)">Επεξεργασία</button></mat-cell>
+        <mat-cell *matCellDef="let employeeUser"><button mat-raised-button color="primary" class="button edit" (click)="editUser($event)">Επεξεργασία</button></mat-cell>
       </ng-container>
 
       <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>

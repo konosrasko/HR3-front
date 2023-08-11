@@ -6,11 +6,9 @@
        <span>
          <h1>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</h1>
        </span>
-     <span (click)="navigateTo('add-employee')" class="add">
-          <img src=".\assets\add.svg" alt="add">
-          <h2>Προσθήκη</h2>
-     </span>
-
+       <span (click)="navigateTo('add-employee')" class="add">
+          <button mat-raised-button color="primary">Προσθήκη Εργαζομένου</button>
+       </span>
     </div>
   <mat-table matSort #table [dataSource]="dataSource" id="table1">
 
@@ -69,6 +67,4 @@
    </div>
 </main>
 
-<span (click)="navigateTo('add-employee')" class="add">
-  <button mat-raised-button color="primary">Προσθήκη Εργαζομένου</button>
-</span>
+
