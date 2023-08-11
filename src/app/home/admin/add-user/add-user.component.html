@@ -47,10 +47,10 @@
   </div>
   <div class="btn-options">
     <div class="back-button">
-      <button mat-stroked-button class="button" (click)="navigateTo()">Πίσω</button>
+      <button mat-raised-button color="accent" class="button" (click)="navigateTo()">Ακύρωση</button>
     </div>
     <div class="save-button">
-      <button mat-stroked-button class="button" (click)="saveNewUser()" [disabled]="!newUserFormGroup.get('usernameFromControl')?.valid || !newUserFormGroup.get('passwordFormControl')?.valid || !newUserFormGroup.get('rolesFormControl')?.valid || !newUserFormGroup.get('employeesFormControl')?.valid || !newUserFormGroup.get('isSupervisorFormControl')?.valid">Αποθήκευση</button>
+      <button mat-raised-button color="warn" class="button" (click)="saveNewUser()" [disabled]="!newUserFormGroup.get('usernameFromControl')?.valid || !newUserFormGroup.get('passwordFormControl')?.valid || !newUserFormGroup.get('rolesFormControl')?.valid || !newUserFormGroup.get('employeesFormControl')?.valid || !newUserFormGroup.get('isSupervisorFormControl')?.valid">Αποθήκευση</button>
     </div>
   </div>
 </main>

@@ -48,10 +48,10 @@
   </div>
   <div class="btn-options">
     <div class="back-button">
-      <button mat-raised-button color="primary" class="button" (click)="navigateTo()">Πίσω</button>
+      <button mat-raised-button color="accent" class="button" (click)="navigateTo()">Ακύρωση</button>
     </div>
     <div class="save-button" *ngIf="isLoaded">
-      <button mat-raised-button color="primary" class="button" [disabled]="!editUserFormGroup.get('usernameFormControl')?.valid || !editUserFormGroup.get('rolesFormControl')?.valid" (click)="saveEditUser()">Ενημέρωση στοιχείων</button>
+      <button mat-raised-button color="warn" class="button" [disabled]="!editUserFormGroup.get('usernameFormControl')?.valid || !editUserFormGroup.get('rolesFormControl')?.valid" (click)="saveEditUser()">Ενημέρωση στοιχείων</button>
     </div>
   </div>
 </main>

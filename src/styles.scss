@@ -2,13 +2,14 @@
 @include mat-core();
 
 $primary-color: mat-palette($mat-orange);
-$accent-color: mat-palette($mat-grey);
+$accent-color: mat-palette($mat-red);
+$warn-color: mat-palette($mat-green);
 $dark-gray: #252525;
 
 
 $my-custom-primary: mat-palette($primary-color,700);
-$my-custom-accent: mat-palette($accent-color);
-$my-custom-warn: mat-palette($mat-red);
+$my-custom-accent: mat-palette($accent-color,900);
+$my-custom-warn: mat-palette($mat-green,700);
 
 $my-custom-theme: mat-light-theme($my-custom-primary, $my-custom-accent, $my-custom-warn);
 
