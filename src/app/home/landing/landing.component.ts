@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
-  public roles: Roles = { role: "", isSupervisor: false };
+  public roles: Roles = { role: "", supervisor: false };
   public takenLeaves?: LeaveBalance[];
 
   constructor(private employeeService: EmployeeService, private userService: UserService, private router: Router) { }
@@ -33,7 +33,7 @@ export class LandingComponent implements OnInit {
     this.userService.getUserRoles().subscribe(data => {
       this.roles = data
       localStorage.setItem("role",String(this.roles.role));
-      localStorage.setItem("isSupervisor",String(Boolean(this.roles.isSupervisor)));
+      localStorage.setItem("isSupervisor",String(Boolean(this.roles.supervisor)));
     });
   }
 

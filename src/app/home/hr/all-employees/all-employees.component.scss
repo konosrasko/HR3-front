@@ -41,17 +41,17 @@ h1{
   transition: color 0.24s ease
 }
 
-.add img{
-  scale: 70%;
-  transition: scale 0.14s ease;
+.add mat-icon{
+  padding-right: 5px;
+  transition: opacity 0.14s ease;
+}
+
+.add:hover mat-icon{
+  opacity: 74%;
 }
 
 .add:hover h2{
   color: $myFixedColor;
-}
-
-.add:hover img{
-  scale: 79%;
 }
 
 

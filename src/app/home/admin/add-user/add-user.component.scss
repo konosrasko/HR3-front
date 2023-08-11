@@ -16,28 +16,11 @@ mat-form-field{
 
 .button {
   margin-top: 30px;
+  color: black;
   transition: 0.25s ease;
-  border: none;
   padding: 15px 30px;
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 20px;
   position: absolute;
-}
-
-.button:disabled:hover{
-  opacity: 90%;
-  cursor: default;
-}
-
-.button:hover{
-  opacity: 85%;
-}
-
-.button:disabled{
-  opacity: 90%;
-  background-image: linear-gradient(to right, #6d6966, #3d3d3d);
-  color: #b8b8b8;
 }
 
 .btn-options{
@@ -60,10 +43,8 @@ mat-form-field{
   border-radius: 20px;
 }
 
-
 .supervisor-rdg{
   width: 16vw;
   position: relative;
   margin-left: 50px;
 }
-

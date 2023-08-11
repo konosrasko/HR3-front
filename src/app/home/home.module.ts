@@ -30,6 +30,7 @@ import {HRComponent} from "./hr/hr.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgToastModule} from "ng-angular-popup";
 import {MatCardModule} from "@angular/material/card";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import {MatCardModule} from "@angular/material/card";
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
+    MatTooltipModule,
     MatSortModule,
     MatSelectModule,
     MatInputModule,
