@@ -82,6 +82,19 @@ export class SubordinatesComponent implements OnInit{
   //   }else return undefined;
   // }
 
+  toggleContentBasedOnString(status: string) {
+    if (status === 'APPROVED') {
+      return 'Εγκεκριμένη';  // Change this to the desired content for 'active' status
+    } else if (status === 'DENIED') {
+      return 'Απορριφθείσα';  // Change this to the desired content for 'inactive' status
+    }else if (status === 'PENDING') {
+      return 'Υποβληθείσα';  // Change this to the desired content for 'inactive' status
+    }
+    return ;
+  }
+
+
+
 
   navigateTo(url:string ){
     this.router?.navigateByUrl('home/subordinates/' + url);

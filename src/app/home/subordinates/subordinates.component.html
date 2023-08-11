@@ -52,7 +52,10 @@
 
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef > Κατάσταση </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.status}} </mat-cell>
+        <mat-cell *matCellDef="let subordinatesRequests">
+          <span class="status-col {{subordinatesRequests.status === 'APPROVED' ? 'active' : (subordinatesRequests.status === 'DENIED' ? 'inactive' : 'PENDING')}}">
+                {{toggleContentBasedOnString(subordinatesRequests.status)}}
+          </span> </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="accept">
