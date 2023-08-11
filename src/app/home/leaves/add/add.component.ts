@@ -117,14 +117,14 @@ export class AddComponent {
     if (!this.foreignId) { //post the request for the logged in user
       this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data => {
         console.log(data)
-        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβήθηκε επιτυχώς', position: "topRight", duration: 4000});
+        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβλήθηκε επιτυχώς', position: "topRight", duration: 4000});
         this.router.navigateByUrl('home/leaves/requests')
       })
     }
     else { //post it for another employee
       this.leaveRequestService.newLeaveRequestForAnotherEmployee(newLeaveRequest, this.foreignId).subscribe(data => {
         console.log(data)
-        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβήθηκε επιτυχώς', position: "topRight", duration: 4000});
+        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβλήθηκε επιτυχώς', position: "topRight", duration: 4000});
         this.router.navigateByUrl('home/hr/all-employees')
       })
     }
