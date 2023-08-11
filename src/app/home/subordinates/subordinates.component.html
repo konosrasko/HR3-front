@@ -1,14 +1,14 @@
 <main>
-  <h1>Αιτήματα υφισταμένων</h1>
+  <h1 >Αιτήματα υφισταμένων</h1>
   <div class="filters">
     <div class="status-filter">
       <mat-form-field appearance="fill">
-        <mat-label>Κατάσταση Λογαριασμού</mat-label>
+        <mat-label >Κατάσταση αιτήματος</mat-label>
         <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="applyStatusFilter(selectedStatus)">
           <mat-option value = "all">Όλες</mat-option>
-          <mat-option value = "APPROVED">Αποδεκτά</mat-option>
-          <mat-option value = "DECLINED">Απορριφθέντα</mat-option>
-          <mat-option value = "PENDING">Εκρεμμεί</mat-option>
+          <mat-option value = "Εγκεκριμένη">Εγκεκριμένη</mat-option>
+          <mat-option value = "Απορρίφθηκε">Απορρίφθηκε</mat-option>
+          <mat-option value = "Εκκρεμεί">Εκκρεμεί</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -37,12 +37,12 @@
 
       <ng-container matColumnDef="startDate">
         <mat-header-cell *matHeaderCellDef > Ημερομηνία Έναρξης </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.startDate}} </mat-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.startDate | date: 'dd-MM-Y'}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
         <mat-header-cell *matHeaderCellDef > Ημερομηνία Λήξης </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.endDate}} </mat-cell>
+        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.endDate | date: 'dd-MM-Y'}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="duration">
@@ -52,25 +52,25 @@
 
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef > Κατάσταση </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.status}} </mat-cell>
+        <mat-cell [ngClass]="getStatusClass(subordinatesRequests.status)" *matCellDef="let subordinatesRequests"> {{subordinatesRequests.status}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="accept">
+      <ng-container matColumnDef="accept" >
         <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
-        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests">
-          <img class="accept" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="approveRequest(subordinatesRequests)" style="width: auto; height: auto;" src="assets/accept.png" alt="Accept">
+        <mat-cell   style="padding: 0; justify-content: space-around;" *matCellDef="let subordinatesRequests">
+          <mat-icon class="accept"  matTooltip="Αποδοχή" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="approveRequest(subordinatesRequests)">check_circle</mat-icon>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="decline">
         <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
-        <mat-cell  style="padding: 0; justify-content: center;" *matCellDef="let subordinatesRequests">
-          <img class="decline" *ngIf="subordinatesRequests.status === 'PENDING'" (click)="declineRequest(subordinatesRequests)" style="width: auto; height: auto;" src="assets/decline.png" alt="Decline">
+        <mat-cell  style="padding: 0; " *matCellDef="let subordinatesRequests">
+          <mat-icon class="decline" matTooltip="Απόρριψη" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="declineRequest(subordinatesRequests)">cancel</mat-icon>
         </mat-cell>
       </ng-container>
 
       <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)"  class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row class="header-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
 </main>

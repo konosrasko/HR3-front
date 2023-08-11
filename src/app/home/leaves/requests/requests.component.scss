@@ -10,7 +10,6 @@ main{
 }
 
 
-
 h1{
     color: $myFixedColor;
 }
@@ -31,18 +30,20 @@ h1{
   transition: color 0.24s ease
 }
 
-.add img{
-  scale: 70%;
-  transition: scale 0.14s ease;
+.add mat-icon{
+  padding-right: 5px;
+  transition: opacity 0.14s ease;
+}
+
+.add:hover mat-icon{
+  opacity: 84%;
+  fill: red;
 }
 
 .add:hover h2{
   color: $myFixedColor;
 }
 
-.add:hover img{
-  scale: 79%;
-}
 
 .header *{
     background-color: #252525;
@@ -77,21 +78,23 @@ h1{
   justify-content: space-evenly !important;
 }
 
-.edit{
-  opacity: 66%;
-  height: 23px !important;
-}
-
-
 .icon{
+  scale: 107%;
+  opacity: 90%;
   transition: scale 0.14s ease
 }
 
 .icon:hover{
   cursor: pointer;
-  scale: 110%;
+  scale: 118%;
   transform: rotate(3deg);
+  color: rgb(114, 74, 0);
 }
+
+.bin:hover{
+  color: rgb(141, 6, 6);
+}
+
 
 .pending{
   font-weight: 500;
@@ -107,3 +110,4 @@ h1{
   font-weight: 500;
   color: rgb(122, 24, 24)
 }
+

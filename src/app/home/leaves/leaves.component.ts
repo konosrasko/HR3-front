@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-leaves',
-  templateUrl: './leaves.component.html',
-  styleUrls: ['./leaves.component.scss']
+  template: `<router-outlet></router-outlet>`,
 })
 export class LeavesComponent {
 

@@ -29,6 +29,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {HRComponent} from "./hr/hr.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgToastModule} from "ng-angular-popup";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import {NgToastModule} from "ng-angular-popup";
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
+    MatTooltipModule,
     MatSortModule,
     MatSelectModule,
     MatInputModule,
@@ -71,7 +73,8 @@ import {NgToastModule} from "ng-angular-popup";
     MatSlideToggleModule,
     NgOptimizedImage,
     MatProgressSpinnerModule,
-    NgToastModule
+    MatIconModule,
+    NgToastModule,
   ],
   providers: [
     DatePipe,

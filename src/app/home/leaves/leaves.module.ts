@@ -13,6 +13,8 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { RestLeavesComponent } from './rest-leaves/rest-leaves.component';
 import { EditComponent } from './edit/edit.component';
 import {MatButtonModule} from "@angular/material/button"; // Correct the import statement for RestLeavesComponent
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'gr-GR' }],
@@ -34,7 +36,9 @@ import {MatButtonModule} from "@angular/material/button"; // Correct the import 
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
   ]
 })
 export class LeavesModule { }
