@@ -17,9 +17,10 @@
 
 .footer {
   display: flex;
-  background-color: #D9D9D9;
+  background-image: linear-gradient(to left, #fae1be, #f87620);
   height: 100px;
   width: 100vw;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
 }
