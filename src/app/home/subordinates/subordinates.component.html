@@ -6,9 +6,9 @@
         <mat-label>Κατάσταση Λογαριασμού</mat-label>
         <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="applyStatusFilter(selectedStatus)">
           <mat-option value = "all">Όλες</mat-option>
-          <mat-option value = "APPROVED">Αποδεκτά</mat-option>
-          <mat-option value = "DECLINED">Απορριφθέντα</mat-option>
-          <mat-option value = "PENDING">Εκρεμμεί</mat-option>
+          <mat-option value = "approved">Αποδεκτά</mat-option>
+          <mat-option value = "denied">Απορριφθέντα</mat-option>
+          <mat-option value = "pending">Εκρεμμεί</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

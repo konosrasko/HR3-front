@@ -30,7 +30,6 @@ export class SubordinatesComponent implements OnInit{
 
   status: string[]=["all", "accepted", "declined", "pending"];
   displayedColumns=['firstName' ,'lastName' ,'leaveTitle' ,'submitDate' ,'startDate' ,'endDate' ,'duration' ,'status','accept','decline'];
-//,'accept' ,'decline'
   dataSource?: any;
   ngOnInit(){
   }
@@ -38,8 +37,8 @@ export class SubordinatesComponent implements OnInit{
   loadData(data: any){
     this.subordinatesRequests = JSON.parse(data);
     this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
-    this.dataSource.filterPredicate = function (record:{ firstName: string }, filter:string){
-    return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
+    this.dataSource.filterPredicate = function (record:{ status: string }, filter:string){
+    return record.status.toLocaleLowerCase() == filter.toLocaleLowerCase()
     }
   }
 
@@ -59,8 +58,8 @@ export class SubordinatesComponent implements OnInit{
       this.dataSource.filter = 'APPROVED';
       return;
     }
-    if (filterValue === 'declined') {
-      this.dataSource.filter = 'DECLINED';
+    if (filterValue === 'denied') {
+      this.dataSource.filter = 'DENIED';
       return;
     }
     if (filterValue === 'pending') {
