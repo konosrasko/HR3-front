@@ -2,6 +2,7 @@ import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { LeaveRequest } from 'src/app/models/leave_request.model';
 import { LeaveRequestService } from 'src/app/services/leave_request.service';
 
@@ -20,7 +21,7 @@ export class RequestsComponent {
 
   private selectedLeaveRequest: LeaveRequest = {}
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private leaveRequestService: LeaveRequestService, private router: Router) { }
+  constructor(private changeDetectorRef: ChangeDetectorRef, private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
 
 
 
@@ -67,6 +68,7 @@ export class RequestsComponent {
         //console.log(this.dataSource.find(row => row.id === rowData.id);)
         //deleting the leave request
         this.leaveRequestService.deleteLeaveRequest(this.selectedLeaveRequest.id).subscribe(data => {
+          this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα διαγράφτηκε επιτυχώς', position: "topRight", duration: 4000});
           //successfull delete: refresh leave requests
           this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
             data = this.translated(data)
