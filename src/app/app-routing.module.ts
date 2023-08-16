@@ -15,6 +15,9 @@ import {EditUserComponent} from "./home/admin/edit-user/edit-user.component";
 import {AllEmployeesComponent} from "./home/hr/all-employees/all-employees.component";
 import {AddEmployeeComponent} from "./home/hr/add-employee/add-employee.component";
 import {SubordinatesComponent} from "./home/subordinates/subordinates.component";
+import {LeaveCategoryComponent} from "./home/hr/leave-category/leave-category.component";
+import {AddCategoryComponent} from "./home/hr/leave-category/add-category/add-category.component";
+import {EditCategoryComponent} from "./home/hr/leave-category/edit-category/edit-category.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,7 +28,12 @@ const routes: Routes = [
       {path:'hr',redirectTo:'hr/all-employees',pathMatch: 'full'},
       {path:'hr',children:[
           {path:'all-employees',component: AllEmployeesComponent},
-          {path:'add-employee',component: AddEmployeeComponent}
+          {path:'add-employee',component: AddEmployeeComponent},
+          {path:'leave-categories',component: LeaveCategoryComponent},
+          {path:'leave-categories', children:[
+              {path: 'add-category', component: AddCategoryComponent},
+              {path: 'edit-category', component: EditCategoryComponent}
+            ]}
         ]},
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },

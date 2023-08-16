@@ -26,7 +26,6 @@ import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
 import { NgToastModule } from 'ng-angular-popup';
 
-
 @NgModule({
   declarations: [
     AppComponent,
