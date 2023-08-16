@@ -4,6 +4,7 @@ import {EmployeeUser} from "../../models/employeeUser.model";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {NgToastService} from "ng-angular-popup";
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -31,11 +32,10 @@ export class AdminComponent implements OnInit{
       this.userService.getAllUserEmployees(this.token).subscribe({
         next: data => this.loadData(data),
         error: err => {
-          console.log(err);
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα Admin ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+          this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 3000});
           this.router?.navigateByUrl('home/landing');
-        }
-      })
+      }
+    })
     }else{
       this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
       this.router?.navigateByUrl('login');
