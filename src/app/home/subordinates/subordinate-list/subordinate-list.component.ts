@@ -17,7 +17,8 @@ export class SubordinateListComponent {
   employees?: Employee[];
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
   token: string | null = localStorage.getItem('token');
-  dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
+  dataSource?: any
+   // Initialize with empty array
   private subscription: Subscription | undefined;
   showContent?:string;
   isLoaded: boolean = false;
