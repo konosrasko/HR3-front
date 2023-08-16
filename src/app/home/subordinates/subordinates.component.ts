@@ -4,6 +4,8 @@ import { UserService } from "../../services/user.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { SubordinatesReq } from "../../models/subordinatesReq.model";
 import { EmployeeService } from "../../services/employee.service";
+import { NgToastService } from 'ng-angular-popup';
+import {HttpStatusCode} from "@angular/common/http";
 
 @Component({
   selector: 'app-subordinates',
@@ -12,12 +14,18 @@ import { EmployeeService } from "../../services/employee.service";
 })
 export class SubordinatesComponent implements OnInit {
 
-  constructor(private router: Router, private userService: UserService, private employeeService: EmployeeService) {
+  constructor(private router: Router, private userService: UserService, private employeeService: EmployeeService, private toast:NgToastService) {
     this.userService.getAllSubordinatesReq().subscribe({
       next: data => {
         this.loadData(data)
       },
-      error: err => { console.log(); alert("Προβλημα") }
+      error: error => {
+        if(error.status === HttpStatusCode.GatewayTimeout){
+          this.toast.error({detail: 'Αποτυχία!', summary: "There was a gateway error", position: "topRight", duration: 4000});
+        }
+        console.log(error);
+        // alert("Προβλημα");
+      }
     })
   }
 
@@ -84,7 +92,7 @@ export class SubordinatesComponent implements OnInit {
   }
 
 
-  /* HELPER FUNCTIONS */ 
+  /* HELPER FUNCTIONS */
   translated(subordinateReqs: SubordinatesReq[]): SubordinatesReq[] {
     subordinateReqs.forEach(sr => {
       switch (sr.status) {
