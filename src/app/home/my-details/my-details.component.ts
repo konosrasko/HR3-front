@@ -73,8 +73,6 @@ export class MyDetailsComponent implements OnInit {
     loadEmployee(data: any){
         this.employee = JSON.parse(data);
         this.originalEmployee = JSON.parse(data);
-        this.employee.hireDate = this.date.transform(this.employee.hireDate, 'dd/MM/yyyy');
-        this.originalEmployee.hireDate = this.date.transform(this.originalEmployee.hireDate, 'dd/MM/yyyy');
     }
 
     public myError = (controlName: string, errorName: string) =>{
@@ -117,7 +115,7 @@ export class MyDetailsComponent implements OnInit {
             error: error => console.log(error)
             }
           );
-          this.dataLoaded = true;
+
         }
 
       this.fetchDataFromBackend().then(data => {
