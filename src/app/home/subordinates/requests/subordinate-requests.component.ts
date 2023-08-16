@@ -14,6 +14,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SubordinateRequestComponent implements OnInit {
 
+  isLoaded: boolean = false;
+
   constructor(private router: Router, private userService: UserService, private employeeService: EmployeeService, private toast:NgToastService) {
     this.userService.getAllSubordinatesReq().subscribe({
       next: data => {
@@ -46,6 +48,7 @@ export class SubordinateRequestComponent implements OnInit {
     this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
       return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
     }
+    this.isLoaded = true;
   }
 
   approveRequest(subordinateReq: SubordinatesReq) {
@@ -77,6 +80,11 @@ export class SubordinateRequestComponent implements OnInit {
   }
 
   /* FILTERING */
+  toggleDirectSubordinates(){
+    //TO-DO: make this work
+    this.isLoaded =  !this.isLoaded;
+  }
+
   applyStatusFilter(filterValue: string) {
     if (filterValue === 'all') {
       this.dataSource.filter = '';
