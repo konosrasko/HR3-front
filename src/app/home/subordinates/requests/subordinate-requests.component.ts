@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
 import { MatTableDataSource } from "@angular/material/table";
+import { MatSort } from '@angular/material/sort';
 import { NgToastService } from 'ng-angular-popup';
-import {HttpStatusCode} from "@angular/common/http";
+import { HttpStatusCode } from "@angular/common/http";
 import { SubordinatesReq } from 'src/app/models/subordinatesReq.model';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { UserService } from 'src/app/services/user.service';
+import { LeaveRequestService } from 'src/app/services/leave_request.service';
 
 @Component({
   selector: 'app-subordinates',
@@ -15,74 +17,109 @@ import { UserService } from 'src/app/services/user.service';
 export class SubordinateRequestComponent implements OnInit {
 
   isLoaded: boolean = false;
-
-  constructor(private router: Router, private userService: UserService, private employeeService: EmployeeService, private toast:NgToastService) {
-    this.userService.getAllSubordinatesReq().subscribe({
-      next: data => {
-        this.loadData(data)
-      },
-      error: error => {
-        if(error.status === HttpStatusCode.GatewayTimeout){
-          this.toast.error({detail: 'Αποτυχία!', summary: "There was a gateway error", position: "topRight", duration: 4000});
-        }
-        console.log(error);
-        // alert("Προβλημα");
-      }
-    })
-  }
-
+  showIndirect: boolean = false;
+  @ViewChild(MatSort) sort: MatSort = new MatSort;
   subordinatesRequests?: SubordinatesReq[];
   selectedStatus: string = "all";
-
   status: string[] = ["all", "Εγκεκριμένη", "Απορρίφθηκε", "Εκκρεμεί"];
   displayedColumns = ['firstName', 'lastName', 'leaveTitle', 'submitDate', 'startDate', 'endDate', 'duration', 'status', 'accept', 'decline'];
   dataSource?: any;
+
+  constructor(private changeDetectorRef: ChangeDetectorRef, private router: Router, private employeeService: EmployeeService, private leaveRequestService: LeaveRequestService, private toast: NgToastService) { }
+
   ngOnInit() {
+    this.selectedStatus = "Εκκρεμεί"
+    this.reloadRequests(this.sort)
+  }
+
+  reloadRequests(sort?:MatSort) {
+    if (!this.showIndirect) {
+      this.leaveRequestService.getDirectSubordinatesReq().subscribe({
+        next: data => {
+          this.loadData(data)
+          this.dataSource.sort = sort
+          console.log(this.dataSource.sort)
+          this.sortLastColumn()
+        },
+        error: error => {
+          console.log(error)
+          this.toast.error({
+            detail: 'Αποτυχία!',
+            summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+            position: "topRight", duration: 4000
+          });
+          this.isLoaded = true;
+        }
+      })
+    } else {
+      this.leaveRequestService.getAllSubordinatesReq().subscribe({
+        next: data => {
+          this.loadData(data)
+        },
+        error: error => {
+          this.toast.error({
+            detail: 'Αποτυχία!',
+            summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+            position: "topRight", duration: 4000
+          });
+          this.isLoaded = true;
+        }
+      })
+    }
   }
 
   loadData(data: any) {
     this.subordinatesRequests = JSON.parse(data);
-    if(this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
+    if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
 
     this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
     this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
       return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
     }
+    this.applyStatusFilter(this.selectedStatus)
     this.isLoaded = true;
   }
 
   approveRequest(subordinateReq: SubordinatesReq) {
     if (subordinateReq.leaveId != null) {
-      this.employeeService.approveLeaveRequest(subordinateReq.leaveId).subscribe(data => {
-        this.userService.getAllSubordinatesReq().subscribe({
-          next: data => this.loadData(data),
-          error: err => {
-            console.log();
-            alert("Προβλημα")
-          }
-        })
+      this.employeeService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
+        next: data => {
+          this.loadData(data)
+        },
+        error: error => {
+          this.toast.error({
+            detail: 'Αποτυχία!',
+            summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+            position: "topRight", duration: 4000
+          });
+          this.isLoaded = true;
+        }
       });
     }
   }
 
   declineRequest(subordinateReq: SubordinatesReq) {
     if (subordinateReq.leaveId != null) {
-      this.employeeService.declineLeaveRequest(subordinateReq.leaveId).subscribe(data => {
-        this.userService.getAllSubordinatesReq().subscribe({
-          next: data => this.loadData(data),
-          error: err => {
-            console.log();
-            alert("Προβλημα")
-          }
-        })
+      this.employeeService.declineLeaveRequest(subordinateReq.leaveId).subscribe({
+        next: data => {
+          this.loadData(data)
+        },
+        error: error => {
+          this.toast.error({
+            detail: 'Αποτυχία!',
+            summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+            position: "topRight", duration: 4000
+          });
+          this.isLoaded = true;
+        }
       });
     }
   }
 
   /* FILTERING */
-  toggleDirectSubordinates(){
-    //TO-DO: make this work
-    this.isLoaded =  !this.isLoaded;
+  toggleDirectSubordinates() {
+    this.showIndirect = !this.showIndirect
+    this.reloadRequests()
   }
 
   applyStatusFilter(filterValue: string) {
@@ -90,7 +127,7 @@ export class SubordinateRequestComponent implements OnInit {
       this.dataSource.filter = '';
       return;
     }
-
+    
     filterValue = filterValue.trim();
     this.dataSource.filterPredicate = (data: any, filter: string) => {
       return data.status.includes(filterValue);
@@ -99,6 +136,12 @@ export class SubordinateRequestComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  /* SORTING */
+  sortLastColumn() {
+    const lastColumnName = this.displayedColumns[1];
+    const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
+    this.dataSource.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });    
+  }
 
   /* HELPER FUNCTIONS */
   translated(subordinateReqs: SubordinatesReq[]): SubordinatesReq[] {
@@ -134,3 +177,4 @@ export class SubordinateRequestComponent implements OnInit {
     this.router?.navigateByUrl('home/subordinates/' + url);
   }
 }
+
