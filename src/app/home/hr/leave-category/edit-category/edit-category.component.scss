@@ -1,0 +1,66 @@
+main{
+  padding: 5vh 0 0 0;
+  margin: 8vh 25vw 15vh 30vw;
+}
+
+h1{
+  color: orange;
+  margin-left: 40px;
+}
+
+mat-form-field{
+  width: 20vw;
+  margin-left: 45px;
+  margin-top: 10px;
+}
+
+.button {
+  margin-top: 30px;
+  transition: 0.25s ease;
+  padding: 15px 30px;
+  cursor: pointer;
+  position: absolute;
+}
+
+.btn-options{
+  margin-left: 50px;
+  display: grid;
+  position: relative;
+}
+
+.save-button{
+  margin-left: 15px;
+}
+
+.back-button{
+  margin-left: 260px;
+}
+
+.edit-category-form{
+  width: 25vw;
+  margin-top: 40px;
+  background-color: #d7d7d7;
+  border-radius: 20px;
+  padding-bottom:  10px;
+}
+
+.active-edit{
+  margin-left: 50px;
+  padding-top: 10px
+}
+
+.active{
+  padding: 3px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+  margin-left: 5px;
+}
+
+.inactive{
+  padding: 3px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  margin-right: 5px;
+}

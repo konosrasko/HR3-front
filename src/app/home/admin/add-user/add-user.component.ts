@@ -6,6 +6,7 @@ import { UserService } from "../../../services/user.service";
 import { EmployeeService } from "../../../services/employee.service";
 import { User } from "../../../models/user.model";
 import { NgToastService } from "ng-angular-popup";
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-user',
@@ -42,14 +43,14 @@ export class AddUserComponent implements OnInit{
       this.employeeService.getEmployeesWithoutUser(this.token).subscribe({
         next: data => this.loadEmployeeData(data),
         error: err => {
-          console.log(err);
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα Admin ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+          if(err.status === HttpStatusCode.GatewayTimeout){
+            this.toast.error({detail: 'Αποτυχία!', summary: 'Υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+          } else {
+            this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 3000});
+          }
           this.router?.navigateByUrl('home/landing');
         }
       });
-    }else{
-      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
-      this.router?.navigateByUrl('/login');
     }
   }
 

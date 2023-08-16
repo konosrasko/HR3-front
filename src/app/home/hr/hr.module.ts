@@ -14,10 +14,14 @@ import { DatePipe } from "@angular/common";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from '@angular/material/icon';
+import { LeaveCategoryComponent } from './leave-category/leave-category.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { AddCategoryComponent } from './leave-category/add-category/add-category.component';
+import { EditCategoryComponent } from './leave-category/edit-category/edit-category.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
-  declarations: [AllEmployeesComponent, AddEmployeeComponent],
-  imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, DatePipe, MatRadioModule, MatSelectModule, MatIconModule,]
+  declarations: [AllEmployeesComponent,AddEmployeeComponent, LeaveCategoryComponent, AddCategoryComponent, EditCategoryComponent],
+  imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, DatePipe, MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatIconModule, MatSlideToggleModule]
 })
 export class HrModule { }

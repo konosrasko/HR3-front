@@ -119,7 +119,7 @@ export class EditUserComponent implements OnInit{
         },
         error: error => {
           console.log(error);
-          this.toast.success({detail: 'Αποτυχία!', summary: 'Λόγω προβλήματος δεν έγινε η επεργασία των στοιχείων!', position: "topRight", duration: 5000});
+          this.toast.error({detail: 'Αποτυχία!', summary: 'Λόγω προβλήματος δεν έγινε η επεργασία των στοιχείων!', position: "topRight", duration: 5000});
         }
       });
     }

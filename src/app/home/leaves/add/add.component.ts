@@ -32,7 +32,7 @@ export class AddComponent {
   @ViewChild('endDatePicker') endDatePicker!: MatDatepicker<Date>;
 
 
-  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private toast:NgToastService) {
+  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private toast: NgToastService) {
 
     this.route.queryParams.subscribe(params => {
       this.foreignId = params["id"],
@@ -104,7 +104,7 @@ export class AddComponent {
     };
   }
 
-  submit() {
+  submit(){
     //create the LeaveRequest DTO
     const newLeaveRequest: LeaveRequest = {
       leaveTitle: this.leaveRequestFormGroup.get('title')?.value,
@@ -122,13 +122,18 @@ export class AddComponent {
       })
     }
     else { //post it for another employee
-      this.leaveRequestService.newLeaveRequestForAnotherEmployee(newLeaveRequest, this.foreignId).subscribe(data => {
-        console.log(data)
-        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβλήθηκε επιτυχώς', position: "topRight", duration: 4000});
-        this.router.navigateByUrl('home/hr/all-employees')
-      })
+        this.leaveRequestService.newLeaveRequestForAnotherEmployee(newLeaveRequest, this.foreignId).subscribe({
+          next: data => {
+            console.log(data)
+            this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα υποβήθηκε επιτυχώς', position: "topRight", duration: 4000 });
+            this.router.navigateByUrl('home/hr/all-employees')
+          },
+          error: err=>{
+            this.toast.error({detail: 'Χάσαμε', summary: err.error, position: "topRight", duration: 3000});
+          }
+        })
+      }
     }
-  };
 
   cancel() {
     (this.foreignId) ? this.router.navigateByUrl('home/hr/all-employees') : this.router.navigateByUrl('home/leaves')

@@ -16,15 +16,12 @@ import { FooterModule } from "../footer/footer.module";
 import { MyDetailsModule } from "../my-details/my-details.module";
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
-
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {NgToastModule} from "ng-angular-popup";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { NgToastModule } from "ng-angular-popup";
 
 @NgModule({
   declarations: [
@@ -54,8 +51,8 @@ import {NgToastModule} from "ng-angular-popup";
     ReactiveFormsModule,
     MatRadioModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule,
-    NgToastModule
+    NgToastModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AdminModule { }

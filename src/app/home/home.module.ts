@@ -31,6 +31,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgToastModule} from "ng-angular-popup";
 import {MatCardModule} from "@angular/material/card";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SubordinateListComponent } from './subordinates/subordinate-list/subordinate-list.component';
+import { SubordinateRequestComponent } from './subordinates/requests/subordinate-requests.component';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HRComponent,
     AdminComponent,
     SubordinatesComponent,
-
+    SubordinateListComponent,
+    SubordinateRequestComponent
   ],
   imports: [
     CommonModule,

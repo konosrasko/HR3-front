@@ -1,5 +1,6 @@
-<main>
+<main>  
   <h1 >Αιτήματα υφισταμένων</h1>
+  
   <div class="filters">
     <div class="status-filter">
       <mat-form-field appearance="fill">
@@ -12,8 +13,17 @@
         </mat-select>
       </mat-form-field>
     </div>
+
+    <div class="slide-me-daddy">
+      <h3>Προβολή έμμεσα υφισταμένων:</h3>
+      <mat-slide-toggle color="primary" (change)="toggleDirectSubordinates()"></mat-slide-toggle>
+    </div>
   </div>
-  <div class="table-container mat-elevation-z8">
+  
+  <div *ngIf="!isLoaded">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+  <div *ngIf="isLoaded" class="table-container mat-elevation-z8">
     <mat-table matSort  class="table" #table [dataSource]="dataSource">
       <ng-container matColumnDef="firstName">
         <mat-header-cell *matHeaderCellDef > Όνομα </mat-header-cell>

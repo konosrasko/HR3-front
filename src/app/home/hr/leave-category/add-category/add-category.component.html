@@ -1,0 +1,20 @@
+<main>
+  <h1>Προσθήκη κατηγορίας άδειας</h1>
+  <div class="form-new-category" [formGroup]="newCategoryFormGroup">
+    <div class="category-title">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή Τίτλου Άδειας</mat-label>
+        <input matInput formControlName= "titleFormControl" required>
+        <mat-error  *ngIf="newCategoryFormGroup.get('titleFormControl')?.invalid">{{getTitleError()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="btn-options">
+      <div class="back-button">
+        <button mat-raised-button color="warn" class="button" (click)="navigateTo()">Ακύρωση</button>
+      </div>
+      <div class="save-button">
+        <button mat-raised-button color="accent" class="button" (click)="saveCategory()" [disabled]="!newCategoryFormGroup.get('titleFormControl')?.valid">Αποθήκευση</button>
+      </div>
+    </div>
+  </div>
+</main>
