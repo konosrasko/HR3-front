@@ -3,8 +3,10 @@ import {Employee} from "../../../models/employee.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subscription} from "rxjs";
 import {EmployeeService} from "../../../services/employee.service";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpStatusCode} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {NgToastService} from "ng-angular-popup";
+import {EmployeeUser} from "../../../models/employeeUser.model";
 
 @Component({
   selector: 'app-requests',
@@ -12,31 +14,41 @@ import {Router} from "@angular/router";
   styleUrls: ['./subordinate-list.component.scss']
 })
 export class SubordinateListComponent {
-  employees: Employee[] = [];
+  employees?: Employee[];
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
   token: string | null = localStorage.getItem('token');
   dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
   private subscription: Subscription | undefined;
   showContent?:string;
+  isLoaded: boolean = false;
+  selectedFirstName: string =  "";
 
-  constructor(private employeeService: EmployeeService, private http: HttpClient, private router:Router) {}
+  constructor(private employeeService: EmployeeService, private http: HttpClient,private toast:NgToastService, private router:Router) {
+    this.employeeService.getAllSubordinates().subscribe({
+      next: data => {
+        this.loadEmployees(data)
+      },
+      error: error => {
+        if(error.status === HttpStatusCode.GatewayTimeout){
+          this.toast.error({detail: 'Αποτυχία!', summary: "There was a gateway error", position: "topRight", duration: 4000});
+        }
+        console.log(error);
+        // alert("Προβλημα");
+      }
+    })
+  }
 
   ngOnInit(): void {
-    if (this.token != null) {
-      this.subscription = this.employeeService.getAllSubordinates(this.token).subscribe({
-        next: (data) => {
-          this.loadEmployees(data);
-        },
-        error: (error) => console.log(error),
-      });
-    }
   }
 
 
   loadEmployees(data: any) {
     this.employees = JSON.parse(data);
-    this.dataSource.data = this.employees;
-    console.log(this.dataSource);
+    this.dataSource = new MatTableDataSource<Employee>(this.employees);
+    this.dataSource.filterPredicate = function (record: {firstName: string}) {
+      return record.firstName.toLocaleLowerCase();
+    }
+    this.isLoaded = true;
   }
 
   getIndexClass(row: any): string {
@@ -44,9 +56,29 @@ export class SubordinateListComponent {
     return index % 2 === 0 ? 'even-row' : 'odd-row';
   }
 
-
+  toggleDirectSubordinates(){
+    //TO-DO: make this work
+    this.isLoaded =  !this.isLoaded;
+  }
 
   toggleContentEnabled(status: boolean) {
     return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+  }
+
+  onFirstNameChange($event: Event){
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.selectedFirstName = filterValue.trim().toLowerCase();
+    this.applyFilter();
+  }
+
+  applyFilter(){
+    const userFilterValue = this.selectedFirstName;
+    this.dataSource.filterPredicate = (data: any) => {
+      const userMatch = data.firstName.toLowerCase().includes(userFilterValue);
+      return  userMatch;
+    };
+    this.dataSource.filter = `${userFilterValue}`;
+
   }
 }
