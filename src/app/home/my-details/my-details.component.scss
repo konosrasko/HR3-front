@@ -89,3 +89,11 @@ h1 {
 #actions{
   margin-left: 670px;
 }
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}

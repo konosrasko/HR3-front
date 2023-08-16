@@ -1,69 +1,89 @@
 <h1>Tα στοιχεία μου </h1>
+<mat-spinner *ngIf="!dataLoaded"></mat-spinner>
 
 <mat-card>
   <div class="content">
-  <mat-card-content>
+    <form [formGroup]="myForm" *ngIf="dataLoaded">
+      <mat-card-content>
 
-    <div class="details-container">
+        <div class="details-container">
 
-      <div class="details-column">
-        <mat-card-header>
-          <mat-card-title>Όνομα</mat-card-title>
-        </mat-card-header>
-        <mat-form-field>
-          <input matInput [disabled]="!isEditMode" name="firstName" [(ngModel)]="employee.firstName" placeholder="Όνομα">
-        </mat-form-field>
+          <div class="details-column">
+            <mat-card-header>
+              <mat-card-title>Όνομα</mat-card-title>
+            </mat-card-header>
 
-        <!-- LastName -->
-        <mat-card-header>
-          <mat-card-title>Επώνυμο</mat-card-title>
-        </mat-card-header>
-        <mat-form-field>
-          <input matInput [disabled]="!isEditMode" name="lastName" [(ngModel)]="employee.lastName" placeholder="Επίθετο">
-        </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="firstName" placeholder="Όνομα">
+              <mat-error *ngIf="myError('firstName','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('firstName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+            </mat-form-field>
 
-        <!-- Email -->
-        <mat-card-header>
-          <mat-card-title>Email</mat-card-title>
-        </mat-card-header>
-        <mat-form-field>
-          <input matInput [disabled]="!isEditMode" name="email" [(ngModel)]="employee.email" placeholder="Email">
-        </mat-form-field>
-      </div>
+            <!-- LastName -->
+            <mat-card-header>
+              <mat-card-title>Επώνυμο</mat-card-title>
+            </mat-card-header>
 
-      <div class="details-column">
-        <mat-card-header>
-          <mat-card-title>Διεύθυνση</mat-card-title>
-        </mat-card-header>
-        <mat-form-field>
-          <input matInput [disabled]="!isEditMode" name="address" [(ngModel)]="employee.address" placeholder="Address">
-        </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="lastName" placeholder="Επίθετο">
+              <mat-error *ngIf="myError('lastName','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('lastName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+            </mat-form-field>
 
-        <mat-card-header>
-          <mat-card-title>Αριθμός Τηλεφώνου</mat-card-title>
-        </mat-card-header>
-        <mat-form-field>
-          <input matInput [disabled]="!isEditMode" name="mobileNumber" [(ngModel)]="employee.mobileNumber" placeholder="Mobile Number">
-        </mat-form-field>
+            <!-- Email -->
+            <mat-card-header>
+              <mat-card-title>Email</mat-card-title>
+            </mat-card-header>
+            <mat-form-field>
+              <input matInput formControlName="email" placeholder="Email">
+              <mat-error *ngIf="myError('email','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('email','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+              <mat-error *ngIf="myError('email','email')">Δεν είναι email</mat-error>
+            </mat-form-field>
+          </div>
 
-        <mat-card-header>
-          <mat-card-title>Ημερομηνία Πρόσληψης</mat-card-title>
-        </mat-card-header>
-        <mat-form-field>
-          <input matInput [disabled]="!isEditMode" name="hireDate" [(ngModel)]="employee.hireDate" placeholder="Hire Date">
-        </mat-form-field>
-      </div>
-    </div>
+          <div class="details-column">
+            <mat-card-header>
+              <mat-card-title>Διεύθυνση</mat-card-title>
+            </mat-card-header>
+            <mat-form-field>
+              <input matInput formControlName="address" placeholder="Address">
+              <mat-error *ngIf="myError('address','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('address','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+            </mat-form-field>
 
-  </mat-card-content>
+            <mat-card-header>
+              <mat-card-title>Αριθμός Τηλεφώνου</mat-card-title>
+            </mat-card-header>
+            <mat-form-field>
+              <input matInput formControlName="mobileNumber" placeholder="Mobile Number">
+              <mat-error *ngIf="myError('mobileNumber','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('mobileNumber','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+            </mat-form-field>
 
-  <mat-card-actions id="actions">
-    <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
-    <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
-  <mat-slide-toggle #editToggle color="primary" [(ngModel)]="isEditMode" [disabled]="isEditMode" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
+            <mat-card-header>
+              <mat-card-title>Ημερομηνία Πρόσληψης</mat-card-title>
+            </mat-card-header>
+            <mat-form-field>
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="hireDate">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="myError('hireDate','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('hireDate','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-  </mat-card-actions>
+      </mat-card-content>
+
+      <mat-card-actions id="actions">
+        <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
+        <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
+        <mat-slide-toggle color="primary" [checked]="isEditMode" (click)="toggleEditMode()" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
+      </mat-card-actions>
+    </form>
+
+
   </div>
   </mat-card>
-
-
