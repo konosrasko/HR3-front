@@ -58,8 +58,8 @@
   </mat-card-content>
 
   <mat-card-actions id="actions">
-    <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
-    <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
+    <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
+    <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
   <mat-slide-toggle #editToggle color="primary" [(ngModel)]="isEditMode" [disabled]="isEditMode" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
 
   </mat-card-actions>
