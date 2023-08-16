@@ -39,7 +39,6 @@ export class SubordinateRequestComponent implements OnInit {
           this.loadData(data)
         },
         error: error => {
-          console.log(error)
           this.toast.error({
             detail: 'Αποτυχία!',
             summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
@@ -71,9 +70,7 @@ export class SubordinateRequestComponent implements OnInit {
     } catch (error) {
       console.log("the requests have already been parsed.")
     } finally{
-      if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
-      console.log(this.subordinatesRequests);
-    
+      if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)    
       this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
       this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
         return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
@@ -86,7 +83,6 @@ export class SubordinateRequestComponent implements OnInit {
   approveRequest(subordinateReq: SubordinatesReq) {
     
     if (subordinateReq.leaveId) {
-      console.log(subordinateReq.leaveId)
       this.leaveRequestService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
         next: data => {
           this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα εγκρίθηκε', position: "topRight", duration: 4000 });
