@@ -37,9 +37,6 @@ export class SubordinateRequestComponent implements OnInit {
       this.leaveRequestService.getDirectSubordinatesReq().subscribe({
         next: data => {
           this.loadData(data)
-          this.dataSource.sort = sort
-          console.log(this.dataSource.sort)
-          this.sortLastColumn()
         },
         error: error => {
           console.log(error)
@@ -69,22 +66,31 @@ export class SubordinateRequestComponent implements OnInit {
   }
 
   loadData(data: any) {
-    this.subordinatesRequests = JSON.parse(data);
-    if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
-
-    this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
-    this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
-      return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
+    try {
+      this.subordinatesRequests = JSON.parse(data);
+    } catch (error) {
+      console.log("the requests have already been parsed.")
+    } finally{
+      if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
+      console.log(this.subordinatesRequests);
+    
+      this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
+      this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
+        return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
+      }
+      this.applyStatusFilter(this.selectedStatus)
+      this.isLoaded = true;
     }
-    this.applyStatusFilter(this.selectedStatus)
-    this.isLoaded = true;
   }
 
   approveRequest(subordinateReq: SubordinatesReq) {
-    if (subordinateReq.leaveId != null) {
-      this.employeeService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
+    
+    if (subordinateReq.leaveId) {
+      console.log(subordinateReq.leaveId)
+      this.leaveRequestService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
         next: data => {
-          this.loadData(data)
+          this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα εγκρίθηκε', position: "topRight", duration: 4000 });
+          this.reloadRequests()
         },
         error: error => {
           this.toast.error({
@@ -94,15 +100,16 @@ export class SubordinateRequestComponent implements OnInit {
           });
           this.isLoaded = true;
         }
-      });
+      });      
     }
   }
 
   declineRequest(subordinateReq: SubordinatesReq) {
     if (subordinateReq.leaveId != null) {
-      this.employeeService.declineLeaveRequest(subordinateReq.leaveId).subscribe({
+      this.leaveRequestService.declineLeaveRequest(subordinateReq.leaveId).subscribe({
         next: data => {
-          this.loadData(data)
+          this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα απορρίφθηκε', position: "topRight", duration: 4000 });
+          this.reloadRequests()
         },
         error: error => {
           this.toast.error({

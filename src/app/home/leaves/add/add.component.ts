@@ -8,6 +8,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
 import { LeaveRequest } from "../../../models/leave_request.model";
 import { NgToastService } from 'ng-angular-popup';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-add',
@@ -128,8 +129,12 @@ export class AddComponent {
             this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα υποβήθηκε επιτυχώς', position: "topRight", duration: 4000 });
             this.router.navigateByUrl('home/hr/all-employees')
           },
-          error: err=>{
-            this.toast.error({detail: 'Χάσαμε', summary: err.error, position: "topRight", duration: 3000});
+          error: error => {
+            this.toast.error({
+              detail: 'Αποτυχία!',
+              summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+              position: "topRight", duration: 4000
+            });
           }
         })
       }
