@@ -1,1 +1,25 @@
-<p>edit-category works!</p>
+<main>
+  <h1>Επεξεργασία Κατηγορίας Άδειας</h1>
+  <div class="edit-category-form" [formGroup]="editCategoryFormGroup">
+    <div class="title-edit">
+      <mat-form-field appearance="fill">
+        <mat-label>Εισαγωγή Τίτλου Άδειας</mat-label>
+        <input matInput formControlName="titleFormControl" (keydown)="onEdited()" required>
+        <mat-error *ngIf="editCategoryFormGroup.get('titleFormControl')?.invalid">{{getTitleError()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="active-edit">
+      <span>Κατάσταση κατηγορίας: <span class="inactive">Ανενεργός</span>
+      <mat-slide-toggle color="primary" formControlName="activeFormControl" (change)="onEdited()"></mat-slide-toggle>
+      <span class="active">Ενεργός</span></span>
+    </div>
+    <div class="btn-options">
+      <div class="back-button">
+        <button mat-raised-button color="warn" class="button" (click)="navigateTo()">Ακύρωση</button>
+      </div>
+      <div class="save-button" *ngIf="isLoaded">
+        <button mat-raised-button color="accent" class="button" [disabled]="!editCategoryFormGroup.get('titleFormControl')?.valid || !editCategoryFormGroup.get('activeFormControl')?.valid || !isEdited" (click)="saveEditedCategory()">Ενημέρωση στοιχείων</button>
+      </div>
+    </div>
+  </div>
+</main>

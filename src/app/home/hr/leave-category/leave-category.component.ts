@@ -72,7 +72,7 @@ export class LeaveCategoryComponent implements OnInit{
     const cell = event.target as HTMLElement;
     const rowData = this.getRowDataFromCell(cell);
     if (rowData) {
-      this.router?.navigate(['home/hr/leave-categories/edit-category'], { queryParams: {title: rowData.title}});
+      this.router?.navigate(['home/hr/leave-categories/edit-category'], { queryParams: {id: rowData.id}});
     }
   }
 
