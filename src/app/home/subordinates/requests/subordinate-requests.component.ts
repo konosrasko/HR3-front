@@ -29,17 +29,16 @@ export class SubordinateRequestComponent implements OnInit {
 
   ngOnInit() {
     this.selectedStatus = "Εκκρεμεί"
-    this.reloadRequests(this.sort)
+    this.reloadRequests()
   }
 
-  reloadRequests(sort?:MatSort) {
+  reloadRequests() {
     if (!this.showIndirect) {
       this.leaveRequestService.getDirectSubordinatesReq().subscribe({
         next: data => {
           this.loadData(data)
         },
         error: error => {
-          console.log(error)
           this.toast.error({
             detail: 'Αποτυχία!',
             summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
@@ -71,22 +70,20 @@ export class SubordinateRequestComponent implements OnInit {
     } catch (error) {
       console.log("the requests have already been parsed.")
     } finally{
-      if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
-      console.log(this.subordinatesRequests);
-    
+      if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)    
       this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
       this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
         return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
       }
       this.applyStatusFilter(this.selectedStatus)
       this.isLoaded = true;
+      this.dataSource.sort = this.sort;
     }
   }
 
   approveRequest(subordinateReq: SubordinatesReq) {
     
     if (subordinateReq.leaveId) {
-      console.log(subordinateReq.leaveId)
       this.leaveRequestService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
         next: data => {
           this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα εγκρίθηκε', position: "topRight", duration: 4000 });
@@ -145,8 +142,8 @@ export class SubordinateRequestComponent implements OnInit {
 
   /* SORTING */
   sortLastColumn() {
-    const lastColumnName = this.displayedColumns[1];
-    const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
+    const lastColumnName = this.displayedColumns[3];
+    const sortDirection: 'asc' | 'desc' = 'desc'; // Choose 'asc' or 'desc' as per your requirement
     this.dataSource.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });    
   }
 
