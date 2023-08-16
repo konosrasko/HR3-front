@@ -1,0 +1,91 @@
+main{
+  padding: 5vh 0 0 0;
+  margin: 5vh 0 5vh 5vw;
+}
+
+h1{
+  color: orange;
+}
+
+.table-container{
+  margin-right: 5vw ;
+  overflow: auto;
+}
+
+.header *{
+  background-color: #252525;
+  color: orange;
+}
+
+.even-row {
+  background-color: #E9E9E9; /* Set the background color for even rows */
+}
+
+/* Add a class for odd rows */
+.odd-row {
+  background-color: #d6d4d4; /* Set the background color for odd rows */
+}
+
+.header-row {
+  transition: background-color 0.34s ease; /* Add a smooth transition effect */
+}
+
+/* Style for even rows on hover */
+.header-row.even-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+/* Style for odd rows on hover */
+.header-row.odd-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+.active{
+  width: 50%;
+  text-align: center;
+  padding: 5px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+}
+
+.inactive{
+  width: 50%;
+  text-align: center;
+  padding: 5px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+}
+
+.filters{
+  display: flex;
+  margin-right: 5vw;
+}
+
+.status-filter{
+  margin-left: 10px;
+  padding-top: 15px;
+}
+
+.title-filter{
+  padding-top: 15px;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.add-btn{
+  margin-top: 15px;
+  padding-top: 15px;
+  margin-left: 10px;
+  justify-content: flex-end;
+}
+
+.add-btn button{
+  width: auto;
+  height: 50px;
+}
+
+.add-btn button mat-icon{
+  padding: 5px;
+}
