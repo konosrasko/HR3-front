@@ -15,6 +15,8 @@ import {EditUserComponent} from "./home/admin/edit-user/edit-user.component";
 import {AllEmployeesComponent} from "./home/hr/all-employees/all-employees.component";
 import {AddEmployeeComponent} from "./home/hr/add-employee/add-employee.component";
 import {SubordinatesComponent} from "./home/subordinates/subordinates.component";
+import { SubordinateRequestComponent } from './home/subordinates/requests/subordinate-requests.component';
+import { SubordinateListComponent } from './home/subordinates/subordinate-list/subordinate-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,6 +32,10 @@ const routes: Routes = [
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },
       { path: 'subordinates', component: SubordinatesComponent},
+      { path: 'subordinates', children:[
+        {path:'list', component: SubordinateListComponent},
+        {path:'requests', component: SubordinateRequestComponent}
+      ]},
       { path: 'admin', component: AdminComponent },
       { path: 'admin' ,children:[
           {path:'add-user', component: AddUserComponent},

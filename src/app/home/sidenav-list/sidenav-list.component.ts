@@ -9,7 +9,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent {
-  isSubmenuVisible = false;
+  isHRSubmenuVisible = false;
+  isSupervisorSubmenuVisible = false;
   isSupervisor = false;
   isHR = false;
   isAdmin = false;
@@ -24,12 +25,21 @@ export class SidenavListComponent {
     })
   }
 
-  showSubmenu() {
-    this.isSubmenuVisible = true;
+  
+  showSupervisorSubmenu() {
+    this.isSupervisorSubmenuVisible = true;
   }
 
-  hideSubmenu() {
-    this.isSubmenuVisible = false;
+  hideSupervisorSubmenu() {
+    this.isSupervisorSubmenuVisible = false;
+  }
+
+  showHRSubmenu() {
+    this.isHRSubmenuVisible = true;
+  }
+
+  hideHRSubmenu() {
+    this.isHRSubmenuVisible = false;
   }
 
   navigateTo(componentToOpen: String) {
