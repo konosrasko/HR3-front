@@ -5,6 +5,7 @@ import {LeaveBalance } from '../models/leave_balance.model';
 import { LeaveRequest } from '../models/leave_request.model';
 import { TokenController } from './token_controller';
 import { Router } from '@angular/router';
+import { SubordinatesReq } from '../models/subordinatesReq.model';
 
 
 
@@ -26,6 +27,18 @@ export class LeaveRequestService extends TokenController{
   newLeaveRequest(newLeaveRequest: LeaveRequest) {
     const headers = this.createHeadersWithToken();
     return this.http.post<LeaveRequest>('url/api/employees/leaverequests/add', newLeaveRequest, {headers, responseType:"json" as 'json'})
+  }
+
+  getDirectSubordinatesReq(){
+    const url = 'url/api/leaverequests/direct-subordinates';
+    const headers = this.createHeadersWithToken();
+    return this.http.get<SubordinatesReq>(url,{headers,responseType:'text' as 'json'});
+  }
+
+  getAllSubordinatesReq(){
+    const url = 'url/api/leaverequests/all-subordinates';
+    const headers = this.createHeadersWithToken();
+    return this.http.get<SubordinatesReq>(url,{headers,responseType:'text' as 'json'});
   }
 
   newLeaveRequestForAnotherEmployee(newLeaveRequest: LeaveRequest, employeeId: number) {

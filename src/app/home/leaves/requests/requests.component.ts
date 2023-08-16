@@ -21,9 +21,7 @@ export class RequestsComponent {
 
   private selectedLeaveRequest: LeaveRequest = {}
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
-
-
+  constructor(private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
 
   ngOnInit() {
     //pull leave requests from the database
@@ -36,20 +34,11 @@ export class RequestsComponent {
     })
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
-      this.sortLastColumn();
-      this.changeDetectorRef.detectChanges();
-    });
-  }
-
   sortLastColumn() {
     const lastColumnName = this.displayedColumns[this.displayedColumns.length - 6];
     const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
     this.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
   }
-
 
   editRequest() {
     setTimeout(()=>{

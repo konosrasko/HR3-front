@@ -57,7 +57,7 @@
       </ng-container>
 
       <ng-container matColumnDef="delete">
-        <mat-header-cell style="padding: 0;" *matHeaderCellDef mat-sort-header> </mat-header-cell>
+        <mat-header-cell style="padding: 0;" *matHeaderCellDef > </mat-header-cell>
         <mat-cell class="icon-container" style="padding: 0; justify-content: center;" *matCellDef="let element">
           <mat-icon class="icon edit" matTooltip="Επεξεργασία" *ngIf="element.status === 'Εκκρεμεί'" color="primary" (click)="editRequest()">edit</mat-icon>
           <mat-icon class="icon bin"  matTooltip="Διαγραφή" *ngIf="element.status === 'Εκκρεμεί'" color="primary" (click)="deleteRequest($event)">delete_forever</mat-icon>

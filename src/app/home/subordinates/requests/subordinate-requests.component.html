@@ -24,44 +24,44 @@
     <mat-spinner color="primary"></mat-spinner>
   </div>
   <div *ngIf="isLoaded" class="table-container mat-elevation-z8">
-    <mat-table matSort  class="table" #table [dataSource]="dataSource">
+    <mat-table class="table" #table [dataSource]="dataSource" matSort >
       <ng-container matColumnDef="firstName">
-        <mat-header-cell *matHeaderCellDef > Όνομα </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header > Όνομα </mat-header-cell>
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.firstName}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="lastName">
-        <mat-header-cell *matHeaderCellDef > Επώνυμο </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Επώνυμο </mat-header-cell>
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.lastName}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="leaveTitle">
-        <mat-header-cell *matHeaderCellDef > Κατηγορία Άδειας </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Κατηγορία Άδειας </mat-header-cell>
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.leaveTitle}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="submitDate">
-        <mat-header-cell *matHeaderCellDef > Ημερομηνία Υποβολής </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Υποβολής </mat-header-cell>
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.submitDate}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="startDate">
-        <mat-header-cell *matHeaderCellDef > Ημερομηνία Έναρξης </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Έναρξης </mat-header-cell>
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.startDate | date: 'dd-MM-Y'}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
-        <mat-header-cell *matHeaderCellDef > Ημερομηνία Λήξης </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Λήξης </mat-header-cell>
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.endDate | date: 'dd-MM-Y'}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="duration">
-        <mat-header-cell *matHeaderCellDef > Διάρκεια </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Διάρκεια </mat-header-cell>
         <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.duration}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef > Κατάσταση </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Κατάσταση </mat-header-cell>
         <mat-cell [ngClass]="getStatusClass(subordinatesRequests.status)" *matCellDef="let subordinatesRequests"> {{subordinatesRequests.status}} </mat-cell>
       </ng-container>
 

@@ -9,6 +9,7 @@ import {Supervisors} from "../models/supervisors";
 
 
 import {LeaveRequest} from "../models/leave_request.model";
+import { SubordinatesReq } from '../models/subordinatesReq.model';
 
 @Injectable({
   providedIn: 'root'
