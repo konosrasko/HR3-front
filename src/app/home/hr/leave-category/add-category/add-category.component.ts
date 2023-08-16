@@ -59,8 +59,8 @@ export class AddCategoryComponent implements OnInit{
           this.router?.navigateByUrl('/home/hr/leave-categories');
         },
         error: err => {
-          console.log(err);
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Λόγω προβλήματος δεν δημιουργήθηκε η κατηγορία άδειας', position: "topRight", duration: 5000})
+          this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000});
+          this.newCategoryFormGroup.get('titleFormControl')?.setValue('');
         }
       })
     }
