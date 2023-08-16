@@ -44,6 +44,10 @@ export class LeaveCategoryComponent implements OnInit{
 
   loadCategories(data: any){
     this!.categories = JSON.parse(data);
+    if(this.categories!.length <= 0){
+      this.navigateTo('add-category');
+      this.toast.warning({detail: 'Δεν βρέθηκαν κατηγορίες αδειών!', summary: 'Προσθέστε τουλάχιστον μία κατηγορία άδειας', position: "topRight", duration: 5000})
+    }
     this.categoriesSource = new MatTableDataSource<LeaveCategory>(this.categories);
     this.categoriesSource.filterPredicate = function (record: { categoryName: string; }, filter: string) {
       return record.categoryName.toLocaleLowerCase() == filter.toLocaleLowerCase();

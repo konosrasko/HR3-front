@@ -59,7 +59,7 @@ export class EditCategoryComponent implements OnInit{
 
   getTitleError(){
     if (this.editCategoryFormGroup.get('titleFormControl')?.hasError('required')) {
-      return 'Πρέπει να εισάγεις username';
+      return 'Πρέπει να εισάγεις τίτλο κατηγορίας';
     } else {
       return ''
     }
@@ -77,7 +77,8 @@ export class EditCategoryComponent implements OnInit{
         },
         error: err => {
           console.log(err);
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Λόγω προβλήματος δεν έγινε η επεργασία των στοιχείων!', position: "topRight", duration: 5000});
+          this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000});
+          this.editCategoryFormGroup.get('titleFormControl')!.setValue('');
         }
       });
     }
