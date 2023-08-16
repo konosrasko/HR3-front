@@ -80,22 +80,6 @@ export class MyDetailsComponent implements OnInit {
       return this.myForm.controls[controlName].hasError(errorName);
     }
 
-    fetchDataFromBackend(): Promise<any> {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          const backendData = {
-            firstName: this.employee.firstName,
-            lastName: this.employee.lastName,
-            email: this.employee.email,
-            address: this.employee.address,
-            mobileNumber: this.employee.mobileNumber,
-            hireDate: this.employee.hireDate
-          };
-          resolve(backendData);
-        }, 1000); // Simulate delay for demonstration
-      });
-    }
-
     toggleEditMode() {
         this.isEditMode = !this.isEditMode;
 
@@ -112,16 +96,13 @@ export class MyDetailsComponent implements OnInit {
           this.userService.getEmployeeDetails(this.token).subscribe({
             next: data => {
               this.loadEmployee(data);
+              this.myForm.patchValue(this.employee); // Assuming the response data keys match form control names
+              this.dataLoaded = true;
             },
             error: error => console.log(error)
             }
           );
 
         }
-
-      this.fetchDataFromBackend().then(data => {
-        this.myForm.patchValue(data); // Assuming the response data keys match form control names
-        this.dataLoaded = true;
-      });
     }
 }

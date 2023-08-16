@@ -104,7 +104,7 @@ export class AddUserComponent implements OnInit{
         },
         error: err => {
           console.log(err);
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Ο νέος λογαριασμός δεν δημιουργήθηκε λόγω προβλήματος.', position: "topRight", duration: 5000})
+          this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000})
         }
       });
     }
