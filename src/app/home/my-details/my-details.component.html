@@ -15,8 +15,8 @@
 
             <mat-form-field>
               <input matInput formControlName="firstName" placeholder="Όνομα">
-              <mat-error *ngIf="myError('firstName','required')">Error message</mat-error>
-              <mat-error *ngIf="myError('firstName','maxlength')">Too long</mat-error>
+              <mat-error *ngIf="myError('firstName','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('firstName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
             </mat-form-field>
 
             <!-- LastName -->
@@ -26,8 +26,8 @@
 
             <mat-form-field>
               <input matInput formControlName="lastName" placeholder="Επίθετο">
-              <mat-error *ngIf="myError('lastName','required')">Βαλε ρε ξύλο</mat-error>
-              <mat-error *ngIf="myError('lastName','maxlength')">Too long</mat-error>
+              <mat-error *ngIf="myError('lastName','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('lastName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
             </mat-form-field>
 
             <!-- Email -->
@@ -36,8 +36,8 @@
             </mat-card-header>
             <mat-form-field>
               <input matInput formControlName="email" placeholder="Email">
-              <mat-error *ngIf="myError('email','required')">Το πεδιο δεν πρεπει να ειναι κενο.</mat-error>
-              <mat-error *ngIf="myError('email','maxlength')">Το πεδιο δεν πρεπει να ειναι κενο.</mat-error>
+              <mat-error *ngIf="myError('email','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('email','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
               <mat-error *ngIf="myError('email','email')">Δεν ειναι email</mat-error>
             </mat-form-field>
           </div>
@@ -48,8 +48,8 @@
             </mat-card-header>
             <mat-form-field>
               <input matInput formControlName="address" placeholder="Address">
-              <mat-error *ngIf="myError('address','required')">Error message</mat-error>
-              <mat-error *ngIf="myError('address','maxlength')">Too Long</mat-error>
+              <mat-error *ngIf="myError('address','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('address','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
             </mat-form-field>
 
             <mat-card-header>
@@ -57,8 +57,8 @@
             </mat-card-header>
             <mat-form-field>
               <input matInput formControlName="mobileNumber" placeholder="Mobile Number">
-              <mat-error *ngIf="myError('mobileNumber','required')">Error message</mat-error>
-              <mat-error *ngIf="myError('mobileNumber','maxlength')">Too long</mat-error>
+              <mat-error *ngIf="myError('mobileNumber','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('mobileNumber','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
             </mat-form-field>
 
             <mat-card-header>
@@ -69,8 +69,8 @@
               <input matInput [matDatepicker]="picker" formControlName="hireDate">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="myError('hireDate','required')">Error message</mat-error>
-              <mat-error *ngIf="myError('hireDate','maxlength')">Too long</mat-error>
+              <mat-error *ngIf="myError('hireDate','required')">Υποχρεωτικό πεδίο</mat-error>
+              <mat-error *ngIf="myError('hireDate','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
             </mat-form-field>
           </div>
         </div>
