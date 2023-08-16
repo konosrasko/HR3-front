@@ -16,4 +16,9 @@ export class LeaveCategoryService extends TokenController{
     return this.http.get<LeaveCategory[]>('url/api/leavecategory', {headers, responseType: "text" as 'json'});
   }
 
+  createLeaveCategory(newCategory: LeaveCategory){
+    const headers = this.createHeadersWithToken();
+    return this.http.post<LeaveCategory>('url/api/leavecategory', newCategory, {headers, responseType: "text" as 'json'})
+  }
+
 }
