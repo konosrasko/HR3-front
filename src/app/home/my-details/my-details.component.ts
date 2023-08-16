@@ -45,6 +45,7 @@ export class MyDetailsComponent implements OnInit {
       this.userService.saveEmployeeDetails(this.employee, this.token).subscribe({
         next: () => {
           this.isEditMode = false;
+          this.myForm.disable();
           this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία των στοιχείων σας έγινε με επιτυχία!', position: "topRight", duration: 5000});
         },
         error: error => {
