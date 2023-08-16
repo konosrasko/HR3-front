@@ -66,7 +66,13 @@ export class EmployeeService extends TokenController{
     const headers = this.createHeadersWithToken()
     return this.http.get<Employee[]>('url/api/employees/all-subordinates', { headers, responseType: "text" as 'json' });
   }
+
+  getDirectSubordinates():Observable<Employee[]>{
+    const headers = this.createHeadersWithToken()
+    return this.http.get<Employee[]>('url/api/employees/direct-subordinates', { headers, responseType: "text" as 'json' });
+  }
 }
+
 
 
 

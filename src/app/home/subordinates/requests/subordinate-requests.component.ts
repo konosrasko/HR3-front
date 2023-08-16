@@ -29,10 +29,10 @@ export class SubordinateRequestComponent implements OnInit {
 
   ngOnInit() {
     this.selectedStatus = "Εκκρεμεί"
-    this.reloadRequests(this.sort)
+    this.reloadRequests()
   }
 
-  reloadRequests(sort?:MatSort) {
+  reloadRequests() {
     if (!this.showIndirect) {
       this.leaveRequestService.getDirectSubordinatesReq().subscribe({
         next: data => {
@@ -77,6 +77,7 @@ export class SubordinateRequestComponent implements OnInit {
       }
       this.applyStatusFilter(this.selectedStatus)
       this.isLoaded = true;
+      this.dataSource.sort = this.sort;
     }
   }
 
@@ -141,8 +142,8 @@ export class SubordinateRequestComponent implements OnInit {
 
   /* SORTING */
   sortLastColumn() {
-    const lastColumnName = this.displayedColumns[1];
-    const sortDirection: 'asc' | 'desc' = 'asc'; // Choose 'asc' or 'desc' as per your requirement
+    const lastColumnName = this.displayedColumns[3];
+    const sortDirection: 'asc' | 'desc' = 'desc'; // Choose 'asc' or 'desc' as per your requirement
     this.dataSource.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });    
   }
 
