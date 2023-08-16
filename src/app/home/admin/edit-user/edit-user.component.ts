@@ -26,6 +26,7 @@ export class EditUserComponent implements OnInit{
   oldPass: string = '';
   editUserFormGroup: FormGroup;
   isEdited = false;
+  status?: boolean;
 
   constructor(private router: Router, private route:ActivatedRoute, private userService: UserService, private toast: NgToastService) {
     this.route.queryParams.subscribe(params=>{
@@ -68,7 +69,7 @@ export class EditUserComponent implements OnInit{
     this.editUserFormGroup.controls['isSupervisorFormControl'].setValue(sv_value);
 
     this.oldPass = this.employeeUser!.password;
-
+    this.status = this.employeeUser!.enabled;
     this.isLoaded = true;
   }
 
@@ -119,7 +120,7 @@ export class EditUserComponent implements OnInit{
         },
         error: error => {
           console.log(error);
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Λόγω προβλήματος δεν έγινε η επεργασία των στοιχείων!', position: "topRight", duration: 5000});
+          this.toast.error({detail: 'Αποτυχία!', summary: error.error, position: "topRight", duration: 5000});
         }
       });
     }

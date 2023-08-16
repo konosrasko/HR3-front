@@ -8,6 +8,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
 import { LeaveRequest } from "../../../models/leave_request.model";
 import { NgToastService } from 'ng-angular-popup';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-add',
@@ -30,6 +31,7 @@ export class AddComponent {
   })
   today = new Date();
   @ViewChild('endDatePicker') endDatePicker!: MatDatepicker<Date>;
+  isLoaded:boolean = false;
 
 
   constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private toast: NgToastService) {
@@ -115,21 +117,34 @@ export class AddComponent {
     }
 
     if (!this.foreignId) { //post the request for the logged in user
-      this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe(data => {
-        console.log(data)
-        this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα υποβλήθηκε επιτυχώς', position: "topRight", duration: 4000});
-        this.router.navigateByUrl('home/leaves/requests')
+      this.leaveRequestService.newLeaveRequest(newLeaveRequest).subscribe({
+        next: data => {
+          console.log(data)
+          this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα υποβλήθηκε επιτυχώς', position: "topRight", duration: 4000 });
+          this.router.navigateByUrl('home/leaves/requests')
+        },
+        error: error => {
+          this.toast.error({
+            detail: 'Αποτυχία!',
+            summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+            position: "topRight", duration: 4000
+          });
+        }
       })
     }
     else { //post it for another employee
         this.leaveRequestService.newLeaveRequestForAnotherEmployee(newLeaveRequest, this.foreignId).subscribe({
           next: data => {
             console.log(data)
-            this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα υποβήθηκε επιτυχώς', position: "topRight", duration: 4000 });
+            this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα υποβλήθηκε επιτυχώς', position: "topRight", duration: 4000 });
             this.router.navigateByUrl('home/hr/all-employees')
           },
-          error: err=>{
-            this.toast.error({detail: 'Χάσαμε', summary: err.error, position: "topRight", duration: 3000});
+          error: error => {
+            this.toast.error({
+              detail: 'Αποτυχία!',
+              summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+              position: "topRight", duration: 4000
+            });
           }
         })
       }
