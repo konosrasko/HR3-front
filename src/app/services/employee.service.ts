@@ -77,6 +77,11 @@ export class EmployeeService extends TokenController{
     }
     throw new Error("asd")
   }
+
+  getAllSubordinates():Observable<Employee[]>{
+    const headers = this.createHeadersWithToken()
+    return this.http.get<Employee[]>('url/api/employees/all-subordinates', { headers, responseType: "text" as 'json' });
+  }
 }
 
 

@@ -1,11 +1,15 @@
 <nav>
 
-  <div *ngIf="isSupervisor" class="item" >
-    <a (click)="navigateTo('subordinates')">
+  <div *ngIf="isSupervisor" class="item" (mouseleave)="hideSupervisorSubmenu()" (mouseenter)="showSupervisorSubmenu() " >
+    <a>
       <img style="width: 55%;" class="logo1 icon" src="../../../../assets/supervisor.svg" alt="">
       <h3 class="item-text">Υφιστάμενοι</h3>
     </a>
 
+    <div class="submenu" [ngClass]="{'show': isSupervisorSubmenuVisible}">
+      <p (click)="navigateTo('subordinates/requests')">-Αιτήματα</p>
+      <p (click)="navigateTo('subordinates/list')">-Προβολή υφισταμένων</p>
+    </div>
 
   </div>
 
@@ -16,13 +20,13 @@
     </a>
   </div>
 
-  <div *ngIf="isHR"  class="item"  (mouseleave)="hideSubmenu()" (mouseenter)="showSubmenu() ">
+  <div *ngIf="isHR"  class="item"  (mouseleave)="hideHRSubmenu()" (mouseenter)="showHRSubmenu() ">
     <a >
       <img class="logo3 icon" src="../../../../assets/hr.png" alt="">
       <h3 class="item-text">HR</h3>
     </a>
 
-    <div class="submenu" [ngClass]="{'show': isSubmenuVisible}">
+    <div class="submenu" [ngClass]="{'show': isHRSubmenuVisible}">
       <p (click)="navigateTo('hr/all-employees')">-Εργαζόμενοι</p>
       <p (click)="navigateTo('hr/leave-categories')">-Κατηγορίες αδειών</p>
     </div>

@@ -12,6 +12,15 @@ h1{
   color: orange;
 }
 
+.slide-me-daddy{
+  display: flex;
+  align-content: center !important;
+}
+
+.slide-me-daddy h3{
+  margin: 0 15px 0 0 !important;
+}
+
 .header *{
   background-color: #252525;
   color: orange;
@@ -41,6 +50,10 @@ h1{
 
 .filters{
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 5vw 
 }
 
 .accept,.decline{
