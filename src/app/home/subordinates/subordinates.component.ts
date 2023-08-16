@@ -1,119 +1,120 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {SubordinatesReq} from "../../models/subordinatesReq.model";
-import {EmployeeService} from "../../services/employee.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { UserService } from "../../services/user.service";
+import { MatTableDataSource } from "@angular/material/table";
+import { SubordinatesReq } from "../../models/subordinatesReq.model";
+import { EmployeeService } from "../../services/employee.service";
 
 @Component({
   selector: 'app-subordinates',
   templateUrl: './subordinates.component.html',
   styleUrls: ['./subordinates.component.scss']
 })
-export class SubordinatesComponent implements OnInit{
+export class SubordinatesComponent implements OnInit {
 
-  constructor(private router:Router,private userService: UserService, private employeeService: EmployeeService) {
-    if (this.token != null){
-      this.userService.getAllSubordinatesReq().subscribe({
-        next:data=>this.loadData(data),
-        error: err=>{console.log();alert("Προβλημα")}
-      })
-    }else {
-      alert("Πρέπει να συνδεθείς")
-      this.router?.navigateByUrl('login');
-    }
+  constructor(private router: Router, private userService: UserService, private employeeService: EmployeeService) {
+    this.userService.getAllSubordinatesReq().subscribe({
+      next: data => {
+        this.loadData(data)
+      },
+      error: err => { console.log(); alert("Προβλημα") }
+    })
   }
 
-  token:string | null = localStorage.getItem('token');
   subordinatesRequests?: SubordinatesReq[];
   selectedStatus: string = "all";
 
-  status: string[]=["all", "accepted", "declined", "pending"];
-  displayedColumns=['firstName' ,'lastName' ,'leaveTitle' ,'submitDate' ,'startDate' ,'endDate' ,'duration' ,'status','accept','decline'];
-//,'accept' ,'decline'
+  status: string[] = ["all", "Εγκεκριμένη", "Απορρίφθηκε", "Εκκρεμεί"];
+  displayedColumns = ['firstName', 'lastName', 'leaveTitle', 'submitDate', 'startDate', 'endDate', 'duration', 'status', 'accept', 'decline'];
   dataSource?: any;
-  ngOnInit(){
+  ngOnInit() {
   }
 
-  loadData(data: any){
+  loadData(data: any) {
     this.subordinatesRequests = JSON.parse(data);
+    if(this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
+
     this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
-    this.dataSource.filterPredicate = function (record:{ firstName: string }, filter:string){
-    return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
+    this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
+      return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
     }
-  }
-
-  getIndexClass(row: any): string {
-    const index = this.dataSource.data.indexOf(row);
-    return index % 2 === 0 ? 'even-row' : 'odd-row';
-  }
-
-
-  applyStatusFilter(filterValue: string) {
-
-    if (filterValue === 'all') {
-      this.dataSource.filter = '';
-      return;
-    }
-    if (filterValue === 'approved') {
-      this.dataSource.filter = 'APPROVED';
-      return;
-    }
-    if (filterValue === 'declined') {
-      this.dataSource.filter = 'DECLINED';
-      return;
-    }
-    if (filterValue === 'pending') {
-      this.dataSource.filter = 'PENDING';
-      return;
-    }
-    filterValue = filterValue.trim();
-    this.dataSource.filterPredicate = (data: any, filter: string) => {
-      return data.status.includes(filter);
-    };
-    this.dataSource.filter = filterValue;
-  }
-
-
-  // getRowDataFromCell(cell: HTMLElement) {
-  //   const row = cell.parentElement?.parentElement?.parentElement;
-  //   if (row && row.parentElement?.parentElement) {
-  //     const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
-  //     return this.dataSource.data[rowIndex];
-  //   }else return undefined;
-  // }
-
-
-  navigateTo(url:string ){
-    this.router?.navigateByUrl('home/subordinates/' + url);
   }
 
   approveRequest(subordinateReq: SubordinatesReq) {
     if (subordinateReq.leaveId != null) {
       this.employeeService.approveLeaveRequest(subordinateReq.leaveId).subscribe(data => {
-          this.userService.getAllSubordinatesReq().subscribe({
-            next: data => this.loadData(data),
-            error: err => {
-              console.log();
-              alert("Προβλημα")
-            }
-          })
+        this.userService.getAllSubordinatesReq().subscribe({
+          next: data => this.loadData(data),
+          error: err => {
+            console.log();
+            alert("Προβλημα")
+          }
+        })
       });
     }
-
   }
 
   declineRequest(subordinateReq: SubordinatesReq) {
     if (subordinateReq.leaveId != null) {
       this.employeeService.declineLeaveRequest(subordinateReq.leaveId).subscribe(data => {
-          this.userService.getAllSubordinatesReq().subscribe({
-            next: data => this.loadData(data),
-            error: err => {
-              console.log();
-              alert("Προβλημα")
-            }
-          })
+        this.userService.getAllSubordinatesReq().subscribe({
+          next: data => this.loadData(data),
+          error: err => {
+            console.log();
+            alert("Προβλημα")
+          }
+        })
       });
     }
+  }
+
+  /* FILTERING */
+  applyStatusFilter(filterValue: string) {
+    if (filterValue === 'all') {
+      this.dataSource.filter = '';
+      return;
+    }
+
+    filterValue = filterValue.trim();
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      return data.status.includes(filterValue);
+    };
+
+    this.dataSource.filter = filterValue;
+  }
+
+
+  /* HELPER FUNCTIONS */ 
+  translated(subordinateReqs: SubordinatesReq[]): SubordinatesReq[] {
+    subordinateReqs.forEach(sr => {
+      switch (sr.status) {
+        case 'PENDING':
+          sr.status = "Εκκρεμεί"; return "";
+        case 'APPROVED':
+          sr.status = "Εγκεκριμένη"; return "";
+        case 'DENIED':
+          sr.status = "Απορρίφθηκε"; return "";
+        default:
+          return "";
+      }
+    });
+    return subordinateReqs
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Εκκρεμεί':
+        return 'pending';
+      case 'Εγκεκριμένη':
+        return 'accepted';
+      case 'Απορρίφθηκε':
+        return 'denied';
+      default:
+        return ''; // Add a default class or leave it empty if no class needed
+    }
+  }
+
+  navigateTo(url: string) {
+    this.router?.navigateByUrl('home/subordinates/' + url);
   }
 }

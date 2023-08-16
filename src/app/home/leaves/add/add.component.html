@@ -45,6 +45,6 @@
     </div>
 
         <br>
-        <input class="action-button" type="submit" value="Υποβολή" (click)="submit()" [disabled]="!leaveRequestFormGroup.valid" style="margin:0 5vw 1vh 0">
-        <button class="action-button" (click)="cancel()" >Ακύρωση</button>
+        <button mat-raised-button color="accent" class="action-button" type="submit" value="Υποβολή" (click)="submit()" [disabled]="!leaveRequestFormGroup.valid" style="margin:0 5vw 1vh 0">Υποβολή</button>
+        <button mat-raised-button color="warn" class="action-button" (click)="cancel()" >Ακύρωση</button>
 </main>

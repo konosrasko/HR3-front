@@ -1,6 +1,6 @@
 <nav>
 
-  <div class="item" >
+  <div *ngIf="isSupervisor" class="item" >
     <a (click)="navigateTo('subordinates')">
       <img style="width: 55%;" class="logo1 icon" src="../../../../assets/supervisor.svg" alt="">
       <h3 class="item-text">Υφιστάμενοι</h3>
@@ -9,14 +9,14 @@
 
   </div>
 
-  <div class="item">
+  <div *ngIf="isAdmin"  class="item">
     <a (click)="navigateTo('admin')">
       <img class="logo2 icon" src="../../../../assets/admin.png" alt="">
       <h3 class="item-text">ADMIN</h3>
     </a>
   </div>
 
-  <div class="item"  (mouseleave)="hideSubmenu()" (mouseenter)="showSubmenu() ">
+  <div *ngIf="isHR"  class="item"  (mouseleave)="hideSubmenu()" (mouseenter)="showSubmenu() ">
     <a >
       <img class="logo3 icon" src="../../../../assets/hr.png" alt="">
       <h3 class="item-text">HR</h3>

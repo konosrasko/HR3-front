@@ -1,54 +1,69 @@
-<div *ngIf="dataLoaded">
-<h1>Τα στοιχεία μου</h1>
-<div class="content">
-  <div class="myDetails">
-    <div class="left-details">
-      <div>
-        <label>Όνομα:</label>
-        <span *ngIf="!isEditMode" class="firstName">{{employee.firstName }}</span>
-        <input *ngIf="isEditMode" type="text" name="username" [(ngModel)]="employee.firstName" placeholder="Όνομα">
-      </div>
-      <div>
-        <label>Επίθετο:</label>
-        <span *ngIf="!isEditMode" class="lastName">{{ employee.lastName }}</span>
-        <input *ngIf="isEditMode" type="text" name="lastName" [(ngModel)]="employee.lastName" required placeholder="Επίθετο">
-      </div>
-      <div>
-        <label>email : </label>
-        <span *ngIf="!isEditMode" class="email">{{employee.email}}</span>
-        <input *ngIf="isEditMode" type="text" name="email" [(ngModel)]="employee.email" required placeholder="email">
-      </div>
-    </div>
-    <div class="right-details">
-      <div>
-        <label>Τοποθεσία : </label>
-        <span *ngIf="!isEditMode" class="address">{{employee.address}}</span>
-        <input *ngIf="isEditMode" type="text" name="address" [(ngModel)]="employee.address" required placeholder="Διεύθυνση">
-      </div>
-      <div>
-        <label>Τηλέφωνο : </label>
-        <span *ngIf="!isEditMode" class="mobileNumber">{{employee.mobileNumber}}</span>
-        <input *ngIf="isEditMode" type="text" name="mobileNumber" [(ngModel)]="employee.mobileNumber" required placeholder="Τελέφωνο">
-      </div>
-      <div>
-        <label>Πρόσληψη : </label>
-        <span *ngIf="!isEditMode" class="hireDate">{{employee.hireDate | date:'dd/MM/yyyy'}}</span>
-        <input *ngIf="isEditMode" type="text" name="hireDate" [(ngModel)]="employee.hireDate" required placeholder="Πρόσληψη">
-      </div>
-    </div>
-  </div>
-</div>
-<div *ngIf="!isEditMode">
-  <button mat-raised-button id="Edit" color="primary" (click)="enableEditMode()" class="button">Επεξεργασία</button>
-</div>
-<div class="buttons-container" *ngIf="isEditMode">
-  <button  (click)="saveDetails()" mat-raised-button  color="primary" class="button">Αποθήκευση</button>
+<h1>Tα στοιχεία μου </h1>
 
-  <button (click)="cancelEdit()"  mat-raised-button color="primary" class="button">Ακύρωση</button>
-</div>
-</div>
-<div *ngIf="!dataLoaded">
-  <!-- Loading spinner or message -->
-  Loading...
-</div>
+<mat-card>
+  <div class="content">
+  <mat-card-content>
+
+    <div class="details-container">
+
+      <div class="details-column">
+        <mat-card-header>
+          <mat-card-title>Όνομα</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput [disabled]="!isEditMode" name="firstName" [(ngModel)]="employee.firstName" placeholder="Όνομα">
+        </mat-form-field>
+
+        <!-- LastName -->
+        <mat-card-header>
+          <mat-card-title>Επώνυμο</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput [disabled]="!isEditMode" name="lastName" [(ngModel)]="employee.lastName" placeholder="Επίθετο">
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-card-header>
+          <mat-card-title>Email</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput [disabled]="!isEditMode" name="email" [(ngModel)]="employee.email" placeholder="Email">
+        </mat-form-field>
+      </div>
+
+      <div class="details-column">
+        <mat-card-header>
+          <mat-card-title>Διεύθυνση</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput [disabled]="!isEditMode" name="address" [(ngModel)]="employee.address" placeholder="Address">
+        </mat-form-field>
+
+        <mat-card-header>
+          <mat-card-title>Αριθμός Τηλεφώνου</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput [disabled]="!isEditMode" name="mobileNumber" [(ngModel)]="employee.mobileNumber" placeholder="Mobile Number">
+        </mat-form-field>
+
+        <mat-card-header>
+          <mat-card-title>Ημερομηνία Πρόσληψης</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput [disabled]="!isEditMode" name="hireDate" [(ngModel)]="employee.hireDate" placeholder="Hire Date">
+        </mat-form-field>
+      </div>
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-actions id="actions">
+    <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
+    <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
+  <mat-slide-toggle #editToggle color="primary" [(ngModel)]="isEditMode" [disabled]="isEditMode" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
+
+  </mat-card-actions>
+  </div>
+  </mat-card>
+
 
