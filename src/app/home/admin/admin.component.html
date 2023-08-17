@@ -28,6 +28,14 @@
         <input (keyup)="onUsernameChange($event)" matInput placeholder="Username" #input>
       </mat-form-field>
     </div>
+    <div class="add-btn">
+      <button mat-raised-button class="button" color="primary" (click)="navigateTo('add-user')" >
+        <div class="btn-comms">
+          <mat-icon class="add-icon">add</mat-icon>
+          <span>Προσθήκη Λογαριασμού</span>
+        </div>
+      </button>
+    </div>
   </div>
   <div class="table-container mat-elevation-z8" *ngIf="isLoaded">
     <mat-table matSort  class="table" #table [dataSource]="dataSource">
@@ -68,7 +76,5 @@
   <div *ngIf="!isLoaded">
     <mat-spinner color="primary"></mat-spinner>
   </div>
-  <div class="add-btn">
-    <button mat-raised-button class="button" color="primary" (click)="navigateTo('add-user')" >Προσθήκη Λογαριασμού</button>
-  </div>
+
 </main>

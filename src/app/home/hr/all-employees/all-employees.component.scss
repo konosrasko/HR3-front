@@ -17,8 +17,6 @@ main{
   overflow: auto;
 }
 
-
-
 h1{
   color: $myFixedColor;
 }
@@ -91,7 +89,6 @@ h1{
 
 
 .active{
-
   margin-right: 80px;
   text-align: center;
   width: 70%;
@@ -102,7 +99,6 @@ h1{
 }
 
 .inactive{
-
   margin-right: 80px;
   text-align: center;
   width: 70%;
@@ -113,14 +109,15 @@ h1{
 }
 
 .buttons-container:hover{
-
   cursor: pointer;
   scale: 110%;
 }
 
-
-.buttons-container
-{
+.buttons-container {
   margin-left: 60%;
+}
 
+.add-employee-btn{
+  display: flex;
+  align-items: center;
 }
