@@ -80,10 +80,10 @@ export class UserService extends TokenController {
     return this.http.get<Employee>(url)
   }
 
-  getUserEmployeeDetails(token: string, username: string): Observable<EmployeeUser> {
-    let tokenStr = "Bearer " + token;
-    const url = 'url/api/users/admin/' + username;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
+  getUserEmployeeDetails(userId: number): Observable<EmployeeUser> {
+    console.log(userId)
+    const url = 'url/api/users/admin/' + userId;
+    const headers = this.createHeadersWithToken();
     return this.http.get<EmployeeUser>(url, { headers, responseType: 'text' as 'json' });
   }
 
@@ -94,10 +94,9 @@ export class UserService extends TokenController {
     return this.http.get<EmployeeUser>(url, { headers, responseType: 'text' as 'json' });
   }
 
-  editUserAccount(user: User, token: string, userId?: number) {
-    let tokenStr = "Bearer " + token;
+  editUserAccount(user: User, userId?: number) {
     const url = 'url/api/users/admin/' + userId?.toString();
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    const headers = this.createHeadersWithToken()
     return this.http.put<User>(url, user, { headers, responseType: 'text' as 'json' });
   }
 

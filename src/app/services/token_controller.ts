@@ -36,7 +36,6 @@ export class TokenController {
         //TO-DO
         const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
         const currentTime = (new Date).getTime()/ (1000)
-        console.log("token expires in: " + (Math.floor( (expiry - currentTime)/60 ) + " minutes"));
         return expiry > currentTime
     }
 

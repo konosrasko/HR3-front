@@ -26,6 +26,7 @@ export class AdminComponent implements OnInit{
   dataSource?: any
   showContent?: string;
   isLoaded: boolean = false;
+  rowData ?: EmployeeUser; 
 
   ngOnInit() {
     if(this.token != null){
@@ -128,20 +129,17 @@ export class AdminComponent implements OnInit{
     this.dataSource.filter = `${statusFilterValue}${roleFilterValue}${userFilterValue}`;
   }
 
-  editUser(event: Event){
-    const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    if (rowData) {
-      this.router?.navigate(['home/admin/edit-user'], { queryParams: {user: rowData.username}});
-    }
+  editUser(){
+    console.log(this.rowData)
+    setTimeout(()=>{
+      if (this.rowData) {
+        this.router?.navigate(['home/admin/edit-user'], { queryParams: {userId: this.rowData.userId}});
+      }
+    }, 200)
   }
 
-  getRowDataFromCell(cell: HTMLElement) {
-    const row = cell.parentElement?.parentElement?.parentElement;
-    if (row && row.parentElement?.parentElement) {
-      const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
-      return this.dataSource.data[rowIndex];
-    }else return undefined;
+  setRowData(data: EmployeeUser){
+    this.rowData = data;
   }
 
   navigateTo(url:string ){
