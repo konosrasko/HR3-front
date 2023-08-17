@@ -71,8 +71,7 @@
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)"  class="header-row" (click)="getRow(row)"
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="showLeaveBalances($event)"
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="showLeaveBalances($event)" (click)="getRow(row)"
                *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
