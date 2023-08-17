@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { EmployeeUser } from "../../../models/employeeUser.model";
-import { UserService } from "../../../services/user.service";
-import { User } from "../../../models/user.model";
-import { error } from "@angular/compiler-cli/src/transformers/util";
-import * as CryptoJS from "crypto-js";
-import { NgToastService } from "ng-angular-popup";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {EmployeeUser} from "../../../models/employeeUser.model";
+import {UserService} from "../../../services/user.service";
+import {User} from "../../../models/user.model";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-edit-user',
@@ -15,8 +13,6 @@ import { NgToastService } from "ng-angular-popup";
 })
 
 export class EditUserComponent implements OnInit {
-
-  token: string | null = localStorage.getItem('token');
   employeeUser?: EmployeeUser;
 
   hide = true;

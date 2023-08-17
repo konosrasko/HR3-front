@@ -17,13 +17,8 @@ export class SubordinateProfileComponent implements OnInit {
   employee: Employee = new Employee();
   originalEmployee!: Employee;
   myForm: FormGroup;
-  isLoading: boolean = true;
-  // @ts-ignore
-  token: string = localStorage.getItem('token');
   selectedEmployeeId?:number;
-
   isEditMode: boolean = false;
-
   dataLoaded: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router,private userService: UserService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef, private toast:NgToastService, private date: DatePipe) {
@@ -61,7 +56,7 @@ export class SubordinateProfileComponent implements OnInit {
       this.employee = this.myForm.value;
       this.employee.employeeId = this.originalEmployee.employeeId;
       this.employee.hireDate = this.date.transform(this.employee.hireDate, 'yyyy-MM-dd');
-      this.userService.saveEmployeeDetails(this.employee, this.token).subscribe({
+      this.userService.saveEmployeeDetails(this.employee).subscribe({
         next: () => {
           this.isEditMode = false;
           this.myForm.disable();
@@ -101,7 +96,6 @@ export class SubordinateProfileComponent implements OnInit {
 
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
-
     if (this.isEditMode) {
       this.myForm.enable(); // Enable all form controls
     } else {

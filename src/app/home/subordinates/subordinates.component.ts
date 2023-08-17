@@ -1,11 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { UserService } from "../../services/user.service";
-import { MatTableDataSource } from "@angular/material/table";
-import { SubordinatesReq } from "../../models/subordinatesReq.model";
-import { EmployeeService } from "../../services/employee.service";
-import { NgToastService } from 'ng-angular-popup';
-import {HttpStatusCode} from "@angular/common/http";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-subordinates',

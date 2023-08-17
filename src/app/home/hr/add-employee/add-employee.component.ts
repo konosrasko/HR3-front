@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { EmployeeService } from "../../../services/employee.service";
-import { Employee } from "../../../models/employee.model";
-import { DatePipe } from "@angular/common";
-import { NgToastService } from "ng-angular-popup";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {EmployeeService} from "../../../services/employee.service";
+import {Employee} from "../../../models/employee.model";
+import {DatePipe} from "@angular/common";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-add-employee',
@@ -15,8 +15,6 @@ export class AddEmployeeComponent implements OnInit {
   EmployeeAddFormGroup: FormGroup;
   employee: Employee = new Employee();
   supervisors:any[]=[]
-  // @ts-ignore
-  token:String = localStorage.getItem('token')
   selectedOption?: Employee
 
   constructor(private router: Router, private employeeService: EmployeeService,private datePipe:DatePipe,private toast: NgToastService  ) {
@@ -34,21 +32,19 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employeeService.getAllSupervisors(this.token).subscribe(supervisors => {
-      this.supervisors = supervisors;
-
+    this.employeeService.getAllSupervisors().subscribe(supervisors => {
+        this.supervisors = supervisors;
       });
   }
 
   onSubmit() {
     if(this.EmployeeAddFormGroup.valid) {
-      console.log(this.EmployeeAddFormGroup.valid)
       this.employee = this.EmployeeAddFormGroup.value;
       this.employee.hireDate = this.datePipe.transform(this.employee.hireDate, 'yyyy-MM-dd');
       this.employee.supervisorId = this.selectedOption?.employeeId;
-      this.employeeService.addEmployee(this.employee, this.token);
+      this.employeeService.addEmployee(this.employee);
       this.router.navigateByUrl('/home/hr/all-employees');
-      console.log(this.employee);
+      this.toast.success({detail: 'Επιτυχία!', summary: "Η προσθήκη εκτελέστηκε με επιτυχία!", position: "topRight", duration: 3000});
     }else this.toast.error({detail:"Μήνυμα λάθους",summary:"Ελέξτε τα πεδία !",position:"topRight",duration:5000})
   }
 

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Router } from "@angular/router";
-import { Roles } from 'src/app/models/roles.model';
-import { UserService } from 'src/app/services/user.service';
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
+import {Roles} from 'src/app/models/roles.model';
+import {UserService} from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -16,7 +16,6 @@ export class SidenavListComponent {
   isAdmin = false;
 
   constructor(private router: Router, private userService: UserService) {
-    //set sidebar items visibilty based on role
     this.userService.getUserRoles().subscribe((data:Roles)=>{
       console.log(data)
       this.isSupervisor = data.supervisor? data.supervisor : false;
@@ -25,7 +24,7 @@ export class SidenavListComponent {
     })
   }
 
-  
+
   showSupervisorSubmenu() {
     this.isSupervisorSubmenuVisible = true;
   }

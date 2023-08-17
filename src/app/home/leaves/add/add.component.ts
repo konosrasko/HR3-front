@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LeaveRequestService } from 'src/app/services/leave_request.service';
-import { EmployeeService } from 'src/app/services/employee.service';
-import { LeaveBalance } from 'src/app/models/leave_balance.model';
-import { LeaveRequest } from "../../../models/leave_request.model";
-import { NgToastService } from 'ng-angular-popup';
-import { HttpStatusCode } from '@angular/common/http';
+import {Component, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDatepicker} from '@angular/material/datepicker';
+import {DatePipe} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LeaveRequestService} from 'src/app/services/leave_request.service';
+import {EmployeeService} from 'src/app/services/employee.service';
+import {LeaveBalance} from 'src/app/models/leave_balance.model';
+import {LeaveRequest} from "../../../models/leave_request.model";
+import {NgToastService} from 'ng-angular-popup';
+import {HttpStatusCode} from '@angular/common/http';
 
 @Component({
   selector: 'app-add',
