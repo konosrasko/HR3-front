@@ -138,7 +138,9 @@ export class SubordinateListComponent {
       //Open edit window with the selected leaveRequest as parameter
       this.router.navigate(['home/leaves/restLeaves'], {
         queryParams: {
-         id: rowData.employeeId
+         id: rowData.employeeId,
+         firstName:rowData.firstName,
+         lastName:rowData.lastName
         }
       });
     }

@@ -26,16 +26,13 @@ export class RestLeavesComponent  implements OnInit{
   dataSource = new MatTableDataSource<LeaveBalance>
   @ViewChild(MatSort)sort: MatSort = new MatSort;
   rowId?:number
+  firstName:String = ''
+  lastName:String = ''
 
 
 
   constructor(private changeDetectorRef: ChangeDetectorRef, private employeeService:EmployeeService,
               private router:Router,private route:ActivatedRoute) {
-
-
-
-
-
 
   }
 
@@ -49,10 +46,12 @@ export class RestLeavesComponent  implements OnInit{
           this.dataSource.sort = this.sort;
           this.sortLastColumn();
         })
+          this.firstName = params['firstName']
+          this.lastName = params['lastName']
+
           }}else {
        this.employeeService.getLeaveBalances().subscribe(data=>{
              this.dataSource = new MatTableDataSource<LeaveRequest>(data);
-
              this.dataSource.sort = this.sort;
              this.sortLastColumn();
        })
