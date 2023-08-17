@@ -18,20 +18,24 @@ export class SubordinateListComponent {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
   token: string | null = localStorage.getItem('token');
   dataSource?: any
-   // Initialize with empty array
+  // Initialize with empty array
   private subscription: Subscription | undefined;
-  showContent?:string;
+  showContent?: string;
   isLoaded: boolean = false;
-  selectedFirstName: string =  "";
-
-  constructor(private employeeService: EmployeeService, private http: HttpClient,private toast:NgToastService, private router:Router) {
+  selectedFirstName: string = "";
+  constructor(private employeeService: EmployeeService, private http: HttpClient, private toast: NgToastService, private router: Router) {
     this.employeeService.getAllSubordinates().subscribe({
       next: data => {
         this.loadEmployees(data)
       },
       error: error => {
-        if(error.status === HttpStatusCode.GatewayTimeout){
-          this.toast.error({detail: 'Αποτυχία!', summary: "There was a gateway error", position: "topRight", duration: 4000});
+        if (error.status === HttpStatusCode.GatewayTimeout) {
+          this.toast.error({
+            detail: 'Αποτυχία!',
+            summary: "There was a gateway error",
+            position: "topRight",
+            duration: 4000
+          });
         }
         console.log(error);
         // alert("Προβλημα");
@@ -46,7 +50,7 @@ export class SubordinateListComponent {
   loadEmployees(data: any) {
     this.employees = JSON.parse(data);
     this.dataSource = new MatTableDataSource<Employee>(this.employees);
-    this.dataSource.filterPredicate = function (record: {firstName: string}) {
+    this.dataSource.filterPredicate = function (record: { firstName: string }) {
       return record.firstName.toLocaleLowerCase();
     }
     this.isLoaded = true;
@@ -57,29 +61,56 @@ export class SubordinateListComponent {
     return index % 2 === 0 ? 'even-row' : 'odd-row';
   }
 
-  toggleDirectSubordinates(){
+  toggleDirectSubordinates() {
     //TO-DO: make this work
-    this.isLoaded =  !this.isLoaded;
+    this.isLoaded = !this.isLoaded;
   }
 
   toggleContentEnabled(status: boolean) {
     return this.showContent = status ? "Ενεργός" : "Ανενεργός";
   }
 
-  onFirstNameChange($event: Event){
+  onFirstNameChange($event: Event) {
     const filterValue = ($event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.selectedFirstName = filterValue.trim().toLowerCase();
     this.applyFilter();
   }
 
-  applyFilter(){
+  applyFilter() {
     const userFilterValue = this.selectedFirstName;
     this.dataSource.filterPredicate = (data: any) => {
       const userMatch = data.firstName.toLowerCase().includes(userFilterValue);
-      return  userMatch;
+      return userMatch;
     };
     this.dataSource.filter = `${userFilterValue}`;
 
   }
+
+  private getRowDataFromCell(cell: HTMLElement) {
+    const row = cell.parentElement;
+    if (row && row.parentElement) {
+      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+      return this.dataSource.data[rowIndex - 1];
+    }
+    return undefined;
+  }
+
+
+  showLeaveBalances(event: Event) {
+    const cell = event.target as HTMLElement;
+    console.log(cell)
+
+    const rowData = this.getRowDataFromCell(cell);
+    console.log(rowData)
+    if (rowData) {
+      //Open edit window with the selected leaveRequest as parameter
+      this.router.navigate(['home/leaves/restLeaves'], {
+        queryParams: {
+         id: rowData.employeeId
+        }
+      });
+    }
+  }
 }
+

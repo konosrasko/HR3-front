@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, numberAttribute, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
@@ -7,32 +7,61 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { ChangeDetectorRef } from '@angular/core';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SubordinateListComponent} from "../../subordinates/subordinate-list/subordinate-list.component";
+import {resetParseTemplateAsSourceFileForTest} from "@angular/compiler-cli/src/ngtsc/typecheck/diagnostics";
 
- 
+
 
 @Component({
   selector: 'app-rest-leaves',
   templateUrl: './rest-leaves.component.html',
-  styleUrls: ['./rest-leaves.component.scss']
+  styleUrls: ['./rest-leaves.component.scss'],
+
 })
 
-export class RestLeavesComponent  {
+export class RestLeavesComponent  implements OnInit{
   selected: string = '';
   displayedColumns = ['category', 'days', 'daysTaken'];
   dataSource = new MatTableDataSource<LeaveBalance>
   @ViewChild(MatSort)sort: MatSort = new MatSort;
+  rowId?:number
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private employeeService:EmployeeService, private router:Router) {}
+
+
+  constructor(private changeDetectorRef: ChangeDetectorRef, private employeeService:EmployeeService,
+              private router:Router,private route:ActivatedRoute) {
+
+
+
+
+
+
+  }
 
   ngOnInit() {
-    this.employeeService.getLeaveBalances().subscribe(data=>{
-      this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+    this.route.queryParams.subscribe(params=>{
+     if (params["id"]) {
+        this.rowId = params["id"];
+        if(this.rowId!= null){
+        this.employeeService.getLeaveBalancesOfAnotherEmployee(this.rowId).subscribe(data => {
+          this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+          this.dataSource.sort = this.sort;
+          this.sortLastColumn();
+        })
+          }}else {
+       this.employeeService.getLeaveBalances().subscribe(data=>{
+             this.dataSource = new MatTableDataSource<LeaveRequest>(data);
 
-      this.dataSource.sort = this.sort;
-      this.sortLastColumn();
+             this.dataSource.sort = this.sort;
+             this.sortLastColumn();
+       })
+     }
     })
+
+
   }
+
   ngAfterViewInit() {
     setTimeout(() => {
       this.dataSource.sort = this.sort;
@@ -55,7 +84,6 @@ export class RestLeavesComponent  {
     if (rowData) {
       console.log(rowData);
     }
-
   }
   sortLastColumn() {
     const lastColumnName = this.displayedColumns[this.displayedColumns.length - 2];
@@ -66,7 +94,5 @@ export class RestLeavesComponent  {
   navigateTo(componentToOpen: String){
     this.router.navigateByUrl('home/leaves/' + componentToOpen);
   }
-
-  
 }
 
