@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from "../services/user.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenController } from '../services/token_controller';
@@ -9,7 +9,6 @@ import { TokenController } from '../services/token_controller';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends TokenController{
-
   username: string = ''
   password: string = ''
   error: string = ' '
@@ -17,7 +16,7 @@ export class LoginComponent extends TokenController{
   user: any;
   constructor(private userService: UserService, router: Router, private route: ActivatedRoute) {
     super(router)
-    
+
     const savedToken = localStorage.getItem("token");
     //if token is in local storage
     if (savedToken) {
@@ -30,7 +29,7 @@ export class LoginComponent extends TokenController{
         localStorage.setItem("token", "");
       }
     }
-    
+
     //look for error message param in case of redirect
     this.route.queryParams.subscribe(params => {
       if(params["error"]){
