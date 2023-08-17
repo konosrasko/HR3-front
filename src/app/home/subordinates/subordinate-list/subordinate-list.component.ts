@@ -72,8 +72,6 @@ export class SubordinateListComponent {
   }
 
   toggleDirectSubordinates(){
-    //TO-DO: make this work
-    this.isLoaded =  false;
     this.showIndirect = !this.showIndirect;
     this.reloadList()
   }
