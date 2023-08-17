@@ -33,7 +33,6 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
-
   ngOnInit(): void {
     this.employeeService.getAllSupervisors(this.token).subscribe(supervisors => {
       this.supervisors = supervisors;
@@ -41,21 +40,11 @@ export class AddEmployeeComponent implements OnInit {
       });
   }
 
-  supervisorPicked(supervisor:Supervisors[]){
-
-  }
-
   onSubmit() {
-    console.log(this.EmployeeAddFormGroup.valid)
     if(this.EmployeeAddFormGroup.valid) {
       console.log(this.EmployeeAddFormGroup.valid)
       this.employee = this.EmployeeAddFormGroup.value;
-      console.log(" edw eimai mikre" + this.employee.supervisorId)
-
-
-
-      const formattedHireDate = this.datePipe.transform(this.employee.hireDate, 'yyyy-MM-dd');
-      this.employee.hireDate = formattedHireDate
+      this.employee.hireDate = this.datePipe.transform(this.employee.hireDate, 'yyyy-MM-dd');
       this.employee.supervisorId = this.selectedOption?.employeeId;
       this.employeeService.addEmployee(this.employee, this.token);
       this.router.navigateByUrl('/home/hr/all-employees');
