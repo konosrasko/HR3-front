@@ -70,8 +70,11 @@
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row"
+      <mat-row [ngClass]="getIndexClass(row)"  class="header-row" (click)="getRow(row)"
                *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+  </div>
+  <div class="add-btn">
+    <button mat-raised-button class="button" color="primary" (click)="editSubordinateProfile($event)" >Επεξεργασία Λογαριασμού</button>
   </div>
 </main>

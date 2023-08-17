@@ -1,0 +1,99 @@
+.content {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #c3c3c3;
+}
+
+.myDetails {
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.myDetails div {
+  flex-basis: 48%;
+  margin-bottom: 10px;
+}
+
+.myDetails label {
+  display: block;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.myDetails input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  margin-left: -10px;
+  border-radius: 5px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 20px;
+  margin: 10px;
+  transition: 0.25s ease;
+  zoom: 120%;
+  height: auto;
+}
+
+
+h1 {
+  zoom: 1.5;
+  color: rgba(226, 135, 50, 1);
+  margin: 10px 0;
+  text-align: center;
+  text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#Edit {
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.left-details,
+.right-details {
+  flex-basis: 48%;
+}
+[disabled] {
+  opacity: 1;
+  color: rgb(203, 166, 70);
+}
+
+.details-container {
+  display: flex;
+  justify-content: center;
+}
+
+.details-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px; /* Adjust spacing between columns if needed */
+}
+
+#actions{
+  margin-left: 670px;
+}
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}

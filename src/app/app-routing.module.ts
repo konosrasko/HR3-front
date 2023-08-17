@@ -20,6 +20,9 @@ import { SubordinateListComponent } from './home/subordinates/subordinate-list/s
 import {LeaveCategoryComponent} from "./home/hr/leave-category/leave-category.component";
 import {AddCategoryComponent} from "./home/hr/leave-category/add-category/add-category.component";
 import {EditCategoryComponent} from "./home/hr/leave-category/edit-category/edit-category.component";
+import {
+  SubordinateProfileComponent
+} from "./home/subordinates/subordinate-list/subordinate-profile/subordinate-profile.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -42,6 +45,7 @@ const routes: Routes = [
       { path: 'subordinates', component: SubordinatesComponent},
       { path: 'subordinates', children:[
         {path:'list', component: SubordinateListComponent},
+        {path:'subordinate-profile', component: SubordinateProfileComponent},
         {path:'requests', component: SubordinateRequestComponent}
       ]},
       { path: 'admin', component: AdminComponent },

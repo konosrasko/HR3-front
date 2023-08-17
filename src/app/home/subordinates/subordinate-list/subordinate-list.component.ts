@@ -23,6 +23,9 @@ export class SubordinateListComponent {
   showContent?:string;
   isLoaded: boolean = false;
   selectedFirstName: string =  "";
+  rowData?: any;
+  cell?:any;
+  private selectedEmployeeId?: number | undefined;
 
   constructor(private employeeService: EmployeeService, private http: HttpClient,private toast:NgToastService, private router:Router) {
     this.employeeService.getAllSubordinates().subscribe({
@@ -81,5 +84,19 @@ export class SubordinateListComponent {
     };
     this.dataSource.filter = `${userFilterValue}`;
 
+  }
+  getRow(employee : Employee){
+    this.selectedEmployeeId = employee.employeeId;
+    console.log(this.selectedEmployeeId);
+  }
+
+  editSubordinateProfile(event: Event){
+    if (this.selectedEmployeeId) {
+      this.router?.navigate(['home/subordinates/subordinate-profile'], { queryParams: {employee: this.selectedEmployeeId}});
+    }
+  }
+
+  navigateTo(url:string ){
+    this.router?.navigateByUrl('home/subordinates/' + url);
   }
 }
