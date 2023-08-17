@@ -16,13 +16,7 @@ export class MyDetailsComponent implements OnInit {
     employee: Employee = new Employee();
     originalEmployee!: Employee;
     myForm: FormGroup;
-    isLoading: boolean = true;
-    // @ts-ignore
-    token: string = localStorage.getItem('token');
-
-
     isEditMode: boolean = false;
-
     dataLoaded: boolean = false;
 
     constructor(private userService: UserService, private cdr: ChangeDetectorRef, private toast:NgToastService, private date: DatePipe) {
@@ -42,7 +36,7 @@ export class MyDetailsComponent implements OnInit {
       this.employee = this.myForm.value;
       this.employee.employeeId = this.originalEmployee.employeeId;
       this.employee.hireDate = this.date.transform(this.employee.hireDate, 'yyyy-MM-dd');
-      this.userService.saveEmployeeDetails(this.employee, this.token).subscribe({
+      this.userService.saveEmployeeDetails(this.employee).subscribe({
         next: () => {
           this.isEditMode = false;
           this.myForm.disable();
@@ -92,8 +86,7 @@ export class MyDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.token != null) {
-          this.userService.getEmployeeDetails(this.token).subscribe({
+          this.userService.getEmployeeDetails().subscribe({
             next: data => {
               this.loadEmployee(data);
               this.myForm.patchValue(this.employee); // Assuming the response data keys match form control names
@@ -102,7 +95,5 @@ export class MyDetailsComponent implements OnInit {
             error: error => console.log(error)
             }
           );
-
-        }
     }
 }

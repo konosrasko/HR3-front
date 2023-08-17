@@ -16,7 +16,6 @@ export class SidenavListComponent {
   isAdmin = false;
 
   constructor(private router: Router, private userService: UserService) {
-    //set sidebar items visibilty based on role
     this.userService.getUserRoles().subscribe((data:Roles)=>{
       console.log(data)
       this.isSupervisor = data.supervisor? data.supervisor : false;
@@ -25,7 +24,7 @@ export class SidenavListComponent {
     })
   }
 
-  
+
   showSupervisorSubmenu() {
     this.isSupervisorSubmenuVisible = true;
   }

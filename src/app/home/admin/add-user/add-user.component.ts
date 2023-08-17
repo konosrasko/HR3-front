@@ -16,11 +16,7 @@ import { HttpStatusCode } from '@angular/common/http';
 
 export class AddUserComponent implements OnInit{
   allEmployees?: Employee[];
-
-  token: string | null = localStorage.getItem('token');
-
   newUserFormGroup: FormGroup;
-
   selectedEmployee = 0;
   selectedRole = "";
   username = "";
@@ -39,9 +35,10 @@ export class AddUserComponent implements OnInit{
   }
 
   ngOnInit() {
-    if(this.token != null){
-      this.employeeService.getEmployeesWithoutUser(this.token).subscribe({
-        next: data => this.loadEmployeeData(data),
+      this.employeeService.getEmployeesWithoutUser().subscribe({
+        next: data =>{
+          this.loadEmployeeData(data);
+        },
         error: err => {
           if(err.status === HttpStatusCode.GatewayTimeout){
             this.toast.error({detail: 'Αποτυχία!', summary: 'Υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
@@ -51,7 +48,6 @@ export class AddUserComponent implements OnInit{
           this.router?.navigateByUrl('home/landing');
         }
       });
-    }
   }
 
   loadEmployeeData(data: any){
@@ -96,8 +92,7 @@ export class AddUserComponent implements OnInit{
       newUser.role = 'Admin'
     }
 
-    if(this.token != null){
-      this.userService.createUserAccount(newUser, this.token).subscribe({
+      this.userService.createUserAccount(newUser).subscribe({
         next: data => {
           this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Ο νέος λογαριασμός δημιουργήθηκε με επιτυχία!', position: "topRight", duration: 5000});
           this.router?.navigateByUrl('/home/admin');
@@ -107,7 +102,7 @@ export class AddUserComponent implements OnInit{
           this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000})
         }
       });
-    }
+
   }
 
   navigateTo(){

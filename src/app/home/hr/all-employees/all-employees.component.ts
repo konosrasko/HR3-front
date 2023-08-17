@@ -14,7 +14,6 @@ import {Router} from "@angular/router";
 export class AllEmployeesComponent implements OnInit, OnDestroy {
   employees: Employee[] = [];
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
-  token: string | null = localStorage.getItem('token');
   dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
   private subscription: Subscription | undefined;
   showContent?:string;
@@ -22,14 +21,12 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   constructor(private employeeService: EmployeeService, private http: HttpClient, private router:Router) {}
 
   ngOnInit(): void {
-    if (this.token != null) {
-      this.subscription = this.employeeService.getAllEmployees(this.token).subscribe({
+      this.subscription = this.employeeService.getAllEmployees().subscribe({
         next: (data) => {
           this.loadEmployees(data);
         },
         error: (error) => console.log(error),
       });
-    }
   }
 
   ngOnDestroy(): void {
@@ -41,7 +38,6 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   loadEmployees(data: any) {
     this.employees = JSON.parse(data);
     this.dataSource.data = this.employees;
-    console.log(this.dataSource);
   }
 
   getIndexClass(row: any): string {
@@ -53,10 +49,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   }
   editRequest(event: Event){
     const cell = event.target as HTMLElement;
-    console.log(cell)
-
     const rowData = this.getRowDataFromCell(cell);
-    console.log(rowData)
     if (rowData) {
       //Open edit window with the selected leaveRequest as parameter
       this.router.navigate(['home/leaves/add'],{ queryParams: {id: rowData.employeeId, firstName: rowData.firstName, lastName: rowData.lastName}});

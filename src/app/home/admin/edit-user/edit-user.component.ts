@@ -15,8 +15,6 @@ import { NgToastService } from "ng-angular-popup";
 })
 
 export class EditUserComponent implements OnInit {
-
-  token: string | null = localStorage.getItem('token');
   employeeUser?: EmployeeUser;
 
   hide = true;

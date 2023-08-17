@@ -25,7 +25,7 @@ export class EmployeeService extends TokenController{
     return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"json" as 'json'})
   }
 
-  getAllEmployees(token:String):Observable<Employee[]> {
+  getAllEmployees():Observable<Employee[]> {
     const headers = this.createHeadersWithToken()
     return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
   }
@@ -44,9 +44,8 @@ export class EmployeeService extends TokenController{
     return this.http.get<Employee[]>(url,{headers, responseType: 'text' as 'json'});
   }
 
-  addEmployee(employee: Employee, token: String): void {
-    let tokenStr = 'Bearer ' + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
+  addEmployee(employee: Employee): void {
+    const headers = this.createHeadersWithToken()
        this.http.post<Employee>('url/api/employees', employee, { headers }).subscribe(
       (response) => {
         console.log('Employee added successfully:', response);
@@ -58,7 +57,7 @@ export class EmployeeService extends TokenController{
     );
   }
 
-  getAllSupervisors(token:String):Observable<Supervisors[]>{
+  getAllSupervisors():Observable<Supervisors[]>{
     const headers = this.createHeadersWithToken()
     return this.http.get<Supervisors[]>('url/api/employees/allSupervisors',{headers,responseType:"json" as "json"})
   }
