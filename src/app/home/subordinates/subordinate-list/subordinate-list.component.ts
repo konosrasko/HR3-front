@@ -25,7 +25,7 @@ export class SubordinateListComponent {
   showIndirect: boolean = false;
   selectedFirstName: string = "";
   rowData?: any;
-  cell?:any;
+
   private selectedEmployeeId?: number | undefined;
   constructor(private employeeService: EmployeeService, private http: HttpClient, private toast: NgToastService, private router: Router) {
     this.reloadList()
@@ -103,9 +103,18 @@ export class SubordinateListComponent {
     this.dataSource.filter = `${userFilterValue}`;
 
   }
-  getRow(employee : Employee){
-    this.selectedEmployeeId = employee.employeeId;
-    console.log(this.selectedEmployeeId);
+  getRow(event:Event){
+    const cell = event.target as HTMLElement;
+    const selectedRow = cell.parentElement
+    const matRows = document.querySelectorAll('.header-row');
+    if(selectedRow!=null)
+    {
+      matRows.forEach(row=>
+      row.classList.remove('selected'))
+      selectedRow.classList.remove(`selected`)
+      selectedRow.classList.add('selected') // go to css of this component to change the color
+    }
+
   }
 
   editSubordinateProfile(event: Event){
