@@ -1,11 +1,9 @@
-<h1>Tα στοιχεία μου </h1>
 <mat-spinner *ngIf="!dataLoaded"></mat-spinner>
 
-<mat-card>
   <div class="content">
-    <form [formGroup]="myForm" *ngIf="dataLoaded">
-      <mat-card-content>
+    <h1>Tα στοιχεία μου </h1>
 
+    <form [formGroup]="myForm" *ngIf="dataLoaded">
         <div class="details-container">
 
           <div class="details-column">
@@ -75,15 +73,14 @@
           </div>
         </div>
 
-      </mat-card-content>
-
-      <mat-card-actions id="actions">
-        <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
-        <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
-        <mat-slide-toggle color="primary" [checked]="isEditMode" (click)="toggleEditMode()" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
-      </mat-card-actions>
+      
     </form>
+
+    <div id="actions">
+      <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
+      <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
+      <mat-slide-toggle color="primary" style="flex-grow: 2;" [checked]="isEditMode" (click)="toggleEditMode()" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
+    </div>
 
 
   </div>
-  </mat-card>
