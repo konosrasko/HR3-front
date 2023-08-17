@@ -31,7 +31,7 @@
     <div class="add-btn">
       <button mat-raised-button class="button" color="primary" (click)="navigateTo('add-user')" >
         <div class="btn-comms">
-          <mat-icon class="add-icon">add</mat-icon>
+          <mat-icon class="add-icon">person_add</mat-icon>
           <span>Προσθήκη Λογαριασμού</span>
         </div>
       </button>
@@ -65,12 +65,14 @@
       </ng-container>
 
       <ng-container matColumnDef="editBtn">
-        <mat-header-cell *matHeaderCellDef > Επεξεργασία Λογαριαμού </mat-header-cell>
-        <mat-cell *matCellDef="let employeeUser"><button mat-raised-button color="primary" class="button edit" (click)="editUser($event)">Επεξεργασία</button></mat-cell>
+        <mat-header-cell style="max-width: 150px;" *matHeaderCellDef ></mat-header-cell>
+        <mat-cell style="justify-content: center; max-width: 150px;"  *matCellDef="let employeeUser">
+          <mat-icon class="icon edit" matTooltip="Επεξεργασία" color="primary" (click)="editUser()">edit</mat-icon>
+        </mat-cell>
       </ng-container>
 
       <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row;   columns: displayedColumns;"  (click)="setRowData(row)" (dblclick)="editUser()"></mat-row>
     </mat-table>
   </div>
   <div *ngIf="!isLoaded">

@@ -16,6 +16,7 @@ h1{
   width: 100%;
   display: flex;
   margin-right: 5vw;
+  flex-wrap: wrap;
 }
 
 .header *{
@@ -47,7 +48,7 @@ h1{
 }
 
 .add-btn{
-  margin-top: 25px;
+  margin-top: 8px;
   margin-left: auto;
   margin-right: 5vw;
   display: flex;
@@ -87,4 +88,17 @@ h1{
   background-color: red;
   border-radius: 5px;
   color: white;
+}
+
+.icon{
+  scale: 107%;
+  opacity: 90%;
+  transition: scale 0.14s ease
+}
+
+.icon:hover{
+  cursor: pointer;
+  scale: 118%;
+  transform: rotate(3deg);
+  color: rgb(114, 74, 0);
 }

@@ -2,7 +2,8 @@
   <h1>Επεξεργασία στοιχείων λογαριασμού</h1>
   <div class="form-edit-user" *ngIf="isLoaded" [formGroup]="editUserFormGroup">
     <div class="selected-employee">
-      <h2> Εργαζόμενος : {{employeeUser?.firstName+" "+employeeUser?.lastName }}   </h2>
+      <h3> Εργαζόμενος :</h3>
+      <h2> {{employeeUser?.firstName+" "+employeeUser?.lastName }}   </h2>
     </div>
     <div class="input-username">
       <mat-form-field appearance="fill">
@@ -13,7 +14,7 @@
     </div>
     <div class="input-pass">
       <mat-form-field appearance="fill">
-          <mat-label>Εισαγωγή νέου προσωρινού password</mat-label>
+          <mat-label>Nέο password</mat-label>
           <input matInput [type]="hide ? 'password' : 'text'" placeholder="Κενό για την διατήρηση του παλιού" formControlName="passwordFormControl" (keydown)="onEdited()">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -46,6 +47,7 @@
   <div *ngIf="!isLoaded">
     <mat-spinner color="primary"></mat-spinner>
   </div>
+  
   <div class="btn-options">
     <div class="back-button">
       <button mat-raised-button color="warn" class="button" (click)="navigateTo()">Ακύρωση</button>

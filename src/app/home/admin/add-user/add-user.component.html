@@ -1,10 +1,11 @@
 <main>
   <h1>Προσθήκη νέου λογαριασμού</h1>
 
+  <p style="max-width: 300px; text-align: center;">Οι ρυθμίσεις του λογαριασμού μπορούν να αλλαχτούν και μετά τη δημιουργία του</p>
   <div class="form-new-user" [formGroup]="newUserFormGroup">
     <div class="employee-dd">
       <mat-form-field appearance="fill">
-        <mat-label>Εργαζόμενοι χωρίς λογαριασμό</mat-label>
+        <mat-label>Εργαζόμενος</mat-label>
         <mat-select [(ngModel)]="selectedEmployee" formControlName = "employeesFormControl" (selectionChange) = "onSelectEmployee()"  required>
           <mat-option *ngFor="let employee of allEmployees" value="{{employee.employeeId}}">{{employee.lastName + " " + employee.firstName}}</mat-option>
         </mat-select>
@@ -12,14 +13,14 @@
     </div>
     <div class="input-username"  >
       <mat-form-field appearance="fill">
-        <mat-label>Εισαγωγή username</mat-label>
+        <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="username" formControlName= "usernameFromControl" required>
         <mat-error  *ngIf="newUserFormGroup.get('usernameFromControl')?.invalid">{{getErrorUsername()}}</mat-error>
       </mat-form-field>
     </div>
     <div class="input-pass">
       <mat-form-field appearance="fill">
-        <mat-label>Εισαγωγή προσωρινού password</mat-label>
+        <mat-label>Προσωρινό password</mat-label>
         <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'" formControlName = "passwordFormControl" required>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
