@@ -86,7 +86,7 @@ export class AddUserComponent implements OnInit{
   }
 
   saveNewUser(){
-    let newUser: User = new User(0, this.username, this.password, true, Number(this.selectedEmployee), 'Employee', this.isSupervisor);
+    let newUser: User = new User(0, this.username, this.password, true, (this.selectedEmployee), 'Employee', this.isSupervisor);
 
     if(this.selectedRole == 'employee'){
       newUser.role = 'Employee';
