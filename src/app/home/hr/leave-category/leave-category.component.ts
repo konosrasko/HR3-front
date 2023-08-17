@@ -12,7 +12,6 @@ import { MatTableDataSource } from "@angular/material/table";
 })
 export class LeaveCategoryComponent implements OnInit{
   status:string[] = ["all", "enabled", "disabled"];
-  token: string | null = localStorage.getItem('token');
   categories?: LeaveCategory[];
   displayedColumns: string[] = ['categoryName', 'status', 'editBtn'];
   selectedStatus: string = "all";
@@ -25,7 +24,7 @@ export class LeaveCategoryComponent implements OnInit{
   }
 
   ngOnInit() {
-    if(this.token != null){
+
       this.categoryService.getAllLeaveCategories().subscribe({
         next: data => {
           this.loadCategories(data);
@@ -36,10 +35,6 @@ export class LeaveCategoryComponent implements OnInit{
           this.router?.navigateByUrl('home/landing');
         }
       })
-    }else{
-      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
-      this.router?.navigateByUrl('login');
-    }
   }
 
   loadCategories(data: any){

@@ -6,7 +6,6 @@ import {EmployeeService} from "../../../services/employee.service";
 import {HttpClient, HttpStatusCode} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";
-import {EmployeeUser} from "../../../models/employeeUser.model";
 
 @Component({
   selector: 'app-requests',
@@ -18,7 +17,6 @@ export class SubordinateListComponent {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
   token: string | null = localStorage.getItem('token');
   dataSource?: any
-  // Initialize with empty array
   private subscription: Subscription | undefined;
   showContent?: string;
   isLoaded: boolean = false;

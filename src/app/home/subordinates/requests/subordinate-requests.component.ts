@@ -6,7 +6,6 @@ import { NgToastService } from 'ng-angular-popup';
 import { HttpStatusCode } from "@angular/common/http";
 import { SubordinatesReq } from 'src/app/models/subordinatesReq.model';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { UserService } from 'src/app/services/user.service';
 import { LeaveRequestService } from 'src/app/services/leave_request.service';
 
 @Component({
@@ -70,7 +69,7 @@ export class SubordinateRequestComponent implements OnInit {
     } catch (error) {
       console.log("the requests have already been parsed.")
     } finally{
-      if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)    
+      if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
       this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
       this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
         return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
@@ -82,7 +81,7 @@ export class SubordinateRequestComponent implements OnInit {
   }
 
   approveRequest(subordinateReq: SubordinatesReq) {
-    
+
     if (subordinateReq.leaveId) {
       this.leaveRequestService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
         next: data => {
@@ -97,7 +96,7 @@ export class SubordinateRequestComponent implements OnInit {
           });
           this.isLoaded = true;
         }
-      });      
+      });
     }
   }
 
@@ -131,7 +130,7 @@ export class SubordinateRequestComponent implements OnInit {
       this.dataSource.filter = '';
       return;
     }
-    
+
     filterValue = filterValue.trim();
     this.dataSource.filterPredicate = (data: any, filter: string) => {
       return data.status.includes(filterValue);
@@ -144,7 +143,7 @@ export class SubordinateRequestComponent implements OnInit {
   sortLastColumn() {
     const lastColumnName = this.displayedColumns[3];
     const sortDirection: 'asc' | 'desc' = 'desc'; // Choose 'asc' or 'desc' as per your requirement
-    this.dataSource.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });    
+    this.dataSource.sort.sort({ id: lastColumnName, start: sortDirection, disableClear: false });
   }
 
   /* HELPER FUNCTIONS */

@@ -11,8 +11,6 @@ import {LeaveCategoryService} from "../../../../services/leave-category.service"
   styleUrls: ['./edit-category.component.scss']
 })
 export class EditCategoryComponent implements OnInit{
-
-  token: string | null = localStorage.getItem('token');
   category?: LeaveCategory;
   editCategoryFormGroup: FormGroup
   selectedCategory?: number
@@ -31,7 +29,6 @@ export class EditCategoryComponent implements OnInit{
   }
 
   ngOnInit() {
-    if(this.token != null){
       this.categoryService.getLeaveCategory(this.selectedCategory).subscribe({
         next: data => this.loadCategory(data),
         error: error => {
@@ -40,10 +37,6 @@ export class EditCategoryComponent implements OnInit{
           this.router?.navigateByUrl('/home/hr/leave-categories');
         }
       })
-    }else{
-      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
-      this.router?.navigateByUrl('/login');
-    }
   }
 
   loadCategory(data: any){
@@ -70,7 +63,6 @@ export class EditCategoryComponent implements OnInit{
     let id = this.category!.id || 0
     let editedCategory = new LeaveCategory(id, this.editCategoryFormGroup.get('titleFormControl')?.value, this.editCategoryFormGroup.get('activeFormControl')?.value);
 
-    if(this.token != null){
       this.categoryService.editLeaveCategory(editedCategory).subscribe({
         next: data => {
           this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία της κατηγορίας άδειας έγινε με επιτυχία!', position: "topRight", duration: 5000});
@@ -82,7 +74,6 @@ export class EditCategoryComponent implements OnInit{
           this.editCategoryFormGroup.get('titleFormControl')!.setValue('');
         }
       });
-    }
 
   }
 

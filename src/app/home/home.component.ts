@@ -3,7 +3,6 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { EmployeeService } from '../services/employee.service';
-import { LeaveBalance } from '../models/leave_balance.model';
 
 @Component({
   selector: 'app-home',

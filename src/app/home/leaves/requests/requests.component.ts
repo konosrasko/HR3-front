@@ -24,7 +24,6 @@ export class RequestsComponent {
   constructor(private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
 
   ngOnInit() {
-    //pull leave requests from the database
     this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
       data = this.translated(data)
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);

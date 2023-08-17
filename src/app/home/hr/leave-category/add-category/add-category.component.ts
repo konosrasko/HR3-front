@@ -14,7 +14,6 @@ export class AddCategoryComponent implements OnInit{
 
   allCategories?: LeaveCategory[];
   newCategoryFormGroup: FormGroup;
-  token: string | null = localStorage.getItem('token');
 
   constructor(private router: Router, private toast: NgToastService, private categoryService: LeaveCategoryService) {
     this.newCategoryFormGroup = new FormGroup({
@@ -23,7 +22,6 @@ export class AddCategoryComponent implements OnInit{
   }
 
   ngOnInit() {
-    if (this.token != null){
       this.categoryService.getAllLeaveCategories().subscribe({
         next: data => this.loadCategories(data),
         error: err => {
@@ -32,10 +30,6 @@ export class AddCategoryComponent implements OnInit{
           this.router?.navigateByUrl('home/landing');
         }
       })
-    }else {
-      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 4000})
-      this.router?.navigateByUrl('/login');
-    }
   }
 
   loadCategories(data: any){
@@ -52,7 +46,6 @@ export class AddCategoryComponent implements OnInit{
 
   saveCategory(){
     let newCategory = new LeaveCategory(0, this.newCategoryFormGroup.get('titleFormControl')?.value, true);
-    if(this.token != null){
       this.categoryService.createLeaveCategory(newCategory).subscribe({
         next: data => {
           this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η νέα κατηγορία άδειας δημιουργήθηκε με επιτυχία!', position: "topRight", duration: 5000});
@@ -63,7 +56,6 @@ export class AddCategoryComponent implements OnInit{
           this.newCategoryFormGroup.get('titleFormControl')?.setValue('');
         }
       })
-    }
   }
 
   navigateTo(){
