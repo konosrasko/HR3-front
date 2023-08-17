@@ -16,7 +16,7 @@ export class RequestsComponent {
 
   displayedColumns = ['submitDate', 'startDate', 'endDate', 'duration', 'leaveTitle', 'status', 'delete'];
   dataSource: MatTableDataSource<LeaveRequest> = new MatTableDataSource<LeaveRequest>()
-
+  isLoaded:boolean = false;
   @ViewChild(MatSort) sort: MatSort = new MatSort;
 
   private selectedLeaveRequest: LeaveRequest = {}
@@ -31,6 +31,7 @@ export class RequestsComponent {
 
       this.dataSource.sort = this.sort;
       this.sortLastColumn();
+      this.isLoaded = true
     })
   }
 
@@ -56,9 +57,11 @@ export class RequestsComponent {
       if (this.selectedLeaveRequest.id) {
         //console.log(this.dataSource.find(row => row.id === rowData.id);)
         //deleting the leave request
+        this.isLoaded = false;
         this.leaveRequestService.deleteLeaveRequest(this.selectedLeaveRequest.id).subscribe(data => {
           this.toast.success({detail: 'Επιτυχία!', summary: 'Το αίτημα διαγράφτηκε επιτυχώς', position: "topRight", duration: 4000});
           //successfull delete: refresh leave requests
+          this.isLoaded = true;
           this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
             data = this.translated(data)
             this.dataSource = new MatTableDataSource<LeaveRequest>(data);

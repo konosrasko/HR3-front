@@ -15,6 +15,7 @@ import { EditComponent } from './edit/edit.component';
 import {MatButtonModule} from "@angular/material/button"; // Correct the import statement for RestLeavesComponent
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'gr-GR' }],
@@ -29,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     MatTableModule,
     MatSortModule,
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,

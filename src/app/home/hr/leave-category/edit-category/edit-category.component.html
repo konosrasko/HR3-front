@@ -9,9 +9,9 @@
       </mat-form-field>
     </div>
     <div class="active-edit">
-      <span>Κατάσταση κατηγορίας: <span class="inactive">Ανενεργή</span>
-      <mat-slide-toggle color="primary" formControlName="activeFormControl" (change)="onEdited()"></mat-slide-toggle>
-      <span class="active">Ενεργή</span></span>
+      <span>Κατάσταση κατηγορίας:
+      <mat-slide-toggle color="primary" formControlName="activeFormControl" (change)="onEdited(); status = !status;"></mat-slide-toggle>
+      <span class="{{status ? 'active' : 'inactive'}}">{{status ? 'Ενεργή' : 'Ανενεργή'}}</span></span>
     </div>
     <div class="btn-options">
       <div class="back-button">

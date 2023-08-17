@@ -20,7 +20,10 @@
 
     </div>
 
-    <mat-table class="table" #table [dataSource]="dataSource" matSort>
+    <div *ngIf="!isLoaded">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+    <mat-table class="table"  #table [dataSource]="dataSource" matSort>
 
       <!-- Position Column -->
       <ng-container matColumnDef="submitDate">

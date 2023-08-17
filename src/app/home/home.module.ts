@@ -33,6 +33,7 @@ import {MatCardModule} from "@angular/material/card";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SubordinateListComponent } from './subordinates/subordinate-list/subordinate-list.component';
 import { SubordinateRequestComponent } from './subordinates/requests/subordinate-requests.component';
+import { SubordinateProfileComponent } from './subordinates/subordinate-list/subordinate-profile/subordinate-profile.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SubordinateRequestComponent } from './subordinates/requests/subordinate
     AdminComponent,
     SubordinatesComponent,
     SubordinateListComponent,
-    SubordinateRequestComponent
+    SubordinateRequestComponent,
+    SubordinateProfileComponent
   ],
   imports: [
     CommonModule,
