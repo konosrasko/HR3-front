@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MatTableDataSource } from '@angular/material/table';
-import { Employee } from '../../../models/employee.model';
-import { EmployeeService } from '../../../services/employee.service';
-import { Subscription } from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {MatTableDataSource} from '@angular/material/table';
+import {Employee} from '../../../models/employee.model';
+import {EmployeeService} from '../../../services/employee.service';
+import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 
 @Component({

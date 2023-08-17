@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Employee} from "../../../models/employee.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subscription} from "rxjs";

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { LeaveCategoryService } from "../../../services/leave-category.service";
-import { LeaveCategory } from "../../../models/leave-category.model";
-import { NgToastService } from "ng-angular-popup";
-import { MatTableDataSource } from "@angular/material/table";
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {LeaveCategoryService} from "../../../services/leave-category.service";
+import {LeaveCategory} from "../../../models/leave-category.model";
+import {NgToastService} from "ng-angular-popup";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-leave-category',

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { EmployeeService } from "../../../services/employee.service";
-import { Employee } from "../../../models/employee.model";
-import { DatePipe } from "@angular/common";
-import { NgToastService } from "ng-angular-popup";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {EmployeeService} from "../../../services/employee.service";
+import {Employee} from "../../../models/employee.model";
+import {DatePipe} from "@angular/common";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-add-employee',

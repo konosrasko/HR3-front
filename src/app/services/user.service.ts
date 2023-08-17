@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Employee } from '../models/employee.model';
-import { User } from '../models/user.model';
-import { EmployeeUser } from "../models/employeeUser.model";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Employee} from '../models/employee.model';
+import {User} from '../models/user.model';
+import {EmployeeUser} from "../models/employeeUser.model";
 import * as CryptoJS from 'crypto-js';
-import { TokenController } from './token_controller';
-import { Router } from '@angular/router';
-import { Roles } from '../models/roles.model';
-import {SubordinatesReq} from "../models/subordinatesReq.model";
+import {TokenController} from './token_controller';
+import {Router} from '@angular/router';
+import {Roles} from '../models/roles.model';
 
 @Injectable({
   providedIn: 'root'

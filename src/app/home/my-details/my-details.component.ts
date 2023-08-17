@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Employee } from 'src/app/models/employee.model';
-import { UserService } from 'src/app/services/user.service';
-import { NgToastService } from "ng-angular-popup";
-import { DatePipe } from "@angular/common";
-import { HttpStatusCode } from "@angular/common/http";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Employee} from 'src/app/models/employee.model';
+import {UserService} from 'src/app/services/user.service';
+import {NgToastService} from "ng-angular-popup";
+import {DatePipe} from "@angular/common";
+import {HttpStatusCode} from "@angular/common/http";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({

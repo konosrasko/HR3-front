@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { UserService } from "../services/user.service";
-import { ActivatedRoute, Router } from '@angular/router';
-import { TokenController } from '../services/token_controller';
+import {Component} from '@angular/core';
+import {UserService} from "../services/user.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {TokenController} from '../services/token_controller';
 
 @Component({
   selector: 'app-login',

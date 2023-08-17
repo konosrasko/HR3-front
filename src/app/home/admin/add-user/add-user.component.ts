@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Employee } from "../../../models/employee.model";
-import { Router } from "@angular/router";
-import { UserService } from "../../../services/user.service";
-import { EmployeeService } from "../../../services/employee.service";
-import { User } from "../../../models/user.model";
-import { NgToastService } from "ng-angular-popup";
-import { HttpStatusCode } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Employee} from "../../../models/employee.model";
+import {Router} from "@angular/router";
+import {UserService} from "../../../services/user.service";
+import {EmployeeService} from "../../../services/employee.service";
+import {User} from "../../../models/user.model";
+import {NgToastService} from "ng-angular-popup";
+import {HttpStatusCode} from '@angular/common/http';
 
 @Component({
   selector: 'app-add-user',

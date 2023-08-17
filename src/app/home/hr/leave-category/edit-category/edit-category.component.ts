@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LeaveCategory} from "../../../../models/leave-category.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";

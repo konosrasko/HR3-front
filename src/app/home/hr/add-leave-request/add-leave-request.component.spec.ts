@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddLeaveRequestComponent } from './add-leave-request.component';
+import {AddLeaveRequestComponent} from './add-leave-request.component';
 
 describe('AddLeaveRequestComponent', () => {
   let component: AddLeaveRequestComponent;

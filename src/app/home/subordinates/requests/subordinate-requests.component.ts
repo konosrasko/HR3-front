@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from "@angular/router";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatSort } from '@angular/material/sort';
-import { NgToastService } from 'ng-angular-popup';
-import { HttpStatusCode } from "@angular/common/http";
-import { SubordinatesReq } from 'src/app/models/subordinatesReq.model';
-import { EmployeeService } from 'src/app/services/employee.service';
-import { LeaveRequestService } from 'src/app/services/leave_request.service';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from '@angular/material/sort';
+import {NgToastService} from 'ng-angular-popup';
+import {HttpStatusCode} from "@angular/common/http";
+import {SubordinatesReq} from 'src/app/models/subordinatesReq.model';
+import {EmployeeService} from 'src/app/services/employee.service';
+import {LeaveRequestService} from 'src/app/services/leave_request.service';
 
 @Component({
   selector: 'app-subordinates',

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Router } from "@angular/router";
-import { Roles } from 'src/app/models/roles.model';
-import { UserService } from 'src/app/services/user.service';
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
+import {Roles} from 'src/app/models/roles.model';
+import {UserService} from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-sidenav-list',

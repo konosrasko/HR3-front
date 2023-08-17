@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { LeaveBalance } from 'src/app/models/leave_balance.model';
-import { LeaveRequest } from 'src/app/models/leave_request.model';
-import { ChangeDetectorRef } from '@angular/core';
-import { EmployeeService } from 'src/app/services/employee.service';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {LeaveBalance} from 'src/app/models/leave_balance.model';
+import {LeaveRequest} from 'src/app/models/leave_request.model';
+import {EmployeeService} from 'src/app/services/employee.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
