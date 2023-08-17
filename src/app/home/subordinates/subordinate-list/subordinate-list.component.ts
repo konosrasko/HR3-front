@@ -103,12 +103,12 @@ export class SubordinateListComponent {
     this.dataSource.filter = `${userFilterValue}`;
 
   }
-  getRow(employee : Employee){
+  getRow(employee : Employee,event:Event){
     this.selectedEmployeeId = employee.employeeId;
-    console.log(this.selectedEmployeeId);
+    this.changeColorOfSelectedRow(event)
   }
 
-  changecolorOfSelectedRow(event:Event)// tha prepei na to balw ayto
+  changeColorOfSelectedRow(event:Event)// tha prepei na to balw ayto
   {
 
     const cell = event.target as HTMLElement;
