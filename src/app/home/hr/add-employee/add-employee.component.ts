@@ -3,9 +3,9 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { EmployeeService } from "../../../services/employee.service";
 import { Employee } from "../../../models/employee.model";
-import {DatePipe} from "@angular/common";
-import {Supervisors} from "../../../models/supervisors";
-import {Observable} from "rxjs";
+import { DatePipe } from "@angular/common";
+import { NgToastService } from "ng-angular-popup";
+
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -19,10 +19,7 @@ export class AddEmployeeComponent implements OnInit {
   token:String = localStorage.getItem('token')
   selectedOption?: Employee
 
-
-
-
-  constructor(private router: Router, private employeeService: EmployeeService,private datePipe:DatePipe ) {
+  constructor(private router: Router, private employeeService: EmployeeService,private datePipe:DatePipe,private toast: NgToastService  ) {
     this.EmployeeAddFormGroup = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -36,7 +33,6 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
-
   ngOnInit(): void {
     this.employeeService.getAllSupervisors(this.token).subscribe(supervisors => {
       this.supervisors = supervisors;
@@ -44,26 +40,16 @@ export class AddEmployeeComponent implements OnInit {
       });
   }
 
-  supervisorPicked(supervisor:Supervisors[]){
-
-  }
-
   onSubmit() {
-    console.log(this.EmployeeAddFormGroup.valid)
     if(this.EmployeeAddFormGroup.valid) {
       console.log(this.EmployeeAddFormGroup.valid)
       this.employee = this.EmployeeAddFormGroup.value;
-      console.log(" edw eimai mikre" + this.employee.supervisorId)
-
-
-
-      const formattedHireDate = this.datePipe.transform(this.employee.hireDate, 'yyyy-MM-dd');
-      this.employee.hireDate = formattedHireDate
+      this.employee.hireDate = this.datePipe.transform(this.employee.hireDate, 'yyyy-MM-dd');
       this.employee.supervisorId = this.selectedOption?.employeeId;
       this.employeeService.addEmployee(this.employee, this.token);
       this.router.navigateByUrl('/home/hr/all-employees');
       console.log(this.employee);
-    }else alert("ΛΑΘΟΣ")
+    }else this.toast.error({detail:"Μήνυμα λάθους",summary:"Ελέξτε τα πεδία !",position:"topRight",duration:5000})
   }
 
   cancel() {

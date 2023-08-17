@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {LeaveCategoryService} from "../../../../services/leave-category.service";
-import {LeaveCategoryComponent} from "../leave-category.component";
 
 @Component({
   selector: 'app-edit-category',
@@ -19,6 +18,7 @@ export class EditCategoryComponent implements OnInit{
   selectedCategory?: number
   isLoaded = false;
   isEdited = false;
+  status?: boolean;
 
   constructor(private router: Router, private route:ActivatedRoute, private toast: NgToastService, private categoryService: LeaveCategoryService) {
     this.route.queryParams.subscribe(params=>{
@@ -51,6 +51,7 @@ export class EditCategoryComponent implements OnInit{
     this.editCategoryFormGroup.controls['titleFormControl'].setValue('' || this.category?.title);
     this.editCategoryFormGroup.controls['activeFormControl'].setValue('' || this.category?.active);
     this.isLoaded = true;
+    this.status = this.category?.active;
   }
 
   onEdited(){

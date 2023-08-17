@@ -38,9 +38,9 @@
       </mat-radio-group>
     </div>
     <div class="slide-me-daddy">
-      <span>Κατάσταση λογαριασμού: <span class="inactive">Ανενεργός</span>
-      <mat-slide-toggle color="primary" formControlName="isEnabledFormControl" (change)="onEdited()"></mat-slide-toggle>
-      <span class="active">Ενεργός</span></span>
+      <span>Κατάσταση λογαριασμού:
+      <mat-slide-toggle color="primary" formControlName="isEnabledFormControl" (change)="onEdited(); status = !status"></mat-slide-toggle>
+      <span class="{{status ? 'active' : 'inactive'}}">{{status ? 'Ενεργός' : 'Ανενεργός'}}</span></span>
     </div>
   </div>
   <div *ngIf="!isLoaded">

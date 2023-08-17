@@ -12,6 +12,12 @@ h1{
   color: orange;
 }
 
+.filters{
+  width: 100%;
+  display: flex;
+  margin-right: 5vw;
+}
+
 .header *{
   background-color: #252525;
   color: orange;
@@ -40,32 +46,25 @@ h1{
   background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
 }
 
-//.button {
-//  //margin-top: 30px;
-//  background-image: linear-gradient(to right, #EB8C33, #673D15);
-//  color: black;
-//  transition: 0.25s ease;
-//  border: none;
-//  padding: 15px 30px;
-//  cursor: pointer;
-//  font-size: 14px;
-//  border-radius: 20px;
-//}
-
 .add-btn{
-  margin-top: 35px;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: 5vw;
+  display: flex;
+  justify-content: end;
+}
+
+.btn-comms{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-icon{
+  padding-right: 5px;
 }
 
 .edit{
   margin: 10px;
-}
-
-//button:hover{
-//  opacity: 90%;
-//}
-
-.filters{
-  display: flex;
 }
 
 .role-filter, .user-filter{

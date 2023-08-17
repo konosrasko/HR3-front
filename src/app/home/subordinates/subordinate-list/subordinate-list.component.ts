@@ -22,29 +22,43 @@ export class SubordinateListComponent {
   private subscription: Subscription | undefined;
   showContent?:string;
   isLoaded: boolean = false;
+  showIndirect: boolean = false;
   selectedFirstName: string =  "";
   rowData?: any;
   cell?:any;
   private selectedEmployeeId?: number | undefined;
 
   constructor(private employeeService: EmployeeService, private http: HttpClient,private toast:NgToastService, private router:Router) {
-    this.employeeService.getAllSubordinates().subscribe({
-      next: data => {
-        this.loadEmployees(data)
-      },
-      error: error => {
-        if(error.status === HttpStatusCode.GatewayTimeout){
-          this.toast.error({detail: 'Αποτυχία!', summary: "There was a gateway error", position: "topRight", duration: 4000});
+    this.reloadList()
+  }
+
+  reloadList(){
+    if(this.showIndirect){
+
+      this.employeeService.getAllSubordinates().subscribe({
+        next: data => {
+          this.loadEmployees(data)
+        },
+        error: error => {
+          if(error.status === HttpStatusCode.GatewayTimeout){
+            this.toast.error({detail: 'Αποτυχία!', summary: "There was a gateway error", position: "topRight", duration: 4000});
+          }
         }
-        console.log(error);
-        // alert("Προβλημα");
-      }
-    })
+      })
+    }
+    else {
+      this.employeeService.getDirectSubordinates().subscribe({
+        next: data => {
+          this.loadEmployees(data)
+        },
+        error: error => {
+          if(error.status === HttpStatusCode.GatewayTimeout){
+            this.toast.error({detail: 'Αποτυχία!', summary: "There was a gateway error", position: "topRight", duration: 4000});
+          }
+        }
+      })
+    }
   }
-
-  ngOnInit(): void {
-  }
-
 
   loadEmployees(data: any) {
     this.employees = JSON.parse(data);
@@ -61,8 +75,8 @@ export class SubordinateListComponent {
   }
 
   toggleDirectSubordinates(){
-    //TO-DO: make this work
-    this.isLoaded =  !this.isLoaded;
+    this.showIndirect = !this.showIndirect;
+    this.reloadList()
   }
 
   toggleContentEnabled(status: boolean) {
