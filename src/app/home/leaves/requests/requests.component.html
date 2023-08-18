@@ -20,9 +20,7 @@
 
     </div>
 
-    <div *ngIf="!isLoaded">
-      <mat-spinner color="primary"></mat-spinner>
-    </div>
+    
     <mat-table class="table"  #table [dataSource]="dataSource" matSort>
 
       <!-- Position Column -->
@@ -71,6 +69,9 @@
       <mat-row class="header-row"
         *matRowDef="let row; columns: displayedColumns;"  (dblclick)="editRequest()" (click)="setRow(row)"></mat-row>
     </mat-table>
+    <div *ngIf="!isLoaded">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
   </div>
 
 </main>

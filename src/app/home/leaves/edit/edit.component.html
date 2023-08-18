@@ -7,8 +7,8 @@
         <label class="lab1" for="category">Κατηγορία</label>
         <mat-form-field class="field1">
           <mat-select placeholder="--" [formControl]="categoryControl" required>
-            <mat-option *ngFor="let category of categories" [value]="category.name">
-              {{ category.name }}
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{ category }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="categoryControl.hasError('required')">Παρακαλώ επιλέξτε κατηγορία</mat-error>
@@ -40,11 +40,11 @@
 
         </form>
       </div>
-      <p *ngIf="leaveRequest.status!='Εκκρεμεί'" style="color: red;">Η επεξεργασία είναι δυνατή μόνο στα εκκρεμή αιτήματα</p>
+      <p *ngIf="!pending" style="color: red;">Η επεξεργασία είναι δυνατή μόνο στα εκκρεμή αιτήματα</p>
 
 
           <br>
-          <button mat-raised-button color="accent" class="action-button" type="submit" value="Επεξεργασία" (click)="submit()" [disabled]="!leaveRequestFormGroup.valid" style="margin:0 5vw 1vh 0">Επεξεργασία</button>
+          <button mat-raised-button color="accent" class="action-button" type="submit" value="Επεξεργασία" (click)="submit()" [disabled]="! pending" style="margin:0 5vw 0 0">Αποθήκευση</button>
           <button mat-raised-button color="warn" class="action-button" (click)="cancel()" >Ακύρωση</button>
   </main>
 
