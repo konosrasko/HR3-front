@@ -4,7 +4,6 @@ import {EmployeeUser} from "../../models/employeeUser.model";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {NgToastService} from "ng-angular-popup";
-import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -14,7 +13,6 @@ import { HttpStatusCode } from '@angular/common/http';
 export class AdminComponent implements OnInit{
   constructor(private router:Router, private userService: UserService, private toast: NgToastService) {}
 
-  token: string | null = localStorage.getItem('token');
   employeeUsers?: EmployeeUser[];
 
   status:string[] = ["all", "enabled", "disabled"];
@@ -26,20 +24,18 @@ export class AdminComponent implements OnInit{
   dataSource?: any
   showContent?: string;
   isLoaded: boolean = false;
+  rowData ?: EmployeeUser;
 
   ngOnInit() {
-    if(this.token != null){
-      this.userService.getAllUserEmployees(this.token).subscribe({
-        next: data => this.loadData(data),
+      this.userService.getAllUserEmployees().subscribe({
+        next: data =>{
+          this.loadData(data);
+        },
         error: err => {
           this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 3000});
           this.router?.navigateByUrl('home/landing');
       }
-    })
-    }else{
-      this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις συνδεθεί! Κάνε log-in για να συνεχίσεις', position: "topRight", duration: 3000})
-      this.router?.navigateByUrl('login');
-    }
+    });
   }
 
   loadData(data: any){
@@ -128,20 +124,16 @@ export class AdminComponent implements OnInit{
     this.dataSource.filter = `${statusFilterValue}${roleFilterValue}${userFilterValue}`;
   }
 
-  editUser(event: Event){
-    const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    if (rowData) {
-      this.router?.navigate(['home/admin/edit-user'], { queryParams: {user: rowData.username}});
-    }
+  editUser(){
+    setTimeout(()=>{
+      if (this.rowData) {
+        this.router?.navigate(['home/admin/edit-user'], { queryParams: {userId: this.rowData.userId}});
+      }
+    }, 200)
   }
 
-  getRowDataFromCell(cell: HTMLElement) {
-    const row = cell.parentElement?.parentElement?.parentElement;
-    if (row && row.parentElement?.parentElement) {
-      const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
-      return this.dataSource.data[rowIndex];
-    }else return undefined;
+  setRowData(data: EmployeeUser){
+    this.rowData = data;
   }
 
   navigateTo(url:string ){

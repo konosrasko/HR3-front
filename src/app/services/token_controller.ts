@@ -1,5 +1,5 @@
-import { HttpHeaders } from "@angular/common/http";
-import { Router } from "@angular/router";
+import {HttpHeaders} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 export class TokenController {
 
@@ -36,14 +36,13 @@ export class TokenController {
         //TO-DO
         const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
         const currentTime = (new Date).getTime()/ (1000)
-        console.log("token expires in: " + (Math.floor( (expiry - currentTime)/60 ) + " minutes"));
         return expiry > currentTime
     }
 
     getRouter():Router{
         return this.router
     }
-    
+
 
 }
 function jwtDecode(token: any): any {

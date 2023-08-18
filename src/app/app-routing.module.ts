@@ -1,25 +1,28 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { MyDetailsComponent } from './home/my-details/my-details.component';
-import { LandingComponent } from './home/landing/landing.component';
-import { RequestsComponent } from './home/leaves/requests/requests.component';
-import { AddComponent } from './home/leaves/add/add.component';
-import { RestLeavesComponent  } from './home/leaves/rest-leaves/rest-leaves.component';
-import { AdminComponent } from "./home/admin/admin.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginComponent} from './login/login.component';
+import {HomeComponent} from './home/home.component';
+import {MyDetailsComponent} from './home/my-details/my-details.component';
+import {LandingComponent} from './home/landing/landing.component';
+import {RequestsComponent} from './home/leaves/requests/requests.component';
+import {AddComponent} from './home/leaves/add/add.component';
+import {RestLeavesComponent} from './home/leaves/rest-leaves/rest-leaves.component';
+import {AdminComponent} from "./home/admin/admin.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
-import { EditComponent } from './home/leaves/edit/edit.component';
+import {EditComponent} from './home/leaves/edit/edit.component';
 import {AddUserComponent} from "./home/admin/add-user/add-user.component";
 import {EditUserComponent} from "./home/admin/edit-user/edit-user.component";
 import {AllEmployeesComponent} from "./home/hr/all-employees/all-employees.component";
 import {AddEmployeeComponent} from "./home/hr/add-employee/add-employee.component";
 import {SubordinatesComponent} from "./home/subordinates/subordinates.component";
-import { SubordinateRequestComponent } from './home/subordinates/requests/subordinate-requests.component';
-import { SubordinateListComponent } from './home/subordinates/subordinate-list/subordinate-list.component';
+import {SubordinateRequestComponent} from './home/subordinates/requests/subordinate-requests.component';
+import {SubordinateListComponent} from './home/subordinates/subordinate-list/subordinate-list.component';
 import {LeaveCategoryComponent} from "./home/hr/leave-category/leave-category.component";
 import {AddCategoryComponent} from "./home/hr/leave-category/add-category/add-category.component";
 import {EditCategoryComponent} from "./home/hr/leave-category/edit-category/edit-category.component";
+import {
+    SubordinateProfileComponent
+} from "./home/subordinates/subordinate-list/subordinate-profile/subordinate-profile.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -42,6 +45,7 @@ const routes: Routes = [
       { path: 'subordinates', component: SubordinatesComponent},
       { path: 'subordinates', children:[
         {path:'list', component: SubordinateListComponent},
+        {path:'subordinate-profile', component: SubordinateProfileComponent},
         {path:'requests', component: SubordinateRequestComponent}
       ]},
       { path: 'admin', component: AdminComponent },

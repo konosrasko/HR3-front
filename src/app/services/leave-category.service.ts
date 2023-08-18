@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { TokenController } from "./token_controller";
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
-import { LeaveCategory } from "../models/leave-category.model";
+import {Injectable} from '@angular/core';
+import {TokenController} from "./token_controller";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {LeaveCategory} from "../models/leave-category.model";
 
 @Injectable({providedIn: 'root'})
 export class LeaveCategoryService extends TokenController{

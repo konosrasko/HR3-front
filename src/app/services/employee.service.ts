@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
-import { LeaveBalance } from '../models/leave_balance.model';
+import {Observable} from "rxjs";
+import {LeaveBalance} from '../models/leave_balance.model';
 import {Employee} from "../models/employee.model";
-import { TokenController } from './token_controller';
-import { Router } from '@angular/router';
+import {TokenController} from './token_controller';
+import {Router} from '@angular/router';
 import {Supervisors} from "../models/supervisors";
-
 import {LeaveRequest} from "../models/leave_request.model";
 import { SubordinatesReq } from '../models/subordinatesReq.model';
 
@@ -24,12 +23,13 @@ export class EmployeeService extends TokenController{
     return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"text" as 'json'})
   }
 
-  getAllEmployees(token:String):Observable<Employee[]> {
+  getAllEmployees():Observable<Employee[]> {
     const headers = this.createHeadersWithToken()
     return this.http.get<Employee[]>('url/api/employees', { headers, responseType: "text" as 'json' });
   }
 
   getLeaveBalancesOfAnotherEmployee(employeeId:number):Observable<LeaveBalance[]> {
+    console.log("to employee id edw einai " + employeeId)
     const headers = this.createHeadersWithToken()
     return this.http.get<LeaveBalance[]>('url/api/employees/' + employeeId + '/balance', {headers, responseType:"text" as 'json'})
   }
@@ -65,4 +65,13 @@ export class EmployeeService extends TokenController{
     const headers = this.createHeadersWithToken()
     return this.http.get<Employee[]>('url/api/employees/direct-subordinates', { headers, responseType: "text" as 'json' });
   }
+
+  getEmployeeById(employeeId: number){
+    const headers = this.createHeadersWithToken();
+    return this.http.get<Employee>('url/api/employees/' + employeeId,{headers, responseType:"text" as "json"})
+  }
 }
+
+
+
+

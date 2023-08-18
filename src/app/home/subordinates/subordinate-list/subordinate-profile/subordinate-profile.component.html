@@ -1,9 +1,11 @@
+
 <mat-spinner *ngIf="!dataLoaded"></mat-spinner>
 
   <div class="content">
-    <h1>Tα στοιχεία μου </h1>
-
+    <h1>Tα στοιχεία του εργαζόμενου: </h1>
+    <h1>{{employee.firstName}}  {{employee.lastName}}</h1>
     <form [formGroup]="myForm" *ngIf="dataLoaded">
+
         <div class="details-container">
 
           <div class="details-column">
@@ -73,14 +75,11 @@
           </div>
         </div>
 
-
     </form>
     <div id="actions">
       <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
       <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
-      <mat-slide-toggle color="primary" style="flex-grow: 2;" [checked]="isEditMode" (click)="toggleEditMode()" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
+      <mat-slide-toggle color="primary" [checked]="isEditMode" (click)="toggleEditMode()" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
     </div>
-
-
 
   </div>

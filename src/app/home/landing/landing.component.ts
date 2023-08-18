@@ -1,10 +1,9 @@
-import { error } from '@angular/compiler-cli/src/transformers/util';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LeaveBalance } from 'src/app/models/leave_balance.model';
-import { Roles } from 'src/app/models/roles.model';
-import { EmployeeService } from 'src/app/services/employee.service';
-import { UserService } from 'src/app/services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {LeaveBalance} from 'src/app/models/leave_balance.model';
+import {Roles} from 'src/app/models/roles.model';
+import {EmployeeService} from 'src/app/services/employee.service';
+import {UserService} from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-landing',
