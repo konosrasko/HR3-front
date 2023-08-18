@@ -55,7 +55,7 @@ export class EmployeeService extends TokenController{
 
   getAllSupervisors():Observable<Supervisors[]>{
     const headers = this.createHeadersWithToken()
-    return this.http.get<Supervisors[]>('url/api/employees/allSupervisors',{headers,responseType:"json" as "json"})
+    return this.http.get<Supervisors[]>('url/api/employees/allSupervisors',{headers,responseType:"text" as "json"})
   }
 
 

@@ -13,7 +13,7 @@ import {NgToastService} from "ng-angular-popup";
 })
 export class AddEmployeeComponent implements OnInit {
   EmployeeAddFormGroup: FormGroup;
-  employee: Employee = new Employee();
+  employee!: Employee;
   supervisors:any[]=[]
   selectedOption?: Employee
 

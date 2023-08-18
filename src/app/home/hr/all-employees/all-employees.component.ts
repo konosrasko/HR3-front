@@ -5,6 +5,7 @@ import {Employee} from '../../../models/employee.model';
 import {EmployeeService} from '../../../services/employee.service';
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
+import {LeaveRequest} from "../../../models/leave_request.model";
 
 @Component({
   selector: 'app-all-employees',
@@ -13,10 +14,13 @@ import {Router} from "@angular/router";
 })
 export class AllEmployeesComponent implements OnInit, OnDestroy {
   employees: Employee[] = [];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName','edit-field'];
   dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
   private subscription: Subscription | undefined;
   showContent?:string;
+  private selectedEmployee?: Employee;
+
+  supervisorLastName:string = "";
 
   constructor(private employeeService: EmployeeService, private http: HttpClient, private router:Router) {}
 
@@ -66,6 +70,19 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   }
   toggleContentEnabled(status: boolean) {
     return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+  }
+
+  editEmployee() {
+
+      if (this.selectedEmployee?.employeeId) {
+        console.log(this.selectedEmployee.employeeId)
+        //Open edit window with the selected leaveRequest id as parameter
+        this.router?.navigate(['home/hr/edit-employee'], { queryParams: { employee: this.selectedEmployee.employeeId,supervisorLastName: this.selectedEmployee.supervisorLastName } });
+      }
+  }
+
+  setRow(row: Employee) {
+    this.selectedEmployee = row;
   }
 }
 

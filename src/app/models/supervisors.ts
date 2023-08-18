@@ -1,11 +1,11 @@
 export class Supervisors{
 
   lastName?:string;
-  id?:number;
+  employeeId?:number;
 
-  constructor(lastName:string,id:number) {
+  constructor(lastName:string,employeeId:number) {
     this.lastName=lastName;
-    this.id=id;
+    this.employeeId=employeeId;
   }
 
 }

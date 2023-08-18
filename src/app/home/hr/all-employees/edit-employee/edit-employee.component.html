@@ -1,0 +1,110 @@
+
+<mat-spinner *ngIf="!dataLoaded"></mat-spinner>
+
+<div class="content">
+  <h1>Tα στοιχεία του εργαζόμενου: </h1>
+  <h1>{{employee.firstName}}  {{employee.lastName}}</h1>
+  <form [formGroup]="myForm" *ngIf="dataLoaded">
+
+    <div class="details-container">
+
+      <div class="details-column">
+        <mat-card-header>
+          <mat-card-title>Όνομα</mat-card-title>
+        </mat-card-header>
+
+        <mat-form-field>
+          <input matInput formControlName="firstName" placeholder="Όνομα">
+          <mat-error *ngIf="myError('firstName','required')">Υποχρεωτικό πεδίο</mat-error>
+          <mat-error *ngIf="myError('firstName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+        </mat-form-field>
+
+        <!-- LastName -->
+        <mat-card-header>
+          <mat-card-title>Επώνυμο</mat-card-title>
+        </mat-card-header>
+
+        <mat-form-field>
+          <input matInput formControlName="lastName" placeholder="Επίθετο">
+          <mat-error *ngIf="myError('lastName','required')">Υποχρεωτικό πεδίο</mat-error>
+          <mat-error *ngIf="myError('lastName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-card-header>
+          <mat-card-title>Email</mat-card-title>
+        </mat-card-header>
+
+        <mat-form-field>
+          <input matInput formControlName="email" placeholder="Email">
+          <mat-error *ngIf="myError('email','required')">Υποχρεωτικό πεδίο</mat-error>
+          <mat-error *ngIf="myError('email','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+          <mat-error *ngIf="myError('email','email')">Δεν είναι email</mat-error>
+        </mat-form-field>
+
+        <mat-card-header>
+          <mat-card-title>Υπεύθυνος</mat-card-title>
+        </mat-card-header>
+
+        <mat-form-field>
+          <mat-select formControlName="supervisorId" (selectionChange)="onSupervisorSelectionChange($event)">
+            <mat-option *ngFor="let supervisor of supervisors" value="{{supervisor.employeeId}}">
+              {{ supervisor.lastName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="details-column">
+        <mat-card-header>
+          <mat-card-title>Διεύθυνση</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput formControlName="address" placeholder="Address">
+          <mat-error *ngIf="myError('address','required')">Υποχρεωτικό πεδίο</mat-error>
+          <mat-error *ngIf="myError('address','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+        </mat-form-field>
+
+        <mat-card-header>
+          <mat-card-title>Αριθμός Τηλεφώνου</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <input matInput formControlName="mobileNumber" placeholder="Mobile Number">
+          <mat-error *ngIf="myError('mobileNumber','required')">Υποχρεωτικό πεδίο</mat-error>
+          <mat-error *ngIf="myError('mobileNumber','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+        </mat-form-field>
+
+        <mat-card-header>
+          <mat-card-title>Ημερομηνία Πρόσληψης</mat-card-title>
+        </mat-card-header>
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="hireDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="myError('hireDate','required')">Υποχρεωτικό πεδίο</mat-error>
+          <mat-error *ngIf="myError('hireDate','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
+        </mat-form-field>
+
+
+        <mat-card-header>
+          <mat-card-title>Κατάσταση Λογαριασμού</mat-card-title>
+        </mat-card-header>
+        <mat-radio-group aria-label="Select an option" formControlName = "enabled">
+          <mat-label class="label-sv">Είναι ενεργός;</mat-label>
+          <mat-radio-button color="primary" [value]=true checked (change)="enabled = true">Ναι</mat-radio-button>
+          <mat-radio-button color="primary" [value]=false (change)="enabled = false">Όχι</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+  </form>
+  <div id="actions">
+    <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
+    <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
+    <mat-slide-toggle color="primary" [checked]="isEditMode" (click)="toggleEditMode()" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
+  </div>
+{{ supervisorLastName }}
+</div>
+
+

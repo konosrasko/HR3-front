@@ -11,16 +11,16 @@ export class Employee {
      supervisorId?: number
      supervisorLastName?:string
 
-    constructor(){
-  this.employeeId = 1
-  this.firstName = ""
-  this.lastName = ""
-  this.email = ""
-  this.mobileNumber = ""
-  this.address = ""
-  this.hireDate = ""
-  this.enabled = true
-  this.supervisorId = 0
-      this.supervisorLastName = ""
-}
+
+    constructor( firstName: string, lastName:string, email:string, mobileNumber:string,address:string, hireDate:string , isEnabled:boolean,supervisorId:number, supervisorLastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobileNumber =mobileNumber;
+        this.address = address;
+        this.hireDate = hireDate;
+        this.enabled= isEnabled;
+        this.supervisorId = supervisorId;
+        this.supervisorLastName = supervisorLastName;
+     }
 }
