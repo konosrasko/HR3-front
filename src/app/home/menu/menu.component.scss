@@ -1,3 +1,7 @@
+body{
+  overflow: hidden;
+}
+
 nav {
   display: flex;
   background-image: linear-gradient(to right, #fae1be, #f87620);
@@ -108,14 +112,15 @@ nav {
   margin-right: 40px; /* Add some space between tabs and logout button */
 }
 
-.logout img {
+.logout img{
   height: 30px;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
   transition: transform 0.15s ease;
 }
-.logo:hover, #logoutButton:hover img {
+
+.logout .logo:hover, #logoutButton:hover *{
   transform: scale(1.2); /* Increase the scale by 10% on hover */
 }
 
@@ -131,7 +136,7 @@ a {
   color: red;
 }
 
-#logoutButton:hover {
+.logout #logoutButton:hover {
   color: yellow;
   transition: color 0.5s ease;
 }
@@ -154,4 +159,78 @@ a {
   color: white; /* Tooltip text color */
   font-weight: bold; /* Tooltip text style */
   padding: 5px 10px; /* Padding for the tooltip */
+}
+
+.mobile-dropdown{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: absolute;
+  top: 80px;
+  right: 0px;
+  width: 170px;
+  height: 360px;
+  z-index: 20;
+  background-color: #252525;
+  background-image: none;
+  transform: scaleX(0);
+  //transform: translateX(100px);
+  transition: transform 200ms ease;
+}
+
+.mobile-dropdown.visible{
+  transform: scaleX(100%);
+  //transform: translateX(0);
+}
+
+.mobile-dropdown *{
+  color: orange;
+}
+
+.mobile-dropdown a:hover{
+  color: white;
+}
+
+.mobile-dropdown mat-icon{
+  opacity: 70%;
+}
+
+.mobile-dropdown hr{
+  width: 100%;
+  border-color: #f87620;
+  opacity: 20%;
+}
+
+.mobile-dropdown #logoutButton{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60px;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.sandwich{
+  display: none;
+  fill: black;
+  scale: 140%;
+  margin:10px 20px 0 0;
+}
+
+
+
+@media screen and (max-width: 500px){
+  .sandwich{
+    display: inherit;
+  }
+  
+  .tabs, .logout{
+    display: none;
+  }
+
+  .mobile-dropdown{
+    
+  }
 }

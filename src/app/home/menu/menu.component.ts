@@ -8,6 +8,8 @@ import {Router} from '@angular/router';
 })
 export class MenuComponent  {
 
+  isMobileDropdownVisible: boolean = false;
+
   constructor(private router: Router) {}
 
   navigateTo(componentToOpen: String){
@@ -17,6 +19,10 @@ export class MenuComponent  {
   doLogout(): void{
     localStorage.clear();
     this.router.navigateByUrl("/login");
+  }
+
+  toggleMobileDropdown() {
+    this.isMobileDropdownVisible = !this.isMobileDropdownVisible;
   }
 
 }

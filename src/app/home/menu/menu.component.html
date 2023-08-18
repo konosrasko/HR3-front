@@ -3,6 +3,7 @@
     <img class="logo" src="./assets/logo.png" alt="The application's logo">
   </a>
 
+  
   <ul class="tabs">
     <li class="tab">
       <a (click)="navigateTo('MyDetails')">ΠΡΟΦΙΛ</a>
@@ -22,4 +23,23 @@
       <img src="./assets/logout.png" alt="Logout"/>
     </a>
   </div>
+
+  <mat-icon (click)="toggleMobileDropdown()" class="sandwich">menu</mat-icon>
+
+  
 </nav>
+
+  <nav class="mobile-dropdown" [ngClass]="{'visible': isMobileDropdownVisible}">
+    <mat-icon style="margin: 0;"> person_pin</mat-icon>
+    <a (click)="navigateTo('MyDetails')">ΠΡΟΦΙΛ</a>
+    <hr>
+    <mat-icon style="margin: 0;">event_note</mat-icon>
+    <a (click)="navigateTo('leaves/requests')">ΑΙΤΗΜΑΤΑ</a>
+    <a (click)="navigateTo('leaves/restLeaves')">ΥΠΟΛΟΙΠΑ</a>
+    <hr>
+    <a type="submit" (click)="doLogout()" id="logoutButton" matTooltip="Αποσύνδεση">
+      ΑΠΟΣΥΝΔΕΣΗ
+      <mat-icon style="margin: 0;">exit_to_app</mat-icon>
+    </a>
+    
+  </nav>
