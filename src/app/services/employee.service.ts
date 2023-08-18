@@ -34,10 +34,9 @@ export class EmployeeService extends TokenController{
     return this.http.get<LeaveBalance[]>('url/api/employees/' + employeeId + '/balance', {headers, responseType:"text" as 'json'})
   }
 
-  getEmployeesWithoutUser(token?: string){
-    let tokenStr = "Bearer " + token;
+  getEmployeesWithoutUser(){
     const url = 'url/api/employees/withoutAccount';
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    const headers = this.createHeadersWithToken();
     return this.http.get<Employee[]>(url,{headers, responseType: 'text' as 'json'});
   }
 
