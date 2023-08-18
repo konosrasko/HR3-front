@@ -82,7 +82,7 @@ export class EditUserComponent implements OnInit {
 
   saveEditUser() {
     let editedUser: User = new User(this.employeeUser!.userId, this.editUserFormGroup.get('usernameFormControl')!.value, this.editUserFormGroup.get('passwordFormControl')!.value, this.editUserFormGroup.get('isEnabledFormControl')!.value, this.employeeUser!.employeeId, 'Admin', false);
-
+    let isPassEdited = true;
     if (this.editUserFormGroup.get('rolesFormControl')?.value == 'employee') {
       editedUser.role = 'Employee';
     } else if (this.editUserFormGroup.get('rolesFormControl')?.value == 'hr') {
@@ -99,9 +99,10 @@ export class EditUserComponent implements OnInit {
 
     if (this.editUserFormGroup.get('passwordFormControl')!.value == '') {
       editedUser.password = this.oldPass;
+      isPassEdited = false
     }
 
-    this.userService.editUserAccount(editedUser, editedUser.id).subscribe({
+    this.userService.editUserAccount(editedUser, isPassEdited, editedUser.id).subscribe({
       next: data => {
         this.toast.success({ detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία του λογαριασμού έγινε με επιτυχία!', position: "topRight", duration: 5000 });
         this.navigateTo();

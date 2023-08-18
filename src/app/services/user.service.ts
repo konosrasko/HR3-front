@@ -84,9 +84,9 @@ export class UserService extends TokenController {
     return this.http.get<EmployeeUser>("url/api/users/admin/all-users", { headers, responseType: 'text' as 'json' });
   }
 
-  editUserAccount(user: User, userId?: number) {
+  editUserAccount(user: User, isPassEdited: boolean, userId?: number) {
     const headers = this.createHeadersWithToken()
-    return this.http.put<User>('url/api/users/admin/' + userId?.toString(), user, { headers, responseType: 'text' as 'json' });
+    return this.http.put<User>('url/api/users/admin/' + userId?.toString() + '/' + isPassEdited , user, { headers, responseType: 'text' as 'json' });
   }
 
   createUserAccount(newUser?: User){
