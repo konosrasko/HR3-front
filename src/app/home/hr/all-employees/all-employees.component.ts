@@ -22,7 +22,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
 
   supervisorLastName:string = "";
 
-  constructor(private employeeService: EmployeeService, private http: HttpClient, private router:Router) {}
+  constructor(private employeeService: EmployeeService, private router:Router) {}
 
   ngOnInit(): void {
       this.subscription = this.employeeService.getAllEmployees().subscribe({
