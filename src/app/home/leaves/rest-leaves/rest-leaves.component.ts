@@ -1,17 +1,10 @@
-import {Component, numberAttribute, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { LeaveBalance } from 'src/app/models/leave_balance.model';
-import { LeaveRequest } from 'src/app/models/leave_request.model';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { ChangeDetectorRef } from '@angular/core';
-import { EmployeeService } from 'src/app/services/employee.service';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {LeaveBalance} from 'src/app/models/leave_balance.model';
+import {LeaveRequest} from 'src/app/models/leave_request.model';
+import {EmployeeService} from 'src/app/services/employee.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SubordinateListComponent} from "../../subordinates/subordinate-list/subordinate-list.component";
-import {resetParseTemplateAsSourceFileForTest} from "@angular/compiler-cli/src/ngtsc/typecheck/diagnostics";
-
-
 
 @Component({
   selector: 'app-rest-leaves',
@@ -26,16 +19,13 @@ export class RestLeavesComponent  implements OnInit{
   dataSource = new MatTableDataSource<LeaveBalance>
   @ViewChild(MatSort)sort: MatSort = new MatSort;
   rowId?:number
+  firstName:String = ''
+  lastName:String = ''
 
 
 
   constructor(private changeDetectorRef: ChangeDetectorRef, private employeeService:EmployeeService,
               private router:Router,private route:ActivatedRoute) {
-
-
-
-
-
 
   }
 
@@ -49,10 +39,12 @@ export class RestLeavesComponent  implements OnInit{
           this.dataSource.sort = this.sort;
           this.sortLastColumn();
         })
+          this.firstName = params['firstName']
+          this.lastName = params['lastName']
+
           }}else {
        this.employeeService.getLeaveBalances().subscribe(data=>{
              this.dataSource = new MatTableDataSource<LeaveRequest>(data);
-
              this.dataSource.sort = this.sort;
              this.sortLastColumn();
        })

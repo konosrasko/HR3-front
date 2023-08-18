@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LeaveCategoryComponent } from './leave-category.component';
+import {LeaveCategoryComponent} from './leave-category.component';
 
 describe('LeaveCategoryComponent', () => {
   let component: LeaveCategoryComponent;

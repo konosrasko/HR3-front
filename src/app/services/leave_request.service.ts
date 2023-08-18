@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {LeaveBalance } from '../models/leave_balance.model';
-import { LeaveRequest } from '../models/leave_request.model';
-import { TokenController } from './token_controller';
-import { Router } from '@angular/router';
-import { SubordinatesReq } from '../models/subordinatesReq.model';
-
+import {LeaveBalance} from '../models/leave_balance.model';
+import {LeaveRequest} from '../models/leave_request.model';
+import {TokenController} from './token_controller';
+import {Router} from '@angular/router';
+import {SubordinatesReq} from '../models/subordinatesReq.model';
 
 
 @Injectable({

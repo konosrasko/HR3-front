@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Employee} from "../../../models/employee.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subscription} from "rxjs";
@@ -6,7 +6,6 @@ import {EmployeeService} from "../../../services/employee.service";
 import {HttpClient, HttpStatusCode} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";
-import {EmployeeUser} from "../../../models/employeeUser.model";
 
 @Component({
   selector: 'app-requests',
@@ -18,7 +17,6 @@ export class SubordinateListComponent {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
   token: string | null = localStorage.getItem('token');
   dataSource?: any
-  // Initialize with empty array
   private subscription: Subscription | undefined;
   showContent?: string;
   isLoaded: boolean = false;
@@ -27,6 +25,8 @@ export class SubordinateListComponent {
   rowData?: any;
   cell?:any;
   private selectedEmployeeId?: number | undefined;
+
+
   constructor(private employeeService: EmployeeService, private http: HttpClient, private toast: NgToastService, private router: Router) {
     this.reloadList()
   }
@@ -103,16 +103,35 @@ export class SubordinateListComponent {
     this.dataSource.filter = `${userFilterValue}`;
 
   }
-  getRow(employee : Employee){
+  getRow(employee : Employee,event:Event){
     this.selectedEmployeeId = employee.employeeId;
-    console.log(this.selectedEmployeeId);
+    this.changeColorOfSelectedRow(event)
   }
+
+  changeColorOfSelectedRow(event:Event)// tha prepei na to balw ayto
+  {
+
+    const cell = event.target as HTMLElement;
+    const selectedRow = cell.parentElement
+    const matRows = document.querySelectorAll('.header-row');
+    if(selectedRow!=null)
+    {
+      matRows.forEach(row=>
+        row.classList.remove('selected'))
+      selectedRow.classList.remove(`selected`)
+      selectedRow.classList.add('selected') // go to css of this component to change the color
+    }
+
+  }
+
+
 
   editSubordinateProfile(event: Event){
     if (this.selectedEmployeeId) {
       this.router?.navigate(['home/subordinates/subordinate-profile'], { queryParams: {employee: this.selectedEmployeeId}});
     }
   }
+
 
   navigateTo(url:string ){
     this.router?.navigateByUrl('home/subordinates/' + url);
@@ -123,6 +142,7 @@ export class SubordinateListComponent {
     if (row && row.parentElement) {
       const rowIndex = Array.from(row.parentElement.children).indexOf(row);
       return this.dataSource.data[rowIndex - 1];
+      console.log("perasame")
     }
     return undefined;
   }
@@ -138,10 +158,14 @@ export class SubordinateListComponent {
       //Open edit window with the selected leaveRequest as parameter
       this.router.navigate(['home/leaves/restLeaves'], {
         queryParams: {
-         id: rowData.employeeId
+         id: rowData.employeeId,
+         firstName:rowData.firstName,
+         lastName:rowData.lastName
         }
       });
     }
   }
+
+  protected readonly onclick = onclick;
 }
 

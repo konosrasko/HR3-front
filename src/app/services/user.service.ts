@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Employee } from '../models/employee.model';
-import { User } from '../models/user.model';
-import { EmployeeUser } from "../models/employeeUser.model";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Employee} from '../models/employee.model';
+import {User} from '../models/user.model';
+import {EmployeeUser} from "../models/employeeUser.model";
 import * as CryptoJS from 'crypto-js';
-import { TokenController } from './token_controller';
-import { Router } from '@angular/router';
-import { Roles } from '../models/roles.model';
-import {SubordinatesReq} from "../models/subordinatesReq.model";
+import {TokenController} from './token_controller';
+import {Router} from '@angular/router';
+import {Roles} from '../models/roles.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,57 +52,45 @@ export class UserService extends TokenController {
   }
 
   getUserData(token: string) {
-    console.log(token)
-    let tokenStr = "Bearer " + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    const headers = this.createHeadersWithToken()
     return this.http.get<User>('url/api/users/users_info', { headers, responseType: 'text' as 'json' });
   }
 
-  getEmployeeDetails(token: string): Observable<Employee> {
-    let tokenStr = "Bearer " + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
+  getEmployeeDetails(): Observable<Employee> {
+    const headers = this.createHeadersWithToken()
     return this.http.get<Employee>('url/api/users/employee_info', { headers, responseType: "text" as 'json' });
   }
 
   postEmployee(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>('url/api/employees', employee);
   }
-  saveEmployeeDetails(employee: Employee, token: string): Observable<Employee> {
-    let tokenStr = "Bearer " + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
-    const url = 'url/api/employees/' + employee.employeeId + "/changeProfile";
-    return this.http.put<Employee>(url, employee, { headers, responseType: "text" as 'json' });
+  saveEmployeeDetails(employee: Employee): Observable<Employee> {
+    const headers = this.createHeadersWithToken()
+    return this.http.put<Employee>('url/api/employees/' + employee.employeeId + "/changeProfile", employee, { headers, responseType: "text" as 'json' });
 
   }
   getEmployeeRestLeaves(employee: Employee): Observable<Employee> {
-    const url = 'url/api/${employee.id}/leavebalance'
-    return this.http.get<Employee>(url)
+    const url = 'url/api/${employee.id}/leavebalance';
+    return this.http.get<Employee>(url);
   }
 
   getUserEmployeeDetails(userId: number): Observable<EmployeeUser> {
-    console.log(userId)
-    const url = 'url/api/users/admin/' + userId;
     const headers = this.createHeadersWithToken();
-    return this.http.get<EmployeeUser>(url, { headers, responseType: 'text' as 'json' });
+    return this.http.get<EmployeeUser>('url/api/users/admin/' + userId, { headers, responseType: 'text' as 'json' });
   }
 
-  getAllUserEmployees(token: string) {
-    let tokenStr = "Bearer " + token;
-    const url = 'url/api/users/admin/all-users';
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<EmployeeUser>(url, { headers, responseType: 'text' as 'json' });
-  }
-
-  editUserAccount(user: User, userId?: number) {
-    const url = 'url/api/users/admin/' + userId?.toString();
+  getAllUserEmployees() {
     const headers = this.createHeadersWithToken()
-    return this.http.put<User>(url, user, { headers, responseType: 'text' as 'json' });
+    return this.http.get<EmployeeUser>("url/api/users/admin/all-users", { headers, responseType: 'text' as 'json' });
   }
 
-  createUserAccount(newUser?: User, token?: string){
-    let tokenStr = "Bearer " + token;
-    const url = 'url/api/users/createAccount';
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.post<User>(url, newUser,{headers, responseType: 'text' as 'json'});
+  editUserAccount(user: User, isPassEdited: boolean, userId?: number) {
+    const headers = this.createHeadersWithToken()
+    return this.http.put<User>('url/api/users/admin/' + userId?.toString() + '/' + isPassEdited , user, { headers, responseType: 'text' as 'json' });
+  }
+
+  createUserAccount(newUser?: User){
+    const headers = this.createHeadersWithToken()
+    return this.http.post<User>('url/api/users/createAccount', newUser,{headers, responseType: 'text' as 'json'});
   }
 }

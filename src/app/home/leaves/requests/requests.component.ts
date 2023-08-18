@@ -1,10 +1,10 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { NgToastService } from 'ng-angular-popup';
-import { LeaveRequest } from 'src/app/models/leave_request.model';
-import { LeaveRequestService } from 'src/app/services/leave_request.service';
+import {Component, ViewChild} from '@angular/core';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {Router} from '@angular/router';
+import {NgToastService} from 'ng-angular-popup';
+import {LeaveRequest} from 'src/app/models/leave_request.model';
+import {LeaveRequestService} from 'src/app/services/leave_request.service';
 
 @Component({
   selector: 'app-requests',
@@ -24,7 +24,6 @@ export class RequestsComponent {
   constructor(private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
 
   ngOnInit() {
-    //pull leave requests from the database
     this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
       data = this.translated(data)
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);

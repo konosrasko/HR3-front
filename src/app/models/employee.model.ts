@@ -12,15 +12,15 @@ export class Employee {
      supervisorLastName?:string
 
     constructor(){
-  this.employeeId = 1
-  this.firstName = ""
-  this.lastName = ""
-  this.email = ""
-  this.mobileNumber = ""
-  this.address = ""
-  this.hireDate = ""
-  this.enabled = true
-  this.supervisorId = 0
+      this.employeeId = 1
+      this.firstName = ""
+      this.lastName = ""
+      this.email = ""
+      this.mobileNumber = ""
+      this.address = ""
+      this.hireDate = ""
+      this.enabled = true
+      this.supervisorId = 0
       this.supervisorLastName = ""
-}
+  }
 }

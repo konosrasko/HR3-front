@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { EmployeeUser } from "../../../models/employeeUser.model";
-import { UserService } from "../../../services/user.service";
-import { User } from "../../../models/user.model";
-import { error } from "@angular/compiler-cli/src/transformers/util";
-import * as CryptoJS from "crypto-js";
-import { NgToastService } from "ng-angular-popup";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {EmployeeUser} from "../../../models/employeeUser.model";
+import {UserService} from "../../../services/user.service";
+import {User} from "../../../models/user.model";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-edit-user',
@@ -15,8 +13,6 @@ import { NgToastService } from "ng-angular-popup";
 })
 
 export class EditUserComponent implements OnInit {
-
-  token: string | null = localStorage.getItem('token');
   employeeUser?: EmployeeUser;
 
   hide = true;
@@ -86,7 +82,7 @@ export class EditUserComponent implements OnInit {
 
   saveEditUser() {
     let editedUser: User = new User(this.employeeUser!.userId, this.editUserFormGroup.get('usernameFormControl')!.value, this.editUserFormGroup.get('passwordFormControl')!.value, this.editUserFormGroup.get('isEnabledFormControl')!.value, this.employeeUser!.employeeId, 'Admin', false);
-
+    let isPassEdited = true;
     if (this.editUserFormGroup.get('rolesFormControl')?.value == 'employee') {
       editedUser.role = 'Employee';
     } else if (this.editUserFormGroup.get('rolesFormControl')?.value == 'hr') {
@@ -103,9 +99,10 @@ export class EditUserComponent implements OnInit {
 
     if (this.editUserFormGroup.get('passwordFormControl')!.value == '') {
       editedUser.password = this.oldPass;
+      isPassEdited = false
     }
 
-    this.userService.editUserAccount(editedUser, editedUser.id).subscribe({
+    this.userService.editUserAccount(editedUser, isPassEdited, editedUser.id).subscribe({
       next: data => {
         this.toast.success({ detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία του λογαριασμού έγινε με επιτυχία!', position: "topRight", duration: 5000 });
         this.navigateTo();

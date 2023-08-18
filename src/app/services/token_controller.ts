@@ -1,5 +1,5 @@
-import { HttpHeaders } from "@angular/common/http";
-import { Router } from "@angular/router";
+import {HttpHeaders} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 export class TokenController {
 
@@ -42,7 +42,7 @@ export class TokenController {
     getRouter():Router{
         return this.router
     }
-    
+
 
 }
 function jwtDecode(token: any): any {

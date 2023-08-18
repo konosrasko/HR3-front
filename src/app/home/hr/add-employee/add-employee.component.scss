@@ -1,39 +1,84 @@
 main{
-  padding: 5vh 0 0 0;
-  margin: 8vh 25vw 15vh 30vw;
+  margin: 4vh 5vw 1vh 4vw;
 }
-
 
 h1{
   color: orange;
   margin-left: 75px;
 }
 
-mat-form-field{
-  width: 20vw;
-  margin-left: 45px;
-  margin-top: 10px;
+h2{
+  color: #252525;
+  margin-left: 20px;
 }
 
 .form-new-employee{
-  width: 25vw;
   margin-top: 40px;
-  background-color: #d7d7d7;
-  border-radius: 20px;
-  padding:10px;
+  background-color: #e3e3e3;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.button {
-  margin-top: 30px;
-  color: black;
-  transition: 0.25s ease;
-  border: none;
-  padding: 15px 30px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 20px;
+.employee-details mat-form-field{
+  width: 18vw;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.hire-details{
+  margin-left: 20px;
+}
+
+.hire-details mat-form-field{
+  width: 18vw;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.employee-leave-balance{
   margin-left: 50px;
-  position: relative;
+  width: 18vw;
+}
+
+.leave-details mat-form-field{
+  margin-left: 40px;
+  width: 15vw;
+}
+
+.add-leave-btn{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.table-container{
+  margin-top: 10px;
+}
+
+.icon{
+  scale: 107%;
+  opacity: 90%;
+  transition: scale 0.14s ease
+}
+
+.icon:hover{
+  cursor: pointer;
+  scale: 118%;
+  transform: rotate(3deg);
+  color: rgb(114, 74, 0);
+}
+
+.bin:hover{
+  color: rgb(141, 6, 6);
+}
+
+.add-leave-btn-options{
+  margin-top: 20px;
+  margin-left: 15px;
+  width: 18vw;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .button:disabled:hover{
@@ -41,21 +86,38 @@ mat-form-field{
   cursor: default;
 }
 
-.button:hover{
-  opacity: 85%;
-}
-
-.button:disabled{
-  opacity: 90%;
-  background-image: linear-gradient(to right, #6d6966, #3d3d3d);
-  color: #b8b8b8;
-}
-
 .btn-options{
-  margin-left: 50px;
-  display: grid;
+  width: 100%;
+  margin-top: 15px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-evenly;
 }
-.is-enabled
-{
-  text-align: center;
+
+.header *{
+  background-color: #252525;
+  color: orange;
+}
+
+.even-row {
+  background-color: #E9E9E9; /* Set the background color for even rows */
+}
+
+/* Add a class for odd rows */
+.odd-row {
+  background-color: #d6d4d4; /* Set the background color for odd rows */
+}
+
+.header-row {
+  transition: background-color 0.34s ease; /* Add a smooth transition effect */
+}
+
+/* Style for even rows on hover */
+.header-row.even-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+/* Style for odd rows on hover */
+.header-row.odd-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
 }
