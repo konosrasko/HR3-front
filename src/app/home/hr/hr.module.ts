@@ -19,9 +19,10 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { AddCategoryComponent } from './leave-category/add-category/add-category.component';
 import { EditCategoryComponent } from './leave-category/edit-category/edit-category.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [AllEmployeesComponent,AddEmployeeComponent, LeaveCategoryComponent, AddCategoryComponent, EditCategoryComponent],
-  imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, DatePipe, MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatIconModule, MatSlideToggleModule]
+    imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, DatePipe, MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatIconModule, MatSlideToggleModule, MatTooltipModule]
 })
 export class HrModule { }
