@@ -55,23 +55,26 @@ export class LeaveCategoryComponent implements OnInit{
     return index % 2 === 0 ? 'even-row' : 'odd-row';
   }
 
+  toggleContentEnabled(status: boolean) {
+    return this.showContent = status ? "Ενεργή" : "Ανενεργή";
+  }
+
   getRowDataFromCell(cell: HTMLElement) {
-    const row = cell.parentElement?.parentElement?.parentElement;
+    const row = cell.parentElement;
     if (row && row.parentElement?.parentElement) {
       const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
       return this.categoriesSource.data[rowIndex];
     }else return undefined;
   }
 
-  toggleContentEnabled(status: boolean) {
-    return this.showContent = status ? "Ενεργή" : "Ανενεργή";
-  }
-
   editCategory(event: Event){
     const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    if (rowData) {
-      this.router?.navigate(['home/hr/leave-categories/edit-category'], { queryParams: {id: rowData.id}});
+    const parentCell = cell.parentElement;
+    if(parentCell !== null){
+      const rowData = this.getRowDataFromCell(parentCell);
+      if (rowData) {
+        this.router?.navigate(['home/hr/leave-categories/edit-category'], { queryParams: {id: rowData.id}});
+      }
     }
   }
 

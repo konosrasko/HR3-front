@@ -89,3 +89,20 @@ h1{
 .add-btn button mat-icon{
   padding: 5px;
 }
+
+.icon{
+  scale: 107%;
+  opacity: 90%;
+  transition: scale 0.14s ease
+}
+
+.icon:hover{
+  cursor: pointer;
+  scale: 118%;
+  transform: rotate(3deg);
+  color: rgb(114, 74, 0);
+}
+
+mat-table mat-header-cell, mat-table mat-cell{
+  justify-content: center;
+}
