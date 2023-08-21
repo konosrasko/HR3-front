@@ -18,7 +18,7 @@ export class RequestsComponent {
   dataSource: MatTableDataSource<LeaveRequest> = new MatTableDataSource<LeaveRequest>()
   isLoaded:boolean = false;
   @ViewChild(MatSort) sort: MatSort = new MatSort;
-
+  hasData: Boolean = false;
   private selectedLeaveRequest: LeaveRequest = {}
 
   constructor(private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
@@ -29,6 +29,7 @@ export class RequestsComponent {
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);
 
       this.dataSource.sort = this.sort;
+      this.hasData = (this.dataSource.filteredData.length > 0);
       this.sortLastColumn();
       this.isLoaded = true
     })

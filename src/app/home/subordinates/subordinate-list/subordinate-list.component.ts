@@ -25,6 +25,8 @@ export class SubordinateListComponent {
   rowData?: any;
   cell?:any;
   private selectedEmployeeId?: number | undefined;
+  hasData: Boolean = false;
+
 
 
   constructor(private employeeService: EmployeeService, private http: HttpClient, private toast: NgToastService, private router: Router) {
@@ -71,6 +73,7 @@ export class SubordinateListComponent {
       return record.firstName.toLocaleLowerCase();
     }
     this.isLoaded = true;
+    this.hasData = (this.dataSource.filteredData.length > 0);
   }
 
   getIndexClass(row: any): string {
@@ -101,7 +104,7 @@ export class SubordinateListComponent {
       return userMatch;
     };
     this.dataSource.filter = `${userFilterValue}`;
-
+    this.hasData = (this.dataSource.filteredData.length > 0);
   }
   getRow(employee : Employee,event:Event){
     this.selectedEmployeeId = employee.employeeId;
