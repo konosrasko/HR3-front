@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {Employee} from "../../../../models/employee.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
@@ -41,35 +41,54 @@ export class EditEmployeeComponent {
             address: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required, Validators.maxLength(30)]),
             mobileNumber: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required, Validators.maxLength(10)]),
             hireDate: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required, Validators.maxLength(100)]),
-            supervisorId: new FormControl({value: "{{this.supervisorLastName}}", disabled: !this.isEditMode}),
-            enabled: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required])
+            enabled: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required]),
+            supervisorId: new FormControl({value:'', disabled: !this.isEditMode}, [Validators.required])
         })
 
+        const selectedSupervisor = this.supervisors?.find(supervisor => supervisor.lastName === this.supervisorLastName);
+        this.myForm.get("supervisorId")?.disable();
+        if (selectedSupervisor) {
+            this.myForm.get("supervisorId")?.setValue(selectedSupervisor.lastName);
+        }
     }
 
     ngOnInit(): void {
         if (this.selectedEmployeeId != null) {
-
-            this.employeeService.getEmployeeById(this.selectedEmployeeId).subscribe({
-                    next: data => {
-                        this.loadEmployee(data);
-                        this.myForm.patchValue(this.employee); // Assuming the response data keys match form control names
-                        this.dataLoaded = true;
-                    },
-                    error: error => console.log(error)
-                }
-            );
 
             this.employeeService.getAllSupervisors().subscribe({
                 next: data => {
                     this.loadSupervisor(data);
                 },
                 error: error => {
-                    console.log(error);
+                    this.toast.error(
+                        {
+                            detail:"Αποτυχία",
+                            summary:error,
+                            position:"topRight",
+                            duration:4000
+                        }
+                    )
                 }
             })
 
-            console.log(this.supervisorLastName);
+            this.employeeService.getEmployeeById(this.selectedEmployeeId).subscribe({
+                    next: data => {
+                        this.loadEmployee(data);
+                        this.myForm.patchValue(this.employee);
+                        this.dataLoaded = true;
+                    },
+                    error: error => {
+                        this.toast.error(
+                            {
+                                detail:"Αποτυχία",
+                                summary:error,
+                                position:"topRight",
+                                duration:4000
+                            }
+                        )
+                    }
+                }
+            );
         }
     }
 
@@ -93,7 +112,6 @@ export class EditEmployeeComponent {
                             duration: 3000
                         });
                     }
-                    console.log(error);
                 }
             });
         }
@@ -115,17 +133,6 @@ export class EditEmployeeComponent {
 
     loadSupervisor(data: any) {
         this.supervisors = JSON.parse(data);
-        for (let i = 0; i < this.supervisors!.length; i++) {
-            if (this.supervisors != null) {
-                if (this.employee.supervisorId === this.supervisors[i].employeeId) {
-                    this.myForm.get("supervisorId")?.setValue(this.supervisors[i].employeeId);
-                }
-            }
-        }
-        const selectedSupervisor = this.supervisors?.find(supervisor => supervisor.lastName === this.supervisorLastName);
-        if (selectedSupervisor) {
-            this.myForm.get("supervisorId")?.setValue(selectedSupervisor.employeeId);
-        }
     }
 
     public myError = (controlName: string, errorName: string) => {
@@ -141,12 +148,4 @@ export class EditEmployeeComponent {
             this.myForm.reset(this.originalEmployee); // Reset form to original values
         }
     }
-
-
-    onSupervisorSelectionChange(event: any): void {
-        const selectedSupervisorId = event.value;
-        console.log('Selected Supervisor ID:', parseInt(selectedSupervisorId));
-    }
-
-
 }
