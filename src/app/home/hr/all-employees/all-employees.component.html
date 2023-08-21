@@ -69,14 +69,14 @@
 
       <ng-container matColumnDef="edit-field">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Επεξεργασία</mat-header-cell>
-        <mat-cell *matCellDef>
-          <mat-icon (click)="editEmployee()">edit</mat-icon>
+        <mat-cell *matCellDef="let row">
+          <mat-icon  class="icon edit"  matTooltip="Επεξεργασία" (click)="editEmployee()" color="primary">edit</mat-icon>
         </mat-cell>
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)"
-        *matRowDef="let row; columns: displayedColumns;" (click)="setRow(row)"></mat-row>
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" (click)="getRow(row)"
+        *matRowDef="let row; columns: displayedColumns;" ></mat-row>
     </mat-table>
   </div>
 </main>

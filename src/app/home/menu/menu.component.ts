@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,8 +10,14 @@ import {Router} from '@angular/router';
 export class MenuComponent  {
 
   isMobileDropdownVisible: boolean = false;
+  username?: String
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {
+    this.userService.getUserRoles().subscribe({
+      next: data =>{if(data) this.username = data.username},
+      error: ()=>{console.log("Unable to get username")}
+    })
+  }
 
   navigateTo(componentToOpen: String){
     this.router.navigateByUrl('/home/' + componentToOpen);
