@@ -7,4 +7,5 @@ export class Supervisors{
     this.lastName = lastName;
     this.firstName = firstName;
   }
+
 }

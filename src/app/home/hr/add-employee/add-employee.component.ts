@@ -20,13 +20,13 @@ import {LeaveBalance} from "../../../models/leave_balance.model";
 export class AddEmployeeComponent implements OnInit {
   addEmployeeFormGroup: FormGroup;
   selectLeaveCategoryFormGroup?: FormGroup;
-  employee: Employee = new Employee();
-  supervisors?: Supervisors[]
+  employee!: Employee;
+  supervisors?: Supervisors[];
   leaveCategories?: LeaveCategory[];
   token: string | null= localStorage.getItem('token');
-  selectedSupervisor?: Employee
+  selectedSupervisor?: Employee;
   addingLeaves = false;
-  hasRows = false
+  hasRows = false;
   leaveDataTable: any = [];
   leaveDataSource = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['title', 'days', 'options'];

@@ -67,9 +67,16 @@
         <mat-cell *matCellDef="let element">{{ element.supervisorLastName }}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="edit-field">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Επεξεργασία</mat-header-cell>
+        <mat-cell *matCellDef>
+          <mat-icon (click)="editEmployee()">edit</mat-icon>
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)"
-        *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        *matRowDef="let row; columns: displayedColumns;" (click)="setRow(row)"></mat-row>
     </mat-table>
   </div>
 </main>

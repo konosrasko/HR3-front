@@ -14,7 +14,7 @@ import {EmployeeService} from "../../../../services/employee.service";
   styleUrls: ['./subordinate-profile.component.scss']
 })
 export class SubordinateProfileComponent implements OnInit {
-  employee: Employee = new Employee();
+  employee!: Employee;
   originalEmployee!: Employee;
   myForm: FormGroup;
   selectedEmployeeId?:number;
