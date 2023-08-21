@@ -23,6 +23,7 @@ export class SubordinateRequestComponent implements OnInit {
   status: string[] = ["all", "Εγκεκριμένη", "Απορρίφθηκε", "Εκκρεμεί"];
   displayedColumns = ['firstName', 'lastName', 'leaveTitle', 'submitDate', 'startDate', 'endDate', 'duration', 'status', 'accept', 'decline'];
   dataSource?: any;
+  hasData: Boolean = false;
 
   constructor(private changeDetectorRef: ChangeDetectorRef, private router: Router, private employeeService: EmployeeService, private leaveRequestService: LeaveRequestService, private toast: NgToastService) { }
 
@@ -128,6 +129,7 @@ export class SubordinateRequestComponent implements OnInit {
   applyStatusFilter(filterValue: string) {
     if (filterValue === 'all') {
       this.dataSource.filter = '';
+      this.hasData = (this.dataSource.filteredData.length > 0);
       return;
     }
 
@@ -136,7 +138,9 @@ export class SubordinateRequestComponent implements OnInit {
       return data.status.includes(filterValue);
     };
 
+    
     this.dataSource.filter = filterValue;
+    this.hasData = (this.dataSource.filteredData.length > 0);
   }
 
   /* SORTING */
