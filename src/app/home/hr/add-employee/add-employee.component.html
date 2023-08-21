@@ -8,6 +8,7 @@
           <mat-label>Εισαγωγή Ονοματος</mat-label>
           <input matInput formControlName="firstName">
           <mat-error *ngIf="addEmployeeFormGroup.get('firstName')?.hasError('required')">Το πεδίο είναι υποχρεωτικό.</mat-error>
+          <mat-error *ngIf="addEmployeeFormGroup.get('firstName')?.hasError('pattern')">Μη αποδεκτοί ειδικοί χαρακτήρες και αριθμοί.</mat-error>
         </mat-form-field>
       </div>
       <div class="input-lastName">
@@ -15,6 +16,7 @@
           <mat-label>Εισαγωγή Επώνυμου</mat-label>
           <input matInput formControlName="lastName">
           <mat-error *ngIf="addEmployeeFormGroup.get('lastName')?.hasError('required')">Το πεδίο είναι υποχρεωτικό.</mat-error>
+          <mat-error *ngIf="addEmployeeFormGroup.get('lastName')?.hasError('pattern')">Μη αποδεκτοί ειδικοί χαρακτήρες και αριθμοί.</mat-error>
         </mat-form-field>
       </div>
       <div class="input-email">
@@ -36,6 +38,7 @@
           <mat-label>Εισαγωγή Διεύθυνσης Κατοικίας</mat-label>
           <input matInput formControlName="address">
           <mat-error *ngIf="addEmployeeFormGroup.get('address')?.hasError('required')">Το πεδίο είναι υποχρεωτικό.</mat-error>
+          <mat-error *ngIf="addEmployeeFormGroup.get('address')?.hasError('pattern')">Μη αποδεκτοί ειδικοί χαρακτήρες.</mat-error>
         </mat-form-field>
       </div>
     </div>
