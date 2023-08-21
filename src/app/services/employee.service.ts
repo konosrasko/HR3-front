@@ -20,7 +20,7 @@ export class EmployeeService extends TokenController{
 
   getLeaveBalances():Observable<LeaveBalance[]> {
     const headers = this.createHeadersWithToken()
-    return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"text" as 'json'})
+    return this.http.get<LeaveBalance[]>('url/api/employees/balance', {headers, responseType:"json" as 'json'})
   }
 
   getAllEmployees():Observable<Employee[]> {
