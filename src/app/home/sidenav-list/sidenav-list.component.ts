@@ -17,7 +17,6 @@ export class SidenavListComponent {
 
   constructor(private router: Router, private userService: UserService) {
     this.userService.getUserRoles().subscribe((data:Roles)=>{
-      console.log(data)
       this.isSupervisor = data.supervisor? data.supervisor : false;
       this.isHR = data.role=="HR";
       this.isAdmin = data.role=="Admin";
