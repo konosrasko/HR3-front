@@ -13,7 +13,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./my-details.component.scss']
 })
 export class MyDetailsComponent implements OnInit {
-    employee: Employee = new Employee();
+    employee!: Employee;
     originalEmployee!: Employee;
     myForm: FormGroup;
     isEditMode: boolean = false;

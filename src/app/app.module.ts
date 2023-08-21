@@ -10,7 +10,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UserService} from "./services/user.service";
 import {LoginModule} from './login/login.module';
 import {HomeModule} from './home/home.module';
-import {EmployeeComponent} from './employee/employee.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from '@angular/material/button';
@@ -25,7 +24,6 @@ import {NgToastModule} from 'ng-angular-popup';
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent,
     PageNotFoundComponent,
     AddLeaveRequestComponent,
 

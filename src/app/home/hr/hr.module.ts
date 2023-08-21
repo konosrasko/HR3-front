@@ -19,9 +19,11 @@ import {AddCategoryComponent} from './leave-category/add-category/add-category.c
 import {EditCategoryComponent} from './leave-category/edit-category/edit-category.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {EditEmployeeComponent} from './all-employees/edit-employee/edit-employee.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
-  declarations: [AllEmployeesComponent,AddEmployeeComponent, LeaveCategoryComponent, AddCategoryComponent, EditCategoryComponent],
-    imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, DatePipe, MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatIconModule, MatSlideToggleModule, MatTooltipModule]
+  declarations: [AllEmployeesComponent,AddEmployeeComponent, LeaveCategoryComponent, AddCategoryComponent, EditCategoryComponent, EditEmployeeComponent],
+  imports: [CommonModule, MatTableModule, MatSortModule, MatOptionModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, DatePipe, MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatIconModule, MatSlideToggleModule, MatCardModule,MatTooltipModule]
 })
 export class HrModule { }
