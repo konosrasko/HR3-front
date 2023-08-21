@@ -50,6 +50,13 @@ export class MyDetailsComponent implements OnInit {
               position: "topRight",
               duration: 3000
             });
+          }else if (error.status === HttpStatusCode.Forbidden){
+            this.toast.error({
+              detail: 'Αποτυχία!',
+              summary: 'Απαγορεύτηκε η πρόσβαση',
+              position: "topRight",
+              duration: 3000
+            });
           }
           console.log(error);
         }
