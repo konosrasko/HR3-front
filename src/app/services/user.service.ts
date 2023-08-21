@@ -51,9 +51,9 @@ export class UserService extends TokenController {
     return this.http.get<Roles>('url/api/users/roles', {headers, responseType:"json" as 'json'})
   }
 
-  getUserData(token: string) {
+  getUserDetails() {
     const headers = this.createHeadersWithToken()
-    return this.http.get<User>('url/api/users/users_info', { headers, responseType: 'text' as 'json' });
+    return this.http.get<User>('url/api/users/user_info', { headers, responseType: 'json' as 'json' });
   }
 
   getEmployeeDetails(): Observable<Employee> {

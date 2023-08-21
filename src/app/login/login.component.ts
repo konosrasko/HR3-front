@@ -40,24 +40,42 @@ export class LoginComponent extends TokenController{
   }
 
   doLogin() {
-
-    const response = this.userService.Login(this.username, this.password)
-    response.subscribe(data => {
+    this.userService.Login(this.username, this.password).subscribe({
+      next: data =>{
         this.token = data.token;
-        console.log(data)
+        console.log(data);
 
-        if (this.token != null) {
-            this.getRouter().navigate(['/home/landing']);
-            localStorage.setItem('token', this.token);
-        } else {
-          this.getRouter().navigate(["/login"]);
+        if(this.token != null){
+          localStorage.setItem('token', this.token);
+          this.checkIfUserIsEnabled();
+        }else{
+          this.getRouter()?.navigate(["/login"]);
         }
-      }, (error => {
+
+      },
+      error: err => {
         this.error = "Λανθασμένο όνομα χρήστη η κωδικός. Παρακαλώ προσπαθήστε ξανά."
         console.log(this.error)
-        this.getRouter().navigate(["/login"])
-      })
-    );
+        this.getRouter()?.navigate(["/login"])
+      }
+    });
+  }
 
+  checkIfUserIsEnabled(){
+    this.userService.getUserDetails().subscribe({
+      next: data => {
+
+        if(data.enable){
+          this.getRouter()?.navigate(['/home/landing']);
+        }else{
+          this.error = "Ο λογαριασμός ειναι απενεργοποιημένος. Δεν έχετε δικαίωμα πρόσβασης."
+        }
+
+      },
+      error: err => {
+        console.log(err);
+        this.error = "Προέκυψε σφάλμα. Προσπαθήστε ξανά"
+      }
+    })
   }
 }
