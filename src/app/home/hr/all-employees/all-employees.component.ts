@@ -81,8 +81,9 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
       }
   }
 
-  setRow(row: Employee) {
-    this.selectedEmployee = row;
+
+  getRow(row: Employee) {
+    this.selectedEmployee=row;
   }
 }
 

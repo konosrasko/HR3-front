@@ -82,6 +82,18 @@ h1{
   background-color: rgba(255, 145, 0, 0.305);/* Change this to your desired color */
 }
 
+.icon{
+  scale: 107%;
+  opacity: 90%;
+  transition: scale 0.14s ease
+}
+
+.icon:hover{
+  cursor: pointer;
+  scale: 118%;
+  transform: rotate(3deg);
+  color: rgb(114, 74, 0);
+}
 
 .bin{
   transition: scale 0.14s ease
