@@ -154,3 +154,11 @@ mat-paginator{
   font-size: 18px;
   color: #ae5a00;
 }
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}

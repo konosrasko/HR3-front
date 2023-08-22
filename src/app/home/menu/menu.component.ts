@@ -28,8 +28,6 @@ export class MenuComponent  {
 
   doLogout(): void{
 
-
-
       this.userService.Logout().subscribe(data =>
       {
         this.toast.success({ detail: 'Επιτυχής Αποσύνδεση!', position: "topRight", duration: 3000 })

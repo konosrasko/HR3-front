@@ -124,3 +124,11 @@ mat-header-cell{
   align-items: center;
   justify-content: center;
 }
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}

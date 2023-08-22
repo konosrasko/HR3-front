@@ -3,6 +3,7 @@
   <div class="content">
     <h1>Tα στοιχεία μου </h1>
 
+    <div *ngIf="dataLoaded">
     <form [formGroup]="myForm" *ngIf="dataLoaded">
         <div class="details-container">
 
@@ -82,5 +83,5 @@
     </div>
 
 
-
-  </div>
+    </div>
+</div>

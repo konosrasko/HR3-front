@@ -5,6 +5,7 @@ import {EmployeeService} from '../../../services/employee.service';
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 import {MatPaginator} from "@angular/material/paginator";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-all-employees',
@@ -22,8 +23,9 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   selectedStatus = 'all';
   selectedName = '';
   selectedLastName = '';
+  isDataLoaded:boolean = false;
 
-  constructor(private employeeService: EmployeeService, private router:Router) {}
+  constructor(private employeeService: EmployeeService, private router:Router,private toast:NgToastService) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -31,8 +33,11 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
       this.subscription = this.employeeService.getAllEmployees().subscribe({
         next: (data) => {
           this.loadEmployees(data);
+          this.isDataLoaded = true;
         },
-        error: (error) => console.log(error),
+        error: (error) => {
+          this.toast.error({detail: 'Αποτυχία!', summary: 'Υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+        }
       });
   }
 

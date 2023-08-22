@@ -1,86 +1,89 @@
 <main>
   <h1>Όλοι οι υφιστάμενοι</h1>
-  <h2>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να δείτε τις δικαούμενες άδειες του</h2>
-  <div class="filters">
-    <div class="user-filter">
-      <mat-form-field appearance="fill">
-        <mat-label>Αναζήτηση Ονόματος</mat-label>
-
-        <input (keyup)="onFirstNameChange($event)" matInput placeholder="Όνομα" #input>
-      </mat-form-field>
-    </div>
-    <div class="slide-me-daddy">
-      <h3>Προβολή έμμεσα υφισταμένων:</h3>
-      <mat-slide-toggle color="primary" (change)="toggleDirectSubordinates()"></mat-slide-toggle>
-    </div>
+  <div *ngIf="!isLoaded">
+    <mat-spinner color="primary"></mat-spinner>
   </div>
-    <div *ngIf="!isLoaded">
-      <mat-spinner color="primary"></mat-spinner>
+  <div *ngIf="isLoaded">
+    <h2>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να δείτε τις δικαούμενες άδειες του</h2>
+    <div class="filters">
+      <div class="user-filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Αναζήτηση Ονόματος</mat-label>
+
+          <input (keyup)="onFirstNameChange($event)" matInput placeholder="Όνομα" #input>
+        </mat-form-field>
+      </div>
+      <div class="slide-me-daddy">
+        <h3>Προβολή έμμεσα υφισταμένων:</h3>
+        <mat-slide-toggle color="primary" (change)="toggleDirectSubordinates()"></mat-slide-toggle>
+      </div>
     </div>
-    <div *ngIf="isLoaded" class="table-container mat-elevation-z8">
-    <mat-table matSort #table [dataSource]="dataSource" id="table1">
 
-      <!-- First Name Column -->
-      <ng-container matColumnDef="firstName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Όνομα</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
-      </ng-container>
+      <div *ngIf="isLoaded" class="table-container mat-elevation-z8">
+      <mat-table matSort #table [dataSource]="dataSource" id="table1">
 
-      <!-- Last Name Column -->
-      <ng-container matColumnDef="lastName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Επώνυμο</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
-      </ng-container>
+        <!-- First Name Column -->
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Όνομα</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+        </ng-container>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
-      </ng-container>
+        <!-- Last Name Column -->
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Επώνυμο</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+        </ng-container>
 
-      <!-- Phone Number Column -->
-      <ng-container matColumnDef="mobileNumber">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Τηλέφωνο</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.mobileNumber }}</mat-cell>
-      </ng-container>
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+        </ng-container>
 
-      <!-- Address Column -->
-      <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Διεύθυνση</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.address }}</mat-cell>
-      </ng-container>
+        <!-- Phone Number Column -->
+        <ng-container matColumnDef="mobileNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Τηλέφωνο</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.mobileNumber }}</mat-cell>
+        </ng-container>
 
-      <!-- Hire Date Column -->
-      <ng-container matColumnDef="hireDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Ημ/νία Πρόσληψης</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.hireDate | date: 'dd-MM-Y'}} </mat-cell>
-      </ng-container>
+        <!-- Address Column -->
+        <ng-container matColumnDef="address">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Διεύθυνση</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.address }}</mat-cell>
+        </ng-container>
 
-      <!-- Enabled Column -->
-      <ng-container matColumnDef="enabled">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Ενεργός</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <span
-            class="status-col {{element.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(element.enabled)}}</span></mat-cell>
-      </ng-container>
+        <!-- Hire Date Column -->
+        <ng-container matColumnDef="hireDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ημ/νία Πρόσληψης</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.hireDate | date: 'dd-MM-Y'}} </mat-cell>
+        </ng-container>
 
-      <!-- Supervisor Column -->
-      <ng-container matColumnDef="supervisorLastName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Υπεύθυνος</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.supervisorLastName }}</mat-cell>
-      </ng-container>
+        <!-- Enabled Column -->
+        <ng-container matColumnDef="enabled">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ενεργός</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span
+              class="status-col {{element.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(element.enabled)}}</span></mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="editfield">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Επεξεργασία</mat-header-cell>
-        <mat-cell *matCellDef>
-          <mat-icon matTooltip="Επεξεργασία" color="primary" (click)="editSubordinateProfile($event)">edit</mat-icon>
-        </mat-cell>
-      </ng-container>
+        <!-- Supervisor Column -->
+        <ng-container matColumnDef="supervisorLastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Υπεύθυνος</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.supervisorLastName }}</mat-cell>
+        </ng-container>
 
-      <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="showLeaveBalances($event)" (click)="getRow(row)"
-               *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν υφιστάμενοι.</p>
+        <ng-container matColumnDef="editfield">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Επεξεργασία</mat-header-cell>
+          <mat-cell *matCellDef>
+            <mat-icon matTooltip="Επεξεργασία" color="primary" (click)="editSubordinateProfile($event)">edit</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="showLeaveBalances($event)" (click)="getRow(row)"
+                 *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν υφιστάμενοι.</p>
+    </div>
   </div>
 </main>
