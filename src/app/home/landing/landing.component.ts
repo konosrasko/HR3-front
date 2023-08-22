@@ -26,7 +26,6 @@ export class LandingComponent implements OnInit {
 
   getEmployeeTakenLeaves() {
     this.employeeService.getLeaveBalances().subscribe(data => {
-      console.log(data)
       this.takenLeaves = data
     });
   }
@@ -45,7 +44,6 @@ export class LandingComponent implements OnInit {
         if (data) {
           const employee: Employee = JSON.parse(data.toString());
           this.name = employee.firstName + " " + employee.lastName
-          console.log(data)
         }
       },
       error: ()=> console.log("Couldn't get user first and lastname")
