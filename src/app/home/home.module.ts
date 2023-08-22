@@ -34,7 +34,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {SubordinateListComponent} from './subordinates/subordinate-list/subordinate-list.component';
 import {SubordinateRequestComponent} from './subordinates/requests/subordinate-requests.component';
 import {SubordinateProfileComponent} from './subordinates/subordinate-list/subordinate-profile/subordinate-profile.component';
-import {GreekPaginator} from "./paginator-traslator";
+import {GreekPaginator} from "./greek-paginator";
 
 
 @NgModule({
