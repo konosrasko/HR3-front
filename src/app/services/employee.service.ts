@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {Supervisors} from "../models/supervisors";
 import {LeaveRequest} from "../models/leave_request.model";
 import { SubordinatesReq } from '../models/subordinatesReq.model';
+import {calendar} from "../models/calendar.model";
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,8 @@ export class EmployeeService extends TokenController{
     const headers = this.createHeadersWithToken();
     return this.http.get<Employee>('url/api/employees/' + employeeId,{headers, responseType:"text" as "json"})
   }
+
+
 }
 
 

@@ -24,6 +24,7 @@ import {
     SubordinateProfileComponent
 } from "./home/subordinates/subordinate-list/subordinate-profile/subordinate-profile.component";
 import {EditEmployeeComponent} from "./home/hr/all-employees/edit-employee/edit-employee.component";
+import {CalendarComponent} from "./home/calendar/calendar.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
               {path: 'edit-category', component: EditCategoryComponent}
             ]}
         ]},
+      {path: 'calendar',component: CalendarComponent},
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },
       { path: 'subordinates', component: SubordinatesComponent},

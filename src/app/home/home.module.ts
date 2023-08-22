@@ -34,6 +34,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {SubordinateListComponent} from './subordinates/subordinate-list/subordinate-list.component';
 import {SubordinateRequestComponent} from './subordinates/requests/subordinate-requests.component';
 import {SubordinateProfileComponent} from './subordinates/subordinate-list/subordinate-profile/subordinate-profile.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import {CalendarComponent} from "./calendar/calendar.component";
+import {AppComponent} from "../app.component";
 import {GreekPaginator} from "./greek-paginator";
 
 
@@ -49,7 +52,8 @@ import {GreekPaginator} from "./greek-paginator";
     SubordinatesComponent,
     SubordinateListComponent,
     SubordinateRequestComponent,
-    SubordinateProfileComponent
+    SubordinateProfileComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -81,11 +85,13 @@ import {GreekPaginator} from "./greek-paginator";
     NgOptimizedImage,
     MatProgressSpinnerModule,
     NgToastModule,
-    MatCardModule
+    MatCardModule,
+    FullCalendarModule
   ],
   providers: [
     DatePipe,
     {provide: MatPaginatorIntl, useClass: GreekPaginator}
   ],
+  bootstrap:[AppComponent]
 })
 export class HomeModule { }
