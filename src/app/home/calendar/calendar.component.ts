@@ -6,6 +6,8 @@ import {EmployeeService} from "../../services/employee.service";
 import {UserService} from "../../services/user.service";
 import {LeaveRequest} from "../../models/leave_request.model";
 import {Observable} from "rxjs";
+import {AUTO_STYLE} from "@angular/animations";
+
 
 
 @Component({
@@ -18,9 +20,27 @@ export class CalendarComponent implements OnInit{
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
-    events:[],
+    weekends: false,
+    events:[{
+      title: 'My Event',
+      start: '2010-01-01',
+      url: 'http://localhost:4200/home/MyDetails'
+    }],
+    eventBackgroundColor:'rgb(0,0,0)',
+    fixedWeekCount:false,
+    eventColor: '#000000',
+    eventClick: function (info) {
+      info.jsEvent.preventDefault();
+      if (info.event.url) {
+        window.open(info.event.url);
+      }
+
+    },
+    aspectRatio: 2.805,
     eventContent: this.customizeEventContent.bind(this)
+
   };
+
 
   employeeId?:number
   leaves:LeaveRequest[]=[]
@@ -28,11 +48,12 @@ export class CalendarComponent implements OnInit{
   customizeEventContent(arg: any) {
     const eventElement = document.createElement('div');
     eventElement.classList.add('custom-event');
-    eventElement.style.backgroundColor = 'orange'; // Change background color to orange
+    eventElement.style.backgroundColor = 'darkorange'; // Change background color to orange
     eventElement.style.color = 'white'; // Set text color to white
     eventElement.style.fontSize = '16px'; // Increase font size
     eventElement.style.padding = '5px'; // Add padding for better visibility
     eventElement.style.borderRadius = '5px'; // Add rounded corners
+
 
     const eventTitle = document.createElement('div');
     eventTitle.innerText = arg.event.title + ' (' + arg.event.start.toLocaleDateString() + ')';
