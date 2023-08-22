@@ -76,6 +76,8 @@ export class LoginComponent extends TokenController{
         }else{
           this.error = "Ο λογαριασμός ειναι απενεργοποιημένος. Δεν έχετε δικαίωμα πρόσβασης."
         }
+        if(data.logged === true)
+          this.getRouter()?.navigate(['/login']);
 
       },
       error: err => {

@@ -6,6 +6,7 @@ export class User {
   role?: string;
   supervisor?: boolean;
   enable?: boolean;
+  logged?:boolean
 
 	constructor(id:number, username: string, password: string, enable: boolean, employeeId: number, role: string, supervisor: boolean) {
     this.id = id;
@@ -15,5 +16,8 @@ export class User {
     this.role = role;
     this.supervisor = supervisor;
     this.enable = enable;
+
 	}
+
+
 }
