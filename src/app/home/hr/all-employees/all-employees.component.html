@@ -1,8 +1,5 @@
 <main>
   <h1>Όλοι οι εργαζόμενοι</h1>
-  <div *ngIf="!isDataLoaded">
-    <mat-spinner color="primary"></mat-spinner>
-  </div>
   <div *ngIf="isDataLoaded">
     <span>
       <p>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</p>
@@ -110,5 +107,7 @@
       <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
     </div>
   </div>
-
+  <div *ngIf="!isDataLoaded">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
 </main>
