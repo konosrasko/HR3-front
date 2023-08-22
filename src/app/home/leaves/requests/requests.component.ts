@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {NgToastService} from 'ng-angular-popup';
 import {LeaveRequest} from 'src/app/models/leave_request.model';
 import {LeaveRequestService} from 'src/app/services/leave_request.service';
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-requests',
@@ -20,14 +21,14 @@ export class RequestsComponent {
   @ViewChild(MatSort) sort: MatSort = new MatSort;
   hasData: Boolean = false;
   private selectedLeaveRequest: LeaveRequest = {}
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
 
   ngOnInit() {
     this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
       data = this.translated(data)
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);
-
+      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.hasData = (this.dataSource.filteredData.length > 0);
       this.sortLastColumn();

@@ -7,6 +7,7 @@ import {HttpStatusCode} from "@angular/common/http";
 import {SubordinatesReq} from 'src/app/models/subordinatesReq.model';
 import {EmployeeService} from 'src/app/services/employee.service';
 import {LeaveRequestService} from 'src/app/services/leave_request.service';
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-subordinates',
@@ -24,7 +25,7 @@ export class SubordinateRequestComponent implements OnInit {
   displayedColumns = ['firstName', 'lastName', 'leaveTitle', 'submitDate', 'startDate', 'endDate', 'duration', 'status', 'accept', 'decline'];
   dataSource?: any;
   hasData: Boolean = false;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private changeDetectorRef: ChangeDetectorRef, private router: Router, private employeeService: EmployeeService, private leaveRequestService: LeaveRequestService, private toast: NgToastService) { }
 
   ngOnInit() {
@@ -72,6 +73,7 @@ export class SubordinateRequestComponent implements OnInit {
     } finally{
       if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
       this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);
+      this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = function (record: { firstName: string }, filter: string) {
         return record.firstName.toLocaleLowerCase() == filter.toLocaleLowerCase()
       }
@@ -138,7 +140,7 @@ export class SubordinateRequestComponent implements OnInit {
       return data.status.includes(filterValue);
     };
 
-    
+
     this.dataSource.filter = filterValue;
     this.hasData = (this.dataSource.filteredData.length > 0);
   }
