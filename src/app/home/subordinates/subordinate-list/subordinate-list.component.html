@@ -70,13 +70,17 @@
         <mat-cell *matCellDef="let element">{{ element.supervisorLastName }}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="editfield">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Επεξεργασία</mat-header-cell>
+        <mat-cell *matCellDef>
+          <mat-icon matTooltip="Επεξεργασία" color="primary" (click)="editSubordinateProfile($event)">edit</mat-icon>
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="showLeaveBalances($event)"  (click)="getRow(row,$event)"
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="showLeaveBalances($event)" (click)="getRow(row)"
                *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν υφιστάμενοι.</p>
-  </div>
-  <div class="add-btn">
-    <button mat-raised-button class="button" color="primary" (click)="editSubordinateProfile($event)" >Επεξεργασία Λογαριασμού</button>
   </div>
 </main>

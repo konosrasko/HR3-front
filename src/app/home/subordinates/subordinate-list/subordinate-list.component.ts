@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
 import {Employee} from "../../../models/employee.model";
 import {MatTableDataSource} from "@angular/material/table";
-import {Subscription} from "rxjs";
 import {EmployeeService} from "../../../services/employee.service";
-import {HttpClient, HttpStatusCode} from "@angular/common/http";
+import {HttpStatusCode} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";
 
@@ -14,22 +13,20 @@ import {NgToastService} from "ng-angular-popup";
 })
 export class SubordinateListComponent {
   employees?: Employee[];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName','editfield'];
   token: string | null = localStorage.getItem('token');
   dataSource?: any
-  private subscription: Subscription | undefined;
   showContent?: string;
   isLoaded: boolean = false;
   showIndirect: boolean = false;
   selectedFirstName: string = "";
-  rowData?: any;
   cell?:any;
-  private selectedEmployeeId?: number | undefined;
+  selectedEmployeeId?: number;
   hasData: Boolean = false;
 
 
 
-  constructor(private employeeService: EmployeeService, private http: HttpClient, private toast: NgToastService, private router: Router) {
+  constructor(private employeeService: EmployeeService, private toast: NgToastService, private router: Router) {
     this.reloadList()
   }
 
@@ -106,59 +103,39 @@ export class SubordinateListComponent {
     this.dataSource.filter = `${userFilterValue}`;
     this.hasData = (this.dataSource.filteredData.length > 0);
   }
-  getRow(employee : Employee,event:Event){
+  getRow(employee : Employee){
     this.selectedEmployeeId = employee.employeeId;
-    this.changeColorOfSelectedRow(event)
   }
-
-  changeColorOfSelectedRow(event:Event)// tha prepei na to balw ayto
-  {
-
-    const cell = event.target as HTMLElement;
-    const selectedRow = cell.parentElement
-    const matRows = document.querySelectorAll('.header-row');
-    if(selectedRow!=null)
-    {
-      matRows.forEach(row=>
-        row.classList.remove('selected'))
-      selectedRow.classList.remove(`selected`)
-      selectedRow.classList.add('selected') // go to css of this component to change the color
-    }
-
-  }
-
-
 
   editSubordinateProfile(event: Event){
-    if (this.selectedEmployeeId) {
-      this.router?.navigate(['home/subordinates/subordinate-profile'], { queryParams: {employee: this.selectedEmployeeId}});
+    const cell = event.target as HTMLElement;
+    const parentCell = cell.parentElement;
+    if(parentCell !== null) {
+      this.selectedEmployeeId = this.getRowDataFromCell(parentCell).employeeId;
+      if (this.selectedEmployeeId) {
+        this.router?.navigate(['home/subordinates/subordinate-profile'], {queryParams: {employee: this.selectedEmployeeId}});
+      }
     }
   }
-
 
   navigateTo(url:string ){
     this.router?.navigateByUrl('home/subordinates/' + url);
   }
 
-  private getRowDataFromCell(cell: HTMLElement) {
+  getRowDataFromCell(cell: HTMLElement) {
     const row = cell.parentElement;
-    if (row && row.parentElement) {
-      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-      return this.dataSource.data[rowIndex - 1];
-      console.log("perasame")
-    }
-    return undefined;
+    if (row && row.parentElement?.parentElement) {
+      const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
+      return this.dataSource.data[rowIndex];
+    }else return undefined;
   }
 
 
   showLeaveBalances(event: Event) {
     const cell = event.target as HTMLElement;
-    console.log(cell)
 
     const rowData = this.getRowDataFromCell(cell);
-    console.log(rowData)
     if (rowData) {
-      //Open edit window with the selected leaveRequest as parameter
       this.router.navigate(['home/leaves/restLeaves'], {
         queryParams: {
          id: rowData.employeeId,

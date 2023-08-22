@@ -23,6 +23,7 @@ import {EditCategoryComponent} from "./home/hr/leave-category/edit-category/edit
 import {
     SubordinateProfileComponent
 } from "./home/subordinates/subordinate-list/subordinate-profile/subordinate-profile.component";
+import {EditEmployeeComponent} from "./home/hr/all-employees/edit-employee/edit-employee.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
           {path:'all-employees',component: AllEmployeesComponent},
           {path:'add-employee',component: AddEmployeeComponent},
           {path:'leave-categories',component: LeaveCategoryComponent},
+          {path:'edit-employee',component: EditEmployeeComponent},
           {path:'leave-categories', children:[
               {path: 'add-category', component: AddCategoryComponent},
               {path: 'edit-category', component: EditCategoryComponent}

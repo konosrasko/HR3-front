@@ -1,24 +1,33 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {Employee} from '../../../models/employee.model';
 import {EmployeeService} from '../../../services/employee.service';
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-all-employees',
   templateUrl: './all-employees.component.html',
   styleUrls: ['./all-employees.component.scss'],
 })
-export class AllEmployeesComponent implements OnInit, OnDestroy {
+export class AllEmployeesComponent implements OnInit, OnDestroy,AfterViewInit {
   employees: Employee[] = [];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName','edit-field'];
   dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
   private subscription: Subscription | undefined;
   showContent?:string;
+  private selectedEmployee?: Employee;
 
-  constructor(private employeeService: EmployeeService, private http: HttpClient, private router:Router) {}
+  supervisorLastName:string = "";
+
+  constructor(private employeeService: EmployeeService, private router:Router) {}
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
       this.subscription = this.employeeService.getAllEmployees().subscribe({
@@ -66,6 +75,20 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   }
   toggleContentEnabled(status: boolean) {
     return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+  }
+
+  editEmployee() {
+
+      if (this.selectedEmployee?.employeeId) {
+        console.log(this.selectedEmployee.employeeId)
+        //Open edit window with the selected leaveRequest id as parameter
+        this.router?.navigate(['home/hr/edit-employee'], { queryParams: { employee: this.selectedEmployee.employeeId,supervisorLastName: this.selectedEmployee.supervisorLastName } });
+      }
+  }
+
+
+  getRow(row: Employee) {
+    this.selectedEmployee=row;
   }
 }
 

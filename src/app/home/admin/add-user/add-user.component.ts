@@ -26,7 +26,7 @@ export class AddUserComponent implements OnInit{
 
   constructor(private router: Router,private userService: UserService, private employeeService: EmployeeService, private toast: NgToastService ) {
     this.newUserFormGroup = new FormGroup({
-      usernameFromControl: new FormControl({value: '', disabled: true}, [Validators.required]),
+      usernameFromControl: new FormControl({value: '', disabled: true}, [Validators.required, Validators.pattern(/^([a-zA-Z]+|[\u10D0-\u10F0]+)$/)]),
       passwordFormControl: new FormControl({value: '', disabled: true}, [Validators.required]),
       employeesFormControl: new FormControl('', [Validators.required]),
       rolesFormControl: new FormControl({value: '', disabled: true}, [Validators.required]),
@@ -68,8 +68,10 @@ export class AddUserComponent implements OnInit{
   getErrorUsername() {
     if (this.newUserFormGroup.get('usernameFromControl')?.hasError('required')) {
       return 'Πρέπει να εισάγεις username';
+    }else if(this.newUserFormGroup.get('usernameFromControl')?.hasError('pattern')){
+      return 'Δεκτοί μόνο Λατινικοί χαρακτήρες';
     }else {
-      return "ok :)"
+      return ""
     }
   }
 
@@ -92,16 +94,16 @@ export class AddUserComponent implements OnInit{
       newUser.role = 'Admin'
     }
 
-      this.userService.createUserAccount(newUser).subscribe({
-        next: data => {
-          this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Ο νέος λογαριασμός δημιουργήθηκε με επιτυχία!', position: "topRight", duration: 5000});
-          this.router?.navigateByUrl('/home/admin');
-        },
-        error: err => {
-          console.log(err);
-          this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000})
-        }
-      });
+    this.userService.createUserAccount(newUser).subscribe({
+      next: data => {
+        this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Ο νέος λογαριασμός δημιουργήθηκε με επιτυχία!', position: "topRight", duration: 5000});
+        this.router?.navigateByUrl('/home/admin');
+      },
+      error: err => {
+        console.log(err);
+        this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000})
+      }
+    });
 
   }
 

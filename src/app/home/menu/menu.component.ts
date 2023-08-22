@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from "../../services/user.service";
-
-
 import {NgToastService} from "ng-angular-popup";
 
 @Component({
@@ -13,12 +11,15 @@ import {NgToastService} from "ng-angular-popup";
 export class MenuComponent  {
 
   isMobileDropdownVisible: boolean = false;
-  username:string = ''
+  username?:string = ''
   password:string = ''
 
 
-
-  constructor(private router: Router,private userService:UserService,private toast:NgToastService) {
+  constructor(private router: Router, private userService: UserService,private toast:NgToastService) {
+    this.userService.getUserRoles().subscribe({
+      next: data =>{if(data) this.username = data.username},
+      error: ()=>{console.log("Unable to get username")}
+    })
   }
 
   navigateTo(componentToOpen: String){

@@ -20,13 +20,13 @@ import {LeaveBalance} from "../../../models/leave_balance.model";
 export class AddEmployeeComponent implements OnInit {
   addEmployeeFormGroup: FormGroup;
   selectLeaveCategoryFormGroup?: FormGroup;
-  employee: Employee = new Employee();
-  supervisors?: Supervisors[]
+  employee!: Employee;
+  supervisors?: Supervisors[];
   leaveCategories?: LeaveCategory[];
   token: string | null= localStorage.getItem('token');
-  selectedSupervisor?: Employee
+  selectedSupervisor?: Employee;
   addingLeaves = false;
-  hasRows = false
+  hasRows = false;
   leaveDataTable: any = [];
   leaveDataSource = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['title', 'days', 'options'];
@@ -34,11 +34,11 @@ export class AddEmployeeComponent implements OnInit {
 
   constructor(private router: Router, private employeeService: EmployeeService, private datePipe: DatePipe, private toast: NgToastService, private leaveCategoryService: LeaveCategoryService) {
     this.addEmployeeFormGroup = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.maxLength(45)]),
-      lastName: new FormControl('', [Validators.required, Validators.maxLength(45)]),
+      firstName: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^([a-zA-Zα-ωΑ-Ω]+|[\u10D0-\u10F0]+)$/)]),
+      lastName: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^([a-zA-Zα-ωΑ-Ω]+|[\u10D0-\u10F0]+)$/)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.email]),
       mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("^[0-9]*$")]),
-      address: new FormControl('', [Validators.required, Validators.maxLength(45)]),
+      address: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^([a-zA-Zα-ωΑ-Ω0-9]+|[\u10D0-\u10F0]+)$/)]),
       hireDate: new FormControl('', [Validators.required]),
       enabled: new FormControl('false'),
       supervisorId: new FormControl('', [Validators.required])
