@@ -91,14 +91,17 @@
       </ng-container>
 
       <ng-container matColumnDef="edit-field">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Επεξεργασία</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Επιλογές</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <mat-icon  class="icon edit"  matTooltip="Επεξεργασία" (click)="editEmployee()" color="primary">edit</mat-icon>
+          <span class="choices">
+            <mat-icon class="icon material-symbols-outlined" matTooltip="Επεξεργασία" (click)="editEmployee($event)" color="primary">edit</mat-icon>
+            <mat-icon class="icon material-symbols-outlined add-leave-icon" matTooltip="Προσθήκη άδειας" (click)="addLeaveToEmployee($event)" color="primary">event_available</mat-icon>
+          </span>
         </mat-cell>
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" (click)="getRow(row)" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
       <tr class="mat-row no-data-row" *matNoDataRow>
         <td class="mat-cell" colspan="9"><span>Δεν βρέθηκαν εγγραφές</span></td>
       </tr>
