@@ -32,11 +32,11 @@
 
         <hr>
         <label class="lab4" for="submitDate">Ημερομηνία υποβολής</label>
-        <input class="field4" matInput [disabled]="true" [value]="leaveRequestFormGroup.get('submitDate')?.value | date:'dd/MM/Y'"
+        <input class="field4" [class.nonPending]="!pending" matInput [disabled]="true" [value]="leaveRequestFormGroup.get('submitDate')?.value | date:'dd/MM/Y'"
           name="formattedDate">
 
           <label class="lab5" for="duration">Διάρκεια</label>
-          <input class="field5" type="number" id="" value="5" formControlName="duration" name="duration">
+          <input class="field5" [class.nonPending]="!pending" type="number" id="" value="5" formControlName="duration" name="duration">
 
         </form>
       </div>
@@ -44,7 +44,7 @@
 
 
           <br>
-          <button mat-raised-button color="accent" class="action-button" type="submit" value="Επεξεργασία"(click)="submit()" [disabled]="! pending" style="margin:0 5vw 0 0">Αποθήκευση</button>
-          <button mat-raised-button color="warn" class="action-button" (click)="cancel()" >Ακύρωση</button> 
+          <button mat-raised-button color="accent" class="action-button" type="submit" value="Επεξεργασία"(click)="submit()" [disabled]="!leaveRequestFormGroup.valid" *ngIf="pending" style="margin:0 5vw 0 0">Αποθήκευση</button>
+          <button mat-raised-button color="warn" class="action-button" (click)="cancel()" >Επιστροφή</button> 
   </main>
 

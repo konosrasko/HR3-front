@@ -1,18 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {Employee} from '../../../models/employee.model';
 import {EmployeeService} from '../../../services/employee.service';
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
-import {LeaveRequest} from "../../../models/leave_request.model";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-all-employees',
   templateUrl: './all-employees.component.html',
   styleUrls: ['./all-employees.component.scss'],
 })
-export class AllEmployeesComponent implements OnInit, OnDestroy {
+export class AllEmployeesComponent implements OnInit, OnDestroy,AfterViewInit {
   employees: Employee[] = [];
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName','edit-field'];
   dataSource = new MatTableDataSource<Employee>([]); // Initialize with empty array
@@ -23,6 +23,11 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   supervisorLastName:string = "";
 
   constructor(private employeeService: EmployeeService, private router:Router) {}
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
       this.subscription = this.employeeService.getAllEmployees().subscribe({

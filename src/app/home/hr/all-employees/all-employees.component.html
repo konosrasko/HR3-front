@@ -78,5 +78,9 @@
       <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" (click)="getRow(row)"
         *matRowDef="let row; columns: displayedColumns;" ></mat-row>
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[4, 8]"
+                   showFirstLastButtons
+                   aria-label="Select page">
+    </mat-paginator>
   </div>
 </main>
