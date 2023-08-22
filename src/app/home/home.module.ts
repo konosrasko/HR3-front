@@ -36,6 +36,9 @@ import {SubordinateRequestComponent} from './subordinates/requests/subordinate-r
 import {
     SubordinateProfileComponent
 } from './subordinates/subordinate-list/subordinate-profile/subordinate-profile.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import {CalendarComponent} from "./calendar/calendar.component";
+import {AppComponent} from "../app.component";
 
 
 @NgModule({
@@ -50,7 +53,8 @@ import {
     SubordinatesComponent,
     SubordinateListComponent,
     SubordinateRequestComponent,
-    SubordinateProfileComponent
+    SubordinateProfileComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -82,10 +86,12 @@ import {
     NgOptimizedImage,
     MatProgressSpinnerModule,
     NgToastModule,
-    MatCardModule
+    MatCardModule,
+    FullCalendarModule
   ],
   providers: [
     DatePipe,
   ],
+  bootstrap:[AppComponent]
 })
 export class HomeModule { }
