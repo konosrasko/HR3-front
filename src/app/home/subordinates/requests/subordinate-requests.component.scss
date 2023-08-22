@@ -1,3 +1,4 @@
+@import '../../../../../src/styles';
 main{
   padding: 5vh 0 0 0;
   margin: 5vh 0 5vh 5vw;
@@ -10,6 +11,11 @@ main{
 
 h1{
   color: orange;
+}
+
+mat-paginator{
+  background-color: #d6d4d4;
+  color: $myFixedColor;
 }
 
 .slide-me-daddy{
@@ -53,7 +59,7 @@ h1{
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-right: 5vw 
+  margin-right: 5vw
 }
 
 .accept,.decline{
@@ -102,3 +108,19 @@ h1{
   color: rgb(122, 24, 24)
 }
 
+#pending{
+  font-weight: 500;
+  color: rgba(0, 51, 255, 0.75)
+}
+
+mat-cell{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-header-cell{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

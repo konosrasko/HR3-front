@@ -4,7 +4,7 @@
     <div class="status-filter">
       <mat-form-field appearance="fill">
         <mat-label>Κατάσταση Λογαριασμού</mat-label>
-        <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus($event)">
+        <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus()">
           <mat-option value = "all">Όλοι</mat-option>
           <mat-option value = "enabled">Ενεργός</mat-option>
           <mat-option value = "disabled">Ανενεργός</mat-option>

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import {UserService} from "../../services/user.service";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-menu',
@@ -10,9 +11,11 @@ import { UserService } from 'src/app/services/user.service';
 export class MenuComponent  {
 
   isMobileDropdownVisible: boolean = false;
-  username?: String
+  username?:string = ''
+  password:string = ''
 
-  constructor(private router: Router, private userService: UserService) {
+
+  constructor(private router: Router, private userService: UserService,private toast:NgToastService) {
     this.userService.getUserRoles().subscribe({
       next: data =>{if(data) this.username = data.username},
       error: ()=>{console.log("Unable to get username")}
@@ -24,8 +27,16 @@ export class MenuComponent  {
   }
 
   doLogout(): void{
+
+
+
+      this.userService.Logout().subscribe(data =>
+      {
+        this.toast.success({ detail: 'Επιτυχής Αποσύνδεση!', position: "topRight", duration: 3000 })
+      })
     localStorage.clear();
-    this.router.navigateByUrl("/login");
+
+
   }
 
   toggleMobileDropdown() {

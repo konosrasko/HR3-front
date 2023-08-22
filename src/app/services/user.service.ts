@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Employee} from '../models/employee.model';
 import {User} from '../models/user.model';
 import {EmployeeUser} from "../models/employeeUser.model";
@@ -15,12 +15,20 @@ import {Roles} from '../models/roles.model';
 export class UserService extends TokenController {
 
   private secretKey = CryptoJS.enc.Utf8.parse('ba6d59d38168f98b'); // Secret key
+  private username:string = ''
+  private password:string = ''
+
+
 
   constructor(private http: HttpClient, router: Router) {
     super(router);
   }
 
+
   Login(username: string, password: string): Observable<any> {
+
+    this.username = username;
+    this.password = password;
 
     //encryption
     username = this.encryptData(username)
@@ -31,6 +39,28 @@ export class UserService extends TokenController {
     const newHeaders = new HttpHeaders({ 'No-Auth': 'True', 'Content-Type': 'application/json' });
 
     return this.http.post('url/api/auth/login', credentials, { headers: newHeaders, responseType: 'json' })
+  }
+
+  Logout(): Observable<string> {
+
+    const headers = this.createHeadersWithToken();
+    const token= localStorage.getItem('token')
+    const credentials = { username:this.username, password:this.password,token:token}
+
+    //console.log(credentials)
+
+    return this.http.post('url/api/auth/logout',credentials, {
+      headers: headers,
+      responseType: 'arraybuffer'
+    }).pipe(map(response => {
+      // Convert the ArrayBuffer to a string
+      const textDecoder = new TextDecoder('utf-8');
+      const responseString = textDecoder.decode(response);
+      localStorage.clear();
+      this.getRouter()?.navigate(["/login"])
+      return responseString;
+    }));
+
   }
 
   encryptData(data: String) {

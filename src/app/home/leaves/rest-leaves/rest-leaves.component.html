@@ -28,6 +28,7 @@
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
   </div>
 
   <a (click)="navigateTo('requests')"><u>Προβολή αιτημάτων</u></a>
