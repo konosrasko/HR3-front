@@ -6,6 +6,7 @@ import {LeaveRequest} from '../models/leave_request.model';
 import {TokenController} from './token_controller';
 import {Router} from '@angular/router';
 import {SubordinatesReq} from '../models/subordinatesReq.model';
+import {calendar} from "../models/calendar.model";
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class LeaveRequestService extends TokenController{
     const headers = this.createHeadersWithToken();
     return this.http.get<LeaveRequest>(`url/api/leaverequests/${leaveId}`, {headers, responseType:"json" as 'json'})
   }
-  
+
   getLeaveRequestHistory():Observable<LeaveBalance[]>
   {
     const headers = this.createHeadersWithToken();
@@ -70,4 +71,8 @@ export class LeaveRequestService extends TokenController{
     return this.http.delete<LeaveRequest>(`url/api/leaverequests/${leaveRequestId}`, {headers, responseType:"json" as 'json'})
   }
 
+  getCalendarLeaveRequests(): Observable<LeaveRequest[]> {
+    const headers = this.createHeadersWithToken();
+    return this.http.get<LeaveRequest[]>('url/api/leaverequests/all', { headers, responseType: "json" as "json" });
+  }
 }

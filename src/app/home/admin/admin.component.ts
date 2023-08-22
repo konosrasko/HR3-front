@@ -60,7 +60,7 @@ export class AdminComponent implements OnInit{
     return index % 2 === 0 ? 'even-row' : 'odd-row';
   }
 
-  onChangeStatus(event:any){
+  onChangeStatus(){
     const filterValue = this.selectedStatus;
     if(filterValue === 'all') {
       this.dataSource.filterPredicate = function(data: { enabled: any; }, filter: any): boolean {

@@ -18,7 +18,7 @@
   </div>
   <div class="table-container">
 
-    
+
 
     <div class="table-scroller">
     <mat-table class="table" #table [dataSource]="dataSource" matSort>
@@ -54,11 +54,21 @@
 
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Κατάσταση</mat-header-cell>
-        <mat-cell [ngClass]="getStatusClass(element.status)" *matCellDef="let element"> {{element.status}} </mat-cell>
+        <mat-cell *matCellDef="let element">
+          <div *ngIf="element.status === 'Εγκεκριμένη'">
+            <mat-icon matTooltip="Εγκεκριμένη" color="accent">done</mat-icon>
+          </div>
+          <div *ngIf="element.status === 'Απορρίφθηκε'">
+            <mat-icon matTooltip="Απορρίφθηκε" color="warn">close</mat-icon>
+          </div>
+          <div *ngIf="element.status === 'Εκκρεμεί'">
+            <mat-icon matTooltip="Εκκρεμεί" id="pending">access_time</mat-icon>
+          </div>
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="delete">
-        <mat-header-cell style="padding: 0;" *matHeaderCellDef> </mat-header-cell>
+        <mat-header-cell style="padding: 0;" *matHeaderCellDef>Επεξεργασία</mat-header-cell>
         <mat-cell class="icon-container" style="padding: 0; justify-content: center;" *matCellDef="let element">
           <mat-icon class="icon edit" matTooltip="Επεξεργασία" *ngIf="element.status === 'Εκκρεμεί'" color="primary"
             (click)="editRequest()">edit</mat-icon>
@@ -71,6 +81,8 @@
       <mat-row class="header-row" *matRowDef="let row; columns: displayedColumns;" (dblclick)="editRequest()"
         (click)="setRow(row)"></mat-row>
     </mat-table>
+      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+
     </div>
     <p *ngIf="!hasData && isLoaded" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
     <div style="display: flex; justify-content: center;" *ngIf="!isLoaded">

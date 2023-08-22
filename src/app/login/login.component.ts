@@ -50,15 +50,18 @@ export class LoginComponent extends TokenController {
     this.userService.Login(this.username, this.password).subscribe({
       next: data => {
         this.token = data.token;
-        console.log(data);
 
         if (this.token != null) {
           localStorage.setItem('token', this.token);
           this.checkIfUserIsEnabled();
-        } else {
-          this.getRouter()?.navigate(["/login"]);
-        }
+        }else{
+          if(localStorage.getItem('message')!='Welcome')
+          {
+            this.toast.error({ detail: 'Ειστε ήδη συνδεδεμένος από άλλη πηγή,αποσυνδεθείτε και προσπάθείστε ξανά', position: "topRight", duration: 3000 });
+          }
+            this.getRouter()?.navigate(["/login"]);
 
+        }
       },
       error: error => {
         this.toast.error({
@@ -67,6 +70,8 @@ export class LoginComponent extends TokenController {
           position: "topRight", duration: 4000
         });
       }
+
+
     });
   }
 

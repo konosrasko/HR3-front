@@ -17,6 +17,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgToastModule } from 'ng-angular-popup';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'gr-GR' }],
@@ -43,6 +44,7 @@ import { NgToastModule } from 'ng-angular-popup';
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
+    MatPaginatorModule,
   ]
 })
 export class LeavesModule { }

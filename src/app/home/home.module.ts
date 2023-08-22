@@ -15,7 +15,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import {LeavesComponent} from './leaves/leaves.component';
 import {AdminComponent} from "./admin/admin.component";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {MatButtonModule} from "@angular/material/button";
 import {LeavesModule} from './leaves/leaves.module';
 import {MatSortModule} from "@angular/material/sort";
@@ -36,6 +36,10 @@ import {SubordinateRequestComponent} from './subordinates/requests/subordinate-r
 import {
     SubordinateProfileComponent
 } from './subordinates/subordinate-list/subordinate-profile/subordinate-profile.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import {CalendarComponent} from "./calendar/calendar.component";
+import {AppComponent} from "../app.component";
+import {GreekPaginator} from "./greek-paginator";
 
 
 @NgModule({
@@ -50,7 +54,8 @@ import {
     SubordinatesComponent,
     SubordinateListComponent,
     SubordinateRequestComponent,
-    SubordinateProfileComponent
+    SubordinateProfileComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -82,10 +87,13 @@ import {
     NgOptimizedImage,
     MatProgressSpinnerModule,
     NgToastModule,
-    MatCardModule
+    MatCardModule,
+    FullCalendarModule
   ],
   providers: [
     DatePipe,
+    {provide: MatPaginatorIntl, useClass: GreekPaginator}
   ],
+  bootstrap:[AppComponent]
 })
 export class HomeModule { }
