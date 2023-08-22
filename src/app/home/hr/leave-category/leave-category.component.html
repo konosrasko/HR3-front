@@ -35,7 +35,6 @@
 
       <ng-container matColumnDef="editBtn">
         <mat-header-cell *matHeaderCellDef > Επεξεργασία Κατηγορίας </mat-header-cell>
-<!--        <mat-cell *matCellDef="let category"><button mat-raised-button color="primary" class="button edit" (click)="editCategory($event)">Επεξεργασία</button></mat-cell>-->
         <mat-cell *matCellDef="let category"><mat-icon class="icon edit" matTooltip="Επεξεργασία" color="primary" (click)="editCategory($event)">edit</mat-icon></mat-cell>
       </ng-container>
       <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
