@@ -9,14 +9,20 @@ main{
     overflow: auto;
 }
 
-
 h1{
     color: $myFixedColor;
 }
 
 .above-table{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  margin-right: 5vw ;
+  align-items: center;
+}
+
+.table-scroller{
+  min-width: 720px;
 }
 
 .add {

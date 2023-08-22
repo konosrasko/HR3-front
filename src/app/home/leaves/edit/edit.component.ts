@@ -24,7 +24,7 @@ export class EditComponent {
   categories: String[] = [];
 
   leaveRequest: LeaveRequest = new LeaveRequest()
-  pending:boolean = false
+  pending: boolean = false
 
   leaveRequestFormGroup: FormGroup = new FormGroup({
     title: this.categoryControl,
@@ -57,9 +57,11 @@ export class EditComponent {
     this.leaveRequestFormGroup.get('startDate')?.setValidators([this.validateStartDate()]);
     this.leaveRequestFormGroup.get('startDate')?.updateValueAndValidity();
     this.leaveRequestFormGroup.get('endDate')?.disable();
+    this.leaveRequestFormGroup.get('duration')?.setValidators(this.validateNonZeroDuration());
     this.leaveRequestFormGroup.get('duration')?.disable();
     this.leaveRequestFormGroup.get('submitDate')?.disable();
     this.leaveRequestFormGroup.get('submitDate')?.setValue(new Date)
+
 
     this.leaveRequestFormGroup.get('startDate')?.valueChanges.subscribe((value) => {
 
@@ -97,6 +99,13 @@ export class EditComponent {
         this.leaveRequestFormGroup.get('duration')?.setValue(this.leaveRequest.duration)
         this.leaveRequestFormGroup.get('title')?.setValue(this.leaveRequest.leaveTitle)
         this.pending = (data.status == "PENDING")
+
+        if (!this.pending) {
+          this.leaveRequestFormGroup.get('title')?.disable();
+          this.leaveRequestFormGroup.get('submitDate')?.disable();
+          this.leaveRequestFormGroup.get('startDate')?.disable();
+          this.leaveRequestFormGroup.get('endDate')?.disable();
+        }
       },
       error: err => {
         this.toast.error({
@@ -106,6 +115,14 @@ export class EditComponent {
         });
       }
     })
+  }
+
+  /* validators */
+  private validateNonZeroDuration(): any {
+    return (control: FormControl) => {
+      const duration = control.value ? control.value : null;
+      return duration && duration > 0 ? null : { durationInvalid: true };
+    };
   }
 
   private validateStartDate(): any {
@@ -153,7 +170,7 @@ export class EditComponent {
 
     console.log("sending json:")
     console.log(newLeaveRequest);
-    
+
 
     this.leaveRequestService.editLeaveRequest(newLeaveRequest).subscribe({
       next: data => {
