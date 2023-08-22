@@ -102,18 +102,20 @@ h1{
 }
 
 
-.pending{
+#pending{
   font-weight: 500;
-  color: rgb(24, 24, 122)
+  color: rgba(0, 51, 255, 0.75)
 }
 
-.accepted{
-  font-weight: 500;
-  color: rgb(24, 122, 40)
+mat-cell{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.denied{
-  font-weight: 500;
-  color: rgb(122, 24, 24)
+mat-header-cell{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

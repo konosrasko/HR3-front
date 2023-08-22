@@ -62,7 +62,17 @@
 
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Κατάσταση </mat-header-cell>
-        <mat-cell [ngClass]="getStatusClass(subordinatesRequests.status)" *matCellDef="let subordinatesRequests"> {{subordinatesRequests.status}} </mat-cell>
+        <mat-cell [ngClass]="getStatusClass(subordinatesRequests.status)" *matCellDef="let subordinatesRequests">
+          <div *ngIf="subordinatesRequests.status === 'Εγκεκριμένη'">
+            <mat-icon matTooltip="Εγκεκριμένη" color="accent">done</mat-icon>
+          </div>
+          <div *ngIf="subordinatesRequests.status === 'Απορρίφθηκε'">
+            <mat-icon matTooltip="Απορρίφθηκε" color="warn">close</mat-icon>
+          </div>
+          <div *ngIf="subordinatesRequests.status === 'Εκκρεμεί'">
+            <mat-icon matTooltip="Εκκρεμεί" id="pending">access_time</mat-icon>
+          </div>
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="accept" >
