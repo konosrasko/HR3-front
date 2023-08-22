@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from '@angular/router';
 import {TokenController} from '../services/token_controller';
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent extends TokenController{
   error: string = ' '
   token?: string;
   user: any;
-  constructor(private userService: UserService, router: Router, private route: ActivatedRoute) {
+  constructor(private userService: UserService, router: Router, private route: ActivatedRoute, private toast: NgToastService) {
     super(router)
 
     const savedToken = localStorage.getItem("token");
@@ -43,21 +44,26 @@ export class LoginComponent extends TokenController{
     this.userService.Login(this.username, this.password).subscribe({
       next: data =>{
         this.token = data.token;
-        console.log(data);
 
         if(this.token != null){
           localStorage.setItem('token', this.token);
           this.checkIfUserIsEnabled();
         }else{
-          this.getRouter()?.navigate(["/login"]);
-        }
+          if(localStorage.getItem('message')!='Welcome')
+          {
+            this.toast.error({ detail: 'Ειστε ήδη συνδεδεμένος από άλλη πηγή,αποσυνδεθείτε και προσπάθείστε ξανά', position: "topRight", duration: 3000 });
+          }
+            this.getRouter()?.navigate(["/login"]);
 
+        }
       },
       error: err => {
         this.error = "Λανθασμένο όνομα χρήστη η κωδικός. Παρακαλώ προσπαθήστε ξανά."
         console.log(this.error)
         this.getRouter()?.navigate(["/login"])
       }
+
+
     });
   }
 
