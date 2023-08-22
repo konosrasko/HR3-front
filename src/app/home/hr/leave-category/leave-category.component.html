@@ -39,6 +39,9 @@
       </ng-container>
       <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
       <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <tr class="mat-row no-data-row" *matNoDataRow>
+        <td class="mat-cell" colspan="3"><span>Δεν βρέθηκαν κατηγορίες αδειών. Παρακαλώ εισάγετε μία τουλάχιστον</span></td>
+      </tr>
     </mat-table>
   </div>
   <div *ngIf="!isLoaded">
