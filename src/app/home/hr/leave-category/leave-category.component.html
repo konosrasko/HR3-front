@@ -1,45 +1,47 @@
 <main>
   <h1>Κατηγορίες Αδειών Εργαζομένων</h1>
-  <div class="filters">
-    <div class="status-filter">
-      <mat-form-field appearance="fill">
-        <mat-label>Κατάσταση Κατηγορίας</mat-label>
-        <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus()">
-          <mat-option value = "all">Όλες</mat-option>
-          <mat-option value = "enabled">Ενεργές</mat-option>
-          <mat-option value = "disabled">Ανενεργές</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <div *ngIf="isLoaded">
+    <div class="filters">
+      <div class="status-filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Κατάσταση Κατηγορίας</mat-label>
+          <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus()">
+            <mat-option value = "all">Όλες</mat-option>
+            <mat-option value = "enabled">Ενεργές</mat-option>
+            <mat-option value = "disabled">Ανενεργές</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="title-filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Αναζήτηση τίτλου άδειας</mat-label>
+          <input (keyup)="onTitleChange($event)" matInput placeholder="Τίτλος" #input>
+        </mat-form-field>
+      </div>
+      <div class="add-btn">
+        <button mat-raised-button class="button" color="primary" (click)="navigateTo('add-category')" ><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon><span>Προσθήκη Κατηγορίας</span></button>
+      </div>
     </div>
-    <div class="title-filter">
-      <mat-form-field appearance="fill">
-        <mat-label>Αναζήτηση τίτλου άδειας</mat-label>
-        <input (keyup)="onTitleChange($event)" matInput placeholder="Τίτλος" #input>
-      </mat-form-field>
-    </div>
-    <div class="add-btn">
-      <button mat-raised-button class="button" color="primary" (click)="navigateTo('add-category')" ><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon><span>Προσθήκη Κατηγορίας</span></button>
-    </div>
-  </div>
-  <div class="table-container mat-elevation-z8"  *ngIf="isLoaded">
-    <mat-table matSort  class="table" #table [dataSource]="categoriesSource">
-      <ng-container matColumnDef="categoryName">
-        <mat-header-cell *matHeaderCellDef > Κατηγορία </mat-header-cell>
-        <mat-cell *matCellDef="let category"> {{category.title}} </mat-cell>
-      </ng-container>
+    <div class="table-container mat-elevation-z8"  *ngIf="isLoaded">
+      <mat-table matSort  class="table" #table [dataSource]="categoriesSource">
+        <ng-container matColumnDef="categoryName">
+          <mat-header-cell *matHeaderCellDef > Κατηγορία </mat-header-cell>
+          <mat-cell *matCellDef="let category"> {{category.title}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef > Κατάσταση Κατηγορίας </mat-header-cell>
-        <mat-cell *matCellDef="let category" > <span class="status-col {{category.active ? 'active' : 'inactive'}}">{{toggleContentEnabled(category.active)}}</span></mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef > Κατάσταση Κατηγορίας </mat-header-cell>
+          <mat-cell *matCellDef="let category" > <span class="status-col {{category.active ? 'active' : 'inactive'}}">{{toggleContentEnabled(category.active)}}</span></mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="editBtn">
-        <mat-header-cell *matHeaderCellDef > Επεξεργασία Κατηγορίας </mat-header-cell>
-        <mat-cell *matCellDef="let category"><mat-icon class="icon edit" matTooltip="Επεξεργασία" color="primary" (click)="editCategory($event)">edit</mat-icon></mat-cell>
-      </ng-container>
-      <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+        <ng-container matColumnDef="editBtn">
+          <mat-header-cell *matHeaderCellDef > Επεξεργασία Κατηγορίας </mat-header-cell>
+          <mat-cell *matCellDef="let category"><mat-icon class="icon edit" matTooltip="Επεξεργασία" color="primary" (click)="editCategory($event)">edit</mat-icon></mat-cell>
+        </ng-container>
+        <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
+        <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
   </div>
   <div *ngIf="!isLoaded">
     <mat-spinner color="primary"></mat-spinner>
