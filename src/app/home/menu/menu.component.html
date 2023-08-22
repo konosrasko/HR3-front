@@ -3,12 +3,12 @@
     <img class="logo" src="./assets/logo.png" alt="The application's logo">
   </a>
 
-  
+
   <ul class="tabs">
     <li class="tab">
       <a (click)="navigateTo('MyDetails')">ΠΡΟΦΙΛ</a>
     </li>
-    
+
     <li class="tab dropdown">
       <a>ΑΔΕΙΕΣ <span class="arrow"><mat-icon style="display: inline-block; position: fixed;">arrow_drop_down_circle</mat-icon></span></a>
       <div class="dropdown-content">
@@ -18,7 +18,7 @@
     </li>
 
     <li class="tab">
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">ΗΜΕΡΟΛΟΓΙΟ</a>
+      <a (click)="navigateTo('calendar')">ΗΜΕΡΟΛΟΓΙΟ</a>
     </li>
   </ul>
 
@@ -30,7 +30,7 @@
 
   <mat-icon (click)="toggleMobileDropdown()" class="sandwich">menu</mat-icon>
 
-  
+
 </nav>
 
   <nav class="mobile-dropdown" [ngClass]="{'visible': isMobileDropdownVisible}">
@@ -45,5 +45,5 @@
       ΑΠΟΣΥΝΔΕΣΗ
       <mat-icon style="margin: 0;">exit_to_app</mat-icon>
     </a>
-    
+
   </nav>

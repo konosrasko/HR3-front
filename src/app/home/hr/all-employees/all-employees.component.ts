@@ -53,7 +53,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
   }
 
-  onChangeStatus(){
+  onStatusChange(){
     const filterValue = this.selectedStatus;
 
     if(filterValue === 'all') {
@@ -139,8 +139,6 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
 
   editEmployee() {
     if (this.selectedEmployee?.employeeId) {
-      console.log(this.selectedEmployee.employeeId)
-      //Open edit window with the selected leaveRequest id as parameter
       this.router?.navigate(['home/hr/edit-employee'], { queryParams: { employee: this.selectedEmployee.employeeId,supervisorLastName: this.selectedEmployee.supervisorLastName } });
     }
   }
@@ -149,4 +147,3 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.selectedEmployee=row;
   }
 }
-

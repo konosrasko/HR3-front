@@ -40,6 +40,16 @@
         </ng-container>
         <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
         <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <ng-container matColumnDef="editBtn">
+        <mat-header-cell *matHeaderCellDef > Επεξεργασία Κατηγορίας </mat-header-cell>
+        <mat-cell *matCellDef="let category"><mat-icon class="icon edit" matTooltip="Επεξεργασία" color="primary" (click)="editCategory($event)">edit</mat-icon></mat-cell>
+      </ng-container>
+      <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <tr class="mat-row no-data-row" *matNoDataRow>
+        <td class="mat-cell" colspan="3"><span>Δεν βρέθηκαν κατηγορίες αδειών. Παρακαλώ εισάγετε μία τουλάχιστον</span></td>
+      </tr>
       </mat-table>
     </div>
   </div>
