@@ -124,3 +124,11 @@ mat-paginator{
   background-color: #d6d4d4;
   color: $myFixedColor;
 }
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}
