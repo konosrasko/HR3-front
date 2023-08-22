@@ -33,9 +33,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SubordinateListComponent} from './subordinates/subordinate-list/subordinate-list.component';
 import {SubordinateRequestComponent} from './subordinates/requests/subordinate-requests.component';
-import {
-    SubordinateProfileComponent
-} from './subordinates/subordinate-list/subordinate-profile/subordinate-profile.component';
+import {SubordinateProfileComponent} from './subordinates/subordinate-list/subordinate-profile/subordinate-profile.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import {CalendarComponent} from "./calendar/calendar.component";
 import {AppComponent} from "../app.component";
