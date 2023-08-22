@@ -81,6 +81,8 @@
       <mat-row class="header-row" *matRowDef="let row; columns: displayedColumns;" (dblclick)="editRequest()"
         (click)="setRow(row)"></mat-row>
     </mat-table>
+      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+
     </div>
     <p *ngIf="!hasData && isLoaded" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
     <div style="display: flex; justify-content: center;" *ngIf="!isLoaded">
