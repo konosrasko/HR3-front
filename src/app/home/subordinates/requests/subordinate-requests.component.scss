@@ -1,3 +1,4 @@
+@import '../../../../../src/styles';
 main{
   padding: 5vh 0 0 0;
   margin: 5vh 0 5vh 5vw;
@@ -10,6 +11,11 @@ main{
 
 h1{
   color: orange;
+}
+
+mat-paginator{
+  background-color: #d6d4d4;
+  color: $myFixedColor;
 }
 
 .slide-me-daddy{
@@ -117,4 +123,12 @@ mat-header-cell{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
 }

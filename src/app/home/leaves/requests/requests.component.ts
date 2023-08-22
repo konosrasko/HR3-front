@@ -1,37 +1,36 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {NgToastService} from 'ng-angular-popup';
 import {LeaveRequest} from 'src/app/models/leave_request.model';
 import {LeaveRequestService} from 'src/app/services/leave_request.service';
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.scss']
 })
-export class RequestsComponent {
-
-
+export class RequestsComponent implements OnInit{
   displayedColumns = ['submitDate', 'startDate', 'endDate', 'duration', 'leaveTitle', 'status', 'delete'];
   dataSource: MatTableDataSource<LeaveRequest> = new MatTableDataSource<LeaveRequest>()
   isLoaded:boolean = false;
-  @ViewChild(MatSort) sort: MatSort = new MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
   hasData: Boolean = false;
   private selectedLeaveRequest: LeaveRequest = {}
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private leaveRequestService: LeaveRequestService, private router: Router, private toast: NgToastService) { }
 
   ngOnInit() {
     this.leaveRequestService.getLeaveRequestHistory().subscribe((data: LeaveRequest[]) => {
       data = this.translated(data)
       this.dataSource = new MatTableDataSource<LeaveRequest>(data);
-
+      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.hasData = (this.dataSource.filteredData.length > 0);
-      this.sortLastColumn();
-      this.isLoaded = true
+      // this.sortLastColumn();
+      this.isLoaded = true;
     })
   }
 

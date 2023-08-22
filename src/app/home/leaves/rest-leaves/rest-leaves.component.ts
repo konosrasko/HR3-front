@@ -5,6 +5,7 @@ import {LeaveBalance} from 'src/app/models/leave_balance.model';
 import {LeaveRequest} from 'src/app/models/leave_request.model';
 import {EmployeeService} from 'src/app/services/employee.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-rest-leaves',
@@ -21,7 +22,7 @@ export class RestLeavesComponent  implements OnInit{
   rowId?:number
   firstName:String = ''
   lastName:String = ''
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
   constructor(private changeDetectorRef: ChangeDetectorRef, private employeeService:EmployeeService,
@@ -36,6 +37,7 @@ export class RestLeavesComponent  implements OnInit{
         if(this.rowId!= null){
         this.employeeService.getLeaveBalancesOfAnotherEmployee(this.rowId).subscribe(data => {
           this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+          this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.sortLastColumn();
         })
@@ -45,6 +47,7 @@ export class RestLeavesComponent  implements OnInit{
           }}else {
        this.employeeService.getLeaveBalances().subscribe(data=>{
              this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+             this.dataSource.paginator = this.paginator;
              this.dataSource.sort = this.sort;
              this.sortLastColumn();
        })

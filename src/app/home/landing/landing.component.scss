@@ -7,6 +7,8 @@ body{
 main{
     display: flex;
     padding: 9vh 5vw 0 0;
+    overflow: auto;
+    height: 88%;
 }
 
 .column{
@@ -49,9 +51,20 @@ a{
     bottom: 0;
 }
 
+.card-header p{
+  margin: 0;
+}
+
 
 @media screen and (max-width: 768px){
     main{
         flex-direction: column;
+        padding-inline: 0;
+    }
+
+    .column{
+        margin-inline: 5vw;
+        min-width: 290px;
+        width: 70vw;
     }
 }

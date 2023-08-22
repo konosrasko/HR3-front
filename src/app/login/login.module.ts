@@ -7,6 +7,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {HomeModule} from '../home/home.module';
 import {FooterModule} from '../home/footer/footer.module';
+import { NgToastModule } from 'ng-angular-popup';
 
 const routes: Routes = [
   { path: '', component: LoginComponent }
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     HomeModule,
-    FooterModule
+    FooterModule,
+    NgToastModule,
   ],
   exports:[LoginComponent],
 })

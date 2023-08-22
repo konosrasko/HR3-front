@@ -103,6 +103,26 @@ h1{
   color: rgb(114, 74, 0);
 }
 
+.no-data-row{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.no-data-row span{
+  font-size: 18px;
+  color: #ae5a00;
+}
+
 mat-table mat-header-cell, mat-table mat-cell{
   justify-content: center;
+}
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
 }

@@ -9,7 +9,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Εισαγωγή username</mat-label>
         <input matInput formControlName="usernameFormControl" (keydown)="onEdited()" required>
-        <mat-error *ngIf="editUserFormGroup.get('usernameFormControl')?.invalid">{{getErrorUsername()}}</mat-error>
+        <mat-error *ngIf="editUserFormGroup.get('usernameFormControl')?.hasError('required')">Το πεδίο είναι υποχρεωτικό.</mat-error>
+        <mat-error *ngIf="editUserFormGroup.get('usernameFormControl')?.hasError('pattern')">Δεκτοί μόνο λατινικοί χαρακτήρες</mat-error>
       </mat-form-field>
     </div>
     <div class="input-pass">
@@ -47,7 +48,7 @@
   <div *ngIf="!isLoaded">
     <mat-spinner color="primary"></mat-spinner>
   </div>
-  
+
   <div class="btn-options">
     <div class="back-button">
       <button mat-raised-button color="warn" class="button" (click)="navigateTo()">Ακύρωση</button>

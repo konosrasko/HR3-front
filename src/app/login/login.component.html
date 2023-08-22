@@ -1,7 +1,7 @@
 <main>
   <img class="logo" src="../../assets/logo.png" alt="logo">
 
-  <form id="accesspanel" action="">
+  <form *ngIf="!newPasswordMode" id="accesspanel" action="">
     <h1 id="litheader">Face Control</h1>
 
     <div class="inset">
@@ -15,6 +15,22 @@
     </div>
 
       <input class="submit"  type="submit" name="Login" id="go" value="Login" (click)="doLogin()">
+
+  </form>
+
+  <form *ngIf="newPasswordMode" id="accesspanel" action="">
+    <h1 id="litheader">Απατείται αλλαγή κωδικόυ</h1>
+    <div class="inset">
+      <p style="color: white; text-align: center;">Για να συνεχίσετε πρέπει να ορίσετε τον νέο σας κωδικό.</p>
+      <p id="username">
+        <input type="password" name="username" [(ngModel)]="newPassword" required id="pass" placeholder="Νέος Κωδικός">
+      </p>
+      <p id="password">
+        <input type="password" name="password" [(ngModel)]="newPasswordConfirm" required id="passConfirm" placeholder="Επιβεβαίωση">
+      </p>
+    </div>
+
+      <input class="submit"  type="submit" name="Login" id="go" value="Υποβολή" (click)="changePassword()">
 
   </form>
 

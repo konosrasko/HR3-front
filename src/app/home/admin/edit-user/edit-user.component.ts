@@ -29,7 +29,7 @@ export class EditUserComponent implements OnInit {
       this.selectedUserId = params["userId"];
     });
     this.editUserFormGroup = new FormGroup({
-      usernameFormControl: new FormControl('', [Validators.required]),
+      usernameFormControl: new FormControl('', [Validators.required, Validators.pattern(/^([a-zA-Z]+|[\u10D0-\u10F0]+)$/)]),
       passwordFormControl: new FormControl(''),
       rolesFormControl: new FormControl('', [Validators.required]),
       isEnabledFormControl: new FormControl('', [Validators.required]),
@@ -62,14 +62,6 @@ export class EditUserComponent implements OnInit {
     this.oldPass = this.employeeUser!.password;
     this.status = this.employeeUser!.enabled;
     this.isLoaded = true;
-  }
-
-  getErrorUsername() {
-    if (this.editUserFormGroup.get('usernameFormControl')?.hasError('required')) {
-      return 'Πρέπει να εισάγεις username';
-    } else {
-      return "ok :)"
-    }
   }
 
   navigateTo() {
