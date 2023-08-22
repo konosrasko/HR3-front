@@ -12,18 +12,31 @@ main{
   margin: 5vh 0 5vh 5vw;
 }
 
+h1{
+  color: $myFixedColor;
+}
+
+mat-paginator{
+  background-color: #d6d4d4;
+  color: $myFixedColor;
+}
+
 .table-container{
   margin-right: 5vw ;
   overflow: auto;
 }
 
-h1{
-  color: $myFixedColor;
-}
-
 .above-table{
   display: flex;
   justify-content: space-between;
+}
+
+.filters{
+  display: flex;
+}
+
+.firstName-filter, .lastName-filter{
+  margin-left: 10px;
 }
 
 .add {
@@ -52,12 +65,10 @@ h1{
   color: $myFixedColor;
 }
 
-
 .header *{
   background-color: #252525;
   color: $myFixedColor;
 }
-
 
 .even-row {
   background-color: #E9E9E9; /* Set the background color for even rows */
@@ -134,7 +145,14 @@ h1{
   align-items: center;
 }
 
-mat-paginator{
-  background-color: #d6d4d4;
-  color: $myFixedColor;
+.no-data-row{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.no-data-row span{
+  font-size: 18px;
+  color: #ae5a00;
 }

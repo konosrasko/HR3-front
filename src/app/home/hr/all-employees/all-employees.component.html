@@ -1,11 +1,34 @@
 <main>
-
+  <span>
+    <h1>Όλοι οι εργαζόμενοι</h1>
+    <p>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</p>
+  </span>
   <div class="table-container">
     <div class="above-table">
-      <span>
-        <h1>Όλοι οι εργαζόμενοι</h1>
-        <p>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</p>
-      </span>
+      <div class="filters">
+        <div class="status-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Κατάσταση Εργαζομένου</mat-label>
+            <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus()">
+              <mat-option value = "all">Όλοι</mat-option>
+              <mat-option value = "enabled">Ενεργός</mat-option>
+              <mat-option value = "disabled">Ανενεργός</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="firstName-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Αναζήτηση Ονόματος</mat-label>
+            <input (keyup)="onFirstNameChange($event)" matInput placeholder="Username" #input>
+          </mat-form-field>
+        </div>
+        <div class="lastName-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Αναζήτηση Επωνύμου</mat-label>
+            <input (keyup)="onLastNameChange($event)" matInput placeholder="Username" #input>
+          </mat-form-field>
+        </div>
+      </div>
       <span (click)="navigateTo('add-employee')" class="add">
         <button mat-raised-button color="primary">
           <div class="add-employee-btn">
@@ -75,12 +98,11 @@
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" (click)="getRow(row)"
-        *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+      <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" (click)="getRow(row)" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+      <tr class="mat-row no-data-row" *matNoDataRow>
+        <td class="mat-cell" colspan="9"><span>Δεν βρέθηκαν εγγραφές</span></td>
+      </tr>
     </mat-table>
-    <mat-paginator [pageSizeOptions]="[4, 8]"
-                   showFirstLastButtons
-                   aria-label="Select page">
-    </mat-paginator>
+    <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
   </div>
 </main>
