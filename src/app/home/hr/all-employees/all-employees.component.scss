@@ -133,3 +133,8 @@ h1{
   display: flex;
   align-items: center;
 }
+
+mat-paginator{
+  background-color: #d6d4d4;
+  color: $myFixedColor;
+}
