@@ -2,7 +2,7 @@
 
     <div class="column">
         <h1>Καλωσήρθες:</h1>
-        <div class="card-header" >
+        <div class="card-header">
             <p> {{ name }}</p>
         </div>
         <div class="card">
@@ -13,13 +13,15 @@
     <div class="column">
         <h1>Οι άδειες σου:</h1>
         <div class="card-header">
-          {{Date() | date:'dd/MM/yyyy HH:mm'}}
+            {{Date() | date:'dd/MM/yyyy HH:mm'}}
         </div>
         <div class="card">
 
-            <p *ngFor="let balance of takenLeaves" >
-                {{balance.categoryTitle}}: {{balance.daysTaken}}/{{balance.days}}
-            </p>
+            <div class="card-content">
+                <p *ngFor="let balance of takenLeaves">
+                    {{balance.categoryTitle}}: {{balance.daysTaken}}/{{balance.days}}
+                </p>
+            </div>
 
             <div class="card-footer">
                 <p class="card-footer">Προβολή <a (click)="navigateTo('leaves/restLeaves')"><u>λεπτομερειών</u></a></p>
