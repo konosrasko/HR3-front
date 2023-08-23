@@ -41,12 +41,6 @@
   border-radius: 5px;
 }
 
-.buttons-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
 h1 {
   color: rgba(226, 135, 50, 1);
   margin: 10px 0;
@@ -71,7 +65,7 @@ h1 {
 
 .details-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
@@ -85,7 +79,7 @@ h1 {
 }
 
 
-#btn-actions{
+#actions{
   display: flex;
   max-width: 470px;
   width: 30vw;
@@ -94,8 +88,8 @@ h1 {
   justify-content: space-between;
 }
 
-#btn-actions *{
-  margin: 10px;
+#actions *{
+  margin-right: 20px;
 }
 
 mat-spinner{
