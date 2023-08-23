@@ -15,8 +15,13 @@ mat-paginator{
 }
 
 .table-container{
+  display: none;
   margin-right: 5vw ;
   overflow: auto;
+}
+
+.table-container.loaded{
+  display: block;
 }
 
 .above-table{

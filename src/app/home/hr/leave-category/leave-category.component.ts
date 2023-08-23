@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {LeaveCategoryService} from "../../../services/leave-category.service";
 import {LeaveCategory} from "../../../models/leave-category.model";
 import {NgToastService} from "ng-angular-popup";
 import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-leave-category',
@@ -19,6 +20,7 @@ export class LeaveCategoryComponent implements OnInit{
   categoriesSource: any;
   showContent?: string;
   isLoaded: boolean = false;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private categoryService: LeaveCategoryService, private router: Router, private toast: NgToastService) {
   }
@@ -43,6 +45,7 @@ export class LeaveCategoryComponent implements OnInit{
       this.toast.warning({detail: 'Δεν βρέθηκαν κατηγορίες αδειών!', summary: 'Προσθέστε τουλάχιστον μία κατηγορία άδειας', position: "topRight", duration: 5000})
     }
     this.categoriesSource = new MatTableDataSource<LeaveCategory>(this.categories);
+    this.categoriesSource.paginator = this.paginator;
     this.categoriesSource.filterPredicate = function (record: { categoryName: string; }, filter: string) {
       return record.categoryName.toLocaleLowerCase() == filter.toLocaleLowerCase();
     }
