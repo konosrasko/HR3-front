@@ -26,10 +26,12 @@ a{
 }
 
 .column .card{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     background-color: #D9D9D9;
     min-height: 100px;
     padding: 12px;
-    position: relative;
 }
 
 .column .card p.text-center {
@@ -46,9 +48,9 @@ a{
 }
 
 .column .card-footer{
-    position: absolute;
     width: 90%;
     bottom: 0;
+    margin: 10px 0 0 0;
 }
 
 .card-header p{
