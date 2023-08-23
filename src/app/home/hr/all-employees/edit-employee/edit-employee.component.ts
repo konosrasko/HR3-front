@@ -18,7 +18,7 @@ import {Supervisors} from "../../../../models/supervisors";
 export class EditEmployeeComponent {
   employee!: Employee;
   originalEmployee!: Employee;
-
+  leaveDataSource?: any;
   editEmployeeFormGroup: FormGroup;
   selectedEmployeeId?: number;
   isEditMode: boolean = false;

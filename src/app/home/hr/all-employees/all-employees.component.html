@@ -1,9 +1,9 @@
-<main>
+<main >
   <span>
     <h1>Όλοι οι εργαζόμενοι</h1>
-    <p>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</p>
   </span>
-  <div class="table-container" *ngIf="isDataLoaded">
+
+  <div class="table-container" [ngClass]="{'loaded' : isDataLoaded}">
     <div class="above-table">
       <div class="filters">
         <div class="status-filter">
@@ -39,7 +39,6 @@
       </span>
     </div>
     <mat-table matSort #table [dataSource]="dataSource" id="table1">
-
       <!-- First Name Column -->
       <ng-container matColumnDef="firstName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Όνομα</mat-header-cell>
@@ -108,7 +107,9 @@
     </mat-table>
     <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
   </div>
+
   <div *ngIf="!isDataLoaded">
     <mat-spinner color="primary"></mat-spinner>
   </div>
+
 </main>
