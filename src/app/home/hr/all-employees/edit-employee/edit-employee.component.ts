@@ -37,6 +37,8 @@ export class EditEmployeeComponent {
   enabled?: boolean;
   displayedColumns: string[] = ['title', 'days', 'options'];
   selectedLeaveCategory = 0;
+  isLeaveBalanceEdited = false;
+  selectedRowOfLeaveTable?: number;
 
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private employeeService: EmployeeService, private toast: NgToastService, private date: DatePipe, private leaveCategoryService: LeaveCategoryService) {
     this.route.queryParams.subscribe(params => {
@@ -50,7 +52,7 @@ export class EditEmployeeComponent {
       mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("^[0-9]*$")]),
       hireDate: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ0-9\s,]*$/)]),
       enabled: new FormControl('', [Validators.required]),
-      supervisorId: new FormControl('none', [Validators.required])
+      supervisorId: new FormControl('', [Validators.required])
     })
   }
 
@@ -77,15 +79,6 @@ export class EditEmployeeComponent {
         }
       });
 
-      this.leaveCategoryService.getActiveLeaveCategories().subscribe({
-        next: data => this.loadCategories(data),
-        error: err => {
-          console.log(err);
-          this.toast.error({detail: 'Πρόβλημα φόρτωσης ενεργών κατηγοριών', summary: err.error, position: "topRight", duration: 4000});
-          this.router?.navigateByUrl('home/landing');
-        }
-      });
-
       this.employeeService.getLeaveBalancesOfAnotherEmployee(this.selectedEmployeeId).subscribe({
         next: data =>{
           this.leaveBalances = data;
@@ -95,7 +88,16 @@ export class EditEmployeeComponent {
           console.log(err);
           this.toast.error({detail: 'Πρόβλημα φόρτωσης αδειών εργαζομένων', summary: err.error, position: "topRight", duration: 4000});
         }
-      })
+      });
+
+      this.leaveCategoryService.getActiveLeaveCategories().subscribe({
+        next: data => this.loadCategories(data),
+        error: err => {
+          console.log(err);
+          this.toast.error({detail: 'Πρόβλημα φόρτωσης ενεργών κατηγοριών', summary: err.error, position: "topRight", duration: 4000});
+          this.router?.navigateByUrl('home/landing');
+        }
+      });
     }
   }
 
@@ -104,7 +106,11 @@ export class EditEmployeeComponent {
     this.originalEmployee = JSON.parse(data);
 
     this.editEmployeeFormGroup.patchValue(this.employee);
-    this.editEmployeeFormGroup.get('enabled')?.setValue(this.employee.enabled);
+    if(this.employee.supervisorId != null){
+      this.editEmployeeFormGroup.get('supervisorId')?.setValue(this.employee.supervisorId);
+    }else{
+      this.editEmployeeFormGroup.get('supervisorId')?.setValue('0');
+    }
 
     this.enabled = this.employee.enabled;
   }
@@ -161,8 +167,8 @@ export class EditEmployeeComponent {
       for(let i = 0; i < this.leaveBalances!.length; i++){
         let leaveTitle = this.leaveBalances[i]!.categoryTitle;
         let days = this.leaveBalances[i].days;
-        let newLeaveData = {leaveTitle, days};
-        console.log(newLeaveData);
+        let edited = 'old';
+        let newLeaveData = {edited, leaveTitle, days};
         this.leaveDataTable.push(newLeaveData);
       }
       this.updateLeaveData();
@@ -171,18 +177,63 @@ export class EditEmployeeComponent {
 
   onAddLeave(){
     if(this.selectLeaveCategoryFormGroup != null){
-      let valueSplit = this.selectLeaveCategoryFormGroup.get('title')?.value.split(',');
-      let leaveTitle: string = valueSplit[1];
-      let days: number = this.selectLeaveCategoryFormGroup.get('days')?.value;
+      let leaveTitle = this.selectLeaveCategoryFormGroup.get('title')?.value;
+      let days: number = parseInt(this.selectLeaveCategoryFormGroup.get('days')?.value, 10);
+      let edited = 'new'
 
-      const newLeaveData = {leaveTitle, days};
-
-      this.leaveDataTable.push(newLeaveData);
-      this.updateLeaveData();
-
+      for(let i = 0; i < this.leaveDataSource.data.length; i++){
+        if(this.leaveDataSource.data[i].leaveTitle === leaveTitle){
+          this.leaveDataSource.data[i].days = this.leaveDataSource.data[i].days + days;
+          this.leaveDataTable[i].days = this.leaveDataSource.data[i].days + days;
+          this.leaveDataSource.data[i].edited = 'edited';
+          this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια ενημερώθηκε με επιτυχία', position: "topRight", duration: 2000})
+        }else{
+          const newLeaveData = {edited, leaveTitle, days};
+          this.leaveDataTable.push(newLeaveData);
+          this.updateLeaveData();
+          this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια προστέθηκε με επιτυχία', position: "topRight", duration: 2000})
+        }
+      }
       this.editLeaves = false
-      this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια προστέθηκε με επιτυχία', position: "topRight", duration: 2000})
     }
+  }
+
+  onEditLeave(){
+    if(this.selectLeaveCategoryFormGroup != null && this.selectedRowOfLeaveTable != null){
+      let leaveTitle = this.selectLeaveCategoryFormGroup.get('title')?.value;
+      let days: number = this.selectLeaveCategoryFormGroup.get('days')?.value;
+      let edited = 'edited';
+      const newLeaveData = {edited, leaveTitle, days};
+      this.leaveDataTable[this.selectedRowOfLeaveTable] = newLeaveData;
+      this.leaveDataSource.data[this.selectedRowOfLeaveTable] = newLeaveData;
+      this.editLeaves = false
+      this.isLeaveBalanceEdited = false;
+      this.selectedRowOfLeaveTable = undefined;
+      this.toast.info({detail: 'Επεξεργασία άδειας', summary: 'Η επεξεργασία άδειας έγινε με επιτυχία', position: "topRight", duration: 2000})
+    }
+  }
+
+  editLeave(event: Event, row: number){
+    const cell = event.target as HTMLElement;
+    const rowData = this.getRowDataFromCell(cell);
+    console.log(rowData);
+    if(rowData){
+      this.selectedRowOfLeaveTable = row;
+      this.editLeaves = true;
+      this.isLeaveBalanceEdited = true;
+      this.selectLeaveCategoryFormGroup = new FormGroup({
+        title: new FormControl(rowData.leaveTitle, [Validators.required]),
+        days: new FormControl(rowData.days, [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")])
+      });
+    }
+  }
+
+  getRowDataFromCell(cell: HTMLElement) {
+    const row = cell.parentElement?.parentElement?.parentElement;
+    if (row && row.parentElement?.parentElement) {
+      const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
+      return this.leaveDataSource.data[rowIndex];
+    }else return undefined;
   }
 
   saveDetails() {
