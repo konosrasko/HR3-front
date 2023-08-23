@@ -11,8 +11,8 @@
             <mat-label>Κατάσταση Εργαζομένου</mat-label>
             <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onStatusChange()">
               <mat-option value = "all">Όλοι</mat-option>
-              <mat-option value = "enabled">Ενεργός</mat-option>
-              <mat-option value = "disabled">Ανενεργός</mat-option>
+              <mat-option value = "enabled">Εργαζόμενος</mat-option>
+              <mat-option value = "disabled">Απολυμένος</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -78,7 +78,7 @@
 
       <!-- Enabled Column -->
       <ng-container matColumnDef="enabled">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Ενεργός</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Κατάσταση Εργαζομένου</mat-header-cell>
         <mat-cell *matCellDef="let element">
           <span
             class="status-col {{element.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(element.enabled)}}</span></mat-cell>
@@ -92,16 +92,16 @@
 
       <ng-container matColumnDef="edit-field">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Επιλογές</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <span class="choices">
+        <mat-cell *matCellDef="let element">
+          <span class="choices" [id]="element.employeeId">
             <mat-icon class="icon material-symbols-outlined" matTooltip="Επεξεργασία" (click)="editEmployee($event)" color="primary">edit</mat-icon>
-            <mat-icon class="icon material-symbols-outlined add-leave-icon" matTooltip="Προσθήκη άδειας" (click)="addLeaveToEmployee($event)" color="primary">event_available</mat-icon>
+            <span *ngIf="element.enabled"><mat-icon class="icon material-symbols-outlined add-leave-icon" matTooltip="Προσθήκη άδειας" (click)="addLeaveToEmployee($event)" color="primary">event_available</mat-icon></span>
           </span>
         </mat-cell>
       </ng-container>
 
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="getIndexClass(row)" class="header-row"></mat-row>
       <tr class="mat-row no-data-row" *matNoDataRow>
         <td class="mat-cell" colspan="9"><span>Δεν βρέθηκαν εγγραφές</span></td>
       </tr>

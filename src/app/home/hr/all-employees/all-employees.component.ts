@@ -125,24 +125,22 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   }
 
   toggleContentEnabled(status: boolean) {
-    return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+    return this.showContent = status ? "Εργαζόμενος" : "Απολυμένος";
   }
 
   editEmployee(event: Event) {
     const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    console.log(cell);
-    if (rowData) {
-      this.router?.navigate(['home/hr/edit-employee'], {queryParams: {employee: rowData.employeeId}});
+    let cellPar = cell.parentElement
+    if(cellPar){
+      this.router?.navigate(['home/hr/edit-employee'], {queryParams: {employee: cellPar.id}});
     }
   }
 
   addLeaveToEmployee(event: Event){
     const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    console.log(cell);
-    if (rowData) {
-      this.router?.navigate(['home/leaves/add'], {queryParams: {id: rowData.employeeId}});
+    let cellPar = cell.parentElement?.parentElement
+    if(cellPar){
+      this.router?.navigate(['home/leaves/add'], {queryParams: {id: cellPar.id}});
     }
   }
 
