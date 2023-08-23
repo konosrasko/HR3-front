@@ -1,6 +1,11 @@
 main{
   padding: 5vh 0 0 0;
   margin: 5vh 0 5vh 5vw;
+  display: none;
+}
+
+main.loaded{
+  display: block;
 }
 
 h1{
