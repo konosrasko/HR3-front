@@ -31,14 +31,14 @@ export class CalendarComponent implements OnInit{
     fixedWeekCount:false,
     eventColor: '#000000',
     eventClick: function (info) {
-      info.jsEvent.preventDefault();
       if (info.event.url) {
         window.open(info.event.url);
       }
-
     },
+
     aspectRatio: 2.805,
     eventContent: this.customizeEventContent.bind(this)
+
 
   };
 
