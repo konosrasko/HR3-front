@@ -5,8 +5,8 @@ import {LeaveRequestService} from "../../services/leave_request.service";
 import {EmployeeService} from "../../services/employee.service";
 import {UserService} from "../../services/user.service";
 import {LeaveRequest} from "../../models/leave_request.model";
-import {Observable} from "rxjs";
-import {AUTO_STYLE} from "@angular/animations";
+
+
 
 
 
@@ -14,17 +14,18 @@ import {AUTO_STYLE} from "@angular/animations";
   selector: 'app-root',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
+  // styles : ['.fc-toolbar-title{background-color: pink!important;color:teal!important;}']
 })
 export class CalendarComponent implements OnInit{
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
-    weekends: false,
+    weekends: true,
     events:[{
       title: 'My Event',
       start: '2010-01-01',
-      url: 'http://localhost:4200/home/MyDetails'
+      url: 'http://localhost:4200/home/leaves/requests'
     }],
     eventBackgroundColor:'rgb(0,0,0)',
     fixedWeekCount:false,
@@ -51,13 +52,21 @@ export class CalendarComponent implements OnInit{
     eventElement.style.backgroundColor = 'darkorange'; // Change background color to orange
     eventElement.style.color = 'white'; // Set text color to white
     eventElement.style.fontSize = '16px'; // Increase font size
-    eventElement.style.padding = '5px'; // Add padding for better visibility
-    eventElement.style.borderRadius = '5px'; // Add rounded corners
+    eventElement.style.padding = '3px'; // Add padding for better visibility
+    eventElement.style.borderRadius = '2px'; // Add rounded corners
+    eventElement.classList.add('custom-event');
 
+
+    const eventLink = document.createElement('a'); // Create a clickable link element
+    eventLink.href = `http://localhost:4200/home/leaves/edit?id=${arg.event.id}` // Set the URL for the link
+    eventLink.style.textDecoration = 'none'; // Remove underline
 
     const eventTitle = document.createElement('div');
     eventTitle.innerText = arg.event.title + ' (' + arg.event.start.toLocaleDateString() + ')';
     eventElement.appendChild(eventTitle);
+
+    eventLink.appendChild(eventTitle);
+    eventElement.appendChild(eventLink);
 
     return { domNodes: [eventElement] };
   }
@@ -66,28 +75,38 @@ export class CalendarComponent implements OnInit{
   constructor(private leaveRequestService:LeaveRequestService,private employeeService:EmployeeService,private userService:UserService) {
   }
   ngOnInit(): void {
+
     this.getLeaves();
 
+
   }
+
+  changes(){
+    //const el = #('<main></main>');
+  }
+
 
   getLeaves() {
     this.leaveRequestService.getCalendarLeaveRequests().subscribe(data => {
       this.leaves = data;
 
-      // Populate the calendar events array
-      this.calendarOptions.events = this.leaves.map(leave => {
-        // Check if startDate and endDate are defined before creating Date objects
-        const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
-        const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
+      this.calendarOptions.events = this.leaves
+          .filter(leave => leave.status === 'APPROVED') // Filter accepted events
+          .map(leave => {
+            const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
+            const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
 
-        return {
-          title: leave.leaveTitle || 'Leave',
-          start: startDate,
-          end: endDate
-        };
-      });
+            return {
+              id: leave.id !== undefined ? leave.id.toString():'',
+              title: leave.leaveTitle || 'Leave',
+              start: startDate,
+              end: endDate
+            };
+          });
     });
   }
+
+
 
 
   // getLeaveHistoryFromUser(employeeId: number): void {
