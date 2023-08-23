@@ -1,8 +1,12 @@
 main{
   padding: 5vh 0 0 0;
   margin: 5vh 0 5vh 5vw;
+  display: none;
 }
 
+main.loaded{
+  display: block;
+}
 .table-container{
   margin-right: 5vw ;
   overflow: auto;
@@ -101,4 +105,12 @@ h1{
   scale: 118%;
   transform: rotate(3deg);
   color: rgb(114, 74, 0);
+}
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
 }

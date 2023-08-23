@@ -1,4 +1,4 @@
-<main *ngIf="isLoaded">
+<main [ngClass]="{'loaded':isLoaded}">
 
   <h1>Υπόλοιπα</h1>
   <h2>{{firstName}}  {{lastName}}</h2>
