@@ -16,6 +16,8 @@ export class User {
     this.role = role;
     this.supervisor = supervisor;
     this.enable = enable;
-    if (isPassTemp) this.isPassTemp = isPassTemp;
+    if (isPassTemp)
+      this.isPassTemp = isPassTemp;
+
 	}
 }

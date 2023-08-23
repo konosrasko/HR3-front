@@ -3,7 +3,7 @@
     <h1>Όλοι οι εργαζόμενοι</h1>
     <p>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</p>
   </span>
-  <div class="table-container">
+  <div class="table-container" *ngIf="isDataLoaded">
     <div class="above-table">
       <div class="filters">
         <div class="status-filter">
@@ -107,5 +107,8 @@
       </tr>
     </mat-table>
     <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+  </div>
+  <div *ngIf="!isDataLoaded">
+    <mat-spinner color="primary"></mat-spinner>
   </div>
 </main>

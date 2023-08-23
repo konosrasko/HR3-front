@@ -1,98 +1,100 @@
 <main>
   <h1 >Αιτήματα υφισταμένων</h1>
-
-  <div class="filters">
-    <div class="status-filter">
-      <mat-form-field appearance="fill">
-        <mat-label >Κατάσταση αιτήματος</mat-label>
-        <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="applyStatusFilter(selectedStatus)">
-          <mat-option value = "all">Όλες</mat-option>
-          <mat-option value = "Εγκεκριμένη">Εγκεκριμένη</mat-option>
-          <mat-option value = "Απορρίφθηκε">Απορρίφθηκε</mat-option>
-          <mat-option value = "Εκκρεμεί">Εκκρεμεί</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="slide-me-daddy">
-      <h3>Προβολή έμμεσα υφισταμένων:</h3>
-      <mat-slide-toggle color="primary" (change)="toggleDirectSubordinates()"></mat-slide-toggle>
-    </div>
-  </div>
-
   <div *ngIf="!isLoaded">
     <mat-spinner color="primary"></mat-spinner>
   </div>
-  <div class="table-container mat-elevation-z8">
-    <mat-table class="table" #table [dataSource]="dataSource" matSort >
-      <ng-container matColumnDef="firstName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header > Όνομα </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.firstName}} </mat-cell>
-      </ng-container>
+  <div *ngIf="isLoaded">
+    <div class="filters">
+      <div class="status-filter">
+        <mat-form-field appearance="fill">
+          <mat-label >Κατάσταση αιτήματος</mat-label>
+          <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="applyStatusFilter(selectedStatus)">
+            <mat-option value = "all">Όλες</mat-option>
+            <mat-option value = "Εγκεκριμένη">Εγκεκριμένη</mat-option>
+            <mat-option value = "Απορρίφθηκε">Απορρίφθηκε</mat-option>
+            <mat-option value = "Εκκρεμεί">Εκκρεμεί</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <ng-container matColumnDef="lastName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Επώνυμο </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.lastName}} </mat-cell>
-      </ng-container>
+      <div class="slide-me-daddy">
+        <h3>Προβολή έμμεσα υφισταμένων:</h3>
+        <mat-slide-toggle color="primary" (change)="toggleDirectSubordinates()"></mat-slide-toggle>
+      </div>
+    </div>
 
-      <ng-container matColumnDef="leaveTitle">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Κατηγορία Άδειας </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.leaveTitle}} </mat-cell>
-      </ng-container>
 
-      <ng-container matColumnDef="submitDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Υποβολής </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.submitDate}} </mat-cell>
-      </ng-container>
+    <div class="table-container mat-elevation-z8">
+      <mat-table class="table" #table [dataSource]="dataSource" matSort >
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > Όνομα </mat-header-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.firstName}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="startDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Έναρξης </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.startDate | date: 'dd-MM-Y'}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Επώνυμο </mat-header-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.lastName}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="endDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Λήξης </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.endDate | date: 'dd-MM-Y'}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="leaveTitle">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Κατηγορία Άδειας </mat-header-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.leaveTitle}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="duration">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Διάρκεια </mat-header-cell>
-        <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.duration}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="submitDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Υποβολής </mat-header-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.submitDate}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Κατάσταση </mat-header-cell>
-        <mat-cell [ngClass]="getStatusClass(subordinatesRequests.status)" *matCellDef="let subordinatesRequests">
-          <div *ngIf="subordinatesRequests.status === 'Εγκεκριμένη'">
-            <mat-icon matTooltip="Εγκεκριμένη" color="accent">done</mat-icon>
-          </div>
-          <div *ngIf="subordinatesRequests.status === 'Απορρίφθηκε'">
-            <mat-icon matTooltip="Απορρίφθηκε" color="warn">close</mat-icon>
-          </div>
-          <div *ngIf="subordinatesRequests.status === 'Εκκρεμεί'">
-            <mat-icon matTooltip="Εκκρεμεί" id="pending">access_time</mat-icon>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Έναρξης </mat-header-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.startDate | date: 'dd-MM-Y'}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="accept" >
-        <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
-        <mat-cell   style="padding: 0; justify-content: space-around;" *matCellDef="let subordinatesRequests">
-          <mat-icon class="accept"  matTooltip="Αποδοχή" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="approveRequest(subordinatesRequests)">check_circle</mat-icon>
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="endDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Λήξης </mat-header-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.endDate | date: 'dd-MM-Y'}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="decline">
-        <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
-        <mat-cell  style="padding: 0; " *matCellDef="let subordinatesRequests">
-          <mat-icon class="decline" matTooltip="Απόρριψη" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="declineRequest(subordinatesRequests)">cancel</mat-icon>
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="duration">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Διάρκεια </mat-header-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.duration}} </mat-cell>
+        </ng-container>
 
-      <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
-      <mat-row class="header-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
-    <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Κατάσταση </mat-header-cell>
+          <mat-cell [ngClass]="getStatusClass(subordinatesRequests.status)" *matCellDef="let subordinatesRequests">
+            <div *ngIf="subordinatesRequests.status === 'Εγκεκριμένη'">
+              <mat-icon matTooltip="Εγκεκριμένη" color="accent">done</mat-icon>
+            </div>
+            <div *ngIf="subordinatesRequests.status === 'Απορρίφθηκε'">
+              <mat-icon matTooltip="Απορρίφθηκε" color="warn">close</mat-icon>
+            </div>
+            <div *ngIf="subordinatesRequests.status === 'Εκκρεμεί'">
+              <mat-icon matTooltip="Εκκρεμεί" id="pending">access_time</mat-icon>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="accept" >
+          <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
+          <mat-cell   style="padding: 0; justify-content: space-around;" *matCellDef="let subordinatesRequests">
+            <mat-icon class="accept"  matTooltip="Αποδοχή" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="approveRequest(subordinatesRequests)">check_circle</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="decline">
+          <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
+          <mat-cell  style="padding: 0; " *matCellDef="let subordinatesRequests">
+            <mat-icon class="decline" matTooltip="Απόρριψη" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="declineRequest(subordinatesRequests)">cancel</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
+        <mat-row class="header-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+      <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
+    </div>
   </div>
 </main>

@@ -8,6 +8,7 @@ import * as CryptoJS from 'crypto-js';
 import {TokenController} from './token_controller';
 import {Router} from '@angular/router';
 import {Roles} from '../models/roles.model';
+import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/common";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,9 @@ import {Roles} from '../models/roles.model';
 export class UserService extends TokenController {
 
   private secretKey = CryptoJS.enc.Utf8.parse('ba6d59d38168f98b'); // Secret key
-  private username:string = ''
-  private password:string = ''
+  private  username:string =''
+  private  password:string = ''
+  private static credentials:{username:any,password:any,token:any}
 
 
 
@@ -34,7 +36,11 @@ export class UserService extends TokenController {
     username = this.encryptData(username)
     password = this.encryptData(password)
 
+    localStorage.setItem('username',username)
+    localStorage.setItem('password',password)
+
     const credentials = { username, password }
+
 
     const newHeaders = new HttpHeaders({ 'No-Auth': 'True', 'Content-Type': 'application/json' });
 
@@ -45,11 +51,25 @@ export class UserService extends TokenController {
 
     const headers = this.createHeadersWithToken();
     const token= localStorage.getItem('token')
-    const credentials = { username:this.username, password:this.password,token:token}
 
-    //console.log(credentials)
+    UserService.credentials={username:localStorage.getItem('username'),password:localStorage.getItem('password'),token:token}
 
-    return this.http.post('url/api/auth/logout',credentials, {
+
+    UserService.credentials.username = this.decryptData(UserService.credentials.username)
+    UserService.credentials.password = this.decryptData(UserService.credentials.password)
+
+    console.log("before"  + UserService.credentials)
+
+    const inputString = UserService.credentials.username
+    const modifiedString = inputString.replace(/"([^"]*)"/g, '$1');
+    UserService.credentials.username = modifiedString
+
+
+    const inputStringpas = UserService.credentials.password
+    const modifiedStringpas = inputStringpas.replace(/"([^"]*)"/g, '$1');
+    UserService.credentials.password = modifiedStringpas
+
+    return this.http.post('url/api/auth/logout', UserService.credentials, {
       headers: headers,
       responseType: 'arraybuffer'
     }).pipe(map(response => {
@@ -57,13 +77,17 @@ export class UserService extends TokenController {
       const textDecoder = new TextDecoder('utf-8');
       const responseString = textDecoder.decode(response);
       localStorage.clear();
+      UserService.credentials.username =''
+      UserService.credentials.password =''
+      UserService.credentials.token =''
+
       this.getRouter()?.navigate(["/login"])
       return responseString;
     }));
 
   }
 
-  encryptData(data: String) {
+  encryptData(data:String):string {
 
     try {
       return CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey, {
@@ -73,6 +97,20 @@ export class UserService extends TokenController {
     } catch (e) {
       console.log(e);
       return ''
+    }
+  }
+
+  decryptData(data: string): string {
+    try {
+      const decryptedBytes = CryptoJS.AES.decrypt(data, this.secretKey, {
+        mode: CryptoJS.mode.ECB,
+        format: CryptoJS.format.OpenSSL,
+      });
+      const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
+      return decryptedText;
+    } catch (e) {
+      console.log(e);
+      return 'lathos';
     }
   }
 

@@ -23,6 +23,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   selectedStatus = 'all';
   selectedName = '';
   selectedLastName = '';
+  isDataLoaded:boolean = false;
 
   constructor(private employeeService: EmployeeService, private router:Router, private toast: NgToastService) {}
 
@@ -32,6 +33,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.subscription = this.employeeService.getAllEmployees().subscribe({
       next: data => {
         this.loadEmployees(data);
+        this.isDataLoaded = true;
       },
       error: error => {
         console.log(error);
