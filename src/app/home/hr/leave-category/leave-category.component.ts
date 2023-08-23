@@ -24,17 +24,16 @@ export class LeaveCategoryComponent implements OnInit{
   }
 
   ngOnInit() {
-
-      this.categoryService.getAllLeaveCategories().subscribe({
-        next: data => {
-          this.loadCategories(data);
-        },
-        error: err => {
-          console.log(err);
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα HR ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
-          this.router?.navigateByUrl('home/landing');
-        }
-      })
+    this.categoryService.getAllLeaveCategories().subscribe({
+      next: data => {
+        this.loadCategories(data);
+      },
+      error: err => {
+        console.log(err);
+        this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα HR ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+        this.router?.navigateByUrl('home/landing');
+      }
+    })
   }
 
   loadCategories(data: any){
