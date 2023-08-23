@@ -105,3 +105,15 @@ mat-spinner{
   transform: translate(-50%, -50%);
   background-color: white;
 }
+
+.no-data-row{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.no-data-row span{
+  font-size: 18px;
+  color: #ae5a00;
+}
