@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Employee} from "../../../models/employee.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {EmployeeService} from "../../../services/employee.service";
 import {HttpStatusCode} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-requests',
@@ -23,8 +24,7 @@ export class SubordinateListComponent {
   cell?:any;
   selectedEmployeeId?: number;
   hasData: Boolean = false;
-
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private employeeService: EmployeeService, private toast: NgToastService, private router: Router) {
     this.reloadList()
@@ -66,11 +66,14 @@ export class SubordinateListComponent {
   loadEmployees(data: any) {
     this.employees = JSON.parse(data);
     this.dataSource = new MatTableDataSource<Employee>(this.employees);
+    this.dataSource.paginator = this.paginator;
     this.dataSource.filterPredicate = function (record: { firstName: string }) {
       return record.firstName.toLocaleLowerCase();
     }
     this.isLoaded = true;
     this.hasData = (this.dataSource.filteredData.length > 0);
+    console.log(this.paginator);
+    console.log(this.dataSource.paginator);
   }
 
   getIndexClass(row: any): string {

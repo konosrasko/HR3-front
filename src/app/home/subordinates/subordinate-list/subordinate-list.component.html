@@ -1,9 +1,6 @@
-<main>
+<main [ngClass]="{'loaded': isLoaded}">
   <h1>Όλοι οι υφιστάμενοι</h1>
-  <div *ngIf="!isLoaded">
-    <mat-spinner color="primary"></mat-spinner>
-  </div>
-  <div *ngIf="isLoaded">
+  <div>
     <h2>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να δείτε τις δικαούμενες άδειες του</h2>
     <div class="filters">
       <div class="user-filter">
@@ -19,7 +16,7 @@
       </div>
     </div>
 
-      <div *ngIf="isLoaded" class="table-container mat-elevation-z8">
+      <div class="table-container mat-elevation-z8">
       <mat-table matSort #table [dataSource]="dataSource" id="table1">
 
         <!-- First Name Column -->
@@ -83,7 +80,12 @@
         <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="showLeaveBalances($event)" (click)="getRow(row)"
                  *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
+      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
       <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν υφιστάμενοι.</p>
     </div>
   </div>
 </main>
+
+<div *ngIf="!isLoaded">
+  <mat-spinner color="primary"></mat-spinner>
+</div>
