@@ -1,111 +1,112 @@
 <main>
-  <h1>Όλοι οι εργαζόμενοι</h1>
-  <div *ngIf="isDataLoaded">
-    <span>
-      <p>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</p>
-    </span>
-    <div class="table-container">
-      <div class="above-table">
-        <div class="filters">
-          <div class="status-filter">
-            <mat-form-field appearance="fill">
-              <mat-label>Κατάσταση Εργαζομένου</mat-label>
-              <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onStatusChange()">
-                <mat-option value = "all">Όλοι</mat-option>
-                <mat-option value = "enabled">Ενεργός</mat-option>
-                <mat-option value = "disabled">Ανενεργός</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="firstName-filter">
-            <mat-form-field appearance="fill">
-              <mat-label>Αναζήτηση Ονόματος</mat-label>
-              <input (keyup)="onFirstNameChange($event)" matInput placeholder="Username" #input>
-            </mat-form-field>
-          </div>
-          <div class="lastName-filter">
-            <mat-form-field appearance="fill">
-              <mat-label>Αναζήτηση Επωνύμου</mat-label>
-              <input (keyup)="onLastNameChange($event)" matInput placeholder="Username" #input>
-            </mat-form-field>
-          </div>
+  <span>
+    <h1>Όλοι οι εργαζόμενοι</h1>
+    <p>Πατήστε διπλο κλικ σε έναν εργαζόμενο για να του προσθέσετε αίτημα άδειας</p>
+  </span>
+  <div class="table-container" *ngIf="isDataLoaded">
+    <div class="above-table">
+      <div class="filters">
+        <div class="status-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Κατάσταση Εργαζομένου</mat-label>
+            <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onStatusChange()">
+              <mat-option value = "all">Όλοι</mat-option>
+              <mat-option value = "enabled">Εργαζόμενος</mat-option>
+              <mat-option value = "disabled">Απολυμένος</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <span (click)="navigateTo('add-employee')" class="add">
-          <button mat-raised-button color="primary">
-            <div class="add-employee-btn">
-              <mat-icon class="add-icon">person_add</mat-icon>
-              Προσθήκη εργαζόμενου
-            </div>
-          </button>
-        </span>
+        <div class="firstName-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Αναζήτηση Ονόματος</mat-label>
+            <input (keyup)="onFirstNameChange($event)" matInput placeholder="Username" #input>
+          </mat-form-field>
+        </div>
+        <div class="lastName-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Αναζήτηση Επωνύμου</mat-label>
+            <input (keyup)="onLastNameChange($event)" matInput placeholder="Username" #input>
+          </mat-form-field>
+        </div>
       </div>
-      <mat-table matSort #table [dataSource]="dataSource" id="table1">
-
-        <!-- First Name Column -->
-        <ng-container matColumnDef="firstName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Όνομα</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
-        </ng-container>
-
-        <!-- Last Name Column -->
-        <ng-container matColumnDef="lastName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Επώνυμο</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
-        </ng-container>
-
-        <!-- Email Column -->
-        <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
-        </ng-container>
-
-        <!-- Phone Number Column -->
-        <ng-container matColumnDef="mobileNumber">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Τηλέφωνο</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.mobileNumber }}</mat-cell>
-        </ng-container>
-
-        <!-- Address Column -->
-        <ng-container matColumnDef="address">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Διεύθυνση</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.address }}</mat-cell>
-        </ng-container>
-
-        <!-- Hire Date Column -->
-        <ng-container matColumnDef="hireDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Ημ/νία Πρόσληψης</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.hireDate | date: 'dd-MM-Y'}} </mat-cell>
-        </ng-container>
-
-        <!-- Enabled Column -->
-        <ng-container matColumnDef="enabled">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Ενεργός</mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <span
-              class="status-col {{element.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(element.enabled)}}</span></mat-cell>
-        </ng-container>
-
-        <!-- Supervisor Column -->
-        <ng-container matColumnDef="supervisorLastName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Υπεύθυνος</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.supervisorLastName }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="edit-field">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Επεξεργασία</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <mat-icon  class="icon edit"  matTooltip="Επεξεργασία" (click)="editEmployee()" color="primary">edit</mat-icon>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row [ngClass]="getIndexClass(row)" class="header-row" (dblclick)="editRequest($event)" (click)="getRow(row)" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
-        <tr class="mat-row no-data-row" *matNoDataRow>
-          <td class="mat-cell" colspan="9"><span>Δεν βρέθηκαν εγγραφές</span></td>
-        </tr>
-      </mat-table>
-      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+      <span (click)="navigateTo('add-employee')" class="add">
+        <button mat-raised-button color="primary">
+          <div class="add-employee-btn">
+            <mat-icon class="add-icon">person_add</mat-icon>
+            Προσθήκη εργαζόμενου
+          </div>
+        </button>
+      </span>
     </div>
+    <mat-table matSort #table [dataSource]="dataSource" id="table1">
+
+      <!-- First Name Column -->
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Όνομα</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+      </ng-container>
+
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Επώνυμο</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+      </ng-container>
+
+      <!-- Phone Number Column -->
+      <ng-container matColumnDef="mobileNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Τηλέφωνο</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.mobileNumber }}</mat-cell>
+      </ng-container>
+
+      <!-- Address Column -->
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Διεύθυνση</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.address }}</mat-cell>
+      </ng-container>
+
+      <!-- Hire Date Column -->
+      <ng-container matColumnDef="hireDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Ημ/νία Πρόσληψης</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.hireDate | date: 'dd-MM-Y'}} </mat-cell>
+      </ng-container>
+
+      <!-- Enabled Column -->
+      <ng-container matColumnDef="enabled">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Κατάσταση Εργαζομένου</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span
+            class="status-col {{element.enabled ? 'active' : 'inactive'}}">{{toggleContentEnabled(element.enabled)}}</span></mat-cell>
+      </ng-container>
+
+      <!-- Supervisor Column -->
+      <ng-container matColumnDef="supervisorLastName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Υπεύθυνος</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.supervisorLastName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="edit-field">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Επιλογές</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span class="choices" [id]="element.employeeId">
+            <mat-icon class="icon material-symbols-outlined" matTooltip="Επεξεργασία" (click)="editEmployee($event)" color="primary">edit</mat-icon>
+            <span *ngIf="element.enabled"><mat-icon class="icon material-symbols-outlined add-leave-icon" matTooltip="Προσθήκη άδειας" (click)="addLeaveToEmployee($event)" color="primary">event_available</mat-icon></span>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="getIndexClass(row)" class="header-row"></mat-row>
+      <tr class="mat-row no-data-row" *matNoDataRow>
+        <td class="mat-cell" colspan="9"><span>Δεν βρέθηκαν εγγραφές</span></td>
+      </tr>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
   </div>
   <div *ngIf="!isDataLoaded">
     <mat-spinner color="primary"></mat-spinner>
