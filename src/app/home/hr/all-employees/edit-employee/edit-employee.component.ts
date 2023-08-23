@@ -43,12 +43,12 @@ export class EditEmployeeComponent {
       this.selectedEmployeeId = params["employee"];
     })
     this.editEmployeeFormGroup = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      lastName: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      firstName: new FormControl('', [Validators.required,  Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ\s]*$/)]),
+      lastName: new FormControl('', [Validators.required,  Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ\s]*$/)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
       address: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      hireDate: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("^[0-9]*$")]),
+      hireDate: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ0-9\s,]*$/)]),
       enabled: new FormControl('', [Validators.required]),
       supervisorId: new FormControl('none', [Validators.required])
     })
