@@ -43,9 +43,9 @@ export class LeaveCategoryComponent implements OnInit{
       this.toast.warning({detail: 'Δεν βρέθηκαν κατηγορίες αδειών!', summary: 'Προσθέστε τουλάχιστον μία κατηγορία άδειας', position: "topRight", duration: 5000})
     }
     this.categoriesSource = new MatTableDataSource<LeaveCategory>(this.categories);
-    this.categoriesSource.filterPredicate = function (record: { categoryName: string; }, filter: string) {
-      return record.categoryName.toLocaleLowerCase() == filter.toLocaleLowerCase();
-    }
+    // this.categoriesSource.filterPredicate = function (record: { categoryName: string; }, filter: string) {
+    //   return record.categoryName.toLocaleLowerCase() == filter.toLocaleLowerCase();
+    // }
     this.isLoaded = true;
   }
 
