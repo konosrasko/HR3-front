@@ -1,7 +1,12 @@
 @import '../../../../../src/styles';
 main{
-    padding: 5vh 0 0 0;
-    margin: 5vh 0 5vh 5vw;
+  padding: 5vh 0 0 0;
+  margin: 5vh 0 5vh 5vw;
+  display: none;
+}
+
+main.loaded{
+  display: block;
 }
 
 .table-container{
@@ -49,4 +54,12 @@ a{
   /* Style for odd rows on hover */
   .header-row:nth-child(odd):hover {
     background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+  }
+
+  mat-spinner{
+    position: absolute;
+    top: 50%;
+    left: 54%;
+    transform: translate(-50%, -50%);
+    background-color: white;
   }

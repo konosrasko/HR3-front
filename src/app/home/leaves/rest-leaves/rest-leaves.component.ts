@@ -22,24 +22,24 @@ export class RestLeavesComponent  implements OnInit{
   rowId?:number
   firstName:String = ''
   lastName:String = ''
+  isLoaded: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
   constructor(private changeDetectorRef: ChangeDetectorRef, private employeeService:EmployeeService,
-              private router:Router,private route:ActivatedRoute) {
-
-  }
+              private router:Router,private route:ActivatedRoute) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params=>{
      if (params["id"]) {
         this.rowId = params["id"];
         if(this.rowId!= null){
-        this.employeeService.getLeaveBalancesOfAnotherEmployee(this.rowId).subscribe(data => {
-          this.dataSource = new MatTableDataSource<LeaveRequest>(data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.sortLastColumn();
+          this.employeeService.getLeaveBalancesOfAnotherEmployee(this.rowId).subscribe(data => {
+            this.dataSource = new MatTableDataSource<LeaveRequest>(data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            // this.sortLastColumn();
+            this.isLoaded = true;
         })
           this.firstName = params['firstName']
           this.lastName = params['lastName']
@@ -49,7 +49,8 @@ export class RestLeavesComponent  implements OnInit{
              this.dataSource = new MatTableDataSource<LeaveRequest>(data);
              this.dataSource.paginator = this.paginator;
              this.dataSource.sort = this.sort;
-             this.sortLastColumn();
+             // this.sortLastColumn();
+             this.isLoaded = true;
        })
      }
     })

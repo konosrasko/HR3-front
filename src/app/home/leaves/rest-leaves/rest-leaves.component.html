@@ -1,4 +1,4 @@
-<main>
+<main [ngClass]="{'loaded':isLoaded}">
 
   <h1>Υπόλοιπα</h1>
   <h2>{{firstName}}  {{lastName}}</h2>
@@ -33,3 +33,7 @@
 
   <a (click)="navigateTo('requests')"><u>Προβολή αιτημάτων</u></a>
 </main>
+
+<div *ngIf="!isLoaded">
+  <mat-spinner color="primary"></mat-spinner>
+</div>

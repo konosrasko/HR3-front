@@ -1,4 +1,4 @@
-<main>
+<main [ngClass]="{'loaded': isLoaded}">
   <h1>Όλοι οι λογαριασμοί</h1>
   <div class="filters">
     <div class="status-filter">
@@ -37,7 +37,7 @@
       </button>
     </div>
   </div>
-  <div class="table-container mat-elevation-z8" *ngIf="isLoaded">
+  <div class="table-container mat-elevation-z8">
     <mat-table matSort class="table" #table [dataSource]="dataSource">
       <ng-container matColumnDef="username">
         <mat-header-cell *matHeaderCellDef > Username </mat-header-cell>
@@ -74,9 +74,10 @@
       <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
       <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row;   columns: displayedColumns;"  (click)="setRowData(row)" (dblclick)="editUser()"></mat-row>
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
   </div>
-  <div *ngIf="!isLoaded">
-    <mat-spinner color="primary"></mat-spinner>
-  </div>
-
 </main>
+
+<div *ngIf="!isLoaded">
+  <mat-spinner color="primary"></mat-spinner>
+</div>

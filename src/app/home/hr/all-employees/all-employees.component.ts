@@ -17,7 +17,6 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName','edit-field'];
   dataSource?:any;
   private subscription: Subscription | undefined;
-  private selectedEmployee?: Employee;
   showContent?: string;
   supervisorLastName:string = "";
   selectedStatus = 'all';
@@ -25,20 +24,21 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
   selectedLastName = '';
   isDataLoaded:boolean = false;
 
-  constructor(private employeeService: EmployeeService, private router:Router,private toast:NgToastService) {}
+  constructor(private employeeService: EmployeeService, private router:Router, private toast: NgToastService) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
-      this.subscription = this.employeeService.getAllEmployees().subscribe({
-        next: (data) => {
-          this.loadEmployees(data);
-          this.isDataLoaded = true;
-        },
-        error: (error) => {
-          this.toast.error({detail: 'Αποτυχία!', summary: 'Υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
-        }
-      });
+    this.subscription = this.employeeService.getAllEmployees().subscribe({
+      next: data => {
+        this.loadEmployees(data);
+      },
+      error: error => {
+        console.log(error);
+        this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα HR ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
+        this.router?.navigateByUrl('home/landing');
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -51,6 +51,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.employees = JSON.parse(data);
     this.dataSource = new MatTableDataSource<Employee>(this.employees);
     this.dataSource.paginator = this.paginator;
+    this.isDataLoaded = true;
   }
 
   onStatusChange(){
@@ -115,35 +116,23 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.router?.navigateByUrl('home/hr/' + componentToOpen);
   }
 
-  editRequest(event: Event){
-    const cell = event.target as HTMLElement;
-    const rowData = this.getRowDataFromCell(cell);
-    if (rowData) {
-      //Open edit window with the selected leaveRequest as parameter
-      this.router?.navigate(['home/leaves/add'],{ queryParams: {id: rowData.employeeId, firstName: rowData.firstName, lastName: rowData.lastName}});
-    }
-  }
-
-  private getRowDataFromCell(cell: HTMLElement) {
-    const row = cell.parentElement;
-    if (row && row.parentElement) {
-      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-      return this.dataSource.data[rowIndex - 1];
-    }
-    return undefined;
-  }
-
   toggleContentEnabled(status: boolean) {
-    return this.showContent = status ? "Ενεργός" : "Ανενεργός";
+    return this.showContent = status ? "Εργαζόμενος" : "Απολυμένος";
   }
 
-  editEmployee() {
-    if (this.selectedEmployee?.employeeId) {
-      this.router?.navigate(['home/hr/edit-employee'], { queryParams: { employee: this.selectedEmployee.employeeId,supervisorLastName: this.selectedEmployee.supervisorLastName } });
+  editEmployee(event: Event) {
+    const cell = event.target as HTMLElement;
+    let cellPar = cell.parentElement
+    if(cellPar){
+      this.router?.navigate(['home/hr/edit-employee'], {queryParams: {employee: cellPar.id}});
     }
   }
 
-  getRow(row: Employee) {
-    this.selectedEmployee=row;
+  addLeaveToEmployee(event: Event){
+    const cell = event.target as HTMLElement;
+    let cellPar = cell.parentElement?.parentElement
+    if(cellPar){
+      this.router?.navigate(['home/leaves/add'], {queryParams: {id: cellPar.id}});
+    }
   }
 }
