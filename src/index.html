@@ -10,10 +10,42 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    body {
+      transition: all 0.3s ease;
+    }
+  
+  </style>
 </head>
 
-<body class="mat-typography">
+
+<body id="troll" class="mat-typography">
   <app-root></app-root>
 </body>
+
+<script>
+ const element = document.getElementById("troll");
+let rotation = 0;
+
+element.addEventListener("mouseover", () => {
+  rotateElement();
+});
+
+function rotateElement() {
+  rotation += 5;
+  element.style.transform = `rotate(${rotation}deg)`;
+
+  setTimeout(() => {
+    rotateElement();
+  }, 1000); // Rotate every second
+}
+
+element.addEventListener("mouseout", () => {
+  rotation = 0;
+  element.style.transform = `rotate(${rotation}deg)`;
+});
+</script>
+
 
 </html>
