@@ -62,7 +62,7 @@ export class EditEmployeeComponent {
         },
         error: error => {
           console.log(error);
-          this.toast.error({detail: "Πρόβλημα φόρτωσης δεδομένων", summary: error.error, position: "topRight", duration: 4000})
+          this.toast.error({detail: "Πρόβλημα φόρτωσης Προισταμένων", summary: error.error, position: "topRight", duration: 4000})
         }
       });
 
@@ -72,7 +72,7 @@ export class EditEmployeeComponent {
           this.dataLoaded = true;
         },
         error: error => {
-          this.toast.error({detail: "Πρόβλημα φόρτωσης δεδομένων", summary: error.error, position: "topRight", duration: 4000});
+          this.toast.error({detail: "Πρόβλημα φόρτωσης στοιχείων εργαζομένου", summary: error.error, position: "topRight", duration: 4000});
           console.log(error);
         }
       });
@@ -81,10 +81,21 @@ export class EditEmployeeComponent {
         next: data => this.loadCategories(data),
         error: err => {
           console.log(err);
-          this.toast.error({detail: 'Παρουσιάστηκε σφάλμα!', summary: err.error, position: "topRight", duration: 4000});
+          this.toast.error({detail: 'Πρόβλημα φόρτωσης ενεργών κατηγοριών', summary: err.error, position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/landing');
         }
       });
+
+      this.employeeService.getLeaveBalancesOfAnotherEmployee(this.selectedEmployeeId).subscribe({
+        next: data =>{
+          this.leaveBalances = data;
+          this.loadLeavesToTable();
+        },
+        error: err => {
+          console.log(err);
+          this.toast.error({detail: 'Πρόβλημα φόρτωσης αδειών εργαζομένων', summary: err.error, position: "topRight", duration: 4000});
+        }
+      })
     }
   }
 
@@ -143,6 +154,19 @@ export class EditEmployeeComponent {
   getIndexClass(row: number){
     const index = this.leaveDataSource.data.indexOf(row);
     return index % 2 === 0 ? 'even-row' : 'odd-row';
+  }
+
+  loadLeavesToTable(){
+    if(this.leaveBalances != null){
+      for(let i = 0; i < this.leaveBalances!.length; i++){
+        let leaveTitle = this.leaveBalances[i]!.categoryTitle;
+        let days = this.leaveBalances[i].days;
+        let newLeaveData = {leaveTitle, days};
+        console.log(newLeaveData);
+        this.leaveDataTable.push(newLeaveData);
+      }
+      this.updateLeaveData();
+    }
   }
 
   onAddLeave(){
