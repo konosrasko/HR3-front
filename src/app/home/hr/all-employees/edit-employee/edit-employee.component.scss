@@ -53,6 +53,17 @@ mat-form-field{
 
 }
 
+.add-leave-btn{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.add-leave-btn-options{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .btn-actions{
   display: flex;
   flex-wrap: wrap;
@@ -60,7 +71,53 @@ mat-form-field{
   justify-content: space-evenly;
 }
 
+.icon{
+  scale: 107%;
+  opacity: 90%;
+  transition: scale 0.14s ease
+}
+
+.icon:hover{
+  cursor: pointer;
+  scale: 118%;
+  transform: rotate(3deg);
+  color: rgb(114, 74, 0);
+}
+
+.bin:hover{
+  color: rgb(141, 6, 6);
+}
+
 .btn-actions *{
   margin: 10px;
+}
+
+.header *{
+  background-color: #252525;
+  color: orange;
+}
+
+.even-row {
+  background-color: #E9E9E9; /* Set the background color for even rows */
+}
+
+
+/* Add a class for odd rows */
+.odd-row {
+  background-color: #d6d4d4; /* Set the background color for odd rows */
+}
+
+.header-row {
+  transition: background-color 0.34s ease; /* Add a smooth transition effect */
+}
+
+/* Style for even rows on hover */
+.header-row.even-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+/* Style for odd rows on hover */
+.header-row.odd-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
 }
 

@@ -190,7 +190,7 @@ export class AddEmployeeComponent implements OnInit {
         if(newEmployee.employeeId != null) {
           this.employeeService.addNewLeaveBalanceToEmployee(newEmployee.employeeId, newLeaveBalance).subscribe({
             next: data => {
-              this.toast.success({detail: 'Επιτυχής προσθήκη εργαζομένου', summary: 'Ο νέος εργαζόμενοςκ και οι άδειές του προστέθηκαν με επιτυχία!', position: "topRight", duration: 5000});
+              this.toast.success({detail: 'Επιτυχής προσθήκη εργαζομένου', summary: 'Ο νέος εργαζόμενος και οι άδειές του προστέθηκαν με επιτυχία!', position: "topRight", duration: 5000});
               this.navigateTo();
             },
             error: err => {

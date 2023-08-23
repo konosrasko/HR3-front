@@ -99,27 +99,64 @@
 
       <div class="leave-details">
         <h3>Στοιχεία Αδειών Εργαζομένου</h3>
-        <mat-card-header>
-          <mat-card-title>Πίνακας με τις άδειες του</mat-card-title>
-        </mat-card-header>
-<!--        <mat-table matSort class="table" #table [dataSource]="leaveDataSource">-->
-<!--          <ng-container matColumnDef="title">-->
-<!--            <mat-header-cell *matHeaderCellDef >Κατηγορία Άδειας</mat-header-cell>-->
-<!--            <mat-cell *matCellDef="let category">{{category.leaveTitle}} </mat-cell>-->
-<!--          </ng-container>-->
-<!--          <ng-container matColumnDef="days">-->
-<!--            <mat-header-cell *matHeaderCellDef >Μέρες</mat-header-cell>-->
-<!--            <mat-cell *matCellDef="let category">{{category.days}} </mat-cell>-->
-<!--          </ng-container>-->
-<!--          <ng-container matColumnDef="options">-->
-<!--            <mat-header-cell *matHeaderCellDef >Επιλογές</mat-header-cell>-->
-<!--            <mat-cell *matCellDef="let row = index ">-->
-<!--              <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow(row)">delete_forever</mat-icon>-->
-<!--            </mat-cell>-->
-<!--          </ng-container>-->
-<!--          <mat-header-row class="header" *matHeaderRowDef="displayedColumns" ></mat-header-row>-->
-<!--          <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
-<!--        </mat-table>-->
+        <div *ngIf="!editLeaves" class= "leave-table">
+          <mat-card-header>
+            <mat-card-title>Πίνακας με τις άδειες του</mat-card-title>
+          </mat-card-header>
+          <div class= "add-leave-btn">
+            <button mat-raised-button color="primary" (click)="onClickForAddLeave()">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+              <span>Προσθήκη άδειας</span>
+            </button>
+          </div>
+          <div class="table-container mat-elevation-z8">
+            <mat-table matSort class="table" #table [dataSource]="leaveDataSource">
+              <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef >Κατηγορία Άδειας</mat-header-cell>
+                <mat-cell *matCellDef="let category">{{category.leaveTitle}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="days">
+                <mat-header-cell *matHeaderCellDef >Μέρες</mat-header-cell>
+                <mat-cell *matCellDef="let category">{{category.days}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="options">
+                <mat-header-cell *matHeaderCellDef >Επιλογές</mat-header-cell>
+                <mat-cell *matCellDef="let row = index ">
+                  <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow(row)">delete_forever</mat-icon>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row class="header" *matHeaderRowDef="displayedColumns" ></mat-header-row>
+              <mat-row [ngClass]="getIndexClass(row)" class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+        </div>
+        <div *ngIf="editLeaves && selectLeaveCategoryFormGroup != null " class="add-leave-container" [formGroup] = "selectLeaveCategoryFormGroup">
+          <mat-card-header>
+            <mat-card-title>Προσθήκη νέας άδειας στον εργαζόμενο</mat-card-title>
+          </mat-card-header>
+          <div class="leave-details">
+            <div class="all-leaves-dd">
+              <mat-form-field appearance="fill">
+                <mat-label>Κατηγορία Άδειας</mat-label>
+                <mat-select [(value)]="selectedLeaveCategory" formControlName = "title">
+                  <mat-option *ngFor="let category of leaveCategories" [value]="category.id+','+category.title">{{category.title}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="selectLeaveCategoryFormGroup!.get('title')?.hasError('required')">Το πεδίο είναι υποχρεωτικό.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="leave-days-input">
+              <mat-form-field appearance="fill" >
+                <mat-label>Ημέρες Άδειας</mat-label>
+                <input matInput formControlName = "days">
+                <mat-error *ngIf="selectLeaveCategoryFormGroup!.get('days')?.invalid">{{onLeaveDaysError()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="add-leave-btn-options">
+            <button mat-raised-button color="accent" (click)="onAddLeave()" class="button" [disabled]="!selectLeaveCategoryFormGroup!.get('title')?.valid || !selectLeaveCategoryFormGroup!.get('days')?.valid">Προσθήκη άδειας</button>
+            <button mat-raised-button color="warn" (click)="editLeaves = !editLeaves" class="button">Ακύρωση</button>
+          </div>
+        </div>
 
       </div>
 
