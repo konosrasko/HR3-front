@@ -44,7 +44,7 @@
 
 
           <br>
-          <button mat-raised-button color="accent" class="action-button" type="submit" value="Επεξεργασία"(click)="submit()" [disabled]="!leaveRequestFormGroup.valid" *ngIf="pending" style="margin:0 5vw 0 0">Αποθήκευση</button>
-          <button mat-raised-button color="warn" class="action-button" (click)="cancel()" >Επιστροφή</button> 
+          <button mat-raised-button color="accent" class="action-button" type="submit" value="Επεξεργασία"(click)="submit()" [disabled]="leaveRequestFormGroup.get('duration')?.value === 0 || !leaveRequestFormGroup.valid " *ngIf="pending" style="margin:0 5vw 0 0">Αποθήκευση</button>
+          <button mat-raised-button color="warn" class="action-button" (click)="cancel()" >Επιστροφή</button>
   </main>
 
