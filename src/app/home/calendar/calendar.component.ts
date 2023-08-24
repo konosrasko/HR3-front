@@ -126,21 +126,24 @@ export class CalendarComponent implements OnInit{
                   firstName: leave.firstName,
                   lastName: leave.lastName,
                   id: leave.leaveId !== undefined ? leave.leaveId.toString() : '',
-                  title:( leave.leaveTitle || 'Leave')+' ' +leave.firstName + ' ' + leave.lastName,
+                  title: (leave.leaveTitle || 'Leave') + ' ' + leave.firstName + ' ' + leave.lastName,
                   start: startDate,
                   end: endDate
-
                 };
               });
 
-            this.personalLeaves.push(...filteredSubordinatesLeaves);
-
-            this.personalLeaves.forEach(leaves=>{
-              if(!this.finalList.includes(leaves)){
-                this.finalList.push(leaves)
+            // Check for existing entries in personalLeaves before adding
+            filteredSubordinatesLeaves.forEach(subordinateLeave => {
+              const existingEntry = this.personalLeaves.find(
+                entry => entry.id === subordinateLeave.id
+              );
+              if (!existingEntry) {
+                this.personalLeaves.push(subordinateLeave);
               }
-            })
-            this.calendarOptions.events = this.finalList;
+            });
+
+            // Update calendar events
+            this.calendarOptions.events = this.personalLeaves;
           }
         });
       }
