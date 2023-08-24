@@ -132,8 +132,9 @@ export class EditEmployeeComponent {
         let id = this.leaveBalances[i]!.id;
         let leaveTitle = this.leaveBalances[i]!.categoryTitle;
         let days = this.leaveBalances[i].days;
+        let daysTaken = this.leaveBalances[i].daysTaken;
         let edited = 'old';
-        let newLeaveData = {id, edited, leaveTitle, days};
+        let newLeaveData = {id, edited, leaveTitle, days, daysTaken};
         this.leaveDataTable.push(newLeaveData);
       }
       this.updateLeaveData();
@@ -178,6 +179,7 @@ export class EditEmployeeComponent {
       let id = 0;
       let leaveTitle = this.selectLeaveCategoryFormGroup.get('title')?.value;
       let days: number = parseInt(this.selectLeaveCategoryFormGroup.get('days')?.value, 10);
+      let daysTaken = 0;
       let edited = 'new'
       let flag = false;
       let index = 0;
@@ -197,7 +199,7 @@ export class EditEmployeeComponent {
         this.updateLeaveData();
         this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια ενημερώθηκε με επιτυχία', position: "topRight", duration: 2000});
       }else{
-        const newLeaveData = {id, edited, leaveTitle, days};
+        const newLeaveData = {id, edited, leaveTitle, days, daysTaken};
         this.leaveDataTable.push(newLeaveData);
         this.updateLeaveData();
         this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια προστέθηκε με επιτυχία', position: "topRight", duration: 2000});
@@ -213,13 +215,14 @@ export class EditEmployeeComponent {
       let id = this.leaveDataTable[this.selectedRowOfLeaveTable].id;
       let leaveTitle = this.selectLeaveCategoryFormGroup.get('title')?.value;
       let days: number = parseInt(this.selectLeaveCategoryFormGroup.get('days')?.value, 10);
+      let daysTaken = this.leaveDataTable[this.selectedRowOfLeaveTable].daysTaken;
       let edited;
       if(this.leaveDataTable[this.selectedRowOfLeaveTable].edited !== 'new'){
         edited = 'edited';
       }else{
         edited = 'new';
       }
-      this.leaveDataTable[this.selectedRowOfLeaveTable] = {id, edited, leaveTitle, days};
+      this.leaveDataTable[this.selectedRowOfLeaveTable] = {id, edited, leaveTitle, days, daysTaken};
       this.updateLeaveData();
       this.editLeaves = false
       this.isLeaveBalanceEdited = false;
@@ -308,6 +311,7 @@ export class EditEmployeeComponent {
           editedLeaveBalance.id = this.leaveDataTable[i].id;
           editedLeaveBalance.days = this.leaveDataTable[i].days;
           editedLeaveBalance.categoryTitle = this.leaveDataTable[i].leaveTitle;
+          editedLeaveBalance.daysTaken = this.leaveDataTable[i].daysTaken;
           this.employeeService.editLeaveBalanceOfEmployee(this.employee.employeeId, editedLeaveBalance).subscribe({
             next: () => {},
             error: err => {
@@ -347,7 +351,14 @@ export class EditEmployeeComponent {
   }
 
   reloadPage(){
-    window.location.reload()
+    this.ngOnInit();
+    this.leaveDataSource = new MatTableDataSource<any>([]);
+    this.leaveDataTable = [];
+    this.isEditMode = false;
+    this.dataLoaded = false;
+    this.editLeaves = false;
+    this.isLeaveBalanceEdited = false;
+    this.toast.info({detail: 'Επαναφορά προεπιλογών', summary: 'Τα δεδομένα του εργαζομένου επαναφέρθηκαν στην αρχική τους κατάσταση!', position: "topRight", duration: 5000});
   }
 
   public myError = (controlName: string, errorName: string) => {
