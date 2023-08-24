@@ -53,6 +53,7 @@ export class CalendarComponent implements OnInit {
     eventElement.style.fontSize = '16px'; // Increase font size
     eventElement.style.padding = '3px'; // Add padding for better visibility
     eventElement.style.borderRadius = '2px'; // Add rounded corners
+    eventElement.style.whiteSpace = "normal";
     eventElement.classList.add('custom-event');
 
 
