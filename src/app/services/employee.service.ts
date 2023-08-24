@@ -70,15 +70,14 @@ export class EmployeeService extends TokenController{
     return this.http.get<Employee>('url/api/employees/' + employeeId,{headers, responseType:"text" as "json"})
   }
 
+  editLeaveBalanceOfEmployee(employeeId: number, leaveBalance: LeaveBalance){
+    const headers = this.createHeadersWithToken();
+    return this.http.put<LeaveBalance>('url/api/employees/' + employeeId + '/leavebalance', leaveBalance, {headers, responseType:"text" as "json"})
+  }
+
   deleteLeaveBalanceOfEmployee(employeeId: number, leaveBalanceId: number){
     const headers = this.createHeadersWithToken();
     const url = 'url/api/employees/' + employeeId + '/leavebalance/' + leaveBalanceId;
     return this.http.delete<LeaveBalance>(url, {headers, responseType: "text" as "json"});
   }
-
-
 }
-
-
-
-

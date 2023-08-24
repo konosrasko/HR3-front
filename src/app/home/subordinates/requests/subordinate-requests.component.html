@@ -91,7 +91,7 @@
         <mat-row class="header-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
       <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
-      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+      <mat-paginator [ngClass]="{'even': dataSource.filteredData.length%2==0}" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
     </div>
   </div>
 </main>

@@ -13,7 +13,7 @@
           <mat-card-title>Όνομα</mat-card-title>
         </mat-card-header>
         <mat-form-field>
-          <input matInput formControlName="firstName" placeholder="Όνομα">
+          <input matInput formControlName="firstName" placeholder="Όνομα" (keydown)="onEdit()">
           <mat-error *ngIf="myError('firstName','required')">Υποχρεωτικό πεδίο</mat-error>
           <mat-error *ngIf="myError('firstName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
         </mat-form-field>
@@ -22,7 +22,7 @@
           <mat-card-title>Επώνυμο</mat-card-title>
         </mat-card-header>
         <mat-form-field>
-          <input matInput formControlName="lastName" placeholder="Επίθετο">
+          <input matInput formControlName="lastName" placeholder="Επίθετο" (keydown)="onEdit()">
           <mat-error *ngIf="myError('lastName','required')">Υποχρεωτικό πεδίο</mat-error>
           <mat-error *ngIf="myError('lastName','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
         </mat-form-field>
@@ -31,7 +31,7 @@
           <mat-card-title>Διεύθυνση</mat-card-title>
         </mat-card-header>
         <mat-form-field>
-          <input matInput formControlName="address" placeholder="Address">
+          <input matInput formControlName="address" placeholder="Address" (keydown)="onEdit()">
           <mat-error *ngIf="myError('address','required')">Υποχρεωτικό πεδίο</mat-error>
           <mat-error *ngIf="myError('address','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
         </mat-form-field>
@@ -43,7 +43,7 @@
           <mat-card-title>Αριθμός Τηλεφώνου</mat-card-title>
         </mat-card-header>
         <mat-form-field>
-          <input matInput formControlName="mobileNumber" placeholder="Mobile Number">
+          <input matInput formControlName="mobileNumber" placeholder="Mobile Number" (keydown)="onEdit()">
           <mat-error *ngIf="myError('mobileNumber','required')">Υποχρεωτικό πεδίο</mat-error>
           <mat-error *ngIf="myError('mobileNumber','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
         </mat-form-field>
@@ -52,7 +52,7 @@
           <mat-card-title>Email</mat-card-title>
         </mat-card-header>
         <mat-form-field>
-          <input matInput formControlName="email" placeholder="Email">
+          <input matInput formControlName="email" placeholder="Email" (keydown)="onEdit()">
           <mat-error *ngIf="myError('email','required')">Υποχρεωτικό πεδίο</mat-error>
           <mat-error *ngIf="myError('email','maxlength')">Υπερβαίνει το όριο χαρακτήρων</mat-error>
           <mat-error *ngIf="myError('email','email')">Δεν είναι email</mat-error>
@@ -68,7 +68,7 @@
         </mat-card-header>
         <mat-form-field>
           <mat-label>Επιλογή ημερομηνίας</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="hireDate">
+          <input matInput [matDatepicker]="picker" formControlName="hireDate" (dateChange)="onEdit()">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="myError('hireDate','required')">Υποχρεωτικό πεδίο</mat-error>
@@ -79,19 +79,19 @@
           <mat-card-title>Προιστάμενος Εργαζομένου</mat-card-title>
         </mat-card-header>
         <mat-form-field>
-          <mat-select formControlName="supervisorId">
-            <mat-option value="none">Κανένας</mat-option>
+          <mat-select formControlName="supervisorId" (selectionChange)="onEdit()">
+            <mat-option value='0'>Κανένας</mat-option>
             <mat-option *ngFor="let supervisor of supervisors" [value]="supervisor.employeeId">{{ supervisor.lastName + ' ' + supervisor.firstName }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-card-header>
-          <mat-card-title>Κατάσταση Εργαζομένου</mat-card-title>
+          <mat-card-title><h3>Κατάσταση Εργαζομένου</h3></mat-card-title>
         </mat-card-header>
         <div class="slide-me-daddy">
-          <span>
-            <mat-slide-toggle color="primary" formControlName="enabled" (change)="onEdit();"></mat-slide-toggle>
-            <span class="{{enabled ? 'active' : 'inactive'}}">{{enabled ? 'Εργαζόμενος' : 'Απολυμένος'}}</span>
+          <span>Επιλέξτε:
+            <mat-slide-toggle color="primary" formControlName="enabled" (change)="onEdit(); isEmployeeEnabled = !isEmployeeEnabled"></mat-slide-toggle>
+            <span class="{{isEmployeeEnabled ? 'active' : 'inactive'}}">{{isEmployeeEnabled ? 'Εργαζόμενος' : 'Απολυμένος'}}</span>
           </span>
         </div>
 
@@ -104,7 +104,7 @@
             <mat-card-title>Πίνακας με τις άδειες του</mat-card-title>
           </mat-card-header>
           <div class= "add-leave-btn">
-            <button mat-raised-button color="primary" (click)="onClickForAddLeave()">
+            <button mat-raised-button color="primary" (click)="onClickForAddLeave(); onEdit()">
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
               <span>Προσθήκη άδειας</span>
             </button>
@@ -121,8 +121,11 @@
               </ng-container>
               <ng-container matColumnDef="options">
                 <mat-header-cell *matHeaderCellDef >Επιλογές</mat-header-cell>
-                <mat-cell *matCellDef="let row = index ">
-                  <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow(row)">delete_forever</mat-icon>
+                <mat-cell *matCellDef="let row = index;">
+                  <div class="leave-options">
+                    <mat-icon class="icon material-symbols-outlined" matTooltip="Επεξεργασία" (click)="onClickForEditALeave($event, row); onEdit();" color="primary">edit</mat-icon>
+                    <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow(row); onEdit();">delete_forever</mat-icon>
+                  </div>
                 </mat-cell>
               </ng-container>
               <mat-header-row class="header" *matHeaderRowDef="displayedColumns" ></mat-header-row>
@@ -139,7 +142,7 @@
               <mat-form-field appearance="fill">
                 <mat-label>Κατηγορία Άδειας</mat-label>
                 <mat-select [(value)]="selectedLeaveCategory" formControlName = "title">
-                  <mat-option *ngFor="let category of leaveCategories" [value]="category.id+','+category.title">{{category.title}}</mat-option>
+                  <mat-option *ngFor="let category of leaveCategories" [value]="category.title">{{category.title}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="selectLeaveCategoryFormGroup!.get('title')?.hasError('required')">Το πεδίο είναι υποχρεωτικό.</mat-error>
               </mat-form-field>
@@ -153,17 +156,17 @@
             </div>
           </div>
           <div class="add-leave-btn-options">
-            <button mat-raised-button color="accent" (click)="onAddLeave()" class="button" [disabled]="!selectLeaveCategoryFormGroup!.get('title')?.valid || !selectLeaveCategoryFormGroup!.get('days')?.valid">Προσθήκη άδειας</button>
-            <button mat-raised-button color="warn" (click)="editLeaves = !editLeaves" class="button">Ακύρωση</button>
+            <button *ngIf="!isLeaveBalanceEdited" mat-raised-button color="accent" (click)="onSavingNewLeave()" class="button" [disabled]="!selectLeaveCategoryFormGroup!.get('title')?.valid || !selectLeaveCategoryFormGroup!.get('days')?.valid">Προσθήκη άδειας</button>
+            <button *ngIf="isLeaveBalanceEdited" mat-raised-button color="accent" (click)="onSavingEditedLeave()" class="button" [disabled]="!selectLeaveCategoryFormGroup!.get('title')?.valid || !selectLeaveCategoryFormGroup!.get('days')?.valid">Αποθήκευση αλλαγών</button>
+            <button mat-raised-button color="warn" (click)="editLeaves = !editLeaves; isLeaveBalanceEdited = false;" class="button">Ακύρωση</button>
           </div>
         </div>
-
       </div>
-
     </div>
   </form>
   <div class="btn-actions">
-    <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
+    <button mat-raised-button color="accent" [disabled] = "!isEditMode || editLeaves" (click)="saveEditedEmployee()">Αποθήκευση</button>
+    <button mat-raised-button color="primary" [disabled] = "!isEditMode || editLeaves" (click)="reloadPage()">Επαναφορά επιλογών</button>
     <button mat-raised-button color="warn" (click)="cancelEdit()">Ακύρωση</button>
   </div>
 </div>

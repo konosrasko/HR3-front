@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   constructor(private userService: UserService,private router:Router) {
   }
@@ -24,6 +24,10 @@ export class AppComponent {
         console.error('Logout failed:', error);
       }
     );
+    this.router.navigate(["/login"])
+  }
+
+  ngOnInit(): void {
     this.router.navigate(["/login"])
   }
 

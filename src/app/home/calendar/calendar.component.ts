@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {CalendarOptions} from '@fullcalendar/core';
+import { Component, OnInit } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {LeaveRequestService} from "../../services/leave_request.service";
 import {EmployeeService} from "../../services/employee.service";
@@ -8,26 +8,25 @@ import {LeaveRequest} from "../../models/leave_request.model";
 import {SubordinatesReq} from "../../models/subordinatesReq.model";
 import { EventInput } from '@fullcalendar/core';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
   // styles : ['.fc-toolbar-title{background-color: pink!important;color:teal!important;}']
 })
-export class CalendarComponent implements OnInit{
+export class CalendarComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
     weekends: true,
-    events:[{
+    events: [{
       title: 'My Event',
       start: '2010-01-01',
       url: 'http://localhost:4200/home/leaves/requests'
     }],
-    eventBackgroundColor:'rgb(0,0,0)',
-    fixedWeekCount:false,
+    eventBackgroundColor: 'rgb(0,0,0)',
+    fixedWeekCount: false,
     eventColor: '#000000',
     eventClick: function (info) {
       if (info.event.url) {
@@ -35,16 +34,15 @@ export class CalendarComponent implements OnInit{
       }
     },
 
-    aspectRatio: 2.805,
-    eventContent: this.customizeEventContent.bind(this)
-
-
+    aspectRatio: 1,
+    eventContent: this.customizeEventContent.bind(this),
+    dayHeaderContent: this.translateDayHeader.bind(this),
   };
 
   finalList:any[]=[];
   myID?:number;
-  employeeId?:number
-  leaves:LeaveRequest[]=[]
+  employeeId?: number
+  leaves: LeaveRequest[] = []
   personalLeaves: any[] = [];
 
   customizeEventContent(arg: any) {
@@ -73,8 +71,7 @@ export class CalendarComponent implements OnInit{
   }
 
 
-  constructor(private leaveRequestService:LeaveRequestService,private employeeService:EmployeeService,private userService:UserService) {
-
+  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private userService: UserService) {
   }
   ngOnInit(): void {
     this.getLeaves();
@@ -86,18 +83,18 @@ export class CalendarComponent implements OnInit{
 
       this.personalLeaves.push(
         ...this.leaves
-          .filter(leave => leave.status === 'APPROVED')
-          .map(leave => {
-            const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
-            const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
+        .filter(leave => leave.status === 'APPROVED')
+        .map(leave => {
+          const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
+          const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
 
-            return {
-              id: leave.id !== undefined ? leave.id.toString() : '',
-              title: (leave.leaveTitle || 'Leave') +' '+ "ΠΡΟΣΩΠΙΚΗ ΑΔΕΙΑ",
-              start: startDate,
-              end: endDate
-            };
-          })
+          return {
+            id: leave.id !== undefined ? leave.id.toString() : '',
+            title: (leave.leaveTitle || 'Leave') +' '+ "ΠΡΟΣΩΠΙΚΗ ΑΔΕΙΑ",
+            start: startDate,
+            end: endDate
+          };
+        })
       );
 
       // After fetching leaves, call the method to get subordinate leaves
@@ -149,6 +146,20 @@ export class CalendarComponent implements OnInit{
       }
     });
   }
-
+// Μετάφραση ονόματος ημερών
+  translateDayHeader(arg: any) {
+    const eventElement = document.createElement('div');
+    eventElement.classList.add('day-header');
+    switch (arg.dow) {
+      case 1: eventElement.innerText = "Δευτέρα"; break;
+      case 2: eventElement.innerText = "Τρίτη"; break;
+      case 3: eventElement.innerText = "Τετάρτη"; break;
+      case 4: eventElement.innerText = "Πέμπτη"; break;
+      case 5: eventElement.innerText = "Παρασκευή"; break;
+      case 6: eventElement.innerText = "Σάββατο"; break;
+      case 0: eventElement.innerText = "Κυριακή"; break;
+    }
+    return { domNodes: [eventElement] };
+  }
 
 }

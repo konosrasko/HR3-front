@@ -4,30 +4,51 @@
   background-color: white;
   color: $myFixedColor;
   font-size: 25px;
-  padding: 50px;
+  padding: 5vh 5vw;
 }
 
 full-calendar{
-  background-color: $myThirdFixedColor;
-  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.8);
-  border-radius: 15px;
-
+  background-color: #D9D9D9;
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.4);
+  max-height: 69vh;
+  max-width: 950px;
+  border-radius: 8px;
+  margin: 0 auto;
 }
 .full-calendar-container ::ng-deep .fc-toolbar-title{
   margin-left: 10px;
   margin-top: 5px;
+  font-size: 20pt;
   color: orange;
 }
 .full-calendar-container::ng-deep .fc-toolbar{
   background-color: #252525;
-  margin-top: 20px;
-  height: 4em;
+  height: 11vh;
+  flex-wrap: wrap;
+}
+
+.full-calendar-container::ng-deep .fc-toolbar .fc-toolbar-chunk button{
+  height: 30px;
+  font-size: 15pt;
+  line-height: normal;
+  padding: 2px 12px;
+}
+
+.full-calendar-container::ng-deep .fc-toolbar .fc-button .fc-icon{
+  vertical-align: middle;
+  font-size: 14pt;
+  padding: 0;
+  margin: 0;
+}
+
+.full-calendar-container ::ng-deep .fc-view {
+  padding: 1vh 1vw;
+  color: #252525;
 }
 
 .full-calendar-container ::ng-deep .fc-daygrid-day:hover {
-
   background-color: #f0f0f0;
-  transition: 0.4s ease, opacity 0.5s ease;
+  transition: 0.3s ease, opacity 0.5s ease;
 }
 .full-calendar-container ::ng-deep .fc-button{
   background-color: $myFixedColor;
@@ -35,20 +56,31 @@ full-calendar{
   margin-right: 5px;
 }
 .full-calendar-container ::ng-deep .fc-button:hover:enabled{
-  background-color: #ffffff;
-  transition: 0.4s ease, opacity 0.5s ease;
+  background-color: #D9D9D9;
+  transition: 0.3s ease, opacity 0.3s ease;
 }
 .full-calendar-container::ng-deep .fc-daygrid-day-number{
+  font-size: 12pt;
   height: fit-content;
 }
 
+.full-calendar-container ::ng-deep .day-header{
+  font-size: 14pt;
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #252525;
+}
+
+.full-calendar-container ::ng-deep .fc-day-today{
+  background-color: rgba(255, 166, 0, 0.296);
+}
 
 .full-calendar-container ::ng-deep .custom-event :hover{
   transition: 0.4s ease, opacity 0.5s ease;
   background-color: #252525;
   color: $myFixedColor;
   padding: 1px;
-
 }
 
 
