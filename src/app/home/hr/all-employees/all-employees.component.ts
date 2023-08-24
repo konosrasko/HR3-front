@@ -50,10 +50,10 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
 
   loadEmployees(data: any) {
     this.employees = JSON.parse(data);
+    console.log(this.employees);
     this.dataSource = new MatTableDataSource<Employee>(this.employees);
     this.dataSource.paginator = this.paginator;
     this.isDataLoaded = true;
-    console.log(this.dataSource);
   }
 
   onStatusChange(){

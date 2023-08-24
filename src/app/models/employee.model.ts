@@ -11,7 +11,6 @@ export class Employee {
      supervisorId?: number
      supervisorLastName?:string
 
-
     constructor( firstName: string, lastName:string, email:string, mobileNumber:string,address:string, hireDate:string , isEnabled:boolean,supervisorId:number, supervisorLastName: string) {
         this.firstName = firstName;
         this.lastName = lastName;
