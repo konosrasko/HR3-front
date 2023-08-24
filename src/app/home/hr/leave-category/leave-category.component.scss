@@ -1,6 +1,13 @@
+@import '../../../../../src/styles';
+
 main{
   padding: 5vh 0 0 0;
   margin: 5vh 0 5vh 5vw;
+  display: none;
+}
+
+main.loaded{
+  display: block;
 }
 
 h1{
@@ -125,4 +132,13 @@ mat-spinner{
   left: 54%;
   transform: translate(-50%, -50%);
   background-color: white;
+}
+
+mat-paginator{
+  background-color: #d6d4d4;
+  color: $myFixedColor;
+}
+
+mat-paginator.even{
+  background-color: #E9E9E9;
 }

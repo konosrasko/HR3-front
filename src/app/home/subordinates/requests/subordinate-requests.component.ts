@@ -69,7 +69,6 @@ export class SubordinateRequestComponent implements OnInit {
     try {
       this.subordinatesRequests = JSON.parse(data);
     } catch (error) {
-      console.log("the requests have already been parsed.")
     } finally{
       if (this.subordinatesRequests) this.subordinatesRequests = this.translated(this.subordinatesRequests)
       this.dataSource = new MatTableDataSource<SubordinatesReq>(this.subordinatesRequests);

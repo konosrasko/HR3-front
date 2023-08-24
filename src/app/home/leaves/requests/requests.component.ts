@@ -29,7 +29,7 @@ export class RequestsComponent implements OnInit{
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.hasData = (this.dataSource.filteredData.length > 0);
-      // this.sortLastColumn();
+      this.sortLastColumn();
       this.isLoaded = true;
     })
   }
@@ -54,7 +54,6 @@ export class RequestsComponent implements OnInit{
     setTimeout(() => {
 
       if (this.selectedLeaveRequest.id) {
-        //console.log(this.dataSource.find(row => row.id === rowData.id);)
         //deleting the leave request
         this.isLoaded = false;
         this.leaveRequestService.deleteLeaveRequest(this.selectedLeaveRequest.id).subscribe(data => {

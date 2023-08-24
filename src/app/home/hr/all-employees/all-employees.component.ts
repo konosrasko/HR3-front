@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 import {MatPaginator} from "@angular/material/paginator";
 import {NgToastService} from "ng-angular-popup";
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-all-employees',
@@ -15,9 +16,8 @@ import {NgToastService} from "ng-angular-popup";
 export class AllEmployeesComponent implements OnInit, OnDestroy {
   employees: Employee[] = [];
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName','edit-field'];
-  dataSource?:any;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<Employee>()
   private subscription: Subscription | undefined;
-  private selectedEmployee?: Employee;
   showContent?: string;
   supervisorLastName:string = "";
   selectedStatus = 'all';
@@ -33,7 +33,6 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.subscription = this.employeeService.getAllEmployees().subscribe({
       next: data => {
         this.loadEmployees(data);
-        this.isDataLoaded = true;
       },
       error: error => {
         console.log(error);
@@ -53,6 +52,8 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.employees = JSON.parse(data);
     this.dataSource = new MatTableDataSource<Employee>(this.employees);
     this.dataSource.paginator = this.paginator;
+    this.isDataLoaded = true;
+    console.log(this.dataSource);
   }
 
   onStatusChange(){
@@ -117,15 +118,6 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.router?.navigateByUrl('home/hr/' + componentToOpen);
   }
 
-  private getRowDataFromCell(cell: HTMLElement) {
-    const row = cell.parentElement!.parentElement!.parentElement;
-    if (row && row.parentElement) {
-      const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-      return this.dataSource.data[rowIndex - 1];
-    }
-    return undefined;
-  }
-
   toggleContentEnabled(status: boolean) {
     return this.showContent = status ? "Εργαζόμενος" : "Απολυμένος";
   }
@@ -144,9 +136,5 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     if(cellPar){
       this.router?.navigate(['home/leaves/add'], {queryParams: {id: cellPar.id}});
     }
-  }
-
-  getRow(row: Employee) {
-    this.selectedEmployee=row;
   }
 }

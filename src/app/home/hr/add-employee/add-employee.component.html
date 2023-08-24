@@ -69,7 +69,10 @@
       <h2>Εισαγωγή αδειών</h2>
       <div *ngIf="!addingLeaves"  class= "leave-table">
         <div class= "add-leave-btn">
-          <button mat-raised-button color="primary" (click)="onClickForAddLeave()"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon><span>Προσθήκη άδειας</span></button>
+          <button mat-raised-button color="primary" (click)="onClickForAddLeave()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon
+            ><span>Προσθήκη άδειας</span>
+          </button>
         </div>
         <div *ngIf="hasRows" class="table-container mat-elevation-z8">
           <mat-table matSort class="table" #table [dataSource]="leaveDataSource">

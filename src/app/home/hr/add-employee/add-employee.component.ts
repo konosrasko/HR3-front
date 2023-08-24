@@ -34,17 +34,16 @@ export class AddEmployeeComponent implements OnInit {
 
   constructor(private router: Router, private employeeService: EmployeeService, private datePipe: DatePipe, private toast: NgToastService, private leaveCategoryService: LeaveCategoryService) {
     this.addEmployeeFormGroup = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^([a-zA-Zα-ωΑ-Ω]+|[\u10D0-\u10F0]+)$/)]),
-      lastName: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^([a-zA-Zα-ωΑ-Ω]+|[\u10D0-\u10F0]+)$/)]),
+      firstName: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ\s]*$/)]),
+      lastName: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ\s]*$/)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.email]),
       mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("^[0-9]*$")]),
-      address: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^([a-zA-Zα-ωΑ-Ω0-9]+|[\u10D0-\u10F0]+)$/)]),
+      address: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ0-9\s,]*$/)]),
       hireDate: new FormControl('', [Validators.required]),
       enabled: new FormControl('false'),
       supervisorId: new FormControl('', [Validators.required])
     });
   }
-
 
   ngOnInit(): void {
     if(this.token != null){
@@ -190,7 +189,7 @@ export class AddEmployeeComponent implements OnInit {
         if(newEmployee.employeeId != null) {
           this.employeeService.addNewLeaveBalanceToEmployee(newEmployee.employeeId, newLeaveBalance).subscribe({
             next: data => {
-              this.toast.success({detail: 'Επιτυχής προσθήκη εργαζομένου', summary: 'Ο νέος εργαζόμενοςκ και οι άδειές του προστέθηκαν με επιτυχία!', position: "topRight", duration: 5000});
+              this.toast.success({detail: 'Επιτυχής προσθήκη εργαζομένου', summary: 'Ο νέος εργαζόμενος και οι άδειές του προστέθηκαν με επιτυχία!', position: "topRight", duration: 5000});
               this.navigateTo();
             },
             error: err => {

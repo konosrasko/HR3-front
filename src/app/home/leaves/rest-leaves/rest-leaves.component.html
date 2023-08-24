@@ -1,4 +1,4 @@
-<main *ngIf="isLoaded">
+<main [ngClass]="{'loaded':isLoaded}">
 
   <h1>Υπόλοιπα</h1>
   <h2>{{firstName}}  {{lastName}}</h2>
@@ -28,7 +28,7 @@
       <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row class="header-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-    <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+    <mat-paginator [ngClass]="{'even': dataSource.filteredData.length%2==0}" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
   </div>
 
   <a (click)="navigateTo('requests')"><u>Προβολή αιτημάτων</u></a>

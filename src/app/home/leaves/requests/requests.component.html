@@ -1,4 +1,4 @@
-<main *ngIf="isLoaded">
+<main [ngClass]="{'loaded': isLoaded}">
     <div class="above-table">
       <span>
         <h1 style="margin-bottom: 4px;">Τα αιτήματα μου</h1>
@@ -74,12 +74,12 @@
         <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row class="header-row" *matRowDef="let row; columns: displayedColumns;" (dblclick)="editRequest()"
           (click)="setRow(row)"></mat-row>
-      </mat-table>
-        <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
-
-      </div>
-      <p *ngIf="!hasData && isLoaded" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
+        </mat-table>
+        <mat-paginator [ngClass]="{'even': dataSource.filteredData.length%2==0}" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+      
     </div>
+    <p *ngIf="!hasData && isLoaded" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
+  </div>
 </main>
 
 <div *ngIf="!isLoaded">

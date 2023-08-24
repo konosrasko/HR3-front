@@ -1,6 +1,28 @@
+h1 {
+  color: rgba(226, 135, 50, 1);
+  margin: 10px 0;
+  text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2{
+  color: rgba(226, 135, 50, 1);
+  text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}
+
+mat-form-field{
+  width: 15vw;
+}
+
 .content {
   border-radius: 10px;
-  max-width: 760px;
   padding: 5vh 5vw;
 }
 
@@ -13,100 +35,89 @@
   min-width: 270px
 }
 
-.myDetails {
-  color: black;
+.details-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.myDetails div {
-  flex-basis: 48%;
+.employee-details {
+
+}
+
+.contact-details{
+
+}
+
+.rest-details{
+
+}
+
+.add-leave-btn{
+  display: flex;
   margin-bottom: 10px;
 }
 
-.myDetails label {
-  display: block;
-  font-size: 18px;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.myDetails input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  margin-left: -10px;
-  border-radius: 5px;
-}
-
-.buttons-container {
-  display: flex;
-  justify-content: center;
+.add-leave-btn-options{
   margin-top: 20px;
-}
-
-h1 {
-  color: rgba(226, 135, 50, 1);
-  margin: 10px 0;
-  text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-h2{
-  color: rgba(226, 135, 50, 1);
-  text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-#Edit {
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-.left-details,
-.right-details {
-  flex-basis: 48%;
-}
-[disabled] {
-  opacity: 1;
-  color: rgb(203, 166, 70);
-}
-
-.details-container {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
-.details-column {
-  flex: 1;
+.btn-actions{
   display: flex;
-  flex-direction: column;
-  margin: 0 10px;
-  height: 40vh;
-  justify-content: space-between;
-}
-
-
-#btn-actions{
-  display: flex;
-  max-width: 470px;
-  width: 30vw;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
-#btn-actions *{
+.icon{
+  scale: 107%;
+  opacity: 90%;
+  transition: scale 0.14s ease
+}
+
+.icon:hover{
+  cursor: pointer;
+  scale: 118%;
+  transform: rotate(3deg);
+  color: rgb(114, 74, 0);
+}
+
+.bin:hover{
+  color: rgb(141, 6, 6);
+}
+
+.btn-actions *{
   margin: 10px;
 }
 
-mat-spinner{
-  position: absolute;
-  top: 50%;
-  left: 54%;
-  transform: translate(-50%, -50%);
-  background-color: white;
+.header *{
+  background-color: #252525;
+  color: orange;
 }
+
+.even-row {
+  background-color: #E9E9E9; /* Set the background color for even rows */
+}
+
+
+/* Add a class for odd rows */
+.odd-row {
+  background-color: #d6d4d4; /* Set the background color for odd rows */
+}
+
+.header-row {
+  transition: background-color 0.34s ease; /* Add a smooth transition effect */
+}
+
+/* Style for even rows on hover */
+.header-row.even-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+
+/* Style for odd rows on hover */
+.header-row.odd-row:hover {
+  background-color: rgba(255, 145, 0, 0.305); /* Change this to your desired color */
+}
+

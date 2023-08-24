@@ -1,9 +1,6 @@
-<main>
+<main [ngClass]="{'loaded':isLoaded}">
   <h1 >Αιτήματα υφισταμένων</h1>
-  <div *ngIf="!isLoaded">
-    <mat-spinner color="primary"></mat-spinner>
-  </div>
-  <div *ngIf="isLoaded">
+  <div>
     <div class="filters">
       <div class="status-filter">
         <mat-form-field appearance="fill">
@@ -93,8 +90,12 @@
         <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
         <mat-row class="header-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
       <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
+      <mat-paginator [ngClass]="{'even': dataSource.filteredData.length%2==0}" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
     </div>
   </div>
 </main>
+
+<div *ngIf="!isLoaded">
+  <mat-spinner color="primary"></mat-spinner>
+</div>

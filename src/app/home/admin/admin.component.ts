@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {EmployeeUser} from "../../models/employeeUser.model";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {NgToastService} from "ng-angular-popup";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-admin',
@@ -25,6 +26,8 @@ export class AdminComponent implements OnInit{
   showContent?: string;
   isLoaded: boolean = false;
   rowData ?: EmployeeUser;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   ngOnInit() {
       this.userService.getAllUserEmployees().subscribe({
@@ -41,6 +44,7 @@ export class AdminComponent implements OnInit{
   loadData(data: any){
     this.employeeUsers = JSON.parse(data);
     this.dataSource = new MatTableDataSource<EmployeeUser>(this.employeeUsers);
+    this.dataSource.paginator = this.paginator;
     this.dataSource.filterPredicate = function (record: { username: string; }, filter: string) {
       return record.username.toLocaleLowerCase() == filter.toLocaleLowerCase();
     }

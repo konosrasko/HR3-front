@@ -8,6 +8,10 @@ import {NgToastService} from "ng-angular-popup";
 import {DatePipe} from "@angular/common";
 import {HttpStatusCode} from "@angular/common/http";
 import {Supervisors} from "../../../../models/supervisors";
+import {LeaveCategory} from "../../../../models/leave-category.model";
+import {LeaveBalance} from "../../../../models/leave_balance.model";
+import {LeaveCategoryService} from "../../../../services/leave-category.service";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-edit-employee',
@@ -18,27 +22,33 @@ import {Supervisors} from "../../../../models/supervisors";
 export class EditEmployeeComponent {
   employee!: Employee;
   originalEmployee!: Employee;
-
+  leaveCategories?: LeaveCategory[];
+  leaveBalances?: LeaveBalance[];
+  leaveDataSource = new MatTableDataSource<any>([]);
   editEmployeeFormGroup: FormGroup;
+  selectLeaveCategoryFormGroup?: FormGroup;
+  leaveDataTable: any = [];
   selectedEmployeeId?: number;
   isEditMode: boolean = false;
   dataLoaded: boolean = false;
-
+  editLeaves: boolean = false;
   supervisors?: Supervisors[];
   supervisor?: Supervisors;
   enabled?: boolean;
+  displayedColumns: string[] = ['title', 'days', 'options'];
+  selectedLeaveCategory = 0;
 
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private employeeService: EmployeeService, private toast: NgToastService, private date: DatePipe) {
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private employeeService: EmployeeService, private toast: NgToastService, private date: DatePipe, private leaveCategoryService: LeaveCategoryService) {
     this.route.queryParams.subscribe(params => {
       this.selectedEmployeeId = params["employee"];
     })
     this.editEmployeeFormGroup = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      lastName: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      firstName: new FormControl('', [Validators.required,  Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ\s]*$/)]),
+      lastName: new FormControl('', [Validators.required,  Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ\s]*$/)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
       address: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      hireDate: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("^[0-9]*$")]),
+      hireDate: new FormControl('', [Validators.required, Validators.maxLength(45), Validators.pattern(/^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ0-9\s,]*$/)]),
       enabled: new FormControl('', [Validators.required]),
       supervisorId: new FormControl('none', [Validators.required])
     })
@@ -52,9 +62,9 @@ export class EditEmployeeComponent {
         },
         error: error => {
           console.log(error);
-          this.toast.error({detail: "Πρόβλημα φόρτωσης δεδομένων", summary: error.error, position: "topRight", duration: 4000})
+          this.toast.error({detail: "Πρόβλημα φόρτωσης Προισταμένων", summary: error.error, position: "topRight", duration: 4000})
         }
-      })
+      });
 
       this.employeeService.getEmployeeById(this.selectedEmployeeId).subscribe({
         next: data => {
@@ -62,10 +72,30 @@ export class EditEmployeeComponent {
           this.dataLoaded = true;
         },
         error: error => {
-          this.toast.error({detail: "Πρόβλημα φόρτωσης δεδομένων", summary: error.error, position: "topRight", duration: 4000});
+          this.toast.error({detail: "Πρόβλημα φόρτωσης στοιχείων εργαζομένου", summary: error.error, position: "topRight", duration: 4000});
           console.log(error);
         }
       });
+
+      this.leaveCategoryService.getActiveLeaveCategories().subscribe({
+        next: data => this.loadCategories(data),
+        error: err => {
+          console.log(err);
+          this.toast.error({detail: 'Πρόβλημα φόρτωσης ενεργών κατηγοριών', summary: err.error, position: "topRight", duration: 4000});
+          this.router?.navigateByUrl('home/landing');
+        }
+      });
+
+      this.employeeService.getLeaveBalancesOfAnotherEmployee(this.selectedEmployeeId).subscribe({
+        next: data =>{
+          this.leaveBalances = data;
+          this.loadLeavesToTable();
+        },
+        error: err => {
+          console.log(err);
+          this.toast.error({detail: 'Πρόβλημα φόρτωσης αδειών εργαζομένων', summary: err.error, position: "topRight", duration: 4000});
+        }
+      })
     }
   }
 
@@ -83,8 +113,76 @@ export class EditEmployeeComponent {
     this.supervisors = JSON.parse(data);
   }
 
+  loadCategories(data: any){
+    this.leaveCategories = JSON.parse(data);
+  }
+
   onEdit(){
     this.isEditMode = true;
+  }
+
+  onClickForAddLeave(){
+    this.editLeaves = true;
+    this.selectLeaveCategoryFormGroup = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      days: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")])
+    });
+  }
+
+  onDeleteRow(row: number){
+    this.leaveDataTable.splice(row, 1);
+    this.updateLeaveData();
+    this.toast.info({detail: 'Διαγραφή άδειας', summary: 'Η άδεια διαγράφτηκε με επιτυχία', position: "topRight", duration: 2000})
+  }
+
+  onLeaveDaysError(){
+    if(this.selectLeaveCategoryFormGroup != null){
+      if(this.selectLeaveCategoryFormGroup.get('days')?.hasError('maxlength')){
+        return 'Ο αριθμός είναι υπερβολικά μεγάλος';
+      }else if(this.selectLeaveCategoryFormGroup.get('days')?.hasError('required')){
+        return 'Το πεδίο είναι υποχρεωτικό';
+      }else if(this.selectLeaveCategoryFormGroup.get('days')?.hasError('pattern')){
+        return 'Πρέπει να εισάγεις μόνο αριθμούς';
+      }else {
+        return '';
+      }
+    }else {
+      return '';
+    }
+  }
+
+  getIndexClass(row: number){
+    const index = this.leaveDataSource.data.indexOf(row);
+    return index % 2 === 0 ? 'even-row' : 'odd-row';
+  }
+
+  loadLeavesToTable(){
+    if(this.leaveBalances != null){
+      for(let i = 0; i < this.leaveBalances!.length; i++){
+        let leaveTitle = this.leaveBalances[i]!.categoryTitle;
+        let days = this.leaveBalances[i].days;
+        let newLeaveData = {leaveTitle, days};
+        console.log(newLeaveData);
+        this.leaveDataTable.push(newLeaveData);
+      }
+      this.updateLeaveData();
+    }
+  }
+
+  onAddLeave(){
+    if(this.selectLeaveCategoryFormGroup != null){
+      let valueSplit = this.selectLeaveCategoryFormGroup.get('title')?.value.split(',');
+      let leaveTitle: string = valueSplit[1];
+      let days: number = this.selectLeaveCategoryFormGroup.get('days')?.value;
+
+      const newLeaveData = {leaveTitle, days};
+
+      this.leaveDataTable.push(newLeaveData);
+      this.updateLeaveData();
+
+      this.editLeaves = false
+      this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια προστέθηκε με επιτυχία', position: "topRight", duration: 2000})
+    }
   }
 
   saveDetails() {
@@ -95,7 +193,6 @@ export class EditEmployeeComponent {
       this.userService.saveEmployeeDetails(this.employee).subscribe({
         next: () => {
           this.isEditMode = false;
-          this.editEmployeeFormGroup.disable();
           this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία των στοιχείων σας έγινε με επιτυχία!', position: "topRight", duration: 5000});
         },
         error: error => {
@@ -111,6 +208,10 @@ export class EditEmployeeComponent {
 
   cancelEdit() {
     this.router?.navigateByUrl('home/hr/all-employees');
+  }
+
+  updateLeaveData(){
+    this.leaveDataSource.data = this.leaveDataTable;
   }
 
   public myError = (controlName: string, errorName: string) => {
