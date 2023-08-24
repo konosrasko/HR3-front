@@ -55,12 +55,15 @@ export class SubordinateProfileComponent implements OnInit {
     if (this.myForm.valid) {
       this.employee = this.myForm.value;
       this.employee.employeeId = this.originalEmployee.employeeId;
+      this.employee.supervisorId = this.originalEmployee.supervisorId;
+      this.employee.enabled = this.originalEmployee.enabled;
       this.employee.hireDate = this.date.transform(this.employee.hireDate, 'yyyy-MM-dd');
       this.userService.saveEmployeeDetails(this.employee).subscribe({
         next: () => {
           this.isEditMode = false;
           this.myForm.disable();
           this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία των στοιχείων σας έγινε με επιτυχία!', position: "topRight", duration: 5000});
+          this.router.navigateByUrl('home/subordinates/list')
         },
         error: error => {
           if(error.status === HttpStatusCode.GatewayTimeout){
