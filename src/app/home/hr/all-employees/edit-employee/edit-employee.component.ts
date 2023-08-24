@@ -295,7 +295,6 @@ export class EditEmployeeComponent {
           newLeaveBalance.days = this.leaveDataTable[i].days;
           newLeaveBalance.daysTaken = 0;
           newLeaveBalance.categoryTitle = this.leaveDataTable[i].leaveTitle;
-          console.log(newLeaveBalance);
           this.employeeService.addNewLeaveBalanceToEmployee(this.employee.employeeId, newLeaveBalance).subscribe({
             next: () => {
             },
@@ -309,7 +308,6 @@ export class EditEmployeeComponent {
           editedLeaveBalance.id = this.leaveDataTable[i].id;
           editedLeaveBalance.days = this.leaveDataTable[i].days;
           editedLeaveBalance.categoryTitle = this.leaveDataTable[i].leaveTitle;
-          console.log(editedLeaveBalance);
           this.employeeService.editLeaveBalanceOfEmployee(this.employee.employeeId, editedLeaveBalance).subscribe({
             next: () => {},
             error: err => {
@@ -318,7 +316,6 @@ export class EditEmployeeComponent {
             }
           });
         }else if(this.leaveDataTable[i].edited === 'deleted'){
-          console.log(this.leaveDataTable[i]);
           this.employeeService.deleteLeaveBalanceOfEmployee(this.employee.employeeId, this.leaveDataTable[i].id).subscribe({
             next: () => {},
             error: err => {
