@@ -11,6 +11,7 @@ import { LeaveRequestService } from 'src/app/services/leave_request.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { LeaveBalance } from 'src/app/models/leave_balance.model';
+import {coerceStringArray} from "@angular/cdk/coercion";
 
 @Component({
   selector: 'app-edit',
@@ -139,21 +140,61 @@ export class EditComponent {
     };
   }
 
-  getDurationWithoutWeekends(startDate: Date, endDate: Date): number {
-    const oneDay = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
-    let duration = 0;
-    let currentDate = startDate;
+  // initializeMap()
+  // {
+  //   this.hashmap.set(1,31)
+  //   this.hashmap.set(2,28)
+  //   this.hashmap.set(3,31)
+  //   this.hashmap.set(4,30)
+  //   this.hashmap.set(5,31)
+  //   this.hashmap.set(6,30)
+  //   this.hashmap.set(7,31)
+  //   this.hashmap.set(8,31)
+  //   this.hashmap.set(9,30)
+  //   this.hashmap.set(10,31)
+  //   this.hashmap.set(11,30)
+  //   this.hashmap.set(12,31)
+  //
+  // }
 
-    while (currentDate <= endDate) {
-      const dayOfWeek = currentDate.getDay();
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-        // Exclude Sunday (0) and Saturday (6)
-        duration++;
-      }
-      currentDate = new Date(currentDate.getTime() + oneDay);
+  getDurationWithoutWeekends(startDate: Date, endDate: Date): number {
+    let duration = Math.abs(startDate.getTime() - endDate.getTime())
+    if(duration == 0 )
+    {
+      duration = duration + 1
+    }
+    let durationDays = Math.ceil(duration / (1000*24*3600)) + 1
+    console.log(durationDays + "hmeres diafora")
+    let answer = 0
+    let startDayOfWeek = startDate.getDay()
+    let endDayOfWeek = endDate.getDay()
+    if(startDayOfWeek > 6)
+    {
+      startDayOfWeek = 0
+      console.log("mhdenistika??" + startDayOfWeek)
     }
 
-    return duration;
+
+   while (durationDays > 0) {
+     if(startDayOfWeek > 6)
+     {
+       startDayOfWeek = 0
+       console.log("mhdenistika??" + startDayOfWeek)
+     }
+
+     if (startDayOfWeek >= 1 && startDayOfWeek <6) {
+       // Exclude Sunday (0) and Saturday (6)
+       answer++;
+       console.log("hmera" + startDayOfWeek)
+     }
+
+
+     startDayOfWeek = startDayOfWeek + 1
+     durationDays--
+    }
+
+      console.log("h arxikh " + startDate.getDay())
+      return answer;
   }
 
   submit() {
