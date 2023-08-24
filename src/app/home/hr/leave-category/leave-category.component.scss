@@ -67,7 +67,13 @@ h1{
 
 .filters{
   display: flex;
+  justify-content: space-between;
   margin-right: 5vw;
+}
+
+.left-filter{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .status-filter{
@@ -82,15 +88,22 @@ h1{
 }
 
 .add-btn{
-  margin-top: 15px;
+  margin-top: 20px;
   padding-top: 15px;
   margin-left: 10px;
-  justify-content: flex-end;
 }
 
-.add-btn button div{
+.add-category-btn{
   display: flex;
   justify-content: space-evenly;
+}
+
+.add-category-btn mat-icon{
+  margin-top: 5px;
+}
+
+.add-category-btn span{
+  margin-left: 5px;
 }
 
 .icon{

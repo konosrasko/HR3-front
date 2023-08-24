@@ -2,27 +2,29 @@
   <h1>Κατηγορίες Αδειών Εργαζομένων</h1>
   <div>
     <div class="filters">
-      <div class="status-filter">
-        <mat-form-field appearance="fill">
-          <mat-label>Κατάσταση Κατηγορίας</mat-label>
-          <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus()">
-            <mat-option value = "all">Όλες</mat-option>
-            <mat-option value = "enabled">Ενεργές</mat-option>
-            <mat-option value = "disabled">Ανενεργές</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="title-filter">
-        <mat-form-field appearance="fill">
-          <mat-label>Αναζήτηση τίτλου άδειας</mat-label>
-          <input (keyup)="onTitleChange($event)" matInput placeholder="Τίτλος" #input>
-        </mat-form-field>
+      <div class="left-filter">
+        <div class="status-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Κατάσταση Κατηγορίας</mat-label>
+            <mat-select [(value)]="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus()">
+              <mat-option value = "all">Όλες</mat-option>
+              <mat-option value = "enabled">Ενεργές</mat-option>
+              <mat-option value = "disabled">Ανενεργές</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="title-filter">
+          <mat-form-field appearance="fill">
+            <mat-label>Αναζήτηση τίτλου άδειας</mat-label>
+            <input (keyup)="onTitleChange($event)" matInput placeholder="Τίτλος" #input>
+          </mat-form-field>
+        </div>
       </div>
       <div class="add-btn">
-        <button mat-raised-button color = "primary" (click)="navigateTo('add-category')" >
-          <div>
-            <mat-icon class = "material-symbols-outlined" matTooltip = "Προσθήκη Κατηγορίας">add</mat-icon>
-            <span>Προσθήκη Άδειας</span>
+        <button mat-raised-button color="primary" (click)="navigateTo('add-category')">
+          <div class="add-category-btn">
+            <mat-icon class="add-icon">add</mat-icon>
+            <span>Προσθήκη Κατηγορίας</span>
           </div>
         </button>
       </div>
