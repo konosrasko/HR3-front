@@ -1,14 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {CalendarOptions} from '@fullcalendar/core';
+import { Component, OnInit } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {LeaveRequestService} from "../../services/leave_request.service";
-import {EmployeeService} from "../../services/employee.service";
-import {UserService} from "../../services/user.service";
-import {LeaveRequest} from "../../models/leave_request.model";
-
-
-
-
+import { LeaveRequestService } from "../../services/leave_request.service";
+import { EmployeeService } from "../../services/employee.service";
+import { UserService } from "../../services/user.service";
+import { LeaveRequest } from "../../models/leave_request.model";
 
 @Component({
   selector: 'app-root',
@@ -16,19 +12,19 @@ import {LeaveRequest} from "../../models/leave_request.model";
   styleUrls: ['./calendar.component.scss']
   // styles : ['.fc-toolbar-title{background-color: pink!important;color:teal!important;}']
 })
-export class CalendarComponent implements OnInit{
+export class CalendarComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
     weekends: true,
-    events:[{
+    events: [{
       title: 'My Event',
       start: '2010-01-01',
       url: 'http://localhost:4200/home/leaves/requests'
     }],
-    eventBackgroundColor:'rgb(0,0,0)',
-    fixedWeekCount:false,
+    eventBackgroundColor: 'rgb(0,0,0)',
+    fixedWeekCount: false,
     eventColor: '#000000',
     eventClick: function (info) {
       if (info.event.url) {
@@ -36,15 +32,14 @@ export class CalendarComponent implements OnInit{
       }
     },
 
-    aspectRatio: 2.805,
-    eventContent: this.customizeEventContent.bind(this)
-
-
+    aspectRatio: 1,
+    eventContent: this.customizeEventContent.bind(this),
+    dayHeaderContent: this.translateDayHeader.bind(this),
   };
 
 
-  employeeId?:number
-  leaves:LeaveRequest[]=[]
+  employeeId?: number
+  leaves: LeaveRequest[] = []
 
   customizeEventContent(arg: any) {
     const eventElement = document.createElement('div');
@@ -72,42 +67,47 @@ export class CalendarComponent implements OnInit{
   }
 
 
-  constructor(private leaveRequestService:LeaveRequestService,private employeeService:EmployeeService,private userService:UserService) {
+  constructor(private leaveRequestService: LeaveRequestService, private employeeService: EmployeeService, private userService: UserService) {
   }
   ngOnInit(): void {
-
     this.getLeaves();
-
-
   }
-
-  changes(){
-    //const el = #('<main></main>');
-  }
-
 
   getLeaves() {
     this.leaveRequestService.getCalendarLeaveRequests().subscribe(data => {
       this.leaves = data;
 
       this.calendarOptions.events = this.leaves
-          .filter(leave => leave.status === 'APPROVED') // Filter accepted events
-          .map(leave => {
-            const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
-            const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
+        .filter(leave => leave.status === 'APPROVED') // Filter accepted events
+        .map(leave => {
+          const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
+          const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
 
-            return {
-              id: leave.id !== undefined ? leave.id.toString():'',
-              title: leave.leaveTitle || 'Leave',
-              start: startDate,
-              end: endDate
-            };
-          });
+          return {
+            id: leave.id !== undefined ? leave.id.toString() : '',
+            title: leave.leaveTitle || 'Leave',
+            start: startDate,
+            end: endDate
+          };
+        });
     });
   }
 
-
-
+  // Μετάφραση ονόματος ημερών
+  translateDayHeader(arg: any) {
+    const eventElement = document.createElement('div');
+    eventElement.classList.add('day-header');
+    switch (arg.dow) {
+      case 1: eventElement.innerText = "Δευτέρα"; break;
+      case 2: eventElement.innerText = "Τρίτη"; break;
+      case 3: eventElement.innerText = "Τετάρτη"; break;
+      case 4: eventElement.innerText = "Πέμπτη"; break;
+      case 5: eventElement.innerText = "Παρασκευή"; break;
+      case 6: eventElement.innerText = "Σάββατο"; break;
+      case 0: eventElement.innerText = "Κυριακή"; break;
+    }
+    return { domNodes: [eventElement] };
+  }
 
   // getLeaveHistoryFromUser(employeeId: number): void {
   //   this.leaveRequestService.getCalendarLeaveRequests().subscribe(data => {
