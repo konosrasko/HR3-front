@@ -44,7 +44,7 @@
           <td class="mat-cell" colspan="3"><span>Δεν βρέθηκαν κατηγορίες αδειών</span></td>
         </tr>
       </mat-table>
-      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+      <mat-paginator [ngClass]="{'even': (categoriesSource.filteredData.length)% 2 == 0 || categoriesSource.filteredData.length>4}" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
     </div>
   </div>
 </main>
