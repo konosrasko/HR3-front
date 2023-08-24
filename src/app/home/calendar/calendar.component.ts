@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
     eventBackgroundColor: 'rgb(0,0,0)',
     fixedWeekCount: false,
     eventColor: '#000000',
-    eventClick: function (info) {
+    eventClick: (info) => {
       if (info.event.url) {
         window.open(info.event.url);
       }
@@ -48,24 +48,26 @@ export class CalendarComponent implements OnInit {
   customizeEventContent(arg: any) {
     const eventElement = document.createElement('div');
     eventElement.classList.add('custom-event');
-    eventElement.style.backgroundColor = 'darkorange'; // Change background color to orange
-    eventElement.style.color = 'white'; // Set text color to white
-    eventElement.style.fontSize = '16px'; // Increase font size
-    eventElement.style.padding = '3px'; // Add padding for better visibility
-    eventElement.style.borderRadius = '2px'; // Add rounded corners
+    eventElement.style.backgroundColor = 'darkorange';
+    eventElement.style.color = 'white';
+    eventElement.style.fontSize = '16px';
+    eventElement.style.padding = '3px';
+    eventElement.style.borderRadius = '2px';
+    eventElement.style.whiteSpace = "normal";
     eventElement.classList.add('custom-event');
 
-
-    const eventLink = document.createElement('a'); // Create a clickable link element
-    eventLink.href = `http://localhost:4200/home/leaves/edit?id=${arg.event.id}` // Set the URL for the link
-    eventLink.style.textDecoration = 'none'; // Remove underline
+    const eventLink = document.createElement('a');
+    eventLink.href = `http://localhost:4200/home/leaves/edit?id=${arg.event.id}`;
+    eventLink.style.textDecoration = 'none';
 
     const eventTitle = document.createElement('div');
-    eventTitle.innerText = arg.event.title ;
+    eventTitle.innerText = arg.event.title;
     eventElement.appendChild(eventTitle);
 
     eventLink.appendChild(eventTitle);
     eventElement.appendChild(eventLink);
+
+    console.log('Event ID:', arg.event.id);
 
     return { domNodes: [eventElement] };
   }

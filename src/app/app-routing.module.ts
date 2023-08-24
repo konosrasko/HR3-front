@@ -43,7 +43,7 @@ const routes: Routes = [
               {path: 'edit-category', component: EditCategoryComponent}
             ]}
         ]},
-      {path: 'calendar',component: CalendarComponent},
+      { path: 'calendar',component: CalendarComponent},
       { path: 'MyDetails', component: MyDetailsComponent },
       { path: 'landing', component: LandingComponent },
       { path: 'subordinates', component: SubordinatesComponent},
