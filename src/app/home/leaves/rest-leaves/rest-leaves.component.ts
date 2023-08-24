@@ -38,7 +38,7 @@ export class RestLeavesComponent  implements OnInit{
             this.dataSource = new MatTableDataSource<LeaveRequest>(data);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            // this.sortLastColumn();
+            this.sortLastColumn();
             this.isLoaded = true;
         })
           this.firstName = params['firstName']
@@ -49,13 +49,11 @@ export class RestLeavesComponent  implements OnInit{
              this.dataSource = new MatTableDataSource<LeaveRequest>(data);
              this.dataSource.paginator = this.paginator;
              this.dataSource.sort = this.sort;
-             // this.sortLastColumn();
+             this.sortLastColumn();
              this.isLoaded = true;
        })
      }
     })
-
-
   }
 
   ngAfterViewInit() {

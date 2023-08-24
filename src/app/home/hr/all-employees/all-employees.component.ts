@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 import {MatPaginator} from "@angular/material/paginator";
 import {NgToastService} from "ng-angular-popup";
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-all-employees',
@@ -15,7 +16,7 @@ import {NgToastService} from "ng-angular-popup";
 export class AllEmployeesComponent implements OnInit, OnDestroy {
   employees: Employee[] = [];
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'mobileNumber', 'address', 'hireDate', 'enabled', 'supervisorLastName','edit-field'];
-  dataSource?:any;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<Employee>()
   private subscription: Subscription | undefined;
   showContent?: string;
   supervisorLastName:string = "";
@@ -52,6 +53,7 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource<Employee>(this.employees);
     this.dataSource.paginator = this.paginator;
     this.isDataLoaded = true;
+    console.log(this.dataSource);
   }
 
   onStatusChange(){
