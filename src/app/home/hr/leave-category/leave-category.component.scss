@@ -88,13 +88,9 @@ h1{
   justify-content: flex-end;
 }
 
-.add-btn button{
-  width: auto;
-  height: 50px;
-}
-
-.add-btn button mat-icon{
-  padding: 5px;
+.add-btn button div{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .icon{
