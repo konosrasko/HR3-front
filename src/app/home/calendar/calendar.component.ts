@@ -5,9 +5,8 @@ import {LeaveRequestService} from "../../services/leave_request.service";
 import {EmployeeService} from "../../services/employee.service";
 import {UserService} from "../../services/user.service";
 import {LeaveRequest} from "../../models/leave_request.model";
-
-
-
+import {SubordinatesReq} from "../../models/subordinatesReq.model";
+import { EventInput } from '@fullcalendar/core';
 
 
 @Component({
@@ -42,9 +41,11 @@ export class CalendarComponent implements OnInit{
 
   };
 
-
+  finalList:any[]=[];
+  myID?:number;
   employeeId?:number
   leaves:LeaveRequest[]=[]
+  personalLeaves: any[] = [];
 
   customizeEventContent(arg: any) {
     const eventElement = document.createElement('div');
@@ -62,7 +63,7 @@ export class CalendarComponent implements OnInit{
     eventLink.style.textDecoration = 'none'; // Remove underline
 
     const eventTitle = document.createElement('div');
-    eventTitle.innerText = arg.event.title + ' (' + arg.event.start.toLocaleDateString() + ')';
+    eventTitle.innerText = arg.event.title ;
     eventElement.appendChild(eventTitle);
 
     eventLink.appendChild(eventTitle);
@@ -73,51 +74,78 @@ export class CalendarComponent implements OnInit{
 
 
   constructor(private leaveRequestService:LeaveRequestService,private employeeService:EmployeeService,private userService:UserService) {
+
   }
   ngOnInit(): void {
-
     this.getLeaves();
-
-
   }
 
-  changes(){
-    //const el = #('<main></main>');
-  }
-
-
-  getLeaves() {
+  getLeaves(): any {
     this.leaveRequestService.getCalendarLeaveRequests().subscribe(data => {
       this.leaves = data;
 
-      this.calendarOptions.events = this.leaves
-          .filter(leave => leave.status === 'APPROVED') // Filter accepted events
+      this.personalLeaves.push(
+        ...this.leaves
+          .filter(leave => leave.status === 'APPROVED')
           .map(leave => {
             const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
             const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
 
             return {
-              id: leave.id !== undefined ? leave.id.toString():'',
-              title: leave.leaveTitle || 'Leave',
+              id: leave.id !== undefined ? leave.id.toString() : '',
+              title: (leave.leaveTitle || 'Leave') +' '+ "ΠΡΟΣΩΠΙΚΗ ΑΔΕΙΑ",
               start: startDate,
               end: endDate
             };
-          });
+          })
+      );
+
+      // After fetching leaves, call the method to get subordinate leaves
+      this.getSubsLeaves();
+    });
+  }
+
+  getSubsLeaves(): any {
+    // Fetch subordinates' leaves
+    this.leaveRequestService.getAllSubordinatesReq().subscribe({
+      next: subordinatesData => {
+        const subordinatesLeaves: SubordinatesReq[] = JSON.parse(subordinatesData.toString());
+
+        // Fetch logged-in user's details
+        this.userService.getEmployeeDetails().subscribe({
+          next: userDetails => {
+            this.myID = userDetails.employeeId;
+
+            // Filter and map subordinates' leaves
+            const filteredSubordinatesLeaves = subordinatesLeaves
+              .filter(leave => leave.status === 'APPROVED' && this.myID !== leave.employeeId)
+              .map(leave => {
+                const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
+                const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
+                return {
+                  firstName: leave.firstName,
+                  lastName: leave.lastName,
+                  id: leave.leaveId !== undefined ? leave.leaveId.toString() : '',
+                  title:( leave.leaveTitle || 'Leave')+' ' +leave.firstName + ' ' + leave.lastName,
+                  start: startDate,
+                  end: endDate
+
+                };
+              });
+
+            this.personalLeaves.push(...filteredSubordinatesLeaves);
+
+            this.personalLeaves.forEach(leaves=>{
+              if(!this.finalList.includes(leaves)){
+                this.finalList.push(leaves)
+              }
+            })
+            this.calendarOptions.events = this.finalList;
+          }
+        });
+      }
     });
   }
 
 
-
-
-  // getLeaveHistoryFromUser(employeeId: number): void {
-  //   this.leaveRequestService.getCalendarLeaveRequests().subscribe(data => {
-  //     this.calendarOptions.events = data
-  //         .filter(leaveRequest => leaveRequest.id === employeeId)
-  //         .map(leaveRequest => ({
-  //           title: leaveRequest.leaveTitle || 'Leave',
-  //           start: leaveRequest.startDate as string,
-  //           end: leaveRequest.endDate as string
-  //         }));
-  //   });
-  // }
 }
