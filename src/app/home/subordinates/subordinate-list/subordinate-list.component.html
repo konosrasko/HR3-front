@@ -85,7 +85,7 @@
           <td class="mat-cell" colspan="9"><span>Δεν βρέθηκαν εγγραφές</span></td>
         </tr>
       </mat-table>
-      <mat-paginator [ngClass]="{'even': dataSource.filteredData.length%2==0}" [ngClass]="{'even': dataSource.filteredData.length%2==0}" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+      <mat-paginator [ngClass]="{'even': dataSource.filteredData.length % 2 == 0}" [length]="dataSource.data.length" [pageSize]="4" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
 
     </div>
   </div>
