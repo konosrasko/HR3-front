@@ -128,3 +128,16 @@ mat-paginator{
 mat-paginator.even{
   background-color: #E9E9E9;
 }
+
+.icon{
+  scale: 107%;
+  opacity: 90%;
+  transition: scale 0.14s ease
+}
+
+.icon:hover{
+  cursor: pointer;
+  scale: 118%;
+  transform: rotate(3deg);
+  color: rgb(114, 74, 0);
+}

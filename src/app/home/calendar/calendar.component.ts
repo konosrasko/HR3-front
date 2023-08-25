@@ -92,7 +92,7 @@ export class CalendarComponent implements OnInit {
 
           return {
             id: leave.id !== undefined ? leave.id.toString() : '',
-            title: (leave.leaveTitle || 'Leave') +' '+ "ΠΡΟΣΩΠΙΚΗ ΑΔΕΙΑ",
+            title: (leave.leaveTitle || 'Leave'),
             start: startDate,
             end: endDate
           };
