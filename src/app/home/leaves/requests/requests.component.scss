@@ -1,4 +1,5 @@
 @import '../../../../../src/styles';
+
 main{
     padding: 5vh 0 0 0;
     margin: 5vh 0 5vh 5vw;
@@ -46,6 +47,7 @@ h1{
   transition: opacity 0.14s ease;
 }
 
+
 .add:hover mat-icon{
   opacity: 84%;
   fill: red;
@@ -86,8 +88,14 @@ h1{
 .icon-container{
   display: flex;
   justify-content: space-evenly !important;
+  fill: $myFixedColor;
 }
 
+.disabled-icon {
+  fill: $myThirdFixedColor;
+  pointer-events: none;
+  color: $myThirdFixedColor !important;
+}
 .icon{
   scale: 107%;
   opacity: 90%;
