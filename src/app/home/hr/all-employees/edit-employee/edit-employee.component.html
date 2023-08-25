@@ -124,7 +124,7 @@
                 <mat-cell *matCellDef="let row = index;">
                   <div class="leave-options">
                     <mat-icon class="icon material-symbols-outlined" matTooltip="Επεξεργασία" (click)="onClickForEditALeave($event, row); onEdit();" color="primary">edit</mat-icon>
-                    <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow(row); onEdit();">delete_forever</mat-icon>
+                    <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow($event, row); onEdit();">delete_forever</mat-icon>
                   </div>
                 </mat-cell>
               </ng-container>

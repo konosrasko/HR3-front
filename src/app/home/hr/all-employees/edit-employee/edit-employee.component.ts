@@ -247,14 +247,22 @@ export class EditEmployeeComponent {
     }
   }
 
-  onDeleteRow(row: number){
-    if(this.leaveDataTable[row].edited === 'old'){
-      this.leaveDataTable[row].edited = 'deleted';
-    }else{
-      this.leaveDataTable.splice(row, 1);
+  onDeleteRow(event: Event, row: number){
+    const cell = event.target as HTMLElement;
+    const rowData = this.getRowDataFromCell(cell);
+    if(rowData){
+      for(let i = 0; i < this.leaveDataTable.length; i++){
+        if(this.leaveDataTable[i].leaveTitle == rowData.leaveTitle && this.leaveDataTable[i].days == rowData.days ){
+          if(this.leaveDataTable[i].edited === 'old' || this.leaveDataTable[i].edited === 'edited'){
+            this.leaveDataTable[i].edited = 'deleted';
+          }else{
+            this.leaveDataTable.splice(i, 1);
+          }
+        }
+      }
+      this.updateLeaveData();
+      this.toast.info({detail: 'Διαγραφή άδειας', summary: 'Η άδεια διαγράφτηκε με επιτυχία', position: "topRight", duration: 2000})
     }
-    this.updateLeaveData();
-    this.toast.info({detail: 'Διαγραφή άδειας', summary: 'Η άδεια διαγράφτηκε με επιτυχία', position: "topRight", duration: 2000})
   }
 
   getRowDataFromCell(cell: HTMLElement) {
@@ -342,10 +350,12 @@ export class EditEmployeeComponent {
 
   updateLeaveData(){
     let newLeaveData = [...this.leaveDataTable];
-    for(let i = 0; i < this.leaveDataTable.length; i++){
-      if(this.leaveDataTable[i].edited === 'deleted'){
-        newLeaveData.splice(i, 1);
-      }
+    for(let i = 0; i < 2; i++){
+      newLeaveData.forEach((value, index) => {
+        if(value.edited === 'deleted'){
+          newLeaveData.splice(index, 1);
+        }
+      });
     }
     this.leaveDataSource.data = newLeaveData;
   }
