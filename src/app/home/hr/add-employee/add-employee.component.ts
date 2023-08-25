@@ -31,6 +31,8 @@ export class AddEmployeeComponent implements OnInit {
   leaveDataSource = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['title', 'days', 'options'];
   selectedLeaveCategory = 0;
+  selectedRowOfLeaveTable = 0;
+  isLeaveBalanceEdited = false;
 
   constructor(private router: Router, private employeeService: EmployeeService, private datePipe: DatePipe, private toast: NgToastService, private leaveCategoryService: LeaveCategoryService) {
     this.addEmployeeFormGroup = new FormGroup({
@@ -127,20 +129,72 @@ export class AddEmployeeComponent implements OnInit {
     });
   }
 
+  onClickForEditALeave(event: Event, row: number){
+    const cell = event.target as HTMLElement;
+    const rowData = this.getRowDataFromCell(cell);
+    this.isLeaveBalanceEdited = true;
+    if(rowData){
+      this.selectedRowOfLeaveTable = row;
+      this.addingLeaves = true;
+      this.selectLeaveCategoryFormGroup = new FormGroup({
+        title: new FormControl(rowData.leaveTitle, [Validators.required]),
+        days: new FormControl(rowData.days, [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")])
+      });
+    }
+  }
+
+  getRowDataFromCell(cell: HTMLElement) {
+    const row = cell.parentElement?.parentElement?.parentElement;
+    if (row && row.parentElement?.parentElement) {
+      const rowIndex = Array.from(row.parentElement?.children).indexOf(row) - 1;
+      return this.leaveDataSource.data[rowIndex];
+    }else return undefined;
+  }
+
+  onSavingEditedLeave(){
+    if(this.selectLeaveCategoryFormGroup != null && this.selectedRowOfLeaveTable != null){
+      let leaveTitle = this.selectLeaveCategoryFormGroup.get('title')?.value;
+      let days: number = parseInt(this.selectLeaveCategoryFormGroup.get('days')?.value, 10);
+      this.leaveDataTable[this.selectedRowOfLeaveTable] = {leaveTitle, days};
+      this.updateLeaveData();
+      this.addingLeaves = false
+      this.isLeaveBalanceEdited = false;
+      this.selectedRowOfLeaveTable = 0;
+      this.toast.info({detail: 'Επεξεργασία άδειας', summary: 'Η επεξεργασία άδειας έγινε με επιτυχία', position: "topRight", duration: 2000})
+    }else{
+      this.toast.error({detail: 'Αποτυχία επεξεργασίας', summary: 'Η επεξεργασία άδειας απέτυχε λόγω προβληματος', position: "topRight", duration: 2000})
+    }
+  }
+
   onAddLeave(){
     if(this.selectLeaveCategoryFormGroup != null){
-      let valueSplit = this.selectLeaveCategoryFormGroup.get('title')?.value.split(',');
-      let leaveTitle: string = valueSplit[1];
-      let days: number = this.selectLeaveCategoryFormGroup.get('days')?.value;
+      let leaveTitle = this.selectLeaveCategoryFormGroup.get('title')?.value;
+      let days: number = parseInt(this.selectLeaveCategoryFormGroup.get('days')?.value, 10);
+      let flag = false;
+      let index = 0;
 
-      const newLeaveData = {leaveTitle, days};
+      for(let i = 0; i < this.leaveDataTable.length; i++){
+        if(this.leaveDataTable[i].leaveTitle == leaveTitle){
+          flag  = true;
+          index = i;
+        }
+      }
 
-      this.leaveDataTable.push(newLeaveData);
+      if(flag){
+        this.leaveDataTable[index].days = parseInt(this.leaveDataSource.data[index].days, 10) + days;
+        this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια ενημερώθηκε με επιτυχία', position: "topRight", duration: 2000});
+      }else{
+        const newLeaveData = {leaveTitle, days};
+        this.leaveDataTable.push(newLeaveData);
+        this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια προστέθηκε με επιτυχία', position: "topRight", duration: 2000});
+      }
+
       this.updateLeaveData();
 
       this.addingLeaves = false
       this.hasRows = true;
-      this.toast.info({detail: 'Προσθήκη άδειας', summary: 'Η άδεια προστέθηκε με επιτυχία', position: "topRight", duration: 2000})
+    }else{
+      this.toast.error({detail: 'Αποτυχία προσθήκης άδειας', summary: 'Υπήρξε πρόβλημα με την προσθήκη άδειας', position: "topRight", duration: 2000})
     }
   }
 

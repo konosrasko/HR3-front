@@ -329,7 +329,7 @@ export class EditEmployeeComponent {
           })
         }
       }
-      this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία των στοιχείων σας έγινε με επιτυχία!', position: "topRight", duration: 5000});
+      this.toast.success({detail: 'Επιτυχής Αποθήκευση!', summary: 'Η επεξεργασία των στοιχείων του εργαζομένου έγινε με επιτυχία!', position: "topRight", duration: 5000});
       this.router?.navigateByUrl('home/hr/all-employees');
     }else {
       this.toast.error({detail: 'Δεν έγινε αποθήκευση!', summary: 'Υπήρξε πρόβλημα με τον εργαζόμενο!', position: "topRight", duration: 5000});

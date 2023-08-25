@@ -87,7 +87,10 @@
             <ng-container matColumnDef="options">
               <mat-header-cell *matHeaderCellDef >Επιλογές</mat-header-cell>
               <mat-cell *matCellDef="let row = index ">
-                <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow(row)">delete_forever</mat-icon>
+                <div class="leave-options">
+                  <mat-icon class="icon material-symbols-outlined" matTooltip="Επεξεργασία" (click)="onClickForEditALeave($event, row);" color="primary">edit</mat-icon>
+                  <mat-icon class="icon bin"  matTooltip="Διαγραφή" color="primary" (click) = "onDeleteRow(row)">delete_forever</mat-icon>
+                </div>
               </mat-cell>
             </ng-container>
             <mat-header-row class="header" *matHeaderRowDef="displayedColumns" ></mat-header-row>
@@ -101,7 +104,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Κατηγορία Άδειας</mat-label>
               <mat-select [(value)]="selectedLeaveCategory" formControlName = "title">
-                <mat-option *ngFor="let category of leaveCategories" [value]="category.id+','+category.title">{{category.title}}</mat-option>
+                <mat-option *ngFor="let category of leaveCategories" [value]="category.title">{{category.title}}</mat-option>
               </mat-select>
               <mat-error *ngIf="selectLeaveCategoryFormGroup!.get('title')?.hasError('required')">Το πεδίο είναι υποχρεωτικό.</mat-error>
             </mat-form-field>
@@ -115,7 +118,8 @@
           </div>
         </div>
         <div class="add-leave-btn-options">
-          <button mat-raised-button color="accent" (click)="onAddLeave()" class="button" [disabled]="!selectLeaveCategoryFormGroup!.get('title')?.valid || !selectLeaveCategoryFormGroup!.get('days')?.valid">Προσθήκη άδειας</button>
+          <button *ngIf="!isLeaveBalanceEdited" mat-raised-button color="accent" (click)="onAddLeave()" class="button" [disabled]="!selectLeaveCategoryFormGroup!.get('title')?.valid || !selectLeaveCategoryFormGroup!.get('days')?.valid">Προσθήκη άδειας</button>
+          <button *ngIf="isLeaveBalanceEdited" mat-raised-button color="accent" (click)="onSavingEditedLeave()" class="button" [disabled]="!selectLeaveCategoryFormGroup!.get('title')?.valid || !selectLeaveCategoryFormGroup!.get('days')?.valid">Αποθήκευση αλλαγών</button>
           <button mat-raised-button color="warn" (click)="addingLeaves = !addingLeaves" class="button">Ακύρωση</button>
         </div>
       </div>

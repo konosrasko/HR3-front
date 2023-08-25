@@ -56,6 +56,11 @@ h2{
   margin-top: 10px;
 }
 
+.leave-options{
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .icon{
   scale: 107%;
   opacity: 90%;
@@ -67,6 +72,10 @@ h2{
   scale: 118%;
   transform: rotate(3deg);
   color: rgb(114, 74, 0);
+}
+
+.bin {
+  margin-left: 10px;
 }
 
 .bin:hover{
