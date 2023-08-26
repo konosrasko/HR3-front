@@ -136,6 +136,7 @@ export class CalendarComponent implements OnInit {
               const existingEntry = this.personalLeaves.find(
                 entry => entry.id === subordinateLeave.id
               );
+              subordinateLeave.end?.setDate(subordinateLeave.end?.getDate()+1)
               if (!existingEntry) {
                 this.personalLeaves.push(subordinateLeave);
               }
