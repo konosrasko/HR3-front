@@ -1,5 +1,5 @@
 <main [ngClass]="{'loaded':isLoaded}">
-  <h1 >Αιτήματα υφισταμένων</h1>
+  <h1>Αιτήματα υφισταμένων</h1>
   <div>
     <div class="filters">
       <div class="status-filter">
@@ -22,7 +22,7 @@
 
 
     <div class="table-container mat-elevation-z8">
-      <mat-table class="table" #table [dataSource]="dataSource" matSort >
+      <mat-table class="table" [dataSource]="dataSource" matSort >
         <ng-container matColumnDef="firstName">
           <mat-header-cell *matHeaderCellDef mat-sort-header > Όνομα </mat-header-cell>
           <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.firstName}} </mat-cell>
@@ -90,8 +90,8 @@
         <mat-header-row class="header"  *matHeaderRowDef="displayedColumns" ></mat-header-row>
         <mat-row class="header-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      <p *ngIf="!hasData" style="padding: 22px 0 13px 0; text-align: center;">Δεν βρέθηκαν αιτήματα.</p>
-      <mat-paginator [ngClass]="{'even': dataSource.filteredData.length%2==0}" [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+      <p *ngIf="!hasData" id="noData">Δεν βρέθηκαν αιτήματα.</p>
+      <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons aria-label="Select page"></mat-paginator>
     </div>
   </div>
 </main>
