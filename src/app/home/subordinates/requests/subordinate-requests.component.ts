@@ -1,13 +1,13 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from '@angular/material/sort';
 import {NgToastService} from 'ng-angular-popup';
 import {HttpStatusCode} from "@angular/common/http";
-import {SubordinatesReq} from 'src/app/models/subordinatesReq.model';
-import {EmployeeService} from 'src/app/services/employee.service';
+import {SubordinatesReq} from 'src/app/models/subordinatesReq.model'
 import {LeaveRequestService} from 'src/app/services/leave_request.service';
 import {MatPaginator} from "@angular/material/paginator";
+import {ModalService} from "../../../services/modal.service";
 
 @Component({
   selector: 'app-subordinates',
@@ -15,7 +15,6 @@ import {MatPaginator} from "@angular/material/paginator";
   styleUrls: ['./subordinate-requests.component.scss']
 })
 export class SubordinateRequestComponent implements OnInit {
-
   isLoaded: boolean = false;
   showIndirect: boolean = false;
   @ViewChild(MatSort) sort: MatSort = new MatSort;
@@ -26,7 +25,7 @@ export class SubordinateRequestComponent implements OnInit {
   dataSource?: any;
   hasData: Boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private changeDetectorRef: ChangeDetectorRef, private router: Router, private employeeService: EmployeeService, private leaveRequestService: LeaveRequestService, private toast: NgToastService) { }
+  constructor(public modalService: ModalService, private router: Router, private leaveRequestService: LeaveRequestService, private toast: NgToastService) { }
 
   ngOnInit() {
     this.selectedStatus = "Εκκρεμεί"
@@ -83,42 +82,63 @@ export class SubordinateRequestComponent implements OnInit {
   }
 
   approveRequest(subordinateReq: SubordinatesReq) {
-
-    if (subordinateReq.leaveId) {
-      this.leaveRequestService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
-        next: data => {
-          this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα εγκρίθηκε', position: "topRight", duration: 4000 });
-          this.reloadRequests()
-        },
-        error: error => {
-          this.toast.error({
-            detail: 'Αποτυχία!',
-            summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
-            position: "topRight", duration: 4000
-          });
-          this.isLoaded = true;
+      this.modalService.openModal().afterClosed().subscribe({
+        next:res =>{
+          if(res){
+            if (subordinateReq.leaveId) {
+              this.leaveRequestService.approveLeaveRequest(subordinateReq.leaveId).subscribe({
+                next: data => {
+                  this.toast.success({
+                    detail: 'Επιτυχία!',
+                    summary: 'Το αίτημα εγκρίθηκε',
+                    position: "topRight",
+                    duration: 4000
+                  });
+                  this.reloadRequests()
+                },
+                error: error => {
+                  this.toast.error({
+                    detail: 'Αποτυχία!',
+                    summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+                    position: "topRight", duration: 4000
+                  });
+                  this.isLoaded = true;
+                }
+              });
+            }
+          }
         }
       });
-    }
   }
 
   declineRequest(subordinateReq: SubordinatesReq) {
-    if (subordinateReq.leaveId != null) {
-      this.leaveRequestService.declineLeaveRequest(subordinateReq.leaveId).subscribe({
-        next: data => {
-          this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα απορρίφθηκε', position: "topRight", duration: 4000 });
-          this.reloadRequests()
-        },
-        error: error => {
-          this.toast.error({
-            detail: 'Αποτυχία!',
-            summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
-            position: "topRight", duration: 4000
-          });
-          this.isLoaded = true;
+    this.modalService.openModal().afterClosed().subscribe({
+      next:res =>{
+        if(res){
+          if (subordinateReq.leaveId) {
+            this.leaveRequestService.declineLeaveRequest(subordinateReq.leaveId).subscribe({
+              next: data => {
+                this.toast.success({
+                  detail: 'Επιτυχία!',
+                  summary: 'Το αίτημα απορρίφθηκε',
+                  position: "topRight",
+                  duration: 4000
+                });
+                this.reloadRequests()
+              },
+              error: error => {
+                this.toast.error({
+                  detail: 'Αποτυχία!',
+                  summary: error.status === HttpStatusCode.GatewayTimeout ? "Πρόβλημα σύνδεσης με τον διακομιστή" : error.error,
+                  position: "topRight", duration: 4000
+                });
+                this.isLoaded = true;
+              }
+            });
+          }
         }
-      });
-    }
+      }
+    });
   }
 
   /* FILTERING */
