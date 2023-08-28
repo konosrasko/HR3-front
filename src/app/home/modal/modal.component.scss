@@ -1,0 +1,25 @@
+#title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+#content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+}
+
+#buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+button{
+  height: 400px;
+  width: 100px;
+}
