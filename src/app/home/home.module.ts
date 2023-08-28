@@ -38,6 +38,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import {CalendarComponent} from "./calendar/calendar.component";
 import {AppComponent} from "../app.component";
 import {GreekPaginator} from "./greek-paginator";
+import {MatDialogModule} from '@angular/material/dialog';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import {GreekPaginator} from "./greek-paginator";
     SubordinateListComponent,
     SubordinateRequestComponent,
     SubordinateProfileComponent,
-    CalendarComponent
+    CalendarComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -86,7 +89,8 @@ import {GreekPaginator} from "./greek-paginator";
     MatProgressSpinnerModule,
     NgToastModule,
     MatCardModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatDialogModule
   ],
   providers: [
     DatePipe,
