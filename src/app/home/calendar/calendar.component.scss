@@ -1,17 +1,25 @@
 @import 'src/styles';
 
+main{
+  padding: 5vh 5vw;
+  display: flex;
+  width: max-content;
+  flex-wrap: wrap;
+  justify-content: stretch;
+}
+
 .calendar-container {
   background-color: white;
   color: $myFixedColor;
   font-size: 25px;
-  padding: 5vh 5vw;
 }
 
 full-calendar{
   background-color: #D9D9D9;
   box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.4);
   max-height: 69vh;
-  max-width: 1500px;
+  width: 70vw;
+  min-width: 800px;
   border-radius: 8px;
   margin: 0 auto;
 }
@@ -72,19 +80,53 @@ full-calendar{
   border-bottom: 2px solid #252525;
 }
 
+.full-calendar-container ::ng-deep .fc-daygrid-dot-event{
+  padding: 0;
+  border: 1px solid #252525 !important ;
+}
+
 .full-calendar-container ::ng-deep .fc-day-today{
   background-color: rgba(255, 166, 0, 0.296);
 }
 
-.full-calendar-container ::ng-deep .custom-event :hover{
-  transition: 0.4s ease, opacity 0.5s ease;
-  background-color: #252525;
-  color: $myFixedColor;
-  padding: 1px;
+.full-calendar-container ::ng-deep .custom-event:hover{
+  transition: 0.4s ease, opacity 0.3s ease;
+  background-color: #252525 !important;
 }
 
+.full-calendar-container ::ng-deep .custom-event:hover a{
+  color: $myFixedColor !important;
+}
 
-//.full-calendar-container::ng-deep fc-scrollgrid  fc-scrollgrid-liquid
+.full-calendar-container ::ng-deep .subordinate-event .custom-event{
+  background-color: rgb(50, 123, 218) !important;
+}
 
+.full-calendar-container ::ng-deep .subordinate-event .custom-event:hover{
+  transition: 0.4s ease, opacity 0.3s ease;
+  background-color: #252525 !important;
+}
 
+.helper ul {
+  list-style-type: none;
+}
 
+.subordinate-label::before{
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  transform: translateY(5px);
+  background-color: rgb(50, 123, 218);
+}
+
+.personal-label::before{
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  transform: translateY(5px);
+  background-color: darkorange;
+}

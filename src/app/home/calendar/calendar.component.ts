@@ -33,7 +33,22 @@ export class CalendarComponent implements OnInit {
         window.open(info.event.url);
       }
     },
-
+    //εφαρμογή κλάσης στις άδειες των υφισταμένων
+    eventDidMount: (info) => {
+      if (info.event.extendedProps && info.event.extendedProps['subordinate']) {
+        info.el.classList.add('subordinate-event');
+      } else {
+        info.el.classList.add('personal-event');
+      }
+    },
+    //δεν χρησιμοποιείται προς το παρον
+    eventMouseEnter: (info) => {
+      info.el.classList.add('hovered');
+    },
+    eventMouseLeave: (info) => {
+      info.el.classList.remove('hovered'); 
+    },  
+    
     aspectRatio: 1,
     eventContent: this.customizeEventContent.bind(this),
     dayHeaderContent: this.translateDayHeader.bind(this),
@@ -49,7 +64,6 @@ export class CalendarComponent implements OnInit {
     const eventElement = document.createElement('div');
     eventElement.classList.add('custom-event');
     eventElement.style.backgroundColor = 'darkorange';
-    eventElement.style.color = 'white';
     eventElement.style.fontSize = '16px';
     eventElement.style.padding = '3px';
     eventElement.style.borderRadius = '2px';
@@ -59,6 +73,8 @@ export class CalendarComponent implements OnInit {
     const eventLink = document.createElement('a');
     eventLink.href = `http://localhost:4200/home/leaves/edit?id=${arg.event.id}`;
     eventLink.style.textDecoration = 'none';
+    eventLink.style.color = '#252525 ';
+
 
     const eventTitle = document.createElement('div');
     eventTitle.innerText = arg.event.title;
@@ -122,12 +138,11 @@ export class CalendarComponent implements OnInit {
                 const startDate = leave.startDate ? new Date(leave.startDate) : undefined;
                 const endDate = leave.endDate ? new Date(leave.endDate) : undefined;
                 return {
-                  firstName: leave.firstName,
-                  lastName: leave.lastName,
                   id: leave.leaveId !== undefined ? leave.leaveId.toString() : '',
                   title: (leave.leaveTitle || 'Leave') + ' ' + leave.firstName + ' ' + leave.lastName,
                   start: startDate,
-                  end: endDate
+                  end: endDate,
+                  extendedProps: { subordinate: true } // Add this line to mark as subordinate event
                 };
               });
 
@@ -163,5 +178,4 @@ export class CalendarComponent implements OnInit {
     }
     return { domNodes: [eventElement] };
   }
-
 }
