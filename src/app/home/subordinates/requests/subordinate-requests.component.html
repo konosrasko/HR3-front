@@ -40,7 +40,7 @@
 
         <ng-container matColumnDef="submitDate">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία Υποβολής </mat-header-cell>
-          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.submitDate}} </mat-cell>
+          <mat-cell *matCellDef="let subordinatesRequests"> {{subordinatesRequests.submitDate | date:'dd-MM-Y hh:mm'}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="startDate">
@@ -75,14 +75,14 @@
 
         <ng-container matColumnDef="accept" >
           <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
-          <mat-cell   style="padding: 0; justify-content: space-around;" *matCellDef="let subordinatesRequests">
+          <mat-cell style="padding: 0; justify-content: space-around;" *matCellDef="let subordinatesRequests">
             <mat-icon class="accept"  matTooltip="Αποδοχή" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="approveRequest(subordinatesRequests)">check_circle</mat-icon>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="decline">
           <mat-header-cell style="padding: 0;" *matHeaderCellDef >  </mat-header-cell>
-          <mat-cell  style="padding: 0; " *matCellDef="let subordinatesRequests">
+          <mat-cell style="padding: 0; " *matCellDef="let subordinatesRequests">
             <mat-icon class="decline" matTooltip="Απόρριψη" *ngIf="subordinatesRequests.status === 'Εκκρεμεί'" (click)="declineRequest(subordinatesRequests)">cancel</mat-icon>
           </mat-cell>
         </ng-container>
