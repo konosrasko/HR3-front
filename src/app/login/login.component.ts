@@ -20,6 +20,7 @@ export class LoginComponent extends TokenController {
   token?: string;
   user: any;
   newPasswordMode: boolean = false;
+  tokenExpired: boolean = false;
 
   constructor(private userService: UserService, router: Router, private route: ActivatedRoute, private toast: NgToastService) {
     super(router)
@@ -41,6 +42,16 @@ export class LoginComponent extends TokenController {
     this.route.queryParams.subscribe(params => {
       if (params["error"]) {
         this.error = params["error"]
+      }
+      if(params["tokenExpired"]){
+        this.tokenExpired = params["tokenExpired"]
+        if(this.tokenExpired){
+          this.userService.Logout().subscribe(data =>
+          {
+            this.toast.success({ detail: 'Επιτυχής Αποσύνδεση!', position: "topRight", duration: 3000 })
+          })
+          localStorage.clear();
+        }
       }
     })
 

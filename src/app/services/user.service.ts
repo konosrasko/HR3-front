@@ -81,7 +81,7 @@ export class UserService extends TokenController {
       UserService.credentials.password =''
       UserService.credentials.token =''
 
-      this.getRouter()?.navigate(["/login"])
+      this.getRouter()?.navigate(["/login"], {queryParams: {error: "Η συνεδρία σας έληξε, παρακαλώ ξανασυνδεθείτε.", tokenExpired: false}})
       return responseString;
     }));
 

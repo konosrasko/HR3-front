@@ -1,7 +1,7 @@
 import {HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 
-export class TokenController {
+export class TokenController{
 
     constructor(private router: Router) { }
 
@@ -14,23 +14,20 @@ export class TokenController {
         return headers
     }
 
-
     getToken(): string {
         const token = localStorage.getItem('token');
-
         if (token){
             if (this.tokenIsValid(token)){
                 return token;
             }
             else {
-                this.router.navigate(['/login'], {queryParams: {error: "Η συνεδρία σας έληξε, παρακαλώ ξανασυνδεθείτε."}})
+                this.router?.navigate(['/login'], {queryParams: {error: "Η συνεδρία σας έληξε, παρακαλώ ξανασυνδεθείτε.", tokenExpired: true}})
                 return ''
             }
         }
-        this.router.navigate(['/login'], {queryParams: {error: "Παρακαλώ συνδεθείτε."}})
+        this.router?.navigate(['/login'], {queryParams: {error: "Παρακαλώ συνδεθείτε."}})
         return ''
     }
-
 
     tokenIsValid(token: string):boolean {
         //TO-DO
@@ -43,9 +40,7 @@ export class TokenController {
         return this.router
     }
 
-
 }
 function jwtDecode(token: any): any {
     throw new Error("Function not implemented.");
 }
-
