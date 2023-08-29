@@ -46,9 +46,9 @@ export class CalendarComponent implements OnInit {
       info.el.classList.add('hovered');
     },
     eventMouseLeave: (info) => {
-      info.el.classList.remove('hovered'); 
-    },  
-    
+      info.el.classList.remove('hovered');
+    },
+
     aspectRatio: 1,
     eventContent: this.customizeEventContent.bind(this),
     dayHeaderContent: this.translateDayHeader.bind(this),
@@ -151,6 +151,7 @@ export class CalendarComponent implements OnInit {
               const existingEntry = this.personalLeaves.find(
                 entry => entry.id === subordinateLeave.id
               );
+              subordinateLeave.end?.setDate(subordinateLeave.end?.getDate()+1)
               if (!existingEntry) {
                 this.personalLeaves.push(subordinateLeave);
               }
