@@ -80,4 +80,9 @@ export class EmployeeService extends TokenController{
     const url = 'url/api/employees/' + employeeId + '/leavebalance/' + leaveBalanceId;
     return this.http.delete<LeaveBalance>(url, {headers, responseType: "text" as "json"});
   }
+
+  getFilterSupervisors(employeeId: number){
+    const headers = this.createHeadersWithToken();
+    return this.http.get<Supervisors[]>('url/api/employees/' + employeeId + '/filtered-supervisors', {headers, responseType: "text" as "json"});
+  }
 }

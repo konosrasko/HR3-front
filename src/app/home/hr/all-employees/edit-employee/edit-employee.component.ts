@@ -58,7 +58,7 @@ export class EditEmployeeComponent {
 
   ngOnInit(): void {
     if (this.selectedEmployeeId != null) {
-      this.employeeService.getAllSupervisors().subscribe({
+      this.employeeService.getFilterSupervisors(this.selectedEmployeeId).subscribe({
         next: data => {
           this.loadSupervisor(data);
         },
