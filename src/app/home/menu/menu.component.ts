@@ -27,21 +27,29 @@ export class MenuComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.minutes = parseInt(localStorage.getItem('minutes')!);
-    this.seconds = parseInt(localStorage.getItem('seconds')!);
+    const targetTime = new Date(parseInt(localStorage.getItem('loginTime')!) + 30 * 60 * 1000);
+
+    this.updateTimer(targetTime);
+
     this.countdownInterval = setInterval(() => {
-      this.updateTimer();
+      this.updateTimer(targetTime);
     }, 1000);
   }
 
-  private updateTimer(): void {
+  private updateTimer(targetTime: Date): void {
+    const now = new Date();
+    const timeDifference = targetTime.getTime() - now.getTime();
+
+    this.minutes = Math.floor(timeDifference / 60000);
+    this.seconds = Math.floor((timeDifference % 60000) / 1000);
+
     if(this.minutes <= 1){
       this.lessThanMinute = true
     }
     if (this.minutes === 0 && this.seconds === 0) {
       clearInterval(this.countdownInterval);
       this.userService.Logout().subscribe(data => {
-        this.toast.warning({ detail: 'Αποσυνδεθήκατε', summary: 'Ο χρόνος συνεδρίας σας έληξε', position: "topRight", duration: 3000 })
+        this.toast.warning({ detail: 'Αποσυνδεθήκατε', summary: 'Ο χρόνος σας έληξε', position: "topRight", duration: 3000 })
       });
     } else {
       if (this.seconds === 0) {
@@ -51,8 +59,6 @@ export class MenuComponent implements OnInit{
         this.seconds--;
       }
     }
-    localStorage.setItem('minutes', this.minutes.toString());
-    localStorage.setItem('seconds', this.seconds.toString());
   }
 
   navigateTo(componentToOpen: String){

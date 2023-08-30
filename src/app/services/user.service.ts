@@ -29,7 +29,7 @@ export class UserService extends TokenController {
 
 
   Login(username: string, password: string): Observable<any> {
-
+    const now = new Date();
     this.username = username;
     this.password = password;
 
@@ -39,9 +39,7 @@ export class UserService extends TokenController {
 
     localStorage.setItem('username',username);
     localStorage.setItem('password',password);
-
-    localStorage.setItem('minutes', '30');
-    localStorage.setItem('seconds', '0');
+    localStorage.setItem('loginTime', now.getTime().toString());
 
     const credentials = { username, password }
 
