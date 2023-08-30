@@ -44,7 +44,7 @@ export class SubordinateProfileComponent implements OnInit {
             this.myForm.patchValue(this.employee); // Assuming the response data keys match form control names
             this.dataLoaded = true;
           },
-          error: error => console.log(error)
+          error: error => {}
         }
       );
 
@@ -74,7 +74,6 @@ export class SubordinateProfileComponent implements OnInit {
               duration: 3000
             });
           }
-          console.log(error);
         }
       });
     }

@@ -21,7 +21,6 @@ export class AppComponent implements OnInit{
 
       },
       (error) => {
-        console.error('Logout failed:', error);
       }
     );
     this.router.navigate(["/login"])

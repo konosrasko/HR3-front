@@ -6,7 +6,6 @@ import {LeaveRequest} from '../models/leave_request.model';
 import {TokenController} from './token_controller';
 import {Router} from '@angular/router';
 import {SubordinatesReq} from '../models/subordinatesReq.model';
-import {calendar} from "../models/calendar.model";
 
 
 @Injectable({

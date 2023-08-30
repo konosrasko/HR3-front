@@ -100,7 +100,6 @@ export class AddUserComponent implements OnInit{
         this.router?.navigateByUrl('/home/admin');
       },
       error: err => {
-        console.log(err);
         this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000})
       }
     });

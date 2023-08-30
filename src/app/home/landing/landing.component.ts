@@ -46,7 +46,7 @@ export class LandingComponent implements OnInit {
           this.name = employee.firstName + " " + employee.lastName
         }
       },
-      error: ()=> console.log("Couldn't get user first and lastname")
+      error: ()=>{}
     })
   }
 

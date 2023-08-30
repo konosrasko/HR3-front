@@ -164,14 +164,12 @@ export class EditComponent {
       duration = duration + 1
     }
     let durationDays = Math.ceil(duration / (1000*24*3600)) + 1
-    console.log(durationDays + "hmeres diafora")
     let answer = 0
     let startDayOfWeek = startDate.getDay()
     let endDayOfWeek = endDate.getDay()
     if(startDayOfWeek > 6)
     {
       startDayOfWeek = 0
-      console.log("mhdenistika??" + startDayOfWeek)
     }
 
 
@@ -179,27 +177,22 @@ export class EditComponent {
      if(startDayOfWeek > 6)
      {
        startDayOfWeek = 0
-       console.log("mhdenistika??" + startDayOfWeek)
      }
 
      if (startDayOfWeek >= 1 && startDayOfWeek <6) {
        // Exclude Sunday (0) and Saturday (6)
        answer++;
-       console.log("hmera" + startDayOfWeek)
      }
 
 
      startDayOfWeek = startDayOfWeek + 1
      durationDays--
     }
-
-      console.log("h arxikh " + startDate.getDay())
       return answer;
   }
 
   submit() {
     //create the LeaveRequest DTO
-    console.log(this.leaveRequestFormGroup.get('startDate')?.value)
     const newLeaveRequest: LeaveRequest = {
       id: this.leaveRequest.id,
       leaveTitle: this.leaveRequestFormGroup.get('title')?.value,
@@ -209,14 +202,9 @@ export class EditComponent {
       duration: this.leaveRequestFormGroup.get('duration')?.value,
     }
 
-    console.log("sending json:")
-    console.log(newLeaveRequest);
-
 
     this.leaveRequestService.editLeaveRequest(newLeaveRequest).subscribe({
       next: data => {
-        console.log("Recieved dto from put request:");
-        console.log(data)
         this.toast.success({ detail: 'Επιτυχία!', summary: 'Το αίτημα τροποποιήθηκε επιτυχώς', position: "topRight", duration: 4000 });
         this.router.navigateByUrl('home/leaves/requests')
       },

@@ -63,7 +63,6 @@ export class EditEmployeeComponent {
           this.loadSupervisor(data);
         },
         error: error => {
-          console.log(error);
           this.toast.error({detail: "Πρόβλημα φόρτωσης Προισταμένων", summary: error.error, position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/hr/all-employees');
         }
@@ -75,7 +74,6 @@ export class EditEmployeeComponent {
           this.dataLoaded = true;
         },
         error: error => {
-          console.log(error);
           this.toast.error({detail: "Πρόβλημα φόρτωσης στοιχείων εργαζομένου", summary: error.error, position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/hr/all-employees');
         }
@@ -87,7 +85,6 @@ export class EditEmployeeComponent {
           this.loadLeavesToTable();
         },
         error: err => {
-          console.log(err);
           this.toast.error({detail: 'Πρόβλημα φόρτωσης αδειών εργαζομένων', summary: err.error, position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/hr/all-employees');
         }
@@ -96,7 +93,6 @@ export class EditEmployeeComponent {
       this.leaveCategoryService.getActiveLeaveCategories().subscribe({
         next: data => this.loadCategories(data),
         error: err => {
-          console.log(err);
           this.toast.error({detail: 'Πρόβλημα φόρτωσης ενεργών κατηγοριών', summary: err.error, position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/hr/all-employees');
         }
@@ -310,7 +306,6 @@ export class EditEmployeeComponent {
             next: () => {
             },
             error: err => {
-              console.log(err);
               this.toast.error({detail: 'Πρόβλημα αποθήκευσης άδειας!', summary: err.error, position: "topRight", duration: 4000});
             }
           });
@@ -323,7 +318,6 @@ export class EditEmployeeComponent {
           this.employeeService.editLeaveBalanceOfEmployee(this.employee.employeeId, editedLeaveBalance).subscribe({
             next: () => {},
             error: err => {
-              console.log(err);
               this.toast.error({detail: 'Πρόβλημα επεξεργασίας άδειας!', summary: err.error, position: "topRight", duration: 4000});
             }
           });
@@ -331,7 +325,6 @@ export class EditEmployeeComponent {
           this.employeeService.deleteLeaveBalanceOfEmployee(this.employee.employeeId, this.leaveDataTable[i].id).subscribe({
             next: () => {},
             error: err => {
-              console.log(err);
               this.toast.error({detail: 'Πρόβλημα διαγραφής άδειας!', summary: err.error, position: "topRight", duration: 4000});
           }
           })

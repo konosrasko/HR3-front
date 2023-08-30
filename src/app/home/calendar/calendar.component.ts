@@ -83,7 +83,6 @@ export class CalendarComponent implements OnInit {
     eventLink.appendChild(eventTitle);
     eventElement.appendChild(eventLink);
 
-    console.log('Event ID:', arg.event.id);
 
     return { domNodes: [eventElement] };
   }

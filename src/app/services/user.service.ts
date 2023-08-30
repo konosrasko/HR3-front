@@ -8,8 +8,6 @@ import * as CryptoJS from 'crypto-js';
 import {TokenController} from './token_controller';
 import {Router} from '@angular/router';
 import {Roles} from '../models/roles.model';
-import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/common";
-import {loadEsmModule} from "@angular-devkit/build-angular/src/utils/load-esm";
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +57,6 @@ export class UserService extends TokenController {
     UserService.credentials.username = this.decryptData(UserService.credentials.username)
     UserService.credentials.password = this.decryptData(UserService.credentials.password)
 
-    console.log("before"  + UserService.credentials)
 
     const inputString = UserService.credentials.username
     const modifiedString = inputString.replace(/"([^"]*)"/g, '$1');
@@ -96,7 +93,6 @@ export class UserService extends TokenController {
         format: CryptoJS.format.OpenSSL,
       }).toString();
     } catch (e) {
-      console.log(e);
       return ''
     }
   }
@@ -110,7 +106,6 @@ export class UserService extends TokenController {
       const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
       return decryptedText;
     } catch (e) {
-      console.log(e);
       return 'lathos';
     }
   }

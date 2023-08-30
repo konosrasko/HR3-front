@@ -25,7 +25,6 @@ export class AddCategoryComponent implements OnInit{
       this.categoryService.getAllLeaveCategories().subscribe({
         next: data => this.loadCategories(data),
         error: err => {
-          console.log(err);
           this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα HR ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/landing');
         }

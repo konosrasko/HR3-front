@@ -6,9 +6,6 @@ import {Employee} from "../models/employee.model";
 import {TokenController} from './token_controller';
 import {Router} from '@angular/router';
 import {Supervisors} from "../models/supervisors";
-import {LeaveRequest} from "../models/leave_request.model";
-import { SubordinatesReq } from '../models/subordinatesReq.model';
-import {calendar} from "../models/calendar.model";
 
 @Injectable({
   providedIn: 'root'

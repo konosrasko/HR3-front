@@ -76,7 +76,6 @@ export class RestLeavesComponent  implements OnInit{
     const cell = event.target as HTMLElement;
     const rowData = this.getRowDataFromCell(cell);
     if (rowData) {
-      console.log(rowData);
     }
   }
   sortLastColumn() {

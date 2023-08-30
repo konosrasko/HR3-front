@@ -35,7 +35,6 @@ export class AllEmployeesComponent implements OnInit, OnDestroy {
         this.loadEmployees(data);
       },
       error: error => {
-        console.log(error);
         this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα HR ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
         this.router?.navigateByUrl('home/landing');
       }

@@ -101,7 +101,6 @@ export class LoginComponent extends TokenController {
           this.getRouter()?.navigate(['/home/landing']);
         },
         error: error => {
-          console.log(error);
           this.toast.error({ detail: 'Αποτυχία!', summary: error.error, position: "topRight", duration: 5000 });
         }
       })

@@ -58,7 +58,6 @@ export class MyDetailsComponent implements OnInit {
               duration: 3000
             });
           }
-          console.log(error);
         }
       });
     }
@@ -99,7 +98,7 @@ export class MyDetailsComponent implements OnInit {
               this.myForm.patchValue(this.employee); // Assuming the response data keys match form control names
               this.dataLoaded = true;
             },
-            error: error => console.log(error)
+            error: error => {}
             }
           );
     }

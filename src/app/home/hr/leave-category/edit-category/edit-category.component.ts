@@ -32,7 +32,6 @@ export class EditCategoryComponent implements OnInit{
       this.categoryService.getLeaveCategory(this.selectedCategory).subscribe({
         next: data => this.loadCategory(data),
         error: error => {
-          console.log(error);
           this.toast.error({detail: 'Αποτυχία!', summary: 'Δεν έχεις δικαιώματα HR ή υπήρξε πρόβλημα στην επικοινωνία με τον server!', position: "topRight", duration: 3000});
           this.router?.navigateByUrl('/home/hr/leave-categories');
         }
@@ -69,7 +68,6 @@ export class EditCategoryComponent implements OnInit{
           this.navigateTo();
         },
         error: err => {
-          console.log(err);
           this.toast.error({detail: 'Αποτυχία!', summary: err.error, position: "topRight", duration: 5000});
           this.editCategoryFormGroup.get('titleFormControl')!.setValue('');
         }

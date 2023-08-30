@@ -100,7 +100,6 @@ export class EditUserComponent implements OnInit {
         this.navigateTo();
       },
       error: error => {
-        console.log(error);
         this.toast.error({ detail: 'Αποτυχία!', summary: error.error, position: "topRight", duration: 5000 });
       }
     });

@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit{
   constructor(private router: Router, private userService: UserService,private toast:NgToastService) {
     this.userService.getUserRoles().subscribe({
       next: data =>{if(data) this.username = data.username},
-      error: ()=>{console.log("Unable to get username")}
+      error: ()=>{}
     })
   }
 

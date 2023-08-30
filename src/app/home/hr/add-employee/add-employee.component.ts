@@ -52,7 +52,6 @@ export class AddEmployeeComponent implements OnInit {
       this.employeeService.getAllSupervisors().subscribe({
         next: data => this.loadSupervisors(data),
         error: err => {
-          console.log(err);
           this.toast.error({detail: 'Παρουσιάστηκε σφάλμα!', summary: err.error, position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/landing');
         }
@@ -60,7 +59,6 @@ export class AddEmployeeComponent implements OnInit {
       this.leaveCategoryService.getActiveLeaveCategories().subscribe({
         next: data => this.loadCategories(data),
         error: err => {
-          console.log(err);
           this.toast.error({detail: 'Παρουσιάστηκε σφάλμα!', summary: err.error, position: "topRight", duration: 4000});
           this.router?.navigateByUrl('home/landing');
         }
@@ -219,7 +217,6 @@ export class AddEmployeeComponent implements OnInit {
           this.saveLeaveBalancesToNewEmployee(data);
         },
         error: err => {
-          console.log(err);
           this.toast.error({detail: 'Αποτυχία προσθήκης εργαζομένου', summary: err.error, position: "topRight", duration: 5000});
         }
       });
@@ -247,7 +244,6 @@ export class AddEmployeeComponent implements OnInit {
               this.navigateTo();
             },
             error: err => {
-              console.log(err);
               this.toast.error({detail: 'Αποτυχία προσθήκης αδειών εργαζομένου', summary: err.error, position: "topRight", duration: 5000});
             }
           })
