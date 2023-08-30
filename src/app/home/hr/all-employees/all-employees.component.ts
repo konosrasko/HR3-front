@@ -6,7 +6,6 @@ import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 import {MatPaginator} from "@angular/material/paginator";
 import {NgToastService} from "ng-angular-popup";
-import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-all-employees',

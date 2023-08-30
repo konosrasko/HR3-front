@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { EmployeeService } from "../../../services/employee.service";
-import { Employee } from "../../../models/employee.model";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {EmployeeService} from "../../../services/employee.service";
+import {Employee} from "../../../models/employee.model";
 import {DatePipe} from "@angular/common";
 import {Supervisors} from "../../../models/supervisors";
 import {NgToastService} from "ng-angular-popup";

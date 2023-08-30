@@ -1,17 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { LeaveRequest } from 'src/app/models/leave_request.model';
-import { NgToastService } from 'ng-angular-popup';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LeaveRequestService } from 'src/app/services/leave_request.service';
-import { HttpStatusCode } from '@angular/common/http';
-import { EmployeeService } from 'src/app/services/employee.service';
-import { LeaveBalance } from 'src/app/models/leave_balance.model';
-import {coerceStringArray} from "@angular/cdk/coercion";
+import {Component, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDatepicker} from '@angular/material/datepicker';
+import {LeaveRequest} from 'src/app/models/leave_request.model';
+import {NgToastService} from 'ng-angular-popup';
+import {DatePipe} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LeaveRequestService} from 'src/app/services/leave_request.service';
+import {HttpStatusCode} from '@angular/common/http';
+import {EmployeeService} from 'src/app/services/employee.service';
+import {LeaveBalance} from 'src/app/models/leave_balance.model';
 
 @Component({
   selector: 'app-edit',

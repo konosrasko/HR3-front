@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from "../../services/user.service";
 import {NgToastService} from "ng-angular-popup";
-import {parseJson} from "@angular/cli/src/utilities/json-file";
 
 @Component({
   selector: 'app-menu',

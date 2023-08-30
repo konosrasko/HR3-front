@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from '@angular/material/sort';

@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { UserService } from "../services/user.service";
-import { ActivatedRoute, Router } from '@angular/router';
-import { TokenController } from '../services/token_controller';
-import { NgToastService } from 'ng-angular-popup';
-import { HttpStatusCode } from '@angular/common/http';
-import { User } from '../models/user.model';
+import {Component} from '@angular/core';
+import {UserService} from "../services/user.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {TokenController} from '../services/token_controller';
+import {NgToastService} from 'ng-angular-popup';
+import {HttpStatusCode} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',

@@ -16,7 +16,7 @@ import {MatButtonModule} from "@angular/material/button"; // Correct the import 
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { NgToastModule } from 'ng-angular-popup';
+import {NgToastModule} from 'ng-angular-popup';
 import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({

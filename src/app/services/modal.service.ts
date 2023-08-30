@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../home/modal/modal.component';
+import {Injectable} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ModalComponent} from '../home/modal/modal.component';
 
 @Injectable({
   providedIn: 'root'

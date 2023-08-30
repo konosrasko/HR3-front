@@ -21,7 +21,7 @@ import {LeaveCategoryComponent} from "./home/hr/leave-category/leave-category.co
 import {AddCategoryComponent} from "./home/hr/leave-category/add-category/add-category.component";
 import {EditCategoryComponent} from "./home/hr/leave-category/edit-category/edit-category.component";
 import {
-    SubordinateProfileComponent
+  SubordinateProfileComponent
 } from "./home/subordinates/subordinate-list/subordinate-profile/subordinate-profile.component";
 import {EditEmployeeComponent} from "./home/hr/all-employees/edit-employee/edit-employee.component";
 import {CalendarComponent} from "./home/calendar/calendar.component";

@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
+import {Component, OnInit} from '@angular/core';
+import {CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {LeaveRequestService} from "../../services/leave_request.service";
 import {EmployeeService} from "../../services/employee.service";
 import {UserService} from "../../services/user.service";
 import {LeaveRequest} from "../../models/leave_request.model";
 import {SubordinatesReq} from "../../models/subordinatesReq.model";
-import { EventInput } from '@fullcalendar/core';
 
 @Component({
   selector: 'app-root',
