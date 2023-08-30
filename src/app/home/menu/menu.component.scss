@@ -131,7 +131,6 @@ a {
 }
 
 .router-link-active {
-  /* Add your active link styling here */
   font-weight: bold;
   color: red;
 }
@@ -219,18 +218,33 @@ a {
   margin:10px 20px 0 0;
 }
 
-
-
 @media screen and (max-width: 665px){
   .sandwich{
     display: inherit;
   }
-  
+
   .tabs, .logout{
     display: none;
   }
 
   .mobile-dropdown{
-    
+
   }
+}
+
+.reload{
+  margin-top: 15px;
+  margin-right: 20px;
+  display: flex;
+}
+
+.reload-timer{
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.one-minute{
+  color: red;
 }

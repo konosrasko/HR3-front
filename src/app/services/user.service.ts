@@ -9,6 +9,7 @@ import {TokenController} from './token_controller';
 import {Router} from '@angular/router';
 import {Roles} from '../models/roles.model';
 import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/common";
+import {loadEsmModule} from "@angular-devkit/build-angular/src/utils/load-esm";
 
 @Injectable({
   providedIn: 'root'
@@ -33,14 +34,16 @@ export class UserService extends TokenController {
     this.password = password;
 
     //encryption
-    username = this.encryptData(username)
-    password = this.encryptData(password)
+    username = this.encryptData(username);
+    password = this.encryptData(password);
 
-    localStorage.setItem('username',username)
-    localStorage.setItem('password',password)
+    localStorage.setItem('username',username);
+    localStorage.setItem('password',password);
+
+    localStorage.setItem('minutes', '30');
+    localStorage.setItem('seconds', '0');
 
     const credentials = { username, password }
-
 
     const newHeaders = new HttpHeaders({ 'No-Auth': 'True', 'Content-Type': 'application/json' });
 
