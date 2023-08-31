@@ -26,7 +26,7 @@ export class MyDetailsComponent implements OnInit {
         email: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required, Validators.maxLength(100), Validators.email]),
         address: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required, Validators.maxLength(30)]),
         mobileNumber: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required, Validators.maxLength(10)]),
-        hireDate: new FormControl({value: '', disabled: !this.isEditMode}, [Validators.required, Validators.maxLength(100)]),
+        hireDate: new FormControl({value: '', disabled: true}, [Validators.required, Validators.maxLength(100)]),
       })
 
     }
@@ -36,6 +36,9 @@ export class MyDetailsComponent implements OnInit {
       this.employee = this.myForm.value;
       this.employee.employeeId = this.originalEmployee.employeeId;
       this.employee.hireDate = this.date.transform(this.employee.hireDate, 'yyyy-MM-dd');
+      this.employee.enabled = this.originalEmployee.enabled;
+      this.employee.supervisorId = this.originalEmployee.supervisorId;
+      this.employee.hireDate = this.originalEmployee.hireDate;
       this.userService.saveEmployeeDetails(this.employee).subscribe({
         next: () => {
           this.isEditMode = false;
@@ -84,7 +87,8 @@ export class MyDetailsComponent implements OnInit {
         this.isEditMode = !this.isEditMode;
 
         if (this.isEditMode) {
-            this.myForm.enable(); // Enable all form controls
+            this.myForm.enable();
+            this.myForm.get('hireDate')?.disable();
         } else {
             this.myForm.disable(); // Disable all form controls
             this.myForm.reset(this.originalEmployee); // Reset form to original values

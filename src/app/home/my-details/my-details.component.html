@@ -64,7 +64,7 @@
               <mat-card-title>Ημερομηνία Πρόσληψης</mat-card-title>
             </mat-card-header>
             <mat-form-field>
-              <mat-label>Choose a date</mat-label>
+              <mat-label >Choose a date</mat-label>
               <input matInput [matDatepicker]="picker" formControlName="hireDate">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -74,14 +74,12 @@
           </div>
         </div>
 
-
     </form>
     <div id="actions">
       <button mat-raised-button color="accent" [disabled]="!isEditMode" (click)="saveDetails()">Αποθήκευση</button>
       <button mat-raised-button color="warn" [disabled]="!isEditMode" (click)="cancelEdit()">Ακύρωση</button>
       <mat-slide-toggle color="primary" style="flex-grow: 2;" [checked]="isEditMode" (click)="toggleEditMode()" class="custom-slide-toggle">Επεξεργασία</mat-slide-toggle>
     </div>
-
 
     </div>
 </div>

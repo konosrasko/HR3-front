@@ -110,7 +110,9 @@ export class AddEmployeeComponent implements OnInit {
       }else if(this.selectLeaveCategoryFormGroup.get('days')?.hasError('required')){
         return 'Το πεδίο είναι υποχρεωτικό';
       }else if(this.selectLeaveCategoryFormGroup.get('days')?.hasError('pattern')){
-        return 'Δεκτοί μόνο αριθμοί μεγαλύτεροι του 0';
+        return 'Δεκτοί μόνο αριθμοί';
+      }else if(this.selectLeaveCategoryFormGroup.get('days')?.value > 0) {
+        return 'Δεκτοί αριθμοί μεγαλύτερου του 0';
       }else {
         return '';
       }
@@ -123,7 +125,7 @@ export class AddEmployeeComponent implements OnInit {
     this.addingLeaves = true;
     this.selectLeaveCategoryFormGroup = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      days: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[1-9]*$")])
+      days: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")])
     });
   }
 
@@ -136,7 +138,7 @@ export class AddEmployeeComponent implements OnInit {
       this.addingLeaves = true;
       this.selectLeaveCategoryFormGroup = new FormGroup({
         title: new FormControl(rowData.leaveTitle, [Validators.required]),
-        days: new FormControl(rowData.days, [Validators.required, Validators.maxLength(10), Validators.pattern("^[1-9]*$")])
+        days: new FormControl(rowData.days, [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")])
       });
     }
   }
