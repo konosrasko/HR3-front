@@ -145,7 +145,7 @@ export class EditEmployeeComponent {
     this.editLeaves = true;
     this.selectLeaveCategoryFormGroup = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      days: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")])
+      days: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[1-9]*$")])
     });
   }
 
@@ -156,7 +156,7 @@ export class EditEmployeeComponent {
       }else if(this.selectLeaveCategoryFormGroup.get('days')?.hasError('required')){
         return 'Το πεδίο είναι υποχρεωτικό';
       }else if(this.selectLeaveCategoryFormGroup.get('days')?.hasError('pattern')){
-        return 'Πρέπει να εισάγεις μόνο αριθμούς';
+        return 'Δεκτοί μόνο αριθμοί μεγαλύτεροι του 0';
       }else {
         return '';
       }
@@ -238,7 +238,7 @@ export class EditEmployeeComponent {
       this.isLeaveBalanceEdited = true;
       this.selectLeaveCategoryFormGroup = new FormGroup({
         title: new FormControl(rowData.leaveTitle, [Validators.required]),
-        days: new FormControl(rowData.days, [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")])
+        days: new FormControl(rowData.days, [Validators.required, Validators.maxLength(10), Validators.pattern("^[1-9]*$")])
       });
     }
   }
